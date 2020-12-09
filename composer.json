@@ -18,9 +18,10 @@
         "intervention/image": "^2.5",
         "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^7.0",
+        "laravel/sanctum": "^2.8",
         "laravel/socialite": "^4.3",
-        "laravel/ui": "^2.0",
         "laravel/tinker": "^2.0",
+        "laravel/ui": "^2.0",
         "pusher/pusher-php-server": "~3.0",
         "spatie/laravel-sitemap": "^5.7"
     },
