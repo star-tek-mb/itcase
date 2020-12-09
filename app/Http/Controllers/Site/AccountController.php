@@ -103,11 +103,11 @@ class AccountController extends Controller
         Validator::make($request->all(), [
             $userType . '_name' => ['required', 'string', 'max:255'],
             $userType . '_phone_number' => ['required', 'string'],
-            'contractor_birthday_date' => Rule::requiredIf($userType == 'contractor' && $request->get('contractor_type') == 'freelancer'),
+            'contractor_birthday_date' => Rule::requiredIf($userType == 'contractor' && $request->get('contractor_type') == 'individual'),
             $userType . '_email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
             $userType . '_about_myself' => ['required', 'string'],
-            $userType . '_company_name' => Rule::requiredIf($request->get('customer_type') == 'company' || $request->get('contractor_type') == 'agency'),
-            'image' => 'nullable|file'
+            $userType . '_company_name' => Rule::requiredIf($request->get('customer_type') == 'legal_entity'),
+            'image' => 'required|image'
         ], $validationMessages)->validate();
         $this->userRepository->createAccount($request);
         if ($userType == 'contractor')

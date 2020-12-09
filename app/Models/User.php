@@ -22,14 +22,31 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
-        'company_name', 'site', 'foundation_year', 'customer_type', 'contractor_type',
-        'gender', 'birthday_date', 'specialization', 'skills',
-        'facebook', 'vk', 'telegram', 'whatsapp', 'instagram',
-        'phone_number', 'about_myself',
+        'name',
+        'email',
+        'password',
+        'company_name',
+        'site',
+        'foundation_year',
+        'customer_type',
+        'contractor_type',
+        'gender',
+        'birthday_date',
+        'specialization',
+        'skills',
+        'facebook',
+        'vk',
+        'telegram',
+        'whatsapp',
+        'instagram',
+        'phone_number',
+        'about_myself',
         'slug',
-        'telegram_id', 'telegram_username', 'google_id',
-        'fake', 'meta_title'
+        'telegram_id',
+        'telegram_username',
+        'google_id',
+        'fake',
+        'meta_title'
     ];
 
     protected static function boot()
