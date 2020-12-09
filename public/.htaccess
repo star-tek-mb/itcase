@@ -1,0 +1,56 @@
+SetEnvIfNoCase User-Agent "^Googlebot" search_bot
+SetEnvIfNoCase User-Agent "^Yandex" search_bot
+SetEnvIfNoCase User-Agent "^Yahoo" search_bot
+SetEnvIfNoCase User-Agent "^Aport" search_bot
+SetEnvIfNoCase User-Agent "^msnbot" search_bot
+SetEnvIfNoCase User-Agent "^spider" search_bot
+SetEnvIfNoCase User-Agent "^Robot" search_bot
+SetEnvIfNoCase User-Agent "^php" search_bot
+SetEnvIfNoCase User-Agent "^Mail" search_bot
+SetEnvIfNoCase User-Agent "^bot" search_bot
+SetEnvIfNoCase User-Agent "^igdeSpyder" search_bot
+SetEnvIfNoCase User-Agent "^Snapbot" search_bot
+SetEnvIfNoCase User-Agent "^WordPress" search_bot
+SetEnvIfNoCase User-Agent "^BlogPulseLive" search_bot
+SetEnvIfNoCase User-Agent "^Parser" search_bot
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+    
+    # Redirect from http to https
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+    
+    # Redirect from with www to without www
+    RewriteCond %{HTTP_HOST} ^www\.vid\.uz$ [NC]
+    RewriteRule ^(.*)$ https://vid.uz/$1 [R=301,L]
+    
+    # Redirect old home page
+    Redirect 301 /home https://vid.uz/
+    Redirect 301 /promote/ads/contextus https://vid.uz/internet-reklama/kontekstnaya-reklama
+    Redirect 301 /development/mobile-app https://vid.uz/mobilnye-prilozheniya
+    RewriteCond %{THE_REQUEST} //
+    # Проверяем, повторяется ли слеш (//) более двух раз.
+    RewriteRule .* /$0 [R=301,L]
+    # Исключаем все лишние слеши.
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/ 
+    RewriteRule ^index\.php$ https://vid.uz/ [R=301,L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
