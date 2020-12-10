@@ -68,12 +68,16 @@ class AccountController extends Controller
         $user = auth()->user();
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';
-            return view('site.pages.account.contractor.index', compact('user', 'accountPage'));
+            return response()->json([
+                'user' => $accountPage
+            ]);
         }
         else if ($user->hasRole('customer')) {
             if ($user->customer_type == 'company') $accountPage = 'company';
             else $accountPage = 'personal';
-            return view('site.pages.account.customer.index', compact('user', 'accountPage'));
+            return response()->json([
+                'user' => $accountPage
+            ]);
         }
         else
             abort(403);
@@ -84,7 +88,10 @@ class AccountController extends Controller
         $user = auth()->user();
         if ($user->checkCompletedAccount())
             return redirect()->route('site.account.index');
-        return \view('site.pages.account.create', compact('user'));
+
+        return response()->json([
+            'user' => $user
+        ]);
     }
 
     public function store(Request $request)
@@ -111,16 +118,24 @@ class AccountController extends Controller
         ], $validationMessages)->validate();
         $this->userRepository->createAccount($request);
         if ($userType == 'contractor')
-            return redirect()->route('site.account.contractor.professional')->with('account.success', 'Ваш аккаунт создан! Заполните свои профессиональные данные, что бы вас могли найти в каталоге');
+            return response()->json([
+                'message' => 'Ваш аккаунт создан! Заполните свои профессиональные данные, что бы вас могли найти в каталоге'
+            ]);
+
         if ($request->hasCookie('tenderId')) {
             $tenderId = $request->cookie('tenderId');
             $this->tenderRepository->setOwnerToTender($tenderId, auth()->user()->id);
             \Cookie::forget('tenderId');
             $tender = $this->tenderRepository->get($tenderId);
             \Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
-            return redirect()->route('site.account.index')->with('account.success', 'Ваш аккаунт создан, а тендер отправлен на модерацию, вы можете посмотреть его в разделе "Мои тендеры".');
+            return response()->json([
+                'message' => 'Ваш аккаунт создан, а тендер отправлен на модерацию, вы можете посмотреть его в разделе "Мои тендеры".'
+            ]);
+
         }
-        return redirect()->route('site.account.index');
+        return response()->json([
+            'message' => ''
+        ]);
     }
 
 
@@ -143,20 +158,26 @@ class AccountController extends Controller
             'phone_number' => 'required'
         ], $validationMessages)->validate();
         $this->userRepository->update($user->id, $request);
-
-        return redirect()->route('site.account.index')->with('account.success', 'Ваши личные данные обновлены');
+        return response()->json([
+            'message' => 'Ваши личные данные обновлены'
+        ]);
     }
 
     public function professional()
     {
+        die();
         $user = auth()->user();
         $user->authorizeRole('contractor');
         $chosenSpecs = $user->categories()->pluck('category_id')->toArray();
         $accountPage = 'professional';
         $categories = $this->categoryRepository->all();
+        return response()->json([
+            'user' => $user,
+            'accountPage' => $accountPage,
+            'chosenSpecs' => $chosenSpecs,
+            'categories' => $categories,
+        ]);
 
-        return view('site.pages.account.contractor.professional',
-            compact('categories', 'user', 'accountPage', 'chosenSpecs'));
     }
 
     public function saveProfessional(Request $request)
@@ -168,7 +189,9 @@ class AccountController extends Controller
             if (isset($requestCategory['id']))
                 $categories->push($requestCategory);
         if ($categories->count() == 0) {
-            return back()->with('account.error', 'Укажите услуги, которые вы предоставляете');
+            return response()->json([
+                'message' => 'Укажите услуги, которые вы предоставляете'
+            ]);
         }
         $needs = $this->needsRepository->all();
         $selectedNeedsCount = 0;
@@ -183,11 +206,15 @@ class AccountController extends Controller
             }
         }
         if ($selectedNeedsCount >= 3)
-            return back()->with('account.error', 'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены');
+            return response()->json([
+                'message' =>  'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены'
+            ]);
+
         foreach ($categories as $category) {
             if (!isset($category['price_from']) || !isset($category['price_to'])
             || empty($category['price_from']) || empty($category['price_to'])) {
-                return back()->with('account.error', 'Укажите цены на каждую выбранную услугу');
+                return response()->json([
+                    'message' =>  'Укажите цены на каждую выбранную услугу']);
             }
         }
         $user->categories()->detach();
@@ -199,7 +226,8 @@ class AccountController extends Controller
             );
         }
 
-        return redirect()->route('site.account.contractor.professional')->with('account.success', 'Ваши профессиональные данные обновлены');
+        return response()->json([
+            'message' =>  'Ваши профессиональные данные обновлены']);
     }
 
     public function saveCustomerProfile (Request $request)
@@ -227,7 +255,8 @@ class AccountController extends Controller
 
         $this->userRepository->update($user->id, $request);
 
-        return redirect()->route('site.account.index')->with('account.success', 'Ваш профиль обновлён');
+        return response()->json([
+            'message' =>  'Ваш профиль обновлён']);
     }
 
     public function tenders()
@@ -235,9 +264,13 @@ class AccountController extends Controller
         $user = auth()->user();
         $accountPage = 'tenders';
         if ($user->hasRole('customer')) {
-            return \view('site.pages.account.customer.tenders', compact('user', 'accountPage'));
+            return response()->json([
+                'user'=>$user ,
+                'accountPage'=>$accountPage]);
         } else if ($user->hasRole('contractor')) {
-            return \view('site.pages.account.contractor.tenders', compact('user', 'accountPage'));
+            return response()->json([
+                'user'=>$user ,
+                'accountPage'=>$accountPage]);
         } else {
             abort(404);
         }
@@ -249,7 +282,12 @@ class AccountController extends Controller
         $tender = $user->ownedTenders()->where('slug', $slug)->first();
         $accountPage = 'tenders';
         abort_if(!$tender, 404);
-        return \view('site.pages.account.customer.editTender', compact('user', 'tender', 'accountPage'));
+        return response()->json([
+            'user'=>$user ,
+            'accountPage'=>$accountPage,
+         'tender'=>$tender
+        ]);
+
     }
 
     public function tenderCandidates (string $slug) {
@@ -257,7 +295,11 @@ class AccountController extends Controller
         $tender = $user->ownedTenders()->where('slug', $slug)->first();
         abort_if(!$tender, 404);
         $accountPage = 'tenders';
-        return \view('site.pages.account.customer.candidates', compact('user', 'accountPage', 'tender'));
+        return response()->json([
+            'user'=>$user ,
+            'accountPage'=>$accountPage,
+            'tender'=>$tender
+        ]);
     }
 
     public function telegramCallback(Request $request)
@@ -271,7 +313,10 @@ class AccountController extends Controller
             \Auth::loginUsingId($user->id);
             return redirect()->route('site.account.index');
         } else {
-            return back()->with('error', 'Ошибка при попытке авторизации через Telegram');
+            return response()->json([
+                'message'=>'Ошибка при попытке авторизации через Telegram' ,
+                           ]);
+
         }
     }
 
