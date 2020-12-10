@@ -36,3 +36,7 @@ Route::post('/sanctum/token', function (Request $request) {
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::prefix('sanctum')->namespace('Api')->group(function() {
+    Route::post('register', 'AuthController@register');
+
+});
