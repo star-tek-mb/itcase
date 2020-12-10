@@ -15,8 +15,10 @@ use Illuminate\Validation\ValidationException;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::namespace('Api')->group(function() {
 
-Route::post('/sanctum/token', function (Request $request) {
+//Login & Register
+Route::post('/login', function (Request $request) {
     $request->validate([
         'email' => 'required|email',
         'password' => 'required',
@@ -33,10 +35,13 @@ Route::post('/sanctum/token', function (Request $request) {
 
     return $user->createToken($request->device_name)->plainTextToken;
 });
+Route::post('register', 'AuthController@register');
+
+//Account
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::prefix('sanctum')->namespace('Api')->group(function() {
-    Route::post('register', 'AuthController@register');
+
+
 
 });
