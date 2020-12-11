@@ -297,6 +297,11 @@
                             <a href="#" id="navBarDropdown" class="nav-link dropdown-toggle" role="button"
                                data-toggle="dropdown" aria-haspopup="true"
                                aria-expanded="false">
+                                @if(auth()->user()->getImage())
+                                    <span class="user-photo">
+                                        <img src="{{ auth()->user()->getImage() }}" alt="">
+                                    </span>
+                                @endif
                                 @if(auth()->user()->name)
                                     {{ auth()->user()->name }}
                                 @elseif(auth()->user()->email)
@@ -341,8 +346,21 @@
                     <li>
                         <a href="#" id="navBarDropdown" class="nav-link dropdown-toggle" role="button"
                            data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false">@if (Auth::user()->name) {{ Auth::user()->name }} @else {{ Auth::user()->email }} @endif
-                            <span class="caret"></span></a>
+                           aria-expanded="false">
+                            @if(auth()->user()->getImage())
+                                <span class="user-photo">
+                                    <img src="{{ auth()->user()->getImage() }}" alt="">
+                                </span>
+                            @endif
+                            @if(auth()->user()->name)
+                                {{ auth()->user()->name }}
+                            @elseif(auth()->user()->email)
+                                {{ auth()->user()->email }}
+                            @else
+                                {{ auth()->user()->phone_number }}
+                            @endif
+                            <span class="caret"></span>
+                        </a>
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                             <a href="{{ route('site.account.index') }}" class="dropdown-item"><i
                                     class="fas fa-user"></i> Личный кабинет</a>
