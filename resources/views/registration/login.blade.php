@@ -21,10 +21,10 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="input-group-icons">
-                            <input class="form-control @error('email') is-invalid @enderror" type="email" placeholder="Email адрес" name="email"
-                                   value="{{ old('email') }}" autocomplete="email"><span
+                            <input class="form-control @error('username') is-invalid @enderror" type="text" placeholder="Email адрес или номер телефона" name="username"
+                                   value="{{ old('username') }}" autocomplete="username"><span
                                 class="prepend-icon"><i class="fas fa-at"></i></span>
-                            @error('email')
+                            @error('username')
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </div>

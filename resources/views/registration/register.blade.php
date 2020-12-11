@@ -22,15 +22,15 @@
                         @csrf
                         <input type="hidden" name="user_role" value="contractor">
                         <div class="input-group-icons">
-                            <input class="form-control @error('email') is-invalid @enderror" type="email"
-                                   placeholder="Email адрес"
-                                   name="email" value="{{ old('email') }}" required
-                                   autocomplete="email"><span class="prepend-icon"><i
+                            <input class="form-control @error('username') is-invalid @enderror" type="text"
+                                   placeholder="Email адрес или номер телефона"
+                                   name="username" value="{{ old('username') }}" required
+                                   autocomplete="text"><span class="prepend-icon"><i
                                     class="fas fa-at"></i></span>
-                            @error('email')
+                            @error('username')
                             <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
                         <div class="input-group-icons">
