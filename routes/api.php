@@ -56,6 +56,12 @@ Route::group(['middleware' => ['auth:sanctum']],  function () {
         Route::get('/account/tenders', 'AccountController@tenders');
         Route::get('/account/tenders/{slug}/edit', 'AccountController@editTender');
         Route::get('/account/tenders/{slug}/candidates', 'AccountController@tenderCandidates');
+    Route::get('/account/portfolio', 'FileController@index');
+    Route::post('/account/portfolio/save', 'FileController@save');
+    Route::get('/account/chats', 'ChatsController@index');
+    Route::post('/account/chats', 'ChatsController@createChat');
+    Route::get('/account/comment', 'CommentController@index');
+    Route::post('/account/comment', 'CommentController@createCommentAll');
 
     // Tenders routes
     Route::get('/tenders', 'TenderController@index');
