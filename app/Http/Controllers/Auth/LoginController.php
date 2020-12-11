@@ -50,8 +50,8 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required'
+            'username'      => 'required|string',
+            'password'      => 'required'
         ], [
             'email.required' => 'Укажите электронную почту',
             'email.email' => 'Неверный формат электронной почты',
@@ -59,10 +59,32 @@ class LoginController extends Controller
         ])->validate();
     }
 
+    protected function credentials(Request $request)
+    {
+        if(is_numeric($request->get('username')))
+            return [
+                'phone' => $request->get('username'),
+                'password' => $request->get('password')
+            ];
+        elseif (filter_var($request->get('username'), FILTER_VALIDATE_EMAIL))
+            return [
+                'email' => $request->get('username'),
+                'password' => $request->get('password')
+            ];
+    }
+
     protected function sendLoginResponse(Request $request)
     {
-        $email = $request->get('email');
-        $user = User::where('email', $email)->first();
+        if(is_numeric($request->get('username'))) {
+            $phone = $request->get('username');
+            $user = User::where('phone_number', $phone)->first();
+        }
+        elseif (filter_var($request->get('username'), FILTER_VALIDATE_EMAIL)) {
+            $email = $request->get('username');
+            $user = User::where('email', $email)->first();
+        }
+//        $email = $request->get('email');
+//        $user = User::where('email', $email)->first();
         if (!$user->completed)
             return redirect('/account/create');
         $request->session()->regenerate();
@@ -107,8 +129,6 @@ class LoginController extends Controller
           return redirect()->route('site.catalog.index')->with('error', 'Авторизация через Google в данный момент недоступна.');
       }
     }
-
-
 
     protected function loggedOut(Request $request)
     {

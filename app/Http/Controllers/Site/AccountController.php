@@ -107,7 +107,8 @@ class AccountController extends Controller
             $userType . '_email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
             $userType . '_about_myself' => ['required', 'string'],
             $userType . '_company_name' => Rule::requiredIf($request->get('customer_type') == 'legal_entity'),
-            'image' => 'required|image'
+            'image' => 'required|image',
+            'agree_personal_data_processing' => 'required|boolean'
         ], $validationMessages)->validate();
         $this->userRepository->createAccount($request);
         if ($userType == 'contractor')
@@ -215,7 +216,7 @@ class AccountController extends Controller
             'email' => 'Неверный формат электронной почты'
         ];
         Validator::make($request->all(), [
-            'image' => 'nullable|image',
+            'image' => 'required|image',
             'company_name' => [Rule::requiredIf($user->customer_type == 'company')],
             'about_myself' => 'required|string|max:5000',
             'foundation_year' => 'nullable|integer',

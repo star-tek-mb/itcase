@@ -51,13 +51,24 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'username' => [
+                'required',
+                'string',
+                'max:100',
+                'unique:users,email',
+                'unique:users,phone_number'
+            ],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed'
+            ],
         ], [
             'password.min' => 'Пароль должен быть не меньше :min',
             'password.required' => 'Укажите пароль',
             'password.confirmed' => 'Пароли должны совпадать',
-            'email.required' => 'Укажите электронную почту',
+            'validation.unique' => 'Такой пользователь уже существует',
             'email.email' => 'Электронная почта должна быть в формате example@example.com',
             'email.unique' => 'Такая электроннная почта уже зарегистрирована',
         ]);
@@ -71,11 +82,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
-            'name' => '',
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        if (is_numeric($data['username'])) {
+            $user = User::create([
+                'name' => '',
+                'phone_number' => $data['username'],
+                'password' => Hash::make($data['password']),
+            ]);
+        } elseif (filter_var($data['username'], FILTER_VALIDATE_EMAIL)) {
+            $user = User::create([
+                'name' => '',
+                'email' => $data['username'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
+
         return $user;
     }
 }

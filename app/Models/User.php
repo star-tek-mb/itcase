@@ -11,10 +11,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use Notifiable;
     use HasApiTokens;
+
+    const INDIVIDUAL = 'individual';
+    const LEGAL_ENTITY = 'legal_entity';
 
     /**
      * The attributes that are mass assignable.
@@ -82,6 +85,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'agree_personal_data_processing' => 'boolean'
     ];
 
     private static $UPLOAD_DIRECTORY = 'uploads/users/';
