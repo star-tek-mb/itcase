@@ -49,8 +49,8 @@ class AccountController extends Controller
                                 TenderRepositoryInterface $tenderRepository,
                                 NeedTypeRepositoryInterface $needsRepository)
     {
-        $this->middleware(['auth', 'verified'])->except(['telegramCallback']);
-        $this->middleware('account.completed')->except(['create', 'store', 'telegramCallback', 'markNotificationsAsRead']);
+       // $this->middleware(['auth', 'verified'])->except(['telegramCallback']);
+      //  $this->middleware('account.completed')->except(['create', 'store', 'telegramCallback', 'markNotificationsAsRead']);
 
         $this->userRepository = $userRepository;
         $this->categoryRepository = $categoryRepository;
@@ -165,7 +165,7 @@ class AccountController extends Controller
 
     public function professional()
     {
-        die();
+
         $user = auth()->user();
         $user->authorizeRole('contractor');
         $chosenSpecs = $user->categories()->pluck('category_id')->toArray();
@@ -259,22 +259,7 @@ class AccountController extends Controller
             'message' =>  'Ваш профиль обновлён']);
     }
 
-    public function tenders()
-    {
-        $user = auth()->user();
-        $accountPage = 'tenders';
-        if ($user->hasRole('customer')) {
-            return response()->json([
-                'user'=>$user ,
-                'accountPage'=>$accountPage]);
-        } else if ($user->hasRole('contractor')) {
-            return response()->json([
-                'user'=>$user ,
-                'accountPage'=>$accountPage]);
-        } else {
-            abort(404);
-        }
-    }
+
 
     public function editTender(string $slug)
     {
@@ -302,50 +287,5 @@ class AccountController extends Controller
         ]);
     }
 
-    public function telegramCallback(Request $request)
-    {
-        if ($this->checkTelegramAuthorization($request->all())) {
-            $telegramId = $request->get('id');
-            $user = $this->userRepository->getUserByTelegramId((int) $telegramId);
-            if (!$user) {
-                $user = $this->userRepository->createUserViaTelegram($request);
-            }
-            \Auth::loginUsingId($user->id);
-            return redirect()->route('site.account.index');
-        } else {
-            return response()->json([
-                'message'=>'Ошибка при попытке авторизации через Telegram' ,
-                           ]);
 
-        }
-    }
-
-    private function checkTelegramAuthorization($auth_data)
-    {
-        $check_hash = $auth_data['hash'];
-        unset($auth_data['hash']);
-        $data_check_arr = [];
-        foreach ($auth_data as $key => $value) {
-            $data_check_arr[] = $key . '=' . $value;
-        }
-        sort($data_check_arr);
-
-        $data_check_string = implode("\n", $data_check_arr);
-        $secret_key = hash('sha256', env('TELEGRAM_BOT_TOKEN'), true);
-        $hash = hash_hmac('sha256', $data_check_string, $secret_key);
-        if (strcmp($hash, $check_hash) !== 0 || (time() - $auth_data['auth_date']) > 86400) {
-            return false;
-        }
-        return true;
-    }
-
-    public function markNotificationsAsRead(Request $request)
-    {
-        if ($request->has('id')) {
-            auth()->user()->unreadNotifications->where('id', $request->get('id'))->markAsRead();
-        } else {
-            auth()->user()->unreadNotifications->markAsRead();
-        }
-        return \Response::make('', 204);
-    }
 }

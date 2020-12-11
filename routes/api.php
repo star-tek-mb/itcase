@@ -43,6 +43,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth:sanctum']],  function () {
+
+        // Account routes
         Route::get('/account', 'AccountController@index');
         Route::get('/account/notifications/markAsRead', 'AccountController@markNotificationsAsRead');
         Route::get('/account/create', 'AccountController@create');
@@ -55,7 +57,28 @@ Route::group(['middleware' => ['auth:sanctum']],  function () {
         Route::get('/account/tenders/{slug}/edit', 'AccountController@editTender');
         Route::get('/account/tenders/{slug}/candidates', 'AccountController@tenderCandidates');
 
-    });
+    // Tenders routes
+    Route::get('/tenders', 'TenderController@index');
+    Route::post('/tenders/search', 'TenderController@searchTender');
+    Route::get('/tenders/{params}', 'TenderController@category')->where('params', '.+');
+    Route::post('/tenders/makeRequest', 'TenderController@makeRequest');
+    Route::post('/tenders/cancelRequest', 'TenderController@cancelRequest');
+    Route::delete('/tenders/{id}/delete', 'TenderController@delete');
+    Route::post('/tenders/{id}/update', 'TenderController@update');
+    Route::post('/tenders/{tenderId}/accept/{requestId}', 'TenderController@acceptTenderRequest');
+
+    // Contractors routes
+    Route::get('/', 'HomeController@index')->name('catalog.index');
+    Route::get('/contractors', 'ContractorsController@index')->name('contractors.index');
+    Route::get('/contractors/category/{params}', 'ContractorsController@category')->where('params', '.+')->name('catalog.main');
+    Route::get('/contractors/addContractor/{contractorId}/to/{tenderId}', 'ContractorsController@addContractor')->name('tenders.contractors.add');
+    Route::get('/contractors/addContractorGuest/clear', 'ContractorsController@deleteAllContractorsFromSession')->name('tenders.contractors.clear');
+    Route::get('/contractors/addContractorGuest/{contractorId}', 'ContractorsController@addContractorForNonAuth')->name('tenders.contractors.add.guest');
+    Route::get('/contractors/addContractorGuest/remove/{contractorId}', 'ContractorsController@deleteContractorFromSession')->name('tenders.contractors.delete');
+    Route::get('/contractors/{slug}', 'ContractorsController@contractor')->name('contractors.show');
+    Route::post('/contractors/comment', 'CommentController@createCommentContractor')->name('contractors.comment.contractor');
+    Route::post('/contractors/search', 'ContractorsController@contractorSearch')->name('contractors.search');
+});
 
 
 
