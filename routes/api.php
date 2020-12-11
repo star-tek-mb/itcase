@@ -80,7 +80,18 @@ Route::group(['middleware' => ['auth:sanctum']],  function () {
     Route::post('/contractors/search', 'ContractorsController@contractorSearch')->name('contractors.search');
 });
 
+    Route::post('/search', 'CatalogController@search');
 
+    // Blog route
+    Route::get('/blog', 'BlogController@index');
+    Route::get('/blog/{params}', 'BlogController@blog')->where('params', '.+');
 
+    Route::get('/cgu-info', 'CguController@cguInfo');
+    Route::get('/cgu-info/{id}', 'CguController@cguCategory');
+    Route::get('/cgu-ad', 'CguController@cguAd');
+    Route::get('/cgu-ad/{id}', 'CguController@cguCategory');
+
+    Route::post('/messages', 'Site\ChatsController@sendMessage');
+    Route::get('/messages', 'Site\ChatsController@fetchMessages');
 
 });
