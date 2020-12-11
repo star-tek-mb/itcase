@@ -56,7 +56,7 @@
                                         <div class="upload">
                                             <div class="desc">Минимальные пропорции: 120х120 пикселей</div>
                                             <div class="btn-upload">
-                                                <input type="file" name="image" id="image">
+                                                <input type="file" name="image" id="image" required>
                                                 <span class="btn btn-light-green">Выбрать изображение</span>
                                             </div>
                                         </div>
@@ -85,12 +85,12 @@
                                             <div class="form-group">
                                                 <label for="">Вы являетесь:</label>
                                                 <div class="custom-control custom-radio" id="freelancerRadio">
-                                                    <input type="radio" name="contractor_type" value="freelancer" id="freelancerRadioInput" class="custom-control-input" @if (!old('contractor_type') || old('contractor_type') == 'freelancer') checked @endif>
-                                                    <label for="freelancerRadioInput" class="custom-control-label">Фрилансером</label>
+                                                    <input type="radio" name="contractor_type" value="individual" id="freelancerRadioInput" class="custom-control-input" @if (!old('contractor_type') || old('contractor_type') == 'freelancer') checked @endif>
+                                                    <label for="freelancerRadioInput" class="custom-control-label">Физ. лицо</label>
                                                 </div>
                                                 <div class="custom-control custom-radio" id="agencyRadio">
-                                                    <input type="radio" name="contractor_type" value="agency" id="agencyRadioInput" class="custom-control-input" @if (old('contractor_type') == 'agency') checked @endif>
-                                                    <label for="agencyRadioInput" class="custom-control-label">Digital агенством</label>
+                                                    <input type="radio" name="contractor_type" value="legal_entity" id="agencyRadioInput" class="custom-control-input" @if (old('contractor_type') == 'agency') checked @endif>
+                                                    <label for="agencyRadioInput" class="custom-control-label">Юр. лицо</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -139,6 +139,15 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
+                                                <label for="city">Город</label>
+                                                <input type="text" name="city" id="city" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') }}" placeholder="Ваш город проживания">
+                                                @error('city')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
                                                 <label for="aboutMySelfContractor" class="contractor-type-freelancer @if (old('contractor_type') == 'agency') d-none @endif">О себе</label><label
                                                     for="aboutMySelfContractor" class="contractor-type-agency @if (!old('contractor_type') || old('contractor_type') == 'freelancer') d-none @endif">О компании</label>
                                                 <textarea name="contractor_about_myself" id="aboutMySelfContractor">{{ old('about_myself') }}</textarea>
@@ -148,6 +157,13 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" required type="checkbox" value="1" name="agree_personal_data_processing" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Соглашаюсь на обработку персональных данных
+                                        </label>
+                                    </div>
+                                    <br>
                                     <button type="submit" class="btn btn-light-green">Профессиональные данные <i class="fas fa-arrow-right"></i></button>
                                 </form>
                             </div>
@@ -192,12 +208,12 @@
                                         <div class="form-group">
                                             <label for="">Вы являетесь:</label>
                                             <div class="custom-control custom-radio" id="privateRadio">
-                                                <input type="radio" name="customer_type" value="private" id="privateRadioInput" class="custom-control-input" @if (!old('customer_type') || old('customer_type') == 'private') checked @endif>
-                                                <label for="privateRadioInput" class="custom-control-label">Частным лицом</label>
+                                                <input type="radio" name="customer_type" value="individual" id="privateRadioInput" class="custom-control-input" @if (!old('customer_type') || old('customer_type') == 'private') checked @endif>
+                                                <label for="privateRadioInput" class="custom-control-label">Физ. лицо</label>
                                             </div>
                                             <div class="custom-control custom-radio" id="companyRadio">
-                                                <input type="radio" name="customer_type" value="company" id="companyRadioInput" class="custom-control-input" @if (old('customer_type') == 'company') checked @endif>
-                                                <label for="companyRadioInput" class="custom-control-label">Компанией</label>
+                                                <input type="radio" name="customer_type" value="legal_entity" id="companyRadioInput" class="custom-control-input" @if (old('customer_type') == 'company') checked @endif>
+                                                <label for="companyRadioInput" class="custom-control-label">Юр. лицо</label>
                                             </div>
                                         </div>
                                     </div>
@@ -221,6 +237,15 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
+                                            <label for="city">Город</label>
+                                            <input type="text" name="city" id="city" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') }}" placeholder="Ваш город проживания">
+                                            @error('city')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
                                             <label for="aboutMySelfCompany" class="customer-type-private">О себе</label><label
                                                 for="aboutMySelfCompany" class="customer-type-company d-none">О компании</label>
                                             <textarea name="customer_about_myself" id="aboutMySelfCompany">{{ old('about_myself') }}</textarea>
@@ -229,7 +254,15 @@
                                             @enderror
                                         </div>
                                     </div>
+
                                 </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" required type="checkbox" value="1" name="agree_personal_data_processing" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Соглашаюсь на обработку персональных данных
+                                    </label>
+                                </div>
+                                <br>
                                 <button type="submit" class="btn btn-light-green"><i class="fas fa-save"></i> Сохранить</button>
                             </form>
                         </div>
