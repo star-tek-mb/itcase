@@ -33,7 +33,8 @@ Route::post('/login', function (Request $request) {
         ]);
     }
 
-    return $user->createToken($request->device_name)->plainTextToken;
+    $token = $user->createToken($request->device_name)->plainTextToken;
+    return response()->json(['token' => $token], 200);
 });
 Route::post('register', 'AuthController@register');
 
