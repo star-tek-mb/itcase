@@ -22,7 +22,7 @@ class ChatsController extends Controller
      */
     public function __construct(ChatRepositoryInterface $chatRepository)
     {
-        $this->middleware(['auth', 'account.completed']);
+        $this->middleware(['auth:sanctum', 'account.completed']);
 
         $this->chatRepository = $chatRepository;
     }
