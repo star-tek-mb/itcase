@@ -68,6 +68,7 @@ Route::group(['middleware' => ['auth:sanctum']],  function () {
     Route::get('/tenders', 'TenderController@index');
     Route::post('/tenders/search', 'TenderController@searchTender');
     Route::get('/tenders/{params}', 'TenderController@category')->where('params', '.+');
+    Route::post('/tenders/create', 'TenderController@store');
     Route::post('/tenders/makeRequest', 'TenderController@makeRequest');
     Route::post('/tenders/cancelRequest', 'TenderController@cancelRequest');
     Route::delete('/tenders/{id}/delete', 'TenderController@delete');
