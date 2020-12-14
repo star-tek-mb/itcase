@@ -68,8 +68,8 @@
     <script type="text/javascript">
         (function (m, e, t, r, i, k, a) {
             m[i] = m[i] || function () {
-                (m[i].a = m[i].a || []).push(arguments)
-            };
+                    (m[i].a = m[i].a || []).push(arguments)
+                };
             m[i].l = 1 * new Date();
             k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
         })
@@ -147,7 +147,7 @@
     })
 </script>
 <script>
-    $(function() {
+    $(function () {
         $('.tender-item').on('click', function () {
             let url = $(this).data('target');
             window.location.href = url;
@@ -233,7 +233,26 @@
 
     }
 
-</script>
 
+</script>
+<script>
+    $('.form-control').bind("change keyup input click", function () {
+        if ($(this).val().length >= 2) {
+
+            $.ajax({
+                method: 'POST',
+                url: "/live-search",
+                data: {search:$(this).val(), _token: '{{csrf_token()}}'},
+                success: function(data) {
+                  //  $('.form-control').parents('.form-group').html(data).fadeIn();
+                    $('#livesearch').attr('style','border: 1px solid rgb(165, 172, 178); background: lightgrey;');
+                    $('#livesearch').html(data).fadeIn();
+                    console.log(data);
+                }
+            });
+
+        }
+    });
+</script>
 @yield('js')
 </html>
