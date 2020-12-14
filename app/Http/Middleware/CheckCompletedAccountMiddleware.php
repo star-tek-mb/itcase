@@ -21,9 +21,8 @@ class CheckCompletedAccountMiddleware
                 if ($user->checkCompletedAccount()) {
                     if ($user->hasRole('contractor') && $user->categories()->count() == 0 && $request->path() !== 'api/account/professional') {
                         return response()->json(['message' => ['Выберите услуги которые вы предоставляете']]);
-                    } else {
-                        return next($request);
                     }
+                    return $next($request);
                 } else {
                     return response()->json(['message' => ['Для начала заполните данные']]);
                 }

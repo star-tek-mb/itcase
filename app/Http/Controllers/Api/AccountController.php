@@ -160,6 +160,7 @@ class AccountController extends Controller
     {
         $user = auth()->user();
         $user->authorizeRole('contractor');
+        
         $categories = collect();
         foreach ($request->get('categories') as $requestCategory)
             if (isset($requestCategory['id']))
