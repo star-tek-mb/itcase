@@ -49,8 +49,8 @@ class AccountController extends Controller
                                 TenderRepositoryInterface $tenderRepository,
                                 NeedTypeRepositoryInterface $needsRepository)
     {
-       // $this->middleware(['auth', 'verified'])->except(['telegramCallback']);
-      //  $this->middleware('account.completed')->except(['create', 'store', 'telegramCallback', 'markNotificationsAsRead']);
+        $this->middleware(['auth:sanctum', 'verified']);
+        $this->middleware('account.completed')->except(['create', 'store']);
 
         $this->userRepository = $userRepository;
         $this->categoryRepository = $categoryRepository;
@@ -83,17 +83,6 @@ class AccountController extends Controller
             abort(403);
     }
 
-    public function create()
-    {
-        $user = auth()->user();
-        if ($user->checkCompletedAccount())
-            return redirect()->route('site.account.index');
-
-        return response()->json([
-            'user' => $user
-        ]);
-    }
-
     public function store(Request $request)
     {
         $userType = $request->get('user_role');
@@ -107,35 +96,21 @@ class AccountController extends Controller
             'email' => 'Неверный формат электронной почты',
             $userType . '_email.unique' => 'Такая электронная почта уже зарегистрирована'
         ];
-        Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             $userType . '_name' => ['required', 'string', 'max:255'],
             $userType . '_phone_number' => ['required', 'string'],
-            'contractor_birthday_date' => Rule::requiredIf($userType == 'contractor' && $request->get('contractor_type') == 'freelancer'),
+            'contractor_birthday_date' => Rule::requiredIf($userType == 'contractor' && $request->get('contractor_type') == 'individual'),
             $userType . '_email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
             $userType . '_about_myself' => ['required', 'string'],
             $userType . '_company_name' => Rule::requiredIf($request->get('customer_type') == 'legal_entity'),
-            'image' => 'required|image',
             'agree_personal_data_processing' => 'required|boolean'
-        ], $validationMessages)->validate();
-        $this->userRepository->createAccount($request);
-        if ($userType == 'contractor')
-            return response()->json([
-                'message' => 'Ваш аккаунт создан! Заполните свои профессиональные данные, что бы вас могли найти в каталоге'
-            ]);
-
-        if ($request->hasCookie('tenderId')) {
-            $tenderId = $request->cookie('tenderId');
-            $this->tenderRepository->setOwnerToTender($tenderId, auth()->user()->id);
-            \Cookie::forget('tenderId');
-            $tender = $this->tenderRepository->get($tenderId);
-            \Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
-            return response()->json([
-                'message' => 'Ваш аккаунт создан, а тендер отправлен на модерацию, вы можете посмотреть его в разделе "Мои тендеры".'
-            ]);
-
+        ], $validationMessages);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 500);
         }
+        $this->userRepository->createAccount($request);
         return response()->json([
-            'message' => ''
+            'message' => 'Ваш аккаунт создан'
         ]);
     }
 
@@ -260,8 +235,6 @@ class AccountController extends Controller
             'message' =>  'Ваш профиль обновлён']);
     }
 
-
-
     public function editTender(string $slug)
     {
         $user = auth()->user();
@@ -271,7 +244,7 @@ class AccountController extends Controller
         return response()->json([
             'user'=>$user ,
             'accountPage'=>$accountPage,
-         'tender'=>$tender
+            'tender'=>$tender
         ]);
 
     }
