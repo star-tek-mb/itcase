@@ -289,6 +289,7 @@ class CatalogController extends Controller
         $result="";
       foreach ($tenders as $tender){
           $result.='<a href="'.route('site.tenders.category', $tender->slug) .'">'.$tender->title.' </a>';
+          $result.="<br>";
       }
         return $result;
         //return  $data;
