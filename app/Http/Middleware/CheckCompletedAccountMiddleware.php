@@ -16,7 +16,7 @@ class CheckCompletedAccountMiddleware
     public function handle($request, Closure $next)
     {
         $user = auth()->user();
-        if ($request->isJson()) {
+        if (substr($request->path(), 0, 3) === "api") {
             if ($user) {
                 if ($user->checkCompletedAccount()) {
                     if ($user->hasRole('contractor') && $user->categories()->count() == 0 && $request->path() !== 'api/account/professional') {
