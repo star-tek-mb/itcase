@@ -40,10 +40,11 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label for="name">Ваше имя</label>
-                            <input type="text" name="name" id="name"
-                                   class="form-control @error('name') is-invalid @enderror" value="{{ $user->name }}">
-                            @error('name')
+                            <label for="first_name">Ваше имя</label>
+                            <input type="hidden" name="name">
+                            <input type="text" name="first_name" id="first_name"
+                                   class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name }}">
+                            @error('first_name')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -71,7 +72,7 @@
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label for="phoneNumber">E-mail</label>
+                            <label for="email">E-mail</label>
                             <input type="text" name="email" id="email"
                                    class="form-control @error('email') is-invalid @enderror"
                                    value="{{ $user->email }}">
@@ -118,6 +119,38 @@
                             </div>
                         </div>
                     @endif
+                    <div class="col-sm-12 col-md-12"> <label>Сменить пароль:</label> </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="newPassword"> Новый пароль</label>
+                            <input type="password" name="newPassword" id="newPassword"
+                                   class="form-control @error('newPassword') is-invalid @enderror">
+                            @error('newPassword')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="email">Повторите новый пароль</label>
+                            <input type="password" name="newPasswordRepeat" id="newPasswordRepeat"
+                                   class="form-control @error('newPasswordRepeat') is-invalid @enderror">
+                            @error('newPasswordRepeat')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="currentPassword">Текущий пароль</label>
+                            <input type="password" name="currentPassword" id="currentPassword"
+                                   class="form-control @error('currentPassword') is-invalid @enderror">
+                            @error('currentPassword')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label for="aboutMySelf">@if($user->contractor_type == 'agency') О

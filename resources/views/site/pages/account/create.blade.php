@@ -64,10 +64,21 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label for="contractorName">Ваше имя</label>
-                                                <input type="text" name="contractor_name" id="contractorName"
-                                                       class="form-control @error('contractor_name') is-invalid @enderror" value="@if($user->name) {{ $user->name }} @else {{ old('contractor_name') }} @endif">
-                                                @error('contractor_name')
+                                                <label for="first_name">Ваше имя</label>
+                                                <input type="hidden" name="name">
+                                                <input type="text" name="first_name" id="first_name"
+                                                       class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name }}">
+                                                @error('first_name')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="last_name">Ваше Фамилия</label>
+                                                <input type="text" name="last_name" id="last_name"
+                                                       class="form-control @error('name') is-invalid @enderror" value="{{ $user->last_name }}">
+                                                @error('last_name')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -80,6 +91,31 @@
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+
+                                            <label>Ваш пол:</label>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" name="gender" value="male" id="maleRadio"
+                                                       class="custom-control-input" @if (!old('gender') || old('gender') == 'male') checked @endif>
+                                                <label for="maleRadio" class="custom-control-label">Мужской</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" name="gender" value="female" id="femaleRadio"
+                                                       class="custom-control-input" @if (old('gender') == 'female') checked @endif>
+                                                <label for="femaleRadio" class="custom-control-label">Женский</label>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+
+                                            <label for="contractor_birthdayDate">Дата рождения</label>
+                                            <input type="text" class="form-control @error('contractor_birthday_date') is-invalid @enderror"
+                                                   id="contractor_birthdayDate" name="contractor_birthday_date" value="{{ old('contractor_birthday_date')  }}">
+                                            @error('contractor_birthday_date')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
@@ -103,31 +139,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group contractor-type-freelancer @if (old('contractor_type') == 'agency') d-none @endif">
-                                                <label>Ваш пол:</label>
-                                                <div class="custom-control custom-radio">
-                                                    <input type="radio" name="gender" value="male" id="maleRadio"
-                                                           class="custom-control-input" @if (!old('gender') || old('gender') == 'male') checked @endif>
-                                                    <label for="maleRadio" class="custom-control-label">Мужской</label>
-                                                </div>
-                                                <div class="custom-control custom-radio">
-                                                    <input type="radio" name="gender" value="female" id="femaleRadio"
-                                                           class="custom-control-input" @if (old('gender') == 'female') checked @endif>
-                                                    <label for="femaleRadio" class="custom-control-label">Женский</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="form-group contractor-type-freelancer @if (old('contractor_type') == 'agency') d-none @endif">
-                                                <label for="contractor_birthdayDate">Дата рождения</label>
-                                                <input type="text" class="form-control @error('contractor_birthday_date') is-invalid @enderror"
-                                                       id="contractor_birthdayDate" name="contractor_birthday_date" value="{{ old('contractor_birthday_date')  }}">
-                                                @error('contractor_birthday_date')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
+
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="contractor_email">Email</label>
@@ -187,11 +199,22 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
-                                            <label for="customer_name">Ваше имя</label>
-                                            <input type="text" name="customer_name" id="customer_name"
-                                                   class="form-control @error('customer_name') is-invalid @enderror" value="@if($user->name) {{ $user->name }} @else {{ old('customer_name') }} @endif">
-                                            @error('customer_name')
-                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            <label for="first_name">Ваше имя</label>
+                                            <input type="hidden" name="name">
+                                            <input type="text" name="first_name" id="first_name"
+                                                   class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name }}">
+                                            @error('first_name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="last_name">Ваше Фамилия</label>
+                                            <input type="text" name="last_name" id="last_name"
+                                                   class="form-control @error('name') is-invalid @enderror" value="{{ $user->last_name }}">
+                                            @error('last_name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
@@ -203,6 +226,31 @@
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+
+                                        <label>Ваш пол:</label>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" name="gender" value="male" id="maleRadio"
+                                                   class="custom-control-input" @if (!old('gender') || old('gender') == 'male') checked @endif>
+                                            <label for="maleRadio" class="custom-control-label">Мужской</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" name="gender" value="female" id="femaleRadio"
+                                                   class="custom-control-input" @if (old('gender') == 'female') checked @endif>
+                                            <label for="femaleRadio" class="custom-control-label">Женский</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+
+                                        <label for="contractor_birthdayDate">Дата рождения</label>
+                                        <input type="text" class="form-control @error('contractor_birthday_date') is-invalid @enderror"
+                                               id="contractor_birthdayDate1" name="contractor_birthday_date" value="{{ old('contractor_birthday_date')  }}">
+                                        @error('contractor_birthday_date')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
@@ -281,6 +329,12 @@
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
                         flatpickr(document.getElementById('contractor_birthdayDate'), {
+                            dateFormat: 'd.m.Y',
+                            maxDate: new Date()
+                        });
+                    });
+                    document.addEventListener('DOMContentLoaded', function () {
+                        flatpickr(document.getElementById('contractor_birthdayDate1'), {
                             dateFormat: 'd.m.Y',
                             maxDate: new Date()
                         });

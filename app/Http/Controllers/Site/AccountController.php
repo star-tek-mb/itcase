@@ -66,16 +66,15 @@ class AccountController extends Controller
     public function index()
     {
         $user = auth()->user();
+        list($user->first_name, $user->last_name) = array_pad(explode(' ', trim($user->name)), 2, null);
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';
             return view('site.pages.account.contractor.index', compact('user', 'accountPage'));
-        }
-        else if ($user->hasRole('customer')) {
+        } else if ($user->hasRole('customer')) {
             if ($user->customer_type == 'company') $accountPage = 'company';
             else $accountPage = 'personal';
             return view('site.pages.account.customer.index', compact('user', 'accountPage'));
-        }
-        else
+        } else
             abort(403);
     }
 
@@ -110,7 +109,9 @@ class AccountController extends Controller
             'image' => 'required|image',
             'agree_personal_data_processing' => 'required|boolean'
         ], $validationMessages)->validate();
-        $this->userRepository->createAccount($request);
+        $data = $request;
+        $data->name = $request->first_name . ' ' . $request->last_name;
+        $this->userRepository->createAccount($data);
         if ($userType == 'contractor')
             return redirect()->route('site.account.contractor.professional')->with('account.success', 'Ваш аккаунт создан! Заполните свои профессиональные данные, что бы вас могли найти в каталоге');
         if ($request->hasCookie('tenderId')) {
@@ -137,13 +138,20 @@ class AccountController extends Controller
             'string' => 'Укажите стороковое значение',
             'email' => 'Неверный формат электронной почты'
         ];
+
         Validator::make($request->all(), [
-            'name' => 'required|max:255|string',
+            'first_name' => 'required|max:255|string',
             'about_myself' => 'required|string|max:5000',
             'company_name' => Rule::requiredIf($user->contractor_type == 'agency'),
-            'phone_number' => 'required'
+            'phone_number' => 'required',
+            'newPassword' => 'min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
+            'newPasswordRepeat' => 'min:6',
+            'currentPassword' => 'password|required_with:newPassword',
         ], $validationMessages)->validate();
-        $this->userRepository->update($user->id, $request);
+        $data = $request;
+        $data->name = $request->first_name . ' ' . $request->last_name;
+
+        $this->userRepository->update($user->id, $data);
 
         return redirect()->route('site.account.index')->with('account.success', 'Ваши личные данные обновлены');
     }
@@ -187,7 +195,8 @@ class AccountController extends Controller
             return back()->with('account.error', 'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены');
         foreach ($categories as $category) {
             if (!isset($category['price_from']) || !isset($category['price_to'])
-            || empty($category['price_from']) || empty($category['price_to'])) {
+                || empty($category['price_from']) || empty($category['price_to'])
+            ) {
                 return back()->with('account.error', 'Укажите цены на каждую выбранную услугу');
             }
         }
@@ -203,7 +212,7 @@ class AccountController extends Controller
         return redirect()->route('site.account.contractor.professional')->with('account.success', 'Ваши профессиональные данные обновлены');
     }
 
-    public function saveCustomerProfile (Request $request)
+    public function saveCustomerProfile(Request $request)
     {
         $user = auth()->user();
         $user->authorizeRole('customer');
@@ -223,10 +232,14 @@ class AccountController extends Controller
             'site' => 'nullable|string|max:255',
             'phone_number' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'name' => 'required|max:255'
+            'first_name' => 'required|max:255',
+            'newPassword' => 'min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
+            'newPasswordRepeat' => 'min:6',
+            'currentPassword' => 'password|required_with:newPassword',
         ], $validationMessages)->validate();
-
-        $this->userRepository->update($user->id, $request);
+        $data = $request;
+        $data->name = $request->first_name . ' ' . $request->last_name;
+        $this->userRepository->update($user->id, $data);
 
         return redirect()->route('site.account.index')->with('account.success', 'Ваш профиль обновлён');
     }
@@ -253,7 +266,8 @@ class AccountController extends Controller
         return \view('site.pages.account.customer.editTender', compact('user', 'tender', 'accountPage'));
     }
 
-    public function tenderCandidates (string $slug) {
+    public function tenderCandidates(string $slug)
+    {
         $user = auth()->user();
         $tender = $user->ownedTenders()->where('slug', $slug)->first();
         abort_if(!$tender, 404);
@@ -265,7 +279,7 @@ class AccountController extends Controller
     {
         if ($this->checkTelegramAuthorization($request->all())) {
             $telegramId = $request->get('id');
-            $user = $this->userRepository->getUserByTelegramId((int) $telegramId);
+            $user = $this->userRepository->getUserByTelegramId((int)$telegramId);
             if (!$user) {
                 $user = $this->userRepository->createUserViaTelegram($request);
             }
