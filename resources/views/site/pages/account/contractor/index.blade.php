@@ -248,12 +248,11 @@
                 language: 'ru',
                 licenseKey: '',
             })
-            .then(editor = > {
+            .then(editor => {
             window.editor = editor;
         })
-        .catch(error = > {
+        .catch(error => {
             console.error(error);
-        })
-        ;
+        });
     </script>
 @endsection
