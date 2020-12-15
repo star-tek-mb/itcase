@@ -17,7 +17,7 @@ class CommentController extends Controller
         return view('site.pages.account.contractor.comment', compact('user', 'accountPage'));
 
       }else if ($user->hasRole('customer')) {
-          if ($user->customer_type == 'company') $accountPage = 'company';
+          if ($user->customer_type == 'legal_entity') $accountPage = 'company';
           else $accountPage = 'personal';
           return view('site.pages.account.customer.comment', compact('user', 'accountPage'));
       }else{

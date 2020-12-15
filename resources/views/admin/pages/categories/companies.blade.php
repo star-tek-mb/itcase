@@ -54,7 +54,7 @@
                                     <img src="{{ $company->getImage() }}" alt="{{ $company->ru_title }}" class="img-avatar img-avatar48">
                                 </td>
                                 <td class="text-center font-w600">{{ $company->getCommonTitle() }}</td>
-                                <td class="text-center">@if ($company->contractor_type == 'freelancer')Фрилансер@elseif($company->contractor_type == 'agency')Digital-агенство@endif</td>
+                                <td class="text-center">@if ($company->contractor_type == 'individual')Физ. Лицо@elseif($company->contractor_type == 'legal_entity')Юр. Лицо@endif</td>
                                 <td class="text-center font-w600 d-flex align-items-center justify-content-around">
                                     <a href="{{ route('admin.users.edit', $company->id) }}" class="btn btn-sm btn-alt-info" data-toggle="tooltip" title="Редактировать"><i class="fa fa-pencil"></i></a>
                                     <form action="{{ route('admin.users.destroy', $company->id) }}" method="post">

@@ -57,7 +57,7 @@
                             @enderror
                         </div>
                     </div>
-                    @if ($user->contractor_type == 'freelancer')
+                    @if ($user->contractor_type == 'individual')
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <label>Ваш пол:</label>
@@ -83,7 +83,7 @@
                                 @enderror
                             </div>
                         </div>
-                    @elseif($user->contractor_type == 'agency')
+                    @elseif($user->contractor_type == 'legal_entity')
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="company_name">Название компании</label>
@@ -93,7 +93,7 @@
                     @endif
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="aboutMySelf">@if($user->contractor_type == 'agency') О компании @elseif($user->contractor_type == 'freelancer') О себе @endif</label>
+                            <label for="aboutMySelf">@if($user->contractor_type == 'legal_entity') О компании @elseif($user->contractor_type == 'individual') О себе @endif</label>
                             <textarea name="about_myself" id="aboutMySelf">{{ $user->about_myself }}</textarea>
                         </div>
                     </div>

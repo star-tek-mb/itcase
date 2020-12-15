@@ -20,7 +20,7 @@
 @section('account.content')
     <form action="{{ route('site.account.customer.profile.save') }}" enctype="multipart/form-data" method="post">
         @csrf
-        @if ($user->customer_type == 'company')
+        @if ($user->customer_type == 'legal_entity')
             <section class="box-admin edit-profile">
                 <div class="header-box-admin">
                     <h3>Данные о компании</h3>
@@ -78,7 +78,7 @@
                 <h3>Личные данные</h3>
             </div>
             <div class="body-box-admin">
-                @if ($user->customer_type != 'company')
+                @if ($user->customer_type != 'legal_entity')
                     <div class="upload-avatar">
                         <div class="avatar">
                             <img src="{{ $user->getImage() }}" alt="{{ $user->getCommonTitle() }}">
@@ -112,7 +112,7 @@
                             @enderror
                         </div>
                     </div>
-                    @if ($user->customer_type !== 'company')
+                    @if ($user->customer_type !== 'legal_entity')
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label for="email">Электронная почта</label>

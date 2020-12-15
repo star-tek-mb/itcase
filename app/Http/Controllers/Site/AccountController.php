@@ -71,7 +71,7 @@ class AccountController extends Controller
             return view('site.pages.account.contractor.index', compact('user', 'accountPage'));
         }
         else if ($user->hasRole('customer')) {
-            if ($user->customer_type == 'company') $accountPage = 'company';
+            if ($user->customer_type == 'legal_entity') $accountPage = 'company';
             else $accountPage = 'personal';
             return view('site.pages.account.customer.index', compact('user', 'accountPage'));
         }
@@ -108,7 +108,7 @@ class AccountController extends Controller
             $userType . '_about_myself' => ['required', 'string'],
             $userType . '_company_name' => Rule::requiredIf($request->get('customer_type') == 'legal_entity'),
             'image' => 'required|image',
-            'agree_personal_data_processing' => 'required|boolean'
+            'agree_personal_data_processing' => 'required|accepted'
         ], $validationMessages)->validate();
         $this->userRepository->createAccount($request);
         if ($userType == 'contractor')
@@ -140,7 +140,7 @@ class AccountController extends Controller
         Validator::make($request->all(), [
             'name' => 'required|max:255|string',
             'about_myself' => 'required|string|max:5000',
-            'company_name' => Rule::requiredIf($user->contractor_type == 'agency'),
+            'company_name' => Rule::requiredIf($user->contractor_type == 'legal_entity'),
             'phone_number' => 'required'
         ], $validationMessages)->validate();
         $this->userRepository->update($user->id, $request);
@@ -217,7 +217,7 @@ class AccountController extends Controller
         ];
         Validator::make($request->all(), [
             'image' => 'required|image',
-            'company_name' => [Rule::requiredIf($user->customer_type == 'company')],
+            'company_name' => [Rule::requiredIf($user->customer_type == 'legal_entity')],
             'about_myself' => 'required|string|max:5000',
             'foundation_year' => 'nullable|integer',
             'site' => 'nullable|string|max:255',

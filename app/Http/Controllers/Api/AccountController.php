@@ -73,7 +73,7 @@ class AccountController extends Controller
             ]);
         }
         else if ($user->hasRole('customer')) {
-            if ($user->customer_type == 'company') $accountPage = 'company';
+            if ($user->customer_type == 'legal_entity') $accountPage = 'company';
             else $accountPage = 'personal';
             return response()->json([
                 'user' => $accountPage
@@ -103,9 +103,10 @@ class AccountController extends Controller
             $userType . '_email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
             $userType . '_about_myself' => ['required', 'string'],
             $userType . '_company_name' => Rule::requiredIf($request->get('customer_type') == 'legal_entity'),
-            'agree_personal_data_processing' => 'required|boolean'
+            // REMOVED IMAGE VALIDATION OF Base64
+            'agree_personal_data_processing' => 'required|accepted'
         ], $validationMessages);
-        if ($validator->fails()) {
+        if ($validator->fails() || !$request->file('image')) {
             return response()->json(['error' => $validator->errors()], 500);
         }
         $this->userRepository->createAccount($request);
@@ -130,7 +131,7 @@ class AccountController extends Controller
         Validator::make($request->all(), [
             'name' => 'required|max:255|string',
             'about_myself' => 'required|string|max:5000',
-            'company_name' => Rule::requiredIf($user->contractor_type == 'agency'),
+            'company_name' => Rule::requiredIf($user->contractor_type == 'legal_entity'),
             'phone_number' => 'required'
         ], $validationMessages)->validate();
         $this->userRepository->update($user->id, $request);
@@ -221,7 +222,7 @@ class AccountController extends Controller
         ];
         Validator::make($request->all(), [
             'image' => 'required|image',
-            'company_name' => [Rule::requiredIf($user->customer_type == 'company')],
+            'company_name' => [Rule::requiredIf($user->customer_type == 'legal_entity')],
             'about_myself' => 'required|string|max:5000',
             'foundation_year' => 'nullable|integer',
             'site' => 'nullable|string|max:255',

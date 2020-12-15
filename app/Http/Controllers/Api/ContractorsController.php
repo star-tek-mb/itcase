@@ -72,7 +72,6 @@ class ContractorsController extends Controller
         $contractorsCount = $contractors->count();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
         return response()->json([
-            'category'=>$category,
             'contractors'=>$contractors,
             'contractorsCount'=>$contractorsCount
         ]);
