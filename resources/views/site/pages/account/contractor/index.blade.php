@@ -50,14 +50,39 @@
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
+                            <label for="last_name">Ваше Фамилия</label>
+                            <input type="text" name="last_name" id="last_name"
+                                   class="form-control @error('name') is-invalid @enderror" value="{{ $user->last_name }}">
+                            @error('last_name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
                             <label for="phoneNumber">Номер телефона</label>
-                            <input type="text" name="phone_number" id="phoneNumber" class="form-control @error('phone_number') is-invalid @enderror" value="{{ $user->phone_number }}">
+                            <input type="text" name="phone_number" id="phoneNumber"
+                                   class="form-control @error('phone_number') is-invalid @enderror"
+                                   value="{{ $user->phone_number }}">
                             @error('phone_number')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
-                    @if ($user->contractor_type == 'freelancer')
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="phoneNumber">E-mail</label>
+                            <input type="text" name="email" id="email"
+                                   class="form-control @error('email') is-invalid @enderror"
+                                   value="{{ $user->email }}">
+                            @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+
+                    {{--@if ($user->contractor_type == 'freelancer')--}}
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <label>Ваш пол:</label>
@@ -77,23 +102,26 @@
                             <div class="form-group">
                                 <label for="birthdayDate">Дата рождения</label>
                                 <input type="text" class="form-control @error('birthday_date') is-invalid @enderror"
-                                       id="birthdayDate" name="birthday_date" value="{{ \Carbon\Carbon::create($user->birthday_date)->format('d.m.Y') }}">
+                                       id="birthdayDate" name="birthday_date"
+                                       value="{{ \Carbon\Carbon::create($user->birthday_date)->format('d.m.Y') }}">
                                 @error('birthday_date')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
-                    @elseif($user->contractor_type == 'agency')
+                    {{--@else--}}@if($user->contractor_type == 'agency')
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="company_name">Название компании</label>
-                                <input type="text" name="company_name" id="company_name" class="form-control form-control" value="{{ $user->company_name }}">
+                                <input type="text" name="company_name" id="company_name"
+                                       class="form-control form-control" value="{{ $user->company_name }}">
                             </div>
                         </div>
                     @endif
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="aboutMySelf">@if($user->contractor_type == 'agency') О компании @elseif($user->contractor_type == 'freelancer') О себе @endif</label>
+                            <label for="aboutMySelf">@if($user->contractor_type == 'agency') О
+                                компании @elseif($user->contractor_type == 'freelancer') О себе @endif</label>
                             <textarea name="about_myself" id="aboutMySelf">{{ $user->about_myself }}</textarea>
                         </div>
                     </div>
@@ -109,25 +137,29 @@
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="facebook"><i class="fab fa-facebook"></i> Facebook</label>
-                            <input type="text" name="facebook" id="facebook" class="form-control" value="{{ $user->facebook }}">
+                            <input type="text" name="facebook" id="facebook" class="form-control"
+                                   value="{{ $user->facebook }}">
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="twitter"><i class="fab fa-twitter"></i> Twitter</label>
-                            <input type="text" name="twitter" id="twitter" class="form-control" value="{{ $user->twitter }}">
+                            <input type="text" name="twitter" id="twitter" class="form-control"
+                                   value="{{ $user->twitter }}">
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="telegram"><i class="fab fa-telegram"></i> Telegram</label>
-                            <input type="text" name="telegram" id="telegram" class="form-control" value="{{ $user->telegram }}">
+                            <input type="text" name="telegram" id="telegram" class="form-control"
+                                   value="{{ $user->telegram }}">
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="instagram"><i class="fab fa-instagram"></i> Instagram</label>
-                            <input type="text" name="instagram" id="instagram" class="form-control" value="{{ $user->instagram }}">
+                            <input type="text" name="instagram" id="instagram" class="form-control"
+                                   value="{{ $user->instagram }}">
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
@@ -139,7 +171,8 @@
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</label>
-                            <input type="text" name="whatsapp" id="whatsapp" class="form-control" value="{{ $user->whatsapp }}">
+                            <input type="text" name="whatsapp" id="whatsapp" class="form-control"
+                                   value="{{ $user->whatsapp }}">
                         </div>
                     </div>
                 </div>
@@ -182,11 +215,12 @@
                 language: 'ru',
                 licenseKey: '',
             })
-            .then(editor => {
-                window.editor = editor;
-            })
-            .catch(error => {
-                console.error(error);
-            });
+            .then(editor = > {
+            window.editor = editor;
+        })
+        .catch(error = > {
+            console.error(error);
+        })
+        ;
     </script>
 @endsection
