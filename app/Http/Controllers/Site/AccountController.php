@@ -110,7 +110,7 @@ class AccountController extends Controller
             'agree_personal_data_processing' => 'required|boolean'
         ], $validationMessages)->validate();
         $data = $request;
-        $data->name = $request->first_name . ' ' . $request->last_name;
+        $data->request->add(['name' => $request->first_name . ' ' . $request->last_name]);
         $this->userRepository->createAccount($data);
         if ($userType == 'contractor')
             return redirect()->route('site.account.contractor.professional')->with('account.success', 'Ваш аккаунт создан! Заполните свои профессиональные данные, что бы вас могли найти в каталоге');
@@ -133,10 +133,12 @@ class AccountController extends Controller
         $validationMessages = [
             'required' => 'Это поле обязательно к заполнению',
             'max' => 'Количество символов должно быть не больше :max',
+            'min' => 'Количество символов должно быть не меньше :min',
+            'password' => 'Неверное пароль',
             'integer' => 'Укажите целочисленное значение',
             'date' => 'Неверный формат даты',
             'string' => 'Укажите стороковое значение',
-            'email' => 'Неверный формат электронной почты'
+            'email' => 'Неверный формат электронной почты',
         ];
 
         Validator::make($request->all(), [
@@ -144,12 +146,12 @@ class AccountController extends Controller
             'about_myself' => 'required|string|max:5000',
             'company_name' => Rule::requiredIf($user->contractor_type == 'agency'),
             'phone_number' => 'required',
-            'newPassword' => 'min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
-            'newPasswordRepeat' => 'min:6',
-            'currentPassword' => 'password|required_with:newPassword',
+            'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
+            'newPasswordRepeat' => 'nullable|min:6',
+            'currentPassword' => 'nullable|password|required_with:newPassword',
         ], $validationMessages)->validate();
         $data = $request;
-        $data->name = $request->first_name . ' ' . $request->last_name;
+        $data->request->add(['name' => $request->first_name . ' ' . $request->last_name]);
 
         $this->userRepository->update($user->id, $data);
 
@@ -238,7 +240,7 @@ class AccountController extends Controller
             'currentPassword' => 'password|required_with:newPassword',
         ], $validationMessages)->validate();
         $data = $request;
-        $data->name = $request->first_name . ' ' . $request->last_name;
+        $data->request->add(['name' => $request->first_name . ' ' . $request->last_name]);
         $this->userRepository->update($user->id, $data);
 
         return redirect()->route('site.account.index')->with('account.success', 'Ваш профиль обновлён');
