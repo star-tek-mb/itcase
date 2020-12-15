@@ -146,7 +146,7 @@ class AccountController extends Controller
         $user->authorizeRole('contractor');
         $chosenSpecs = $user->categories()->pluck('category_id')->toArray();
         $accountPage = 'professional';
-        $categories = $this->categoryRepository->all();
+        $categories = $this->categoryRepository->all()->load('categories');
         return response()->json([
             'user' => $user,
             'accountPage' => $accountPage,
