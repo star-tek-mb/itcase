@@ -101,35 +101,10 @@ class ContractorsController extends Controller
      * @param string $params
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
-    public function category(Request $request, string $params)
+    public function category(Request $request, $category_id)
     {
-        if (preg_match('/[A-Z]/', $params)) {
-            return response()->json([
-                'messages'=>strtolower($params),
-            ],301);
-        }
-        if (strpos($params, 'tenders') !== false) {
-            $paramsArray = explode('/', $params);
-            $slug = end($paramsArray);
-            return response()->json([
-                'messages'=>"tenders/$slug",
-            ],301);
-        }
-        if (strpos($params, 'blog') !== false) {
-            $paramsArray = explode('/', $params);
-            $slug = end($paramsArray);
-            return response()->json([
-                'messages'=>$slug,
-            ],301);
-        }
-        $paramsArray = explode('/', $params);
-        $slug = end($paramsArray);
-        $category = $this->categories->getBySlug($slug);
+        $category = $this->categories->get($id);
         if ($category) {
-            if ($category->getAncestorsSlugs() !== $params)
-                return response()->json([
-                    'messages'=>$category->getAncestorsSlugs(),
-                ],301);
             $contractors = $category->getAllCompaniesFromDescendingCategories()->sortByDesc('created_at');
             $contractorsCount = $contractors->count();
             $contractors = PaginateCollection::paginateCollection($contractors, 5);
@@ -138,24 +113,11 @@ class ContractorsController extends Controller
                 'contractors'=>$contractors,
                 'contractorsCount'=>$contractorsCount
             ]);
-        }
-        $menuItem = $this->menu->getBySlug($slug);
-        if ($menuItem) {
-            if ($menuItem->ru_slug !== $params)
-                return response()->json([
-                    'messages'=>$menuItem->ru_slug,
-                ],301);
-            $contractors = $menuItem->getCompanyFromCategories();
-            $category = $menuItem->categories[0]->parent;
-            $contractorsCount = $contractors->count();
-            $contractors = PaginateCollection::paginateCollection($contractors, 5);
+        } else {
             return response()->json([
-                'category'=>$category,
-                'contractors'=>$contractors,
-                'contractorsCount'=>$contractorsCount
-            ]);
+                'message' => 'Ресурс не найден'
+            ], 404);
         }
-        abort(404);
     }
 
 

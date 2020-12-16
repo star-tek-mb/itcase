@@ -28,8 +28,6 @@ Route::namespace('Api')->group(function() {
     Route::post('/account/professional', 'AccountController@saveProfessional');
     Route::post('/account/customer/profile/save', 'AccountController@saveCustomerProfile');
     Route::get('/account/tenders', 'AccountController@tenders');
-    Route::get('/account/tenders/{slug}/edit', 'AccountController@editTender');
-    Route::get('/account/tenders/{slug}/candidates', 'AccountController@tenderCandidates');
     Route::get('/account/portfolio', 'FileController@index');
     Route::post('/account/portfolio/save', 'FileController@save');
     Route::get('/account/chats', 'ChatsController@index');
@@ -40,7 +38,7 @@ Route::namespace('Api')->group(function() {
     // Tenders routes
     Route::get('/tenders', 'TenderController@index');
     Route::post('/tenders/search', 'TenderController@searchTender');
-    Route::get('/tenders/{params}', 'TenderController@category')->where('params', '.+');
+    Route::get('/tenders/category/{id}', 'TenderController@category');
     Route::post('/tenders/create', 'TenderController@store');
     Route::post('/tenders/makeRequest', 'TenderController@makeRequest');
     Route::post('/tenders/cancelRequest', 'TenderController@cancelRequest');
@@ -50,7 +48,7 @@ Route::namespace('Api')->group(function() {
 
     // Contractors routes
     Route::get('/contractors', 'ContractorsController@index');
-    Route::get('/contractors/category/{params}', 'ContractorsController@category')->where('params', '.+');
+    Route::get('/contractors/category/{id}', 'ContractorsController@category');
     Route::get('/contractors/addContractor/{contractorId}/to/{tenderId}', 'ContractorsController@addContractor');
     Route::get('/contractors/addContractorGuest/clear', 'ContractorsController@deleteAllContractorsFromSession');
     Route::get('/contractors/addContractorGuest/{contractorId}', 'ContractorsController@addContractorForNonAuth');

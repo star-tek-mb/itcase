@@ -128,12 +128,15 @@ class AccountController extends Controller
             'string' => 'Укажите стороковое значение',
             'email' => 'Неверный формат электронной почты'
         ];
-        Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'name' => 'required|max:255|string',
             'about_myself' => 'required|string|max:5000',
             'company_name' => Rule::requiredIf($user->contractor_type == 'legal_entity'),
             'phone_number' => 'required'
-        ], $validationMessages)->validate();
+        ], $validationMessages);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 500);
+        }
         $this->userRepository->update($user->id, $request);
         return response()->json([
             'message' => 'Ваши личные данные обновлены'
@@ -235,32 +238,6 @@ class AccountController extends Controller
 
         return response()->json([
             'message' =>  'Ваш профиль обновлён']);
-    }
-
-    public function editTender(string $slug)
-    {
-        $user = auth()->user();
-        $tender = $user->ownedTenders()->where('slug', $slug)->first();
-        $accountPage = 'tenders';
-        abort_if(!$tender, 404);
-        return response()->json([
-            'user'=>$user ,
-            'accountPage'=>$accountPage,
-            'tender'=>$tender
-        ]);
-
-    }
-
-    public function tenderCandidates (string $slug) {
-        $user = auth()->user();
-        $tender = $user->ownedTenders()->where('slug', $slug)->first();
-        abort_if(!$tender, 404);
-        $accountPage = 'tenders';
-        return response()->json([
-            'user'=>$user ,
-            'accountPage'=>$accountPage,
-            'tender'=>$tender
-        ]);
     }
 
 
