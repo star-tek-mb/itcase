@@ -303,7 +303,7 @@ class User extends Authenticatable
      */
     private function generateFileName(string $imageName)
     {
-        return str_random(20) . $imageName;
+        return Str::random(20) . $imageName;
     }
 
     /**

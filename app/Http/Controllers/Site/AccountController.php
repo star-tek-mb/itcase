@@ -110,8 +110,9 @@ class AccountController extends Controller
             'agree_personal_data_processing' => 'required|boolean'
         ], $validationMessages)->validate();
         $data = $request;
-        $data->request->add(['name' => $request->first_name . ' ' . $request->last_name]);
+        $data->request->add([$userType .'_name' => $request->first_name . ' ' . $request->last_name]);
         $this->userRepository->createAccount($data);
+
         if ($userType == 'contractor')
             return redirect()->route('site.account.contractor.professional')->with('account.success', 'Ваш аккаунт создан! Заполните свои профессиональные данные, что бы вас могли найти в каталоге');
         if ($request->hasCookie('tenderId')) {
@@ -221,10 +222,12 @@ class AccountController extends Controller
         $validationMessages = [
             'required' => 'Это поле обязательно к заполнению',
             'max' => 'Количество символов должно быть не больше :max',
+            'min' => 'Количество символов должно быть не меньше :min',
             'integer' => 'Укажите целочисленное значение',
             'date' => 'Неверный формат даты',
             'string' => 'Укажите стороковое значение',
-            'email' => 'Неверный формат электронной почты'
+            'email' => 'Неверный формат электронной почты',
+            'password' => 'Неверное пароль',
         ];
         Validator::make($request->all(), [
             'image' => 'required|image',
@@ -235,9 +238,9 @@ class AccountController extends Controller
             'phone_number' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'first_name' => 'required|max:255',
-            'newPassword' => 'min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
-            'newPasswordRepeat' => 'min:6',
-            'currentPassword' => 'password|required_with:newPassword',
+            'newPassword' => 'required_with:newPasswordRepeat|same:newPasswordRepeat',
+            //'newPasswordRepeat' => 'min:6',
+            'currentPassword' => 'required_with:newPassword',
         ], $validationMessages)->validate();
         $data = $request;
         $data->request->add(['name' => $request->first_name . ' ' . $request->last_name]);

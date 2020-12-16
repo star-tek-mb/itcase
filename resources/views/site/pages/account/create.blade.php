@@ -65,7 +65,7 @@
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="first_name">Ваше имя</label>
-                                                <input type="hidden" name="name">
+                                                <input type="hidden" name="contractor_name" value="contractor_name">
                                                 <input type="text" name="first_name" id="first_name"
                                                        class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name }}">
                                                 @error('first_name')
@@ -200,7 +200,7 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
                                             <label for="first_name">Ваше имя</label>
-                                            <input type="hidden" name="name">
+                                            <input type="hidden" name="customer_name" value="customer_name">
                                             <input type="text" name="first_name" id="first_name"
                                                    class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name }}">
                                             @error('first_name')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Helpers\SlugHelper;
 use App\Http\Controllers\Helpers\PaginateCollection;
+use App\Models\Tender;
 use App\Notifications\InviteRequest;
 use App\Repositories\HandbookCategoryRepositoryInterface;
 use App\Repositories\MenuRepositoryInterface;
@@ -66,7 +67,7 @@ class ContractorsController extends Controller
     {
         $categories = $this->categories->all();
         $contractors = collect();
-        foreach($categories as $category){
+        foreach ($categories as $category) {
             $contractors = $contractors->merge($category->getAllCompaniesFromDescendingCategories()->sortByDesc('created_at'));
         }
         $contractorsCount = $contractors->count();
@@ -75,16 +76,17 @@ class ContractorsController extends Controller
 
     }
 
-    public function contractorSearch(Request $request){
-      $categories = $this->categories->all();
-      foreach($categories as $category){
+    public function contractorSearch(Request $request)
+    {
+        $categories = $this->categories->all();
+        foreach ($categories as $category) {
 
-      }
-      $contractors = $this->users->searchContractors($request);
+        }
+        $contractors = $this->users->searchContractors($request);
 
-      $contractorsCount = $contractors->count();
-      $contractors = PaginateCollection::paginateCollection($contractors, 5);
-      return view('site.pages.contractors.index', compact('category', 'contractors', 'contractorsCount'));
+        $contractorsCount = $contractors->count();
+        $contractors = PaginateCollection::paginateCollection($contractors, 5);
+        return view('site.pages.contractors.index', compact('category', 'contractors', 'contractorsCount'));
     }
 
     /**
@@ -146,26 +148,32 @@ class ContractorsController extends Controller
         $contractor = $this->users->getContractorBySlug($slug);
         $portfolio = $this->users->getPortfolioBySlug($slug);
         $comments = $this->users->getCommentBySlug($slug);
+        $has_comment=false;
         $mean = 0;
-        foreach($comments as $comment_sum){
-          $mean+=(int)$comment_sum->assessment;
+        foreach ($comments as $comment_sum) {
+            $mean += (int)$comment_sum->assessment;
         }
-        if($mean!=0){
-          $mean = $mean/count($comments);
+        if ($mean != 0) {
+            $mean = $mean / count($comments);
         }
 
         abort_if(!$contractor, 404);
 
-        return view('site.pages.contractors.show', compact('contractor', 'portfolio', 'comments', 'mean'));
+        if (auth()->user()->hasRole('customer'))
+            if (!empty(Tender::where('owner_id', auth()->user()->id)->where('contractor_id', $contractor->id)->first()))
+                $has_comment=true;
+        return view('site.pages.contractors.show', compact('contractor', 'portfolio', 'comments', 'mean','has_comment'));
     }
 
-    public function addContractor(int $contractorId, int $tenderId) {
+    public function addContractor(int $contractorId, int $tenderId)
+    {
         $request = $this->tenders->addContractor($tenderId, $contractorId);
         $this->users->get($contractorId)->notify(new InviteRequest($request));
         return back()->with('success', 'Исполнитель добавлен в конкурс!');
     }
 
-    public function addContractorForNonAuth(int $contractorId) {
+    public function addContractorForNonAuth(int $contractorId)
+    {
         $user = $this->users->get($contractorId);
         $contractors = \Session::get('contractors', collect());
         if ($contractors->contains('id', $contractorId))
@@ -179,7 +187,8 @@ class ContractorsController extends Controller
         return back();
     }
 
-    public function deleteContractorFromSession(int $contractorId) {
+    public function deleteContractorFromSession(int $contractorId)
+    {
         $contractors = \Session::get('contractors');
         if (!$contractors->contains('id', $contractorId))
             return back();
@@ -195,7 +204,8 @@ class ContractorsController extends Controller
         return back();
     }
 
-    public function deleteAllContractorsFromSession() {
+    public function deleteAllContractorsFromSession()
+    {
         \Session::forget('contractors');
         \Session::save();
         return back();
