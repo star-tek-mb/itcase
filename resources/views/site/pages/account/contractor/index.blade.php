@@ -159,6 +159,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="upload-avatar">
+                    <div class="avatar">
+                        <embed  src="{{ $user->getResume() }}" width="100" height="85" style="max-width: 100%;"></embed >
+                    </div>
+                    <div class="upload">
+                        <div class="desc">Формат: pdf, jpg</div>
+                        <div class="btn-upload">
+                            <input type="file" name="resume" id="resume">
+                            <span class="btn btn-light-green">Прикрепить резюме</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
         <section class="box-admin edit-profile">

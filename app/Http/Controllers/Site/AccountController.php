@@ -110,7 +110,7 @@ class AccountController extends Controller
             'agree_personal_data_processing' => 'required|boolean'
         ], $validationMessages)->validate();
         $data = $request;
-        $data->request->add([$userType .'_name' => $request->first_name . ' ' . $request->last_name]);
+        $data->request->add([($userType.'_name')=> $request->first_name . ' ' . $request->last_name]);
         $this->userRepository->createAccount($data);
 
         if ($userType == 'contractor')
@@ -140,6 +140,7 @@ class AccountController extends Controller
             'date' => 'Неверный формат даты',
             'string' => 'Укажите стороковое значение',
             'email' => 'Неверный формат электронной почты',
+            'mimes' => 'Неверный формат резюме',
         ];
 
         Validator::make($request->all(), [
@@ -150,6 +151,7 @@ class AccountController extends Controller
             'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
             'newPasswordRepeat' => 'nullable|min:6',
             'currentPassword' => 'nullable|password|required_with:newPassword',
+            'resume' => 'sometimes|mimes:jpeg,pdf,jpg',
         ], $validationMessages)->validate();
         $data = $request;
         $data->request->add(['name' => $request->first_name . ' ' . $request->last_name]);
@@ -230,17 +232,17 @@ class AccountController extends Controller
             'password' => 'Неверное пароль',
         ];
         Validator::make($request->all(), [
-            'image' => 'required|image',
+            //'image' => 'required|image',
             'company_name' => [Rule::requiredIf($user->customer_type == 'company')],
-            'about_myself' => 'required|string|max:5000',
-            'foundation_year' => 'nullable|integer',
+            //'about_myself' => 'required|string|max:5000',
+           // 'foundation_year' => 'nullable|integer',
             'site' => 'nullable|string|max:255',
             'phone_number' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'first_name' => 'required|max:255',
-            'newPassword' => 'required_with:newPasswordRepeat|same:newPasswordRepeat',
-            //'newPasswordRepeat' => 'min:6',
-            'currentPassword' => 'required_with:newPassword',
+            'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
+            'newPasswordRepeat' => 'nullable|min:6',
+            'currentPassword' => 'nullable|password|required_with:newPassword',
         ], $validationMessages)->validate();
         $data = $request;
         $data->request->add(['name' => $request->first_name . ' ' . $request->last_name]);

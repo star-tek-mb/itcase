@@ -283,6 +283,18 @@ class User extends Authenticatable
         $image->storeAs(self::$UPLOAD_DIRECTORY, $filename, '');
         $this->saveImageName($filename);
     }
+    public function uploadResume( $resume)
+    {
+        if (!$resume) return;
+
+        if ($this->resume) {
+            Storage::delete(self::$UPLOAD_DIRECTORY . $this->resume);
+        }
+        $filename = $this->generateFileName($resume->extension());
+        $resume->storeAs(self::$UPLOAD_DIRECTORY, $filename, '');
+        $this->resume = $filename;
+        $this->save();
+    }
 
     /**
      * Set default user avatar
@@ -303,7 +315,7 @@ class User extends Authenticatable
      */
     private function generateFileName(string $imageName)
     {
-        return Str::random(20) . $imageName;
+        return Str::random(20) .'.'. $imageName;
     }
 
     /**
@@ -318,7 +330,13 @@ class User extends Authenticatable
         else
             return asset('assets/img/avatars/avatar15.jpg');
     }
-
+    public function getResume()
+    {
+        if ($this->resume)
+            return '/' . self::$UPLOAD_DIRECTORY . $this->resume;
+        else
+            return asset('assets/img/avatars/avatar15.jpg');
+    }
     /**
      * Remove an image
      *
