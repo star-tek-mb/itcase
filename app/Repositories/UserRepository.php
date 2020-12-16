@@ -64,6 +64,7 @@ class UserRepository implements UserRepositoryInterface
         $user = User::create($data);
         $user->roles()->attach($role);
         $user->save();
+        $user->generateSlug();
         $user->uploadImage($userData->file('image'));
     }
 

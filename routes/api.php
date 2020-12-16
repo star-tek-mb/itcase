@@ -39,6 +39,7 @@ Route::namespace('Api')->group(function() {
     Route::get('/tenders', 'TenderController@index');
     Route::post('/tenders/search', 'TenderController@searchTender');
     Route::get('/tenders/category/{id}', 'TenderController@category');
+    Route::get('/tenders/{id}', 'TenderController@tender');
     Route::post('/tenders/create', 'TenderController@store');
     Route::post('/tenders/makeRequest', 'TenderController@makeRequest');
     Route::post('/tenders/cancelRequest', 'TenderController@cancelRequest');
@@ -50,10 +51,7 @@ Route::namespace('Api')->group(function() {
     Route::get('/contractors', 'ContractorsController@index');
     Route::get('/contractors/category/{id}', 'ContractorsController@category');
     Route::get('/contractors/addContractor/{contractorId}/to/{tenderId}', 'ContractorsController@addContractor');
-    Route::get('/contractors/addContractorGuest/clear', 'ContractorsController@deleteAllContractorsFromSession');
-    Route::get('/contractors/addContractorGuest/{contractorId}', 'ContractorsController@addContractorForNonAuth');
-    Route::get('/contractors/addContractorGuest/remove/{contractorId}', 'ContractorsController@deleteContractorFromSession');
-    Route::get('/contractors/{slug}', 'ContractorsController@contractor');
+    Route::get('/contractors/{id}', 'ContractorsController@contractor');
     Route::post('/contractors/comment', 'CommentController@createCommentContractor');
     Route::post('/contractors/search', 'ContractorsController@contractorSearch');
 

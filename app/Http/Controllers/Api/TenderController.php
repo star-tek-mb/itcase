@@ -115,6 +115,18 @@ class TenderController extends Controller
         }
     }
 
+    public function tender($id)
+    {
+        $tender = $this->tenderRepository->get($id)->load('categories');
+        if ($tender) {
+            return response()->json($tender);
+        } else {
+            return response()->json([
+                'message' => 'Ресурс не найден'
+            ], 404);
+        }
+    }
+
     public function store(Request $request)
     {
         $validationMessages = [
@@ -137,20 +149,6 @@ class TenderController extends Controller
         ], $validationMessages)->validate();
         $tender = $this->tenderRepository->create($request);
 
-        if (!Auth::check()) {
-            if (session()->has('contractors')) {
-                $contractors = session('contractors');
-                foreach ($contractors as $contractor) {
-                    $request = $tender->requests()->create(['user_id' => $contractor['id'], 'invited' => true]);
-                    User::find($contractor['id'])->notify(new InviteRequest($request));
-                }
-                session()->forget('contractors');
-                session()->save();
-            }
-            return response()->json([
-                'success' => 'Ваш тендер сохранён и будет отправлен на модерацию только после регистрации',
-            ])->withCookie(cookie('tenderId', "$tender->id"));
-        }
         Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
         return response()->json([
             'success' => "Тендер $tender->title создан и отправлен на модерацию!"
