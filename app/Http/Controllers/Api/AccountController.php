@@ -65,18 +65,20 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
+        $user = auth()->user()->load('categories');
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';
             return response()->json([
-                'user' => $accountPage
+                'accountPage' => $accountPage,
+                'user' => $user
             ]);
         }
         else if ($user->hasRole('customer')) {
             if ($user->customer_type == 'legal_entity') $accountPage = 'company';
             else $accountPage = 'personal';
             return response()->json([
-                'user' => $accountPage
+                'accountPage' => $accountPage,
+                'user' => $user
             ]);
         }
         else
