@@ -282,4 +282,16 @@ class CatalogController extends Controller
 	    $data['queryString'] = $query;
         return view('site.pages.catalog.search', $data);
     }
+    public function ajax_search(Request $request)
+    {
+
+        $tenders = $this->tenders->TenderSearch($request);
+        $result="";
+      foreach ($tenders as $tender){
+          $result.='<a href="'.route('site.tenders.category', $tender->slug) .'">'.$tender->title.' </a>';
+          $result.="<br>";
+      }
+        return $result;
+        //return  $data;
+    }
 }

@@ -274,7 +274,7 @@ class User extends Authenticatable
      *
      * @param $image
      */
-    public function uploadImage(UploadedFile $image)
+    public function uploadImage( $image)
     {
         if (!$image) return;
 
