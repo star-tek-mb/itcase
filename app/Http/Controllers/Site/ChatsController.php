@@ -33,6 +33,7 @@ class ChatsController extends Controller
         $accountPage = 'chat';
         if ($request->has('chat_id')) {
             $chat = $this->chatRepository->getById($request->get('chat_id'));
+
             return view('site.pages.account.chat.show', compact('user', 'chat', 'accountPage'));
         }
         return view('site.pages.account.chat.index', compact('user', 'accountPage'));
@@ -84,5 +85,21 @@ class ChatsController extends Controller
         $chat = Chat::create();
         $chat->participants()->attach([$currentUser->id, $withUserId]);
         return redirect(route('site.account.chats') . '?chat_id=' . $chat->id);
+    }
+    public function searchChat(Request $request)
+    {
+        $user = auth()->user();
+        $chats=Message::where('user_id', $user->id)->where('text', 'LIKE', "%{$request->search}%")
+            ->orWhere('text', 'LIKE', "%{$request->search}")
+            ->orWhere('text', 'LIKE', "{$request->search}%")
+            ->get();
+
+        $result="";
+        foreach ($chats as $chat){
+            var_dump($chat->chat_id);
+            $result.='<a href="'.route('site.account.chats', ['chat_id'=>$chat->chat_id]) .'">'.$chat->text.' </a>';
+            $result.="<br>";
+        }
+        return $result;
     }
 }
