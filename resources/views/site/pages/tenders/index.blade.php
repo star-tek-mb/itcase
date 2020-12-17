@@ -41,6 +41,7 @@
                             @csrf
                             <div class="form-group">
                               <input class="form-control" name="search" type="text" placeholder="Поиск здесь...">
+                                <div id="livesearch"></div>
                               <button class="btn-clear" type="submit"><i class="fa fa-search"></i></button>
                             </div>
                           </form>
