@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Helpers\SlugHelper;
 use App\Http\Controllers\Helpers\PaginateCollection;
+use App\Models\Tender;
 use App\Notifications\InviteRequest;
 use App\Repositories\HandbookCategoryRepositoryInterface;
 use App\Repositories\MenuRepositoryInterface;
@@ -146,6 +147,7 @@ class ContractorsController extends Controller
         $contractor = $this->users->getContractorBySlug($slug);
         $portfolio = $this->users->getPortfolioBySlug($slug);
         $comments = $this->users->getCommentBySlug($slug);
+        $has_comment=false;
         $mean = 0;
         foreach($comments as $comment_sum){
           $mean+=(int)$comment_sum->assessment;
@@ -156,7 +158,10 @@ class ContractorsController extends Controller
 
         abort_if(!$contractor, 404);
 
-        return view('site.pages.contractors.show', compact('contractor', 'portfolio', 'comments', 'mean'));
+        if (auth()->user()->hasRole('customer'))
+            if (!empty(Tender::where('owner_id', auth()->user()->id)->where('contractor_id', $contractor->id)->first()))
+                $has_comment=true;
+        return view('site.pages.contractors.show', compact('contractor', 'portfolio', 'comments', 'mean','has_comment'));
     }
 
     public function addContractor(int $contractorId, int $tenderId) {

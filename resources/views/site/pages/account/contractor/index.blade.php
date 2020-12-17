@@ -40,10 +40,21 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label for="name">Ваше имя</label>
-                            <input type="text" name="name" id="name"
-                                   class="form-control @error('name') is-invalid @enderror" value="{{ $user->name }}">
-                            @error('name')
+                            <label for="first_name">Ваше имя</label>
+                            <input type="hidden" name="name">
+                            <input type="text" name="first_name" id="first_name"
+                                   class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name }}">
+                            @error('first_name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="last_name">Ваше Фамилия</label>
+                            <input type="text" name="last_name" id="last_name"
+                                   class="form-control @error('name') is-invalid @enderror" value="{{ $user->last_name }}">
+                            @error('last_name')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -57,7 +68,20 @@
                             @enderror
                         </div>
                     </div>
-                    @if ($user->contractor_type == 'freelancer')
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="text" name="email" id="email"
+                                   class="form-control @error('email') is-invalid @enderror"
+                                   value="{{ $user->email }}">
+                            @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+
+                    {{--@if ($user->contractor_type == 'freelancer')--}}
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <label>Ваш пол:</label>
@@ -83,7 +107,7 @@
                                 @enderror
                             </div>
                         </div>
-                    @elseif($user->contractor_type == 'agency')
+                    {{--@else--}}@if($user->contractor_type == 'agency')
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="company_name">Название компании</label>
@@ -91,6 +115,38 @@
                             </div>
                         </div>
                     @endif
+                    <div class="col-sm-12 col-md-12"> <label>Сменить пароль:</label> </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="newPassword"> Новый пароль</label>
+                            <input type="password" name="newPassword" id="newPassword"
+                                   class="form-control @error('newPassword') is-invalid @enderror">
+                            @error('newPassword')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="email">Повторите новый пароль</label>
+                            <input type="password" name="newPasswordRepeat" id="newPasswordRepeat"
+                                   class="form-control @error('newPasswordRepeat') is-invalid @enderror">
+                            @error('newPasswordRepeat')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="currentPassword">Текущий пароль</label>
+                            <input type="password" name="currentPassword" id="currentPassword"
+                                   class="form-control @error('currentPassword') is-invalid @enderror">
+                            @error('currentPassword')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label for="aboutMySelf">@if($user->contractor_type == 'agency') О компании @elseif($user->contractor_type == 'freelancer') О себе @endif</label>
@@ -98,6 +154,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="upload-avatar">
+                    <div class="avatar">
+                        <embed  src="{{ $user->getResume() }}" width="100" height="85" style="max-width: 100%;"></embed >
+                    </div>
+                    <div class="upload">
+                        <div class="desc">Формат: pdf, jpg</div>
+                        <div class="btn-upload">
+                            <input type="file" name="resume" id="resume">
+                            <span class="btn btn-light-green">Прикрепить резюме</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
         <section class="box-admin edit-profile">
@@ -183,10 +252,10 @@
                 licenseKey: '',
             })
             .then(editor => {
-                window.editor = editor;
-            })
-            .catch(error => {
-                console.error(error);
-            });
+            window.editor = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
     </script>
 @endsection

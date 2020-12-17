@@ -66,6 +66,7 @@ class AccountController extends Controller
     public function index()
     {
         $user = auth()->user();
+        list($user->first_name, $user->last_name) = array_pad(explode(' ', trim($user->name)), 2, null);
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';
             return view('site.pages.account.contractor.index', compact('user', 'accountPage'));
@@ -110,7 +111,10 @@ class AccountController extends Controller
             'image' => 'required|image',
             'agree_personal_data_processing' => 'required|boolean'
         ], $validationMessages)->validate();
-        $this->userRepository->createAccount($request);
+        $data = $request;
+        $data->request->add([($userType.'_name')=> $request->first_name . ' ' . $request->last_name]);
+        $this->userRepository->createAccount($data);
+
         if ($userType == 'contractor')
             return redirect()->route('site.account.contractor.professional')->with('account.success', 'Ваш аккаунт создан! Заполните свои профессиональные данные, что бы вас могли найти в каталоге');
         if ($request->hasCookie('tenderId')) {
@@ -132,18 +136,28 @@ class AccountController extends Controller
         $validationMessages = [
             'required' => 'Это поле обязательно к заполнению',
             'max' => 'Количество символов должно быть не больше :max',
+            'min' => 'Количество символов должно быть не меньше :min',
+            'password' => 'Неверное пароль',
             'integer' => 'Укажите целочисленное значение',
             'date' => 'Неверный формат даты',
             'string' => 'Укажите стороковое значение',
-            'email' => 'Неверный формат электронной почты'
+            'email' => 'Неверный формат электронной почты',
+            'mimes' => 'Неверный формат резюме',
         ];
         Validator::make($request->all(), [
-            'name' => 'required|max:255|string',
+            'first_name' => 'required|max:255|string',
             'about_myself' => 'required|string|max:5000',
             'company_name' => Rule::requiredIf($user->contractor_type == 'agency'),
-            'phone_number' => 'required'
+            'phone_number' => 'required',
+            'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
+            'newPasswordRepeat' => 'nullable|min:6',
+            'currentPassword' => 'nullable|password|required_with:newPassword',
+            'resume' => 'sometimes|mimes:jpeg,pdf,jpg',
         ], $validationMessages)->validate();
-        $this->userRepository->update($user->id, $request);
+        $data = $request;
+        $data->request->add(['name' => $request->first_name . ' ' . $request->last_name]);
+
+        $this->userRepository->update($user->id, $data);
 
         return redirect()->route('site.account.index')->with('account.success', 'Ваши личные данные обновлены');
     }
@@ -210,10 +224,12 @@ class AccountController extends Controller
         $validationMessages = [
             'required' => 'Это поле обязательно к заполнению',
             'max' => 'Количество символов должно быть не больше :max',
+            'min' => 'Количество символов должно быть не меньше :min',
             'integer' => 'Укажите целочисленное значение',
             'date' => 'Неверный формат даты',
             'string' => 'Укажите стороковое значение',
-            'email' => 'Неверный формат электронной почты'
+            'email' => 'Неверный формат электронной почты',
+            'password' => 'Неверное пароль',
         ];
         Validator::make($request->all(), [
             'image' => 'required|image',
@@ -223,10 +239,14 @@ class AccountController extends Controller
             'site' => 'nullable|string|max:255',
             'phone_number' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'name' => 'required|max:255'
+            'first_name' => 'required|max:255',
+            'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
+            'newPasswordRepeat' => 'nullable|min:6',
+            'currentPassword' => 'nullable|password|required_with:newPassword',
         ], $validationMessages)->validate();
-
-        $this->userRepository->update($user->id, $request);
+        $data = $request;
+        $data->request->add(['name' => $request->first_name . ' ' . $request->last_name]);
+        $this->userRepository->update($user->id, $data);
 
         return redirect()->route('site.account.index')->with('account.success', 'Ваш профиль обновлён');
     }
