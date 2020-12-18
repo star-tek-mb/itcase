@@ -239,7 +239,7 @@
 
                         @guest
                         @else
-                        @if (auth()->user()->hasRole('customer'))
+                        @if (auth()->user()->hasRole('customer') && $has_comment )
                         <form action="{{ route('site.contractors.comment.contractor') }}" method="post">
                           @csrf
 
@@ -289,6 +289,7 @@
                             <div class="job-detail-summary">
                                 <h3 class="title-block">Информация</h3>
                                 <ul>
+                                    <li> ID: {{$contractor->id}}</li>
                                   @if($mean!=0)
                                   <li>Рейтинг:
                                     @for($i=0; $i<$mean; $i++)

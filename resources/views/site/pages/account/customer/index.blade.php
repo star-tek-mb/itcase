@@ -95,10 +95,21 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label for="name">Ваше имя</label>
-                            <input type="text" name="name" id="name"
-                                   class="form-control @error('name') is-invalid @enderror" value="{{ $user->name }}">
-                            @error('name')
+                            <label for="first_name">Ваше имя</label>
+                            <input type="hidden" name="name">
+                            <input type="text" name="first_name" id="first_name"
+                                   class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name }}">
+                            @error('first_name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="last_name">Ваше Фамилия</label>
+                            <input type="text" name="last_name" id="last_name"
+                                   class="form-control @error('name') is-invalid @enderror" value="{{ $user->last_name }}">
+                            @error('last_name')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -120,6 +131,63 @@
                             </div>
                         </div>
                     @endif
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="form-group">
+                    <label>Ваш пол:</label>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" name="gender" value="male" id="maleRadio"
+                               class="custom-control-input" @if ($user->gender == 'male') checked @endif>
+                        <label for="maleRadio" class="custom-control-label">Мужской</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" name="gender" value="female" id="femaleRadio"
+                               class="custom-control-input" @if ($user->gender == 'female') checked @endif>
+                        <label for="femaleRadio" class="custom-control-label">Женский</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="form-group">
+                    <label for="birthdayDate">Дата рождения</label>
+                    <input type="text" class="form-control @error('birthday_date') is-invalid @enderror"
+                           id="birthdayDate" name="birthday_date"
+                           value="{{ \Carbon\Carbon::create($user->birthday_date)->format('d.m.Y') }}">
+                    @error('birthday_date')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12"> <label>Сменить пароль:</label> </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="form-group">
+                    <label for="newPassword"> Новый пароль</label>
+                    <input type="password" name="newPassword" id="newPassword"
+                           class="form-control @error('newPassword') is-invalid @enderror">
+                    @error('newPassword')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="form-group">
+                    <label for="email">Повторите новый пароль</label>
+                    <input type="password" name="newPasswordRepeat" id="newPasswordRepeat"
+                           class="form-control @error('newPasswordRepeat') is-invalid @enderror">
+                    @error('newPasswordRepeat')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="form-group">
+                    <label for="currentPassword">Текущий пароль</label>
+                    <input type="password" name="currentPassword" id="currentPassword"
+                           class="form-control @error('currentPassword') is-invalid @enderror">
+                    @error('currentPassword')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
         </section>
