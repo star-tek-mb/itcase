@@ -72,7 +72,7 @@ class AccountController extends Controller
             return view('site.pages.account.contractor.index', compact('user', 'accountPage'));
         }
         else if ($user->hasRole('customer')) {
-            if ($user->customer_type == 'company') $accountPage = 'company';
+            if ($user->customer_type == 'legal_entity') $accountPage = 'company';
             else $accountPage = 'personal';
             return view('site.pages.account.customer.index', compact('user', 'accountPage'));
         }
@@ -109,7 +109,7 @@ class AccountController extends Controller
             $userType . '_about_myself' => ['required', 'string'],
             $userType . '_company_name' => Rule::requiredIf($request->get('customer_type') == 'legal_entity'),
             'image' => 'required|image',
-            'agree_personal_data_processing' => 'required|boolean'
+            'agree_personal_data_processing' => 'required|accepted'
         ], $validationMessages)->validate();
         $data = $request;
         $data->request->add([($userType.'_name')=> $request->first_name . ' ' . $request->last_name]);
@@ -147,7 +147,7 @@ class AccountController extends Controller
         Validator::make($request->all(), [
             'first_name' => 'required|max:255|string',
             'about_myself' => 'required|string|max:5000',
-            'company_name' => Rule::requiredIf($user->contractor_type == 'agency'),
+            'company_name' => Rule::requiredIf($user->contractor_type == 'legal_entity'),
             'phone_number' => 'required',
             'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
             'newPasswordRepeat' => 'nullable|min:6',
@@ -233,7 +233,7 @@ class AccountController extends Controller
         ];
         Validator::make($request->all(), [
             'image' => 'required|image',
-            'company_name' => [Rule::requiredIf($user->customer_type == 'company')],
+            'company_name' => [Rule::requiredIf($user->customer_type == 'legal_entity')],
             'about_myself' => 'required|string|max:5000',
             'foundation_year' => 'nullable|integer',
             'site' => 'nullable|string|max:255',

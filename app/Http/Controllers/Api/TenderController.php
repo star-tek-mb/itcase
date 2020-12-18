@@ -96,73 +96,34 @@ class TenderController extends Controller
 
     }
 
-    public function category(string $params)
+    public function category($category_id)
     {
-        if (preg_match('/[A-Z]/', $params)) {
+        $currentCategory = $this->categoryRepository->get($category_id);
+        if ($currentCategory) {
+            $tenders = $currentCategory->tenders()->whereNotNull('owner_id')->where('published', true)->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
+            $tendersCount = $tenders->count();
+            $tenders = PaginateCollection::paginateCollection($tenders, 5);
             return response()->json([
-                'message' => strtolower($params),
-
-            ], 301);
-        }
-        if (substr_count($params, 'tenders') > 1) {
-            $paramsArray = explode('/', $params);
-            $uniqueParams = array_unique($paramsArray);
-            return response()->json([
-                'message' => implode('/', $uniqueParams),
-
-            ], 301);
-        }
-        $paramsArray = explode('/', $params);
-        $tenders = collect();
-        $currentCategory = null;
-        if (count($paramsArray) === 1) {
-            $menuItemSlug = $paramsArray[0];
-            $menuItem = $this->menuItemsRepository->getBySlug($menuItemSlug);
-            if ($menuItem) {
-                if ($menuItem->ru_slug !== $params)
-                    return redirect(route('site.tenders.category', $menuItem->ru_slug), 301);
-                foreach ($menuItem->categories as $category)
-                    $tenders = $tenders->merge($category->tenders()->whereNotNull('owner_id')->where('published', true)->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get());
-                $tenders = $tenders->unique(function ($item) {
-                    return $item->id;
-                });
-                $currentCategory = $menuItem;
-                $tendersCount = $tenders->count();
-                $tenders = PaginateCollection::paginateCollection($tenders, 5);
-                return response()->json([
-                    'tenders' => $tenders,
-                    'currentCategory'=>$currentCategory,
-                    'tendersCount'=>$tendersCount
-                ]);
-            }
-            $tender = $this->tenderRepository->getBySlug($menuItemSlug);
-            if ($tender) {
-                if ($tender->slug !== $params) {
-                    return redirect(route('site.catalog.tenders', $tender->slug), 301);
-                }
-                return response()->json([
-                    'tenders' => $tenders,
-                ]);
-
-            }
-            abort(404, "Ресурс не найден");
+                'tenders' => $tenders,
+                'currentCategory'=>$currentCategory,
+                'tendersCount'=>$tendersCount
+            ]);
         } else {
-            $categorySlug = end($paramsArray);
-            $currentCategory = $this->categoryRepository->getBySlug($categorySlug);
-            if ($currentCategory) {
-                if ($currentCategory->getAncestorsSlugs() !== $params)
-                    return redirect(route('site.tenders.category', $currentCategory->getAncestorsSlugs()), 301);
-                $tenders = $currentCategory->tenders()->whereNotNull('owner_id')->where('published', true)->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
-                $tendersCount = $tenders->count();
-                $tenders = PaginateCollection::paginateCollection($tenders, 5);
-                return response()->json([
-                    'tenders' => $tenders,
-                    'currentCategory'=>$currentCategory,
-                    'tendersCount'=>$tendersCount
-                ]);
-            } else {
-                abort(404, "Ресурс не найден");
-            }
+            return response()->json([
+                'message' => 'Ресурс не найден'
+            ], 404);
+        }
+    }
+
+    public function tender($id)
+    {
+        $tender = $this->tenderRepository->get($id)->load('categories');
+        if ($tender) {
+            return response()->json($tender);
+        } else {
+            return response()->json([
+                'message' => 'Ресурс не найден'
+            ], 404);
         }
     }
 
@@ -188,20 +149,6 @@ class TenderController extends Controller
         ], $validationMessages)->validate();
         $tender = $this->tenderRepository->create($request);
 
-        if (!Auth::check()) {
-            if (session()->has('contractors')) {
-                $contractors = session('contractors');
-                foreach ($contractors as $contractor) {
-                    $request = $tender->requests()->create(['user_id' => $contractor['id'], 'invited' => true]);
-                    User::find($contractor['id'])->notify(new InviteRequest($request));
-                }
-                session()->forget('contractors');
-                session()->save();
-            }
-            return response()->json([
-                'success' => 'Ваш тендер сохранён и будет отправлен на модерацию только после регистрации',
-            ])->withCookie(cookie('tenderId', "$tender->id"));
-        }
         Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
         return response()->json([
             'success' => "Тендер $tender->title создан и отправлен на модерацию!"

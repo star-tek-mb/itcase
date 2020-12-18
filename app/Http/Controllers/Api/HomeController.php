@@ -52,7 +52,7 @@ class HomeController extends Controller
         // Check if url path has get parameters
         if (array_key_exists('query', parse_url($request->fullUrl())))
             return redirect(route('site.catalog.index'), 301);
-        $parentCategories = $this->categories->all();
+        $parentCategories = $this->categories->all()->load('categories');
         $tenders = $this->tenders->allOrderedByCreatedAt($withoutContractors = true)->take(3);
         $posts = $this->posts->allOrderByDesc()->take(3);
         $comments = Comments::latest()->limit(3)->whereNull('for_set')->get()->reverse();;

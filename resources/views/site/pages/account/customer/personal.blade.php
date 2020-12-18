@@ -6,7 +6,7 @@
     @include('site.layouts.partials.headers.default')
 @endsection
 
-@if ($user->customer_type == 'private')
+@if ($user->customer_type == 'individual')
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
@@ -61,7 +61,7 @@
                            value="{{ $user->getSecondName() }}">
                 </div>
             </div>
-            @if ($user->customer_type == 'private')
+            @if ($user->customer_type == 'individual')
                 <div class="wrapper uk-padding-small uk-padding-remove-horizontal uk-flex-middle uk-margin-top" uk-grid>
                     <div class="wrapper_title">
                         <h4>О себе: <span class="uk-text-danger">*</span></h4>
@@ -101,7 +101,7 @@
                                value="{{ $user->email }}">
                     </div>
                 </div>
-            @elseif($user->customer_type == 'company')
+            @elseif($user->customer_type == 'legal_entity')
                 <div class="wrapper uk-padding-small uk-padding-remove-horizontal uk-flex-middle uk-margin-top" uk-grid>
                     <div class="wrapper_title">
                         <h4>Email: <span class="uk-text-danger">*</span></h4>
@@ -165,7 +165,7 @@
     </form>
 @endsection
 
-@if ($user->customer_type == 'private')
+@if ($user->customer_type == 'individual')
 @section('js')
     <script src="{{ asset('js/ckeditor.js') }}"></script>
     <script>ClassicEditor

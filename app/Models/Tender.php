@@ -124,7 +124,7 @@ class Tender extends Model
     }
 
     public function getCustomerTitle() {
-        if ($this->client_type == 'private')
+        if ($this->client_type == 'individual')
             return $this->client_name;
         else
             return $this->client_company_name;

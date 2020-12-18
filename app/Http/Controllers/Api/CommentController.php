@@ -20,7 +20,7 @@ class CommentController extends Controller
           ]);
 
       }else if ($user->hasRole('customer')) {
-          if ($user->customer_type == 'company') $accountPage = 'company';
+          if ($user->customer_type == 'legal_entity') $accountPage = 'company';
           else $accountPage = 'personal';
           return response()->json([
               'user'=>$user,

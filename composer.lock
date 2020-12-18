@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20ccf145b5eeadf1d766592a33284d04",
+    "content-hash": "249ac89a5667fbfa5a724f8116e2feb2",
     "packages": [
         {
             "name": "beyondcode/laravel-websockets",
@@ -1167,10 +1167,6 @@
                 "rest",
                 "web service"
             ],
-            "support": {
-                "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.2.0"
-            },
             "funding": [
                 {
                     "url": "https://github.com/GrahamCampbell",
@@ -1312,6 +1308,63 @@
                 "url"
             ],
             "time": "2020-09-30T07:37:11+00:00"
+        },
+        {
+            "name": "hshn/base64-encoded-file",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hshn/base64-encoded-file.git",
+                "reference": "4ae7f21f0c4ce8a89119b0d0dff50466bca9d1a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hshn/base64-encoded-file/zipball/4ae7f21f0c4ce8a89119b0d0dff50466bca9d1a6",
+                "reference": "4ae7f21f0c4ce8a89119b0d0dff50466bca9d1a6",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.0",
+                "symfony/http-foundation": "^2.8 || ^3.0 || ^4.0 || ^5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0",
+                "symfony/config": "^2.8 || ^3.0 || ^4.0 || ^5.0",
+                "symfony/dependency-injection": "^2.8 || ^3.0 || ^4.0 || ^5.0",
+                "symfony/form": "^2.8 || ^3.0 || ^4.0 || ^5.0",
+                "symfony/http-kernel": "^2.8 || ^3.0 || ^4.0 || ^5.0",
+                "symfony/serializer": "^2.8 || ^3.0 || ^4.0 || ^5.0"
+            },
+            "suggest": {
+                "symfony/config": "to use the bundle in a Symfony project",
+                "symfony/dependency-injection": "to use the bundle in a Symfony project",
+                "symfony/form": "to use base64_encoded_file type",
+                "symfony/http-kernel": "to use the bundle in a Symfony project",
+                "symfony/serializer": "to convert a base64 string to a Base64EncodedFile object"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hshn\\Base64EncodedFile\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shota Hoshino",
+                    "email": "sht.hshn@gmail.com"
+                }
+            ],
+            "description": "Provides handling base64 encoded files, and the integration of symfony/form",
+            "time": "2020-05-04T15:13:08+00:00"
         },
         {
             "name": "intervention/image",
@@ -1651,9 +1704,6 @@
                 "helpers",
                 "laravel"
             ],
-            "support": {
-                "source": "https://github.com/laravel/helpers/tree/v1.4.0"
-            },
             "time": "2020-11-03T16:38:41+00:00"
         },
         {
@@ -9711,5 +9761,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "1.1.0"
 }

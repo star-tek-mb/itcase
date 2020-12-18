@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="text">
                                         <h3 class="title-job"><a href="{{ route('site.contractors.show', $request->user->slug) }}">{{ $request->user->getCommonTitle() }}</a> @if ($request->invited) <small class="text-primary"><i class="far fa-check-circle"></i> Приглашённый</small>@endif  @if ($tender->contractor_id == $request->user_id) <i class="fas fa-check-double text-success"></i> @endif</h3>
-                                        <div class="date-job"><i class="fas fa-check-circle"></i> @if ($request->user->cotractor_type == 'agency') Digital-агенство @else Фрилансер @endif </div>
+                                        <div class="date-job"><i class="fas fa-check-circle"></i> @if ($request->user->cotractor_type == 'legal_entity') Digital-агенство @else Фрилансер @endif </div>
                                     </div>
                                 </div>
                                 <div class="job-info-mobile d-xl-none">

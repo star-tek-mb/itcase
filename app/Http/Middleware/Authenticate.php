@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
+use Auth;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
@@ -12,10 +14,15 @@ class Authenticate extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return string
      */
+    public function handle($request, Closure $next, ...$guards) {
+        if (substr($request->path(), 0, 3) === "api" && Auth::guard('sanctum')->guest()) {
+            return response()->json(['message' => 'Выполните вход']);
+        }
+        return parent::handle($request, $next, ...$guards);
+    }
+
     protected function redirectTo($request)
     {
-        if (! $request->expectsJson()) {
-            return route('login');
-        }
+        return route('login');
     }
 }
