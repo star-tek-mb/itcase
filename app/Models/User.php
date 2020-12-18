@@ -86,7 +86,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'agree_personal_data_processing' => 'boolean'
+        'agree_personal_data_processing' => 'boolean',
+        "last_online_at" => "datetime"
     ];
 
     private static $UPLOAD_DIRECTORY = 'uploads/users/';

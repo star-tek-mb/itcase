@@ -21,7 +21,7 @@
                     <div class="avatar">
                         <img src="{{ $user->getImage() }}" alt="">
                     </div>
-                    <div class="text ml-3"><h4>{{ $user->getCommonTitle() }}</h4></div>
+                    <div class="text ml-3"><h4>{{ $user->getCommonTitle() }}</h4> {{$user->last_online_at}}</div>
                 </div>
             </div>
             <div class="header-box-right order-md-first">

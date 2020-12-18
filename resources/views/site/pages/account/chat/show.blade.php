@@ -23,7 +23,7 @@
                         <div class="avatar">
                             <img src="@if ($user->hasRole('contractor') && $currentCompanion->hasRole('customer')) /assets/img/avatars/avatar15.jpg @else {{ $currentCompanion->getImage() }} @endif" alt="">
                         </div>
-                        <div class="text ml-3"><h4>@if ($user->hasRole('contractor') && $currentCompanion->hasRole('customer')) Заказчик @else {{ $currentCompanion->getCommonTitle() }} @endif</h4></div>
+                        <div class="text ml-3"><h4>@if ($user->hasRole('contractor') && $currentCompanion->hasRole('customer')) Заказчик @else {{ $currentCompanion->getCommonTitle() }} @endif</h4> {{$user->last_online_at}}</div>
                     </div>
                 </div>
                 <div class="header-box-right order-md-first">
