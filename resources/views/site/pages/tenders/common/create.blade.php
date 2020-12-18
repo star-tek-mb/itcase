@@ -119,6 +119,13 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label for="start_date">Дата начало работы</label>
+                                    <input type="text" class="form-control @error('start_date') is-invalid @enderror" id="start_date" name="start_date" value="{{ old('start_date') }}">
+                                    @error('start_date')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="deadline">Срок окончания приёма заявок</label>
                                     <input type="text" class="form-control @error('deadline') is-invalid @enderror" id="deadline" name="deadline" value="{{ old('deadline') }}">
                                     @error('deadline')

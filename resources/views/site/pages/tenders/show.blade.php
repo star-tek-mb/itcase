@@ -18,12 +18,12 @@
                     <div class="alert shadow alert-warning fade show">
                         <div class="row">
                             <div class="col-sm-12 col-md-8">
-                                <p><i class="fas fa-warning"></i> Войдите и зарегистрируйтесь как "Исполнитель". Это
-                                    позволит вам откликаться на задачи. </p>
+                                <p><i class="fas fa-warning"></i> 
+                                Войдите и зарегистрируйтесь как "Исполнитель". Это позволит вам откликаться на задачи. </p>
                             </div>
                             <div class="col-sm-12 col-md-4">
-                                <div class="d-flex justify-content-between align-items-center"><a href="{{ route('login') }}"
-                                                                                                  class="btn btn-light-green mr-1">Войти</a>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="{{ route('login') }}" class="btn btn-light-green mr-1">Войти</a>
                                     или <a href="{{ route('register') }}" class="btn ml-1 btn-light-green">Зарегистрироваться</a></div>
                             </div>
                         </div>
@@ -144,58 +144,221 @@
                     <div class="row align-items-lg-center">
                         <div class="col-12">
                             <h2 class="title-detail">{{ $tender->title }}</h2>
-                            <div class="meta-job"><span class="phone"><i class="far fa-money-bill-alt"></i>Бюджет: {{ $tender->budget }} сум </span><span
-                                    class="mail"><i class="far fa-calendar"></i>Опубликовано: {{ \Carbon\Carbon::create($tender->published_at)->format('d.m.Y') }}</span><span><i
-                                        class="fas fa-calendar-times"></i>Крайний срок приёма заявок: {{ $tender->deadline }}</span>
+                            <div class="meta-job">
+                                <span><b>ID:</b> {{ $tender->id }}</span>
+                                <span class="phone"><i class="far fa-money-bill-alt"></i>Бюджет: {{ $tender->budget }} сум </span>
+                                <span class="mail"><i class="far fa-calendar"></i>Опубликовано: {{ \Carbon\Carbon::create($tender->published_at)->format('d.m.Y') }}</span>
+                                <span><i class="fas fa-calendar-times"></i>Крайний срок приёма заявок: {{ $tender->deadline }}</span>
+                                <span><i class="fa fa-list"></i><b>Категория:</b>
+                                    @foreach($tender->categories as $category)
+                                        <a href="#">{{ $category->getTitle() }}</a>
+                                    @endforeach
+                                </span>
+                                <span><i class="fa fa-eye"></i> 100</span>
                             </div>
                         </div>
+
+                        <form action="{{ route('tenders.email-subscription') }}" class="col-12 mt-2" method="post" id="email-subscription-form">
+                            @csrf
+                            @method('PATCH')
+                            <span>
+                                <input type="checkbox" value="{{ $tender->email_subscription === 1 ? 1 : 0}}"
+                                       {{ $tender->email_subscription === 1 ? 'checked' : '' }}
+                                       name="email_subscription" onchange="$('#email-subscription-form').submit()">
+                                получать уведомление email о новых предложениях 
+                            </span>
+                        </form>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-8">
                     <div class="content-main-right single-detail">
-                        <div class="box-description">
-                            <h3>Что требуется сделать</h3>
-                            {!! $tender->description !!}
 
-                        </div>
-                        <hr>
-                        <div class="intro-profile">
-                            <h3 class="title-box">Условия и требования</h3>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6">
-                                    <p>Требуемые услуги</p>
+                        <div class="box-description">
+                            <ul class="nav nav-tabs mt-3" id="needsTabs" role="tablist">
+                                <li class="nav-item">
+                                    <a href="#tab-content-1" class="nav-link active" aria-selected="true" data-toggle="tab" role="tab" aria-controls="tab-content-1" id="tab-1">
+                                        Детали
+                                    </a>
+                                </li>
+                                @if(auth()->user()->id === $tender->owner_id)
+                                    <li class="nav-item">
+                                        <a href="#tab-content-2" class="nav-link" aria-selected="false" data-toggle="tab" role="tab" aria-controls="tab-content-4" id="tab-4">
+                                            Предложения
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+
+                            <div class="tab-content mt-3" id="needsTabsContent">
+                                <div class="tab-pane fade active show" id="tab-content-1" role="tabpanel" aria-labelledby="tab-1">
+                                    <div class="meta-job">
+                                        <span class="phone"><i class="fa fa-map-marker"></i>{{ $tender->address }} </span>
+                                     </div>
+
+                                    <h3 class="mt-4 mb-0">Что требуется сделать</h3>
+                                    {!! $tender->description !!}
                                 </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <ul class="list-group list-group-flush">
-                                        @foreach($tender->categories as $category)
-                                            <li class="list-group-item"><i
-                                                    class="fas fa-check-circle text-primary"></i> {{ $category->getTitle() }}
-                                            </li>
-                                        @endforeach
-                                    </ul>
+
+                                @if(auth()->user()->id === $tender->owner_id)
+                                    <div class="tab-pane fade" id="tab-content-2" role="tabpanel" aria-labelledby="tab-2">
+                                        <h3>Предложения</h3>
+
+                                        <div class="content-main-right list-jobs">
+                                            <div class="header-list-job d-flex flex-wrap justify-content-between align-items-center">
+                                                <h4>{{ $tender->requests()->count() }} Исполнителей найдено</h4>
+                                            </div>
+
+                                            @foreach($tender->requests as $request)
+                                                <div class="list">
+
+                                                    <!-- КАНДИДАТ -->
+                                                    <div class="candidate-item">
+                                                        <div class="candidate-img"><a href="#"><img src="{{ $request->user->getImage() }}" alt="{{ $request->user->name }}"></a></div>
+                                                        <div class="candidate-content">
+                                                            <div class="row align-items-center">
+                                                                <div class="col-md-5">
+                                                                    <div class="candidate-info">
+                                                                        <h3 class="title-job">
+                                                                            <a href="#">{{ $request->user->name }}</a>
+                                                                        </h3>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-7">
+                                                                    <div class="candidate-button d-flex justify-content-between pr-0">
+                                                                        <button class="btn btn-light btn-lg tender-item" type="button" data-target="#">Написать</button>
+                                                                        <a class="btn btn-light btn-lg tender-item" type="button" href="tel:+998991234567">Позвонить</a>
+                                                                    </div>
+
+                                                                    <form method="post" action="{{ route('tenders.accept', [$tender->id, $request->id]) }}">
+                                                                        <button class="btn btn-light btn-lg tender-item mt-2 w-100" type="submit">Выбрать исполнителем</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mt-3 w-100" style="margin-left: 36px;">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="candidate-info">
+                                                                        <h3 class="title-job">Описание</h3>
+                                                                        <ul class="list-unstyled">
+                                                                            <li class="date-job">{{ $request->user->about_myself }}</li>
+                                                                            <li>Рейтинг:
+                                                                                <i class="fas fa-star" style="font-size:15px; color:#ffb13c"></i>
+                                                                                <i class="fas fa-star" style="font-size:15px; color:#ffb13c"></i>
+                                                                                <i class="fas fa-star" style="font-size:15px; color:#ffb13c"></i>
+                                                                                <i class="fas fa-star" style="font-size:15px; color:#ffb13c"></i>
+                                                                                <i class="fas fa-star" style="font-size:15px; color:#ffb13c"></i>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="candidate-info">
+                                                                        <h3 class="title-job">Текст предложения</h3>
+                                                                        <p>{{ $request->comment }}</p>
+
+                                                                        <div class="contact-info">
+                                                                            <ul class="list-unstyled">
+                                                                                <li><span><i class="fa fa-phone mr-2"></i>{{ $request->user->phone_number }}</span></li>
+                                                                                <li><span><i class="fa fa-wallet"></i> Наличный расчет</span></li>
+                                                                                <li><span><i class="fa fa-clock"></i> {{ $request->created_at->format('Y-m-d') }}</span></li>
+                                                                                <li><span><i class="fa fa-chevron-down"></i> {{ $request->budget_to }} сум</span></li>
+                                                                            </ul>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <!-- КАНДИДАТ -->
+                                                    </div>
+
+                                                </div>
+                                            @endforeach
+                                            {!! $tender->requests->render() !!}
+{{--                                            <div class="pagination-page d-flex justify-content-end">--}}
+{{--                                                <nav>--}}
+{{--                                                    <ul class="pagination">--}}
+
+{{--                                                        <li class="page-item disabled" aria-disabled="true" aria-label="pagination.previous">--}}
+{{--                                                            <span class="page-link" aria-hidden="true">‹</span>--}}
+{{--                                                        </li>--}}
+{{--                                                        <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>--}}
+{{--                                                        <li class="page-item"><a class="page-link" href="http://itcasetest.vid.uz/contractors?page=2">2</a></li>--}}
+{{--                                                        <li class="page-item"><a class="page-link" href="http://itcasetest.vid.uz/contractors?page=3">3</a></li>--}}
+{{--                                                        <li class="page-item"><a class="page-link" href="http://itcasetest.vid.uz/contractors?page=4">4</a></li>--}}
+{{--                                                        <li class="page-item"><a class="page-link" href="http://itcasetest.vid.uz/contractors?page=5">5</a></li>--}}
+{{--                                                        <li class="page-item"><a class="page-link" href="http://itcasetest.vid.uz/contractors?page=6">6</a></li>--}}
+{{--                                                        <li class="page-item"><a class="page-link" href="http://itcasetest.vid.uz/contractors?page=7">7</a></li>--}}
+{{--                                                        <li class="page-item"><a class="page-link" href="http://itcasetest.vid.uz/contractors?page=8">8</a></li>--}}
+{{--                                                        <li class="page-item"><a class="page-link" href="http://itcasetest.vid.uz/contractors?page=9">9</a></li>--}}
+{{--                                                        <li class="page-item"><a class="page-link" href="http://itcasetest.vid.uz/contractors?page=10">10</a></li>--}}
+
+{{--                                                        <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>--}}
+{{--                                                        <li class="page-item"><a class="page-link" href="http://itcasetest.vid.uz/contractors?page=59">59</a></li>--}}
+{{--                                                        <li class="page-item"><a class="page-link" href="http://itcasetest.vid.uz/contractors?page=60">60</a></li>--}}
+
+{{--                                                        <li class="page-item">--}}
+{{--                                                            <a class="page-link" href="http://itcasetest.vid.uz/contractors?page=2" rel="next" aria-label="pagination.next">›</a>--}}
+{{--                                                        </li>--}}
+{{--                                                    </ul>--}}
+{{--                                                </nav>--}}
+
+{{--                                            </div>--}}
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <hr>
+                            <div class="intro-profile">
+                                <h3 class="title-box">Условия и требования</h3>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <p>Требуемые услуги</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <ul class="list-group list-group-flush">
+                                            @foreach($tender->categories as $category)
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-check-circle text-primary"></i> {{ $category->getTitle() }}
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-4">
                     <div class="sidebar-right">
                         <div class="sidebar-right-group">
                             <div class="job-detail-summary">
                                 <h3 class="title-block mb-1">Организатор</h3>
                                 <span class="tender-author-type text-muted text-bold">
-                                    @if ($tender->client_type == 'private')
+                                    @if ($tender->client_type == 'individual')
                                         Частное лицо
-                                    @elseif ($tender->client_type == 'company')
-                                        Компания
+                                    @elseif ($tender->client_type == 'legal_entity')
+                                        Юридическое лицо
                                     @endif
                                 </span>
+                                <br>
+
+                                @if($tender->contractor_id)
+                                    <span><i class="fa fa-phone mr-2"></i>{{ $tender->phone_number }}</span>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 @endsection

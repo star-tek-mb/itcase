@@ -13969,6 +13969,192 @@
      
 }
 
+    namespace Yandex\Geocode\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class YandexGeocodeFacade {
+                    /**
+         * Load response
+         * 
+         * Загрузка ответа
+         *
+         * @param array $options Curl options
+         * @return \Yandex\Geocode\Api 
+         * @throws Exception
+         * @throws Exception\CurlError
+         * @throws Exception\ServerError
+         * @static 
+         */ 
+        public static function load($options = [])
+        {
+                        /** @var \Yandex\Geocode\Api $instance */
+                        return $instance->load($options);
+        }
+                    /**
+         * Get response
+         * 
+         * Получение ответа
+         *
+         * @return \Response 
+         * @static 
+         */ 
+        public static function getResponse()
+        {
+                        /** @var \Yandex\Geocode\Api $instance */
+                        return $instance->getResponse();
+        }
+                    /**
+         * Clear filters geocoding
+         * 
+         * Очистка фильтров гео-кодирования
+         *
+         * @return OBJECT 
+         * @static 
+         */ 
+        public static function clear()
+        {
+                        /** @var \Yandex\Geocode\Api $instance */
+                        return $instance->clear();
+        }
+                    /**
+         * Geocoding by cordinates
+         * 
+         * Гео-кодирование по координатам
+         *
+         * @see http://api.yandex.ru/maps/doc/geocoder/desc/concepts/input_params.xml#geocode-format
+         * @param FLOAT $longitude Долгота в градусах
+         * @param FLOAT $latitude Широта в градусах
+         * @return OBJECT 
+         * @static 
+         */ 
+        public static function setPoint($longitude, $latitude)
+        {
+                        /** @var \Yandex\Geocode\Api $instance */
+                        return $instance->setPoint($longitude, $latitude);
+        }
+                    /**
+         * Geographical region search object
+         * 
+         * Географическая область поиска объекта
+         *
+         * @param FLOAT $lengthLng Разница между максимальной и минимальной долготой в градусах
+         * @param FLOAT $lengthLat Разница между максимальной и минимальной широтой в градусах
+         * @param NULL|FLOAT $longitude Долгота в градусах
+         * @param NULL|FLOAT $latitude Широта в градусах
+         * @return OBJECT 
+         * @static 
+         */ 
+        public static function setArea($lengthLng, $lengthLat, $longitude = null, $latitude = null)
+        {
+                        /** @var \Yandex\Geocode\Api $instance */
+                        return $instance->setArea($lengthLng, $lengthLat, $longitude, $latitude);
+        }
+                    /**
+         * Allow limit search objects by regions, given self::setArea()
+         * 
+         * Позволяет ограничить поиск объектов областью, заданной self::setArea()
+         *
+         * @param BOOLEAN $areaLimit
+         * @return OBJECT 
+         * @static 
+         */ 
+        public static function useAreaLimit($areaLimit)
+        {
+                        /** @var \Yandex\Geocode\Api $instance */
+                        return $instance->useAreaLimit($areaLimit);
+        }
+                    /**
+         * Geocoding by query (address/coordinates)
+         * 
+         * Гео-кодирование по запросу (адрес/координаты)
+         *
+         * @param STRING $query
+         * @return OBJECT 
+         * @static 
+         */ 
+        public static function setQuery($query)
+        {
+                        /** @var \Yandex\Geocode\Api $instance */
+                        return $instance->setQuery($query);
+        }
+                    /**
+         * View toponyms (only for reverse geocoding)
+         * 
+         * Вид топонима (только для обратного геокодирования)
+         *
+         * @param STRING $kind
+         * @return OBJECT 
+         * @static 
+         */ 
+        public static function setKind($kind)
+        {
+                        /** @var \Yandex\Geocode\Api $instance */
+                        return $instance->setKind($kind);
+        }
+                    /**
+         * Maximum amount return objects (default 10)
+         * 
+         * Максимальное количество возвращаемых объектов (по-умолчанию 10)
+         *
+         * @param INTEGER $limit
+         * @return OBJECT 
+         * @static 
+         */ 
+        public static function setLimit($limit)
+        {
+                        /** @var \Yandex\Geocode\Api $instance */
+                        return $instance->setLimit($limit);
+        }
+                    /**
+         * Amount objects in response (start with first), which is necessary skip
+         * 
+         * Количество объектов в ответе (начиная с первого), которое необходимо пропустить
+         *
+         * @param INTEGER $offset
+         * @return OBJECT 
+         * @static 
+         */ 
+        public static function setOffset($offset = 0)
+        {
+                        /** @var \Yandex\Geocode\Api $instance */
+                        return $instance->setOffset($offset);
+        }
+                    /**
+         * Preferred language description objects
+         * 
+         * Предпочитаемый язык описания объектов
+         *
+         * @param STRING $lang
+         * @return OBJECT 
+         * @static 
+         */ 
+        public static function setLang($language = '')
+        {
+                        /** @var \Yandex\Geocode\Api $instance */
+                        return $instance->setLang($language);
+        }
+                    /**
+         * Key api Yandex.Maps
+         * 
+         * Ключ API Яндекс.Карт
+         *
+         * @see http://api.yandex.ru/maps/form.xml
+         * @param string $token
+         * @return self 
+         * @static 
+         */ 
+        public static function setToken()
+        {
+                        /** @var \Yandex\Geocode\Api $instance */
+                        return $instance->setToken();
+        }
+         
+    }
+     
+}
+
     namespace Illuminate\Http { 
             /**
      * 
@@ -17074,6 +17260,7 @@ namespace  {
             class View extends \Illuminate\Support\Facades\View {}
             class Image extends \Intervention\Image\Facades\Image {}
             class Socialite extends \Laravel\Socialite\Facades\Socialite {}
+            class YaGeo extends \Yandex\Geocode\Facades\YandexGeocodeFacade {}
      
 }
 

@@ -11,11 +11,35 @@ class Tender extends Model
     const UPLOAD_DIRECTORY = 'uploads/tenders/';
 
     protected $fillable = [
-        'client_type', 'client_name', 'client_email', 'client_phone_number', 'client_company_name', 'client_site_url',
-        'title', 'description', 'budget', 'deadline',
-        'target_audience', 'links', 'additional_info', 'other_info', 'what_for', 'type',
-        'slug', 'opened',
-        'need_id', 'owner_id', 'contractor_id'
+        'client_type',
+        'client_name',
+        'client_email',
+        'client_phone_number',
+        'client_company_name',
+        'client_site_url',
+        'title',
+        'description',
+        'budget',
+        'deadline',
+        'target_audience',
+        'links',
+        'additional_info',
+        'other_info',
+        'what_for',
+        'type',
+        'slug',
+        'opened',
+        'need_id',
+        'owner_id',
+        'contractor_id',
+        'start_date',
+        'address',
+        'email_subscription'
+    ];
+
+    protected $casts = [
+        'email_subscription' => 'boolean',
+        'opened' => 'boolean'
     ];
 
     protected static function boot()

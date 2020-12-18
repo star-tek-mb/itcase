@@ -171,6 +171,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
             'view.finder' => \Illuminate\View\FileViewFinder::class,
             'websockets.router' => \BeyondCode\LaravelWebSockets\Server\Router::class,
+            'yandexGeocoding' => \Yandex\Geocode\Api::class,
         ]));
     override(\Illuminate\Container\Container::makeWith(0), map([
         '' => '@',
@@ -334,6 +335,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
             'view.finder' => \Illuminate\View\FileViewFinder::class,
             'websockets.router' => \BeyondCode\LaravelWebSockets\Server\Router::class,
+            'yandexGeocoding' => \Yandex\Geocode\Api::class,
         ]));
     override(\Illuminate\Contracts\Container\Container::get(0), map([
         '' => '@',
@@ -497,6 +499,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
             'view.finder' => \Illuminate\View\FileViewFinder::class,
             'websockets.router' => \BeyondCode\LaravelWebSockets\Server\Router::class,
+            'yandexGeocoding' => \Yandex\Geocode\Api::class,
         ]));
     override(\Illuminate\Contracts\Container\Container::make(0), map([
         '' => '@',
@@ -660,6 +663,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
             'view.finder' => \Illuminate\View\FileViewFinder::class,
             'websockets.router' => \BeyondCode\LaravelWebSockets\Server\Router::class,
+            'yandexGeocoding' => \Yandex\Geocode\Api::class,
         ]));
     override(\Illuminate\Contracts\Container\Container::makeWith(0), map([
         '' => '@',
@@ -823,6 +827,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
             'view.finder' => \Illuminate\View\FileViewFinder::class,
             'websockets.router' => \BeyondCode\LaravelWebSockets\Server\Router::class,
+            'yandexGeocoding' => \Yandex\Geocode\Api::class,
         ]));
     override(\App::get(0), map([
         '' => '@',
@@ -986,6 +991,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
             'view.finder' => \Illuminate\View\FileViewFinder::class,
             'websockets.router' => \BeyondCode\LaravelWebSockets\Server\Router::class,
+            'yandexGeocoding' => \Yandex\Geocode\Api::class,
         ]));
     override(\App::make(0), map([
         '' => '@',
@@ -1149,6 +1155,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
             'view.finder' => \Illuminate\View\FileViewFinder::class,
             'websockets.router' => \BeyondCode\LaravelWebSockets\Server\Router::class,
+            'yandexGeocoding' => \Yandex\Geocode\Api::class,
         ]));
     override(\App::makeWith(0), map([
         '' => '@',
@@ -1312,6 +1319,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
             'view.finder' => \Illuminate\View\FileViewFinder::class,
             'websockets.router' => \BeyondCode\LaravelWebSockets\Server\Router::class,
+            'yandexGeocoding' => \Yandex\Geocode\Api::class,
         ]));
     override(\app(0), map([
         '' => '@',
@@ -1475,6 +1483,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
             'view.finder' => \Illuminate\View\FileViewFinder::class,
             'websockets.router' => \BeyondCode\LaravelWebSockets\Server\Router::class,
+            'yandexGeocoding' => \Yandex\Geocode\Api::class,
         ]));
     override(\resolve(0), map([
         '' => '@',
@@ -1638,6 +1647,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
             'view.finder' => \Illuminate\View\FileViewFinder::class,
             'websockets.router' => \BeyondCode\LaravelWebSockets\Server\Router::class,
+            'yandexGeocoding' => \Yandex\Geocode\Api::class,
         ]));
     override(\Psr\Container\ContainerInterface::get(0), map([
         '' => '@',
@@ -1801,6 +1811,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
             'view.finder' => \Illuminate\View\FileViewFinder::class,
             'websockets.router' => \BeyondCode\LaravelWebSockets\Server\Router::class,
+            'yandexGeocoding' => \Yandex\Geocode\Api::class,
         ]));
 
 

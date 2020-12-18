@@ -54,6 +54,7 @@ Route::middleware('needsList')->name('site.')->namespace('Site')->group(function
     Route::delete('/tenders/{id}/delete', 'TenderController@delete')->name('tenders.delete');
     Route::post('/tenders/{id}/update', 'TenderController@update')->name('tenders.edit');
     Route::post('/tenders/{tenderId}/accept/{requestId}', 'TenderController@acceptTenderRequest')->name('tenders.accept');
+    Route::patch('/tenders/email-subscription/{tender}', 'TenderController@emailSubscription')->name('tenders.email-subscription');
 
 
     Route::get('/', 'HomeController@index')->name('catalog.index');

@@ -26,6 +26,7 @@ class CreateTendersTable extends Migration
             $table->string('title');
             $table->longText('description');
             $table->integer('budget');
+            $table->date('start_date');
             $table->date('deadline');
 
             $table->string('target_audience')->nullable();
@@ -34,6 +35,9 @@ class CreateTendersTable extends Migration
             $table->string('other_info')->nullable();
             $table->string('what_for')->nullable();
             $table->string('type')->nullable();
+
+            $table->string('address');
+            $table->boolean('email_subscription')->default(true);
 
             $table->string('slug');
             $table->boolean('opened')->default(true);

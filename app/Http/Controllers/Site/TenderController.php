@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Helpers\PaginateCollection;
+use App\Http\Requests\Tender\EmailSubsctiptionRequest;
+use App\Models\Tender;
 use App\Notifications\InviteRequest;
 use App\Notifications\NewRequest;
 use App\Notifications\RequestAction;
@@ -143,7 +145,9 @@ class TenderController extends Controller
     public function show(string $slug)
     {
         $tender = $this->tenderRepository->getBySlug($slug);
+
         abort_if(!$tender, 404);
+        $tender->setRelation('requests', $tender->requests()->paginate(1));
         return view('site.pages.tenders.show', compact('tender'));
     }
 
@@ -174,7 +178,9 @@ class TenderController extends Controller
             'description' => 'required|string|max:5000',
             'files' => 'nullable',
             'budget' => 'required',
-            'deadline' => 'required|date'
+            'start_date' => 'required|date',
+            'deadline' => 'required|date',
+            'address' => 'required|string'
         ], $validationMessages)->validate();
         $tender = $this->tenderRepository->create($request);
 
@@ -205,6 +211,7 @@ class TenderController extends Controller
         ]);
         $tenderRequest = $this->tenderRepository->createRequest($request);
         $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
+
         $tenderTitle = $tenderRequest->tender->title;
         return back()->with('success', "Вы подали заявку на участие в конкурсе \"$tenderTitle\"");
     }
@@ -253,7 +260,8 @@ class TenderController extends Controller
             'description' => 'required|string|max:5000',
             'files' => 'nullable',
             'budget' => 'required',
-            'deadline' => 'required|date'
+            'deadline' => 'required|date',
+            'address' => 'required|string'
         ], $validationMessages)->validate();
         $this->tenderRepository->update($id, $request);
         return redirect($request->get('redirect_to'))->with('account.success', 'Конкрус отредактитрован!');
@@ -286,5 +294,14 @@ class TenderController extends Controller
         } else {
             return redirect($redirectTo)->with('account.error', 'Невозможно назначить исполнителя на этот конкурс');
         }
+    }
+
+    public function emailSubscription(EmailSubsctiptionRequest $request, Tender $tender)
+    {
+        $tender->update([
+            'email_subscription' => $request->email_subscription
+        ]);
+
+        return redirect()->back();
     }
 }
