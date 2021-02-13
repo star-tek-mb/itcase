@@ -72,7 +72,6 @@ class ContractorsController extends Controller
         $contractorsCount = $contractors->count();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
         return response()->json([
-            'category'=>$category,
             'contractors'=>$contractors,
             'contractorsCount'=>$contractorsCount
         ]);
@@ -102,35 +101,10 @@ class ContractorsController extends Controller
      * @param string $params
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
-    public function category(Request $request, string $params)
+    public function category(Request $request, $category_id)
     {
-        if (preg_match('/[A-Z]/', $params)) {
-            return response()->json([
-                'messages'=>strtolower($params),
-            ],301);
-        }
-        if (strpos($params, 'tenders') !== false) {
-            $paramsArray = explode('/', $params);
-            $slug = end($paramsArray);
-            return response()->json([
-                'messages'=>"tenders/$slug",
-            ],301);
-        }
-        if (strpos($params, 'blog') !== false) {
-            $paramsArray = explode('/', $params);
-            $slug = end($paramsArray);
-            return response()->json([
-                'messages'=>$slug,
-            ],301);
-        }
-        $paramsArray = explode('/', $params);
-        $slug = end($paramsArray);
-        $category = $this->categories->getBySlug($slug);
+        $category = $this->categories->get($id);
         if ($category) {
-            if ($category->getAncestorsSlugs() !== $params)
-                return response()->json([
-                    'messages'=>$category->getAncestorsSlugs(),
-                ],301);
             $contractors = $category->getAllCompaniesFromDescendingCategories()->sortByDesc('created_at');
             $contractorsCount = $contractors->count();
             $contractors = PaginateCollection::paginateCollection($contractors, 5);
@@ -139,24 +113,11 @@ class ContractorsController extends Controller
                 'contractors'=>$contractors,
                 'contractorsCount'=>$contractorsCount
             ]);
-        }
-        $menuItem = $this->menu->getBySlug($slug);
-        if ($menuItem) {
-            if ($menuItem->ru_slug !== $params)
-                return response()->json([
-                    'messages'=>$menuItem->ru_slug,
-                ],301);
-            $contractors = $menuItem->getCompanyFromCategories();
-            $category = $menuItem->categories[0]->parent;
-            $contractorsCount = $contractors->count();
-            $contractors = PaginateCollection::paginateCollection($contractors, 5);
+        } else {
             return response()->json([
-                'category'=>$category,
-                'contractors'=>$contractors,
-                'contractorsCount'=>$contractorsCount
-            ]);
+                'message' => 'Ресурс не найден'
+            ], 404);
         }
-        abort(404);
     }
 
 
@@ -166,28 +127,24 @@ class ContractorsController extends Controller
      * @param string $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function contractor(string $slug)
+    public function contractor($id)
     {
-
-        $contractor = $this->users->getContractorBySlug($slug);
-        $portfolio = $this->users->getPortfolioBySlug($slug);
-        $comments = $this->users->getCommentBySlug($slug);
-        $mean = 0;
-        foreach($comments as $comment_sum){
-          $mean+=(int)$comment_sum->assessment;
+        $contractor = $this->users->get($id)->load('categories');
+        if (!$contractor || !$contractor->hasRole('contractor')) {
+            return response()->json([
+                'message' => 'Ресурс не найден'
+            ], 404);
         }
-        if($mean!=0){
-          $mean = $mean/count($comments);
-        }
+        $portfolio = $this->users->getPortfolioBySlug($contractor->slug);
+        $comments = $this->users->getCommentBySlug($contractor->slug);
+        $mean = (int) collect($comments)->avg('assessment');
 
-        abort_if(!$contractor, 404);
         return response()->json([
             'contractor'=>$contractor,
             'portfolio'=>$portfolio,
             'comments'=>$comments,
             'mean'=>$mean
         ]);
-
     }
 
     public function addContractor(int $contractorId, int $tenderId) {
@@ -198,51 +155,4 @@ class ContractorsController extends Controller
         ]);
     }
 
-    public function addContractorForNonAuth(int $contractorId) {
-        $user = $this->users->get($contractorId);
-        $contractors = \Session::get('contractors', collect());
-        if ($contractors->contains('id', $contractorId))
-            return response()->json([
-                'success'=>'back',
-            ]);
-        $contractors->push([
-            'id' => $contractorId,
-            'name' => $user->getCommonTitle(),
-            'image' => $user->getImage()
-        ]);
-        \Session::put('contractors', $contractors);
-        return response()->json([
-            'contractors'=>$contractors,
-        ]);
-    }
-
-    public function deleteContractorFromSession(int $contractorId) {
-        $contractors = \Session::get('contractors');
-        if (!$contractors->contains('id', $contractorId))
-            return response()->json([
-                'success'=>'back',
-            ]);
-        $contractors = $contractors->filter(function ($item) use ($contractorId) {
-            return $item['id'] !== $contractorId;
-        });
-        if (count($contractors) === 0) {
-            \Session::forget('contractors');
-            \Session::save();
-            return response()->json([
-                'success'=>'back',
-            ]);
-        }
-        \Session::put('contractors', $contractors);
-        return response()->json([
-            'contractors'=>$contractors,
-        ]);
-    }
-
-    public function deleteAllContractorsFromSession() {
-        \Session::forget('contractors');
-        \Session::save();
-        return response()->json([
-            'success'=>'back',
-        ]);
-    }
 }

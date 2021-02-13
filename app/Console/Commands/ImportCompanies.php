@@ -54,7 +54,7 @@ class ImportCompanies extends Command
                 'about_myself' => $aboutMySelf,
                 'slug' => $slug,
                 'phone_number' => $phoneNumber,
-                'contractor_type' => 'agency',
+                'contractor_type' => 'legal_entity',
                 'meta_title' => $metaTitle,
                 'email' => '',
                 'password' => '',

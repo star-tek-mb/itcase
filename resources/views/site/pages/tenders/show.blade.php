@@ -186,9 +186,9 @@
                             <div class="job-detail-summary">
                                 <h3 class="title-block mb-1">Организатор</h3>
                                 <span class="tender-author-type text-muted text-bold">
-                                    @if ($tender->client_type == 'private')
+                                    @if ($tender->client_type == 'individual')
                                         Частное лицо
-                                    @elseif ($tender->client_type == 'company')
+                                    @elseif ($tender->client_type == 'legal_entity')
                                         Компания
                                     @endif
                                 </span>

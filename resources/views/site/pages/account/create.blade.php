@@ -85,15 +85,27 @@
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label for="contractor_phoneNumber">Номер телефона</label>
-                                                <input type="text" name="contractor_phone_number" id="contractor_phoneNumber" class="form-control @error('contractor_phone_number') is-invalid @enderror" value="{{ old('contractor_phone_number') }}">
-                                                @error('contractor_phone_number')
+                                                <label for="">Вы являетесь:</label>
+                                                <div class="custom-control custom-radio" id="freelancerRadio">
+                                                    <input type="radio" name="contractor_type" value="individual" id="freelancerRadioInput" class="custom-control-input" @if (!old('contractor_type') || old('contractor_type') == 'individual') checked @endif>
+                                                    <label for="freelancerRadioInput" class="custom-control-label">Физ. лицо</label>
+                                                </div>
+                                                <div class="custom-control custom-radio" id="agencyRadio">
+                                                    <input type="radio" name="contractor_type" value="legal_entity" id="agencyRadioInput" class="custom-control-input" @if (old('contractor_type') == 'legal_entity') checked @endif>
+                                                    <label for="agencyRadioInput" class="custom-control-label">Юр. лицо</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group contractor-type-agency @if (!old('contractor_type') || old('contractor_type') == 'individual') d-none @endif">
+                                                <label for="contractor_companyName">Название компании</label>
+                                                <input type="text" name="contractor_company_name" id="contractor_companyName" class="form-control @error('contractor_company_name') is-invalid @enderror" value="{{ old('contractor_company_name') }}">
+                                                @error('contractor_company_name')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
-
                                             <label>Ваш пол:</label>
                                             <div class="custom-control custom-radio">
                                                 <input type="radio" name="gender" value="male" id="maleRadio"
@@ -105,7 +117,6 @@
                                                        class="custom-control-input" @if (old('gender') == 'female') checked @endif>
                                                 <label for="femaleRadio" class="custom-control-label">Женский</label>
                                             </div>
-
                                         </div>
                                         <div class="col-sm-12 col-md-6">
 
@@ -160,8 +171,8 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label for="aboutMySelfContractor" class="contractor-type-freelancer @if (old('contractor_type') == 'agency') d-none @endif">О себе</label><label
-                                                    for="aboutMySelfContractor" class="contractor-type-agency @if (!old('contractor_type') || old('contractor_type') == 'freelancer') d-none @endif">О компании</label>
+                                                <label for="aboutMySelfContractor" class="contractor-type-freelancer @if (old('contractor_type') == 'legal_entity') d-none @endif">О себе</label><label
+                                                    for="aboutMySelfContractor" class="contractor-type-agency @if (!old('contractor_type') || old('contractor_type') == 'individual') d-none @endif">О компании</label>
                                                 <textarea name="contractor_about_myself" id="aboutMySelfContractor">{{ old('about_myself') }}</textarea>
                                                 @error('contractor_about_myself')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -256,11 +267,11 @@
                                         <div class="form-group">
                                             <label for="">Вы являетесь:</label>
                                             <div class="custom-control custom-radio" id="privateRadio">
-                                                <input type="radio" name="customer_type" value="individual" id="privateRadioInput" class="custom-control-input" @if (!old('customer_type') || old('customer_type') == 'private') checked @endif>
+                                                <input type="radio" name="customer_type" value="individual" id="privateRadioInput" class="custom-control-input" @if (!old('customer_type') || old('customer_type') == 'individual') checked @endif>
                                                 <label for="privateRadioInput" class="custom-control-label">Физ. лицо</label>
                                             </div>
                                             <div class="custom-control custom-radio" id="companyRadio">
-                                                <input type="radio" name="customer_type" value="legal_entity" id="companyRadioInput" class="custom-control-input" @if (old('customer_type') == 'company') checked @endif>
+                                                <input type="radio" name="customer_type" value="legal_entity" id="companyRadioInput" class="custom-control-input" @if (old('customer_type') == 'legal_entity') checked @endif>
                                                 <label for="companyRadioInput" class="custom-control-label">Юр. лицо</label>
                                             </div>
                                         </div>

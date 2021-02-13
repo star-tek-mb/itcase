@@ -64,6 +64,7 @@ class UserRepository implements UserRepositoryInterface
         $user = User::create($data);
         $user->roles()->attach($role);
         $user->save();
+        $user->generateSlug();
         $user->uploadImage($userData->file('image'));
     }
 
@@ -193,7 +194,7 @@ class UserRepository implements UserRepositoryInterface
         $dataToSet['email'] = $data->get($userRole.'_email');
         $dataToSet['company_name'] = $data->get($userRole.'_company_name');
         $dataToSet['about_myself'] = $data->get($userRole.'_about_myself');
-        if ($userRole == 'contractor' && $data->get($userRole.'_type') == 'freelancer') {
+        if ($userRole == 'contractor' && $data->get($userRole.'_type') == 'individual') {
             $dataToSet['birthday_date'] = Carbon::createFromFormat('d.m.Y', $data->get('contractor_birthday_date'))->format('Y-m-d');
             $dataToSet['gender'] = $data->get('gender');
         }

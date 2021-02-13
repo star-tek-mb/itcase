@@ -401,9 +401,9 @@ class User extends Authenticatable
 
     public function getContractorTitle()
     {
-        if ($this->contractor_type === 'agency')
+        if ($this->contractor_type === 'legal_entity')
             return $this->company_name;
-        elseif ($this->contractor_type === 'freelancer')
+        elseif ($this->contractor_type === 'individual')
             return $this->name;
         else
             if ($this->name)
@@ -416,15 +416,15 @@ class User extends Authenticatable
     {
         if ($this->hasRole('customer')) {
             switch ($this->customer_type) {
-                case 'company': return $this->company_name;
-                case 'private': return $this->name;
+                case 'legal_entity': return $this->company_name;
+                case 'individual': return $this->name;
                 default: return $this->email;
             }
         }
         else if ($this->hasRole('contractor')) {
             switch ($this->contractor_type) {
-                case 'agency': return $this->company_name;
-                case 'freelancer': return $this->name;
+                case 'legal_entity': return $this->company_name;
+                case 'individual': return $this->name;
                 default: return $this->email;
             }
         } else {
