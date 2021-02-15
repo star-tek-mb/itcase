@@ -287,4 +287,35 @@ class TenderController extends Controller
             return redirect($redirectTo)->with('account.error', 'Невозможно назначить исполнителя на этот конкурс');
         }
     }
+
+
+    public function ajaxFilter()
+    {
+        $minPrice = request('min_price');
+        $sort = request('sort');
+        $category = request('category');
+        $remote = request('remote');
+        $no_click = request('no_click');
+        $menuItem = $this->menuItemsRepository->get($category);
+
+        if ($menuItem) {
+            $tenders = collect();
+            $currentCategory = null;
+            foreach ($menuItem->categories as $category)
+                $tenders = $tenders->merge($category->tenders()
+                    ->whereNotNull('owner_id')
+                    ->where('published', true)
+                    ->where('budget', '>',$minPrice)
+                    ->orderBy('opened', 'desc')
+                    ->orderBy('created_at', $sort)
+                    ->get());
+            $tenders = $tenders->unique(function ($item) {
+                return $item->id;
+            });
+            $currentCategory = $menuItem;
+            $tendersCount = $tenders->count();
+            $tenders = PaginateCollection::paginateCollection($tenders, 5);
+            return view('site.pages.tenders.index', compact('tenders', 'currentCategory', 'tendersCount'));
+        }
+    }
 }
