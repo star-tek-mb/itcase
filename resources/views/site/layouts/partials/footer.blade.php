@@ -16,7 +16,7 @@
                 <div class="col-lg-8">
                     <div class="row">
                         <div class="col-6 col-md-4">
-                            <h3 class="title-footer">Аккаунт</h3>
+                            <span class="title-footer">Аккаунт</span>
                             <ul class="links-footer">
                                 @auth
                                     <li><a href="{{ route('site.account.index') }}">Мой кабинет</a></li>
@@ -28,7 +28,7 @@
                             </ul>
                         </div>
                         <div class="col-6 col-md-4">
-                            <h3 class="title-footer">Конкурсы</h3>
+                            <span class="title-footer">Конкурсы</span>
                             <ul class="links-footer">
                                 <li><a href="{{ route('site.tenders.common.create') }}">Создание конкурса</a></li>
                                 <li><a href="{{ route('site.tenders.index') }}">Каталог конкурсов</a></li>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="newsletter">
-                        <h3 class="title-footer">Рассылка</h3>
+                        <span class="title-footer">Рассылка</span>
                         <p>Подпишись на <span class="name"><span>V</span>ID</span> и получай на уведомления о
                             новостях и акциях.</p>
                         <div class="form">

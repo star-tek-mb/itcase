@@ -2,19 +2,13 @@
 
 @section('title')
     @if ($currentCategory)
-        {{ $currentCategory->tender_meta_title_prefix }} @if(empty($currentCategory->meta_title)) {{ $currentCategory->getTitle() }} @else {{ $currentCategory->meta_title }} @endif в Ташкенте|Узбекистане
+        {{ $currentCategory->tender_meta_title_prefix }} @if(empty($currentCategory->meta_title)) {{ $currentCategory->getTitle() }} @else {{ $currentCategory->meta_title }} @endif
     @else
         Конкурсы
     @endif
 @endsection
 
-@section('meta')
-    @if ($currentCategory)
-        <meta name="title" content="{{ $currentCategory->tender_meta_title_prefix }} @if(empty($currentCategory->meta_title)) {{ $currentCategory->getTitle() }} @else {{ $currentCategory->meta_title }} @endif в Ташкенте|Узбекистане">
-        <meta name="description"
-              content="@if (empty($currentCategory->meta_description)) {{ strip_tags($currentCategory->ru_description) }} @else {{ $currentCategory->meta_description }} @endif">
-    @endif
-@endsection
+
 @section('header')
     @include('site.layouts.partials.headers.default')
 @endsection
@@ -24,9 +18,11 @@
         <div class="container">
             <div class="header-page">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <div class="section-heading">
-                            <h1 class="title-page">Каталог конкурсов</h1>
+                            <h1 class="title-page">Каталог конкурсов @if ($currentCategory)
+    {{ $currentCategory->getTitle() }}
+@endif </h1>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('site.catalog.index') }}">Главная</a></li>
@@ -35,29 +31,45 @@
                             </nav>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="search-form">
+                    <div class="col-md-6">
+                        <div class="search-form d-flex justify-content-end pr-0 align-items-center">
                           <form action="{{ route('site.tenders.index.search') }}" method="post">
-                            @csrf
-                            <div class="form-group">
-                              <input class="form-control" name="search" type="text" placeholder="Поиск здесь...">
-                                <div id="livesearch"></div>
-                              <button class="btn-clear" type="submit"><i class="fa fa-search"></i></button>
-                            </div>
-                          </form>
+                             @csrf
+                                <div class="form-group d-flex">
+                                    <input class="form-control mr-md-4" name="search" type="text" placeholder="Поиск здесь...">
+                                    <button class="btn-clear position-relative" type="submit"><i class=" fa fa-search"></i></button>
+                                </div>
+                            </form>
+
+                            <ul class="d-flex ul-nav align-items-center tabs-nav">
+
+                                <li>
+                                    <a href="#tab-1" title="Список">
+                                        <i class=" fa fa-list"></i>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#tab-2" title="Показать на карте">
+                                        <i class=" fa fa-map-marker"></i>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             <div class="row">
                 <div class="col-lg-4">
-                    <div id="leftcolumn">
+                    <form id="leftcolumn" action="#">
                         <div class="toggle-sidebar-left d-lg-none">Фильтр</div>
                         <div class="sidebar-left">
-                            <button class="btn-close-sidebar-left btn-clear"><i class="fa fa-times-circle"></i>
+                            <button class="btn-close-sidebar-left btn-clear">
+                                <i class="fa fa-times-circle"></i>
                             </button>
                             <div class="box-sidebar">
                                 <div class="header-box d-flex justify-content-between flex-wrap">
-                                    <h3 class="title-box">Категории</h3>
+                                    <span class="title-box">Фильтр</span>
+                                    <input type="reset" value="Очистить">
                                 </div>
                                 <div class="body-box">
                                     <div class="accordion" id="needsAccordion" role="tablist" aria-multiselectable="false">
@@ -80,7 +92,11 @@
                                                                         <div class="card-body">
                                                                             <ul class="list-group list-group-flush">
                                                                                 @foreach($item->categories as $category)
-                                                                                    <a href="{{ route('site.tenders.category', $category->getAncestorsSlugs()) }}" class="list-group-item list-group-item-action">{{ $category->getTitle() }}</a>
+                                                                                    <!--<a href="{{ route('site.tenders.category', $category->getAncestorsSlugs()) }}" class="list-group-item list-group-item-action">{{ $category->getTitle() }}</a>__DIR__-->
+                                                                                    <li class="list-group-item list-group-item-action">
+                                                                                        <input type="checkbox" class="ajax-filter">
+                                                                                        {{ $category->getTitle() }}
+                                                                                    </li>
                                                                                 @endforeach
                                                                             </ul>
                                                                         </div>
@@ -96,7 +112,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col-lg-8">
                     <div class="content-main-right list-jobs">
@@ -106,7 +122,8 @@
                               <a class="btn btn-outline-success" href="{{ route('site.tenders.index') }}">Все результаты</a>
                             @endif
                         </div>
-                        <div class="list">
+                        <div class="list tabs-stage">
+                            <div class="tab" id="tab-1">
                             @foreach($tenders as $tender)
                                 <div class="job-item">
                                     <div class="row align-items-center">
@@ -217,6 +234,11 @@
                                     </div>
                                 </div>
                             @endforeach
+                            </div>
+
+                            <div class="tab" id="tab-2">
+
+                            </div>
                             <div class="pagination-page d-flex justify-content-end">
                                 {{ $tenders->links() }}
                             </div>

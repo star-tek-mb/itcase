@@ -13,3 +13,4 @@
 include __DIR__ . '/registration.php';
 include __DIR__ . '/admin.php';
 include __DIR__ . '/front.php';
+Route::post('/ajax-search','HomeController@search');

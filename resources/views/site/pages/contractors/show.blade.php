@@ -94,7 +94,7 @@
                     <div class="row align-items-lg-center">
                         <div class="col-lg-7 col-xl-8">
                             <h2 class="title-detail">{{ $contractor->getContractorTitle() }}</h2>
-                            <div class="date-job"><li class="fa fa-check-circle"></li>@if ($contractor->contractor_type == 'individual') Фрилансер @elseif ($contractor->contractor_type == 'legal_entity') Digital-агество @endif
+                            <div class="date-job"><li class="fa fa-check-circle"></li>@if ($contractor->contractor_type == 'freelancer') Фрилансер @elseif ($contractor->contractor_type == 'agency') Digital-агество @endif
                             </div>
 
                         </div>
@@ -239,7 +239,7 @@
 
                         @guest
                         @else
-                        @if (auth()->user()->hasRole('customer') && $has_comment )
+                        @if (auth()->user()->hasRole('customer'))
                         <form action="{{ route('site.contractors.comment.contractor') }}" method="post">
                           @csrf
 

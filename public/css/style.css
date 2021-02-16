@@ -52,7 +52,7 @@
 }
 
 .category-badge:hover {
-    color: #63ba16;
+    color: #ff6b01;
 }
 
 .category-children__list {
@@ -63,7 +63,7 @@
 }
 
 .text-primary {
-    color: #63ba16 !important;
+    color: #ff6b01 !important;
 }
 
 img.avatar {
@@ -108,14 +108,14 @@ img.avatar {
 
 .price-control:focus {
     box-shadow: none;
-    border-color: #63ba16;
+    border-color: #ff6b01;
     outline: 0;
 }
 
 .style_a{
    display: block;
    border-bottom: 1px solid #e2e2e2;
-   color: #63ba16;;
+   color: #ff6b01;;
    padding: 10px 0;
    position: relative;
    font-weight: 600;
@@ -130,7 +130,7 @@ img.avatar {
 }
 
 .home .header-site a.user-dropdown-item:hover {
-    color: #63ba16;
+    color: #ff6b01;
 }
 
 a.user-dropdown-item:active {
@@ -160,7 +160,7 @@ a.user-dropdown-item:active {
 }
 
 .contractors-bar .btn-link {
-    color: #63ba16;
+    color: #ff6b01;
 }
 
 .contractors-bar .btn-link.btn-delete, .contractors-modal .btn-link.btn-delete {

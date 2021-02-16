@@ -14,9 +14,11 @@
                     <li><a href="{{ route('site.account.contractor.professional') }}"><i class="fas fa-suitcase"></i> Проф. данные</a></li>
                     <li><a href="{{ route('site.account.tenders') }}"><i class="fas fa-file-alt"></i> Мои конкурсы</a></li>
                     <li><a href="{{ route('site.account.portfolio') }}"><i class="far fa-images"></i>Портфолио</a></li>
+                    <li><a href="#"><i class="fa fa-wallet"></i>Мой кошелек</a></li>
                 @endif
                 @if ($user->hasRole('customer'))
                     <li><a href="{{ route('site.account.tenders') }}"><i class="fas fa-file-alt"></i> Мои конкурсы</a></li>
+                    <li><a href="#"><i class="fa fa-wallet"></i>Мой кошелек</a></li>
                 @endif
                 <li><a href="{{ route('site.account.chats') }}"><i class="fas fa-comments"></i>Чаты</a></li>
                 <li><a href="{{ route('site.account.comment') }}"><i class="fas fa-comment-alt"></i>Оставить комментарий</a></li>
