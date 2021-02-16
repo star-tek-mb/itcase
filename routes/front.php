@@ -6,6 +6,8 @@
  * Time: 16:42
  */
 
+use App\Http\Controllers\Site\TenderController;
+
 Route::view('/advertising/banners-ad', 'site.pages.static.banners_ad');
 Route::view('/advertising/cooler-ad', 'site.pages.static.cooler_ad');
 Route::view('/advertising', 'site.pages.static.home');
@@ -93,6 +95,10 @@ Route::middleware('needsList')->name('site.')->namespace('Site')->group(function
     Route::post('/tenders/{id}/update', 'TenderController@update')->name('tenders.edit');
     Route::post('/tenders/{tenderId}/accept/{requestId}', 'TenderController@acceptTenderRequest')->name('tenders.accept');
 
+    Route::prefix('/tender/maps')->name('maps.')->group( function () {
+        Route::get('/', [TenderController::class,'maps'] )->name('index');
+        Route::post('filter',[TenderController::class,'ajaxFilter'])->name('filter') ;
+    });
 
     Route::get('/', 'HomeController@index')->name('catalog.index');
     Route::get('/contractors', 'ContractorsController@index')->name('contractors.index');

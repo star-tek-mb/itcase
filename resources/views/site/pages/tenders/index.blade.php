@@ -2,13 +2,19 @@
 
 @section('title')
     @if ($currentCategory)
-        {{ $currentCategory->tender_meta_title_prefix }} @if(empty($currentCategory->meta_title)) {{ $currentCategory->getTitle() }} @else {{ $currentCategory->meta_title }} @endif
+        {{ $currentCategory->tender_meta_title_prefix }} @if(empty($currentCategory->meta_title)) {{ $currentCategory->getTitle() }} @else {{ $currentCategory->meta_title }} @endif в Ташкенте|Узбекистане
     @else
         Конкурсы
     @endif
 @endsection
 
-
+@section('meta')
+    @if ($currentCategory)
+        <meta name="title" content="{{ $currentCategory->tender_meta_title_prefix }} @if(empty($currentCategory->meta_title)) {{ $currentCategory->getTitle() }} @else {{ $currentCategory->meta_title }} @endif в Ташкенте|Узбекистане">
+        <meta name="description"
+              content="@if (empty($currentCategory->meta_description)) {{ strip_tags($currentCategory->ru_description) }} @else {{ $currentCategory->meta_description }} @endif">
+    @endif
+@endsection
 @section('header')
     @include('site.layouts.partials.headers.default')
 @endsection
@@ -37,20 +43,21 @@
                              @csrf
                                 <div class="form-group d-flex">
                                     <input class="form-control mr-md-4" name="search" type="text" placeholder="Поиск здесь...">
+                                    <div id="livesearch"></div>
                                     <button class="btn-clear position-relative" type="submit"><i class=" fa fa-search"></i></button>
                                 </div>
                             </form>
 
-                            <ul class="d-flex ul-nav align-items-center tabs-nav">
+                            <ul class="d-flex ul-nav align-items-center ">
 
                                 <li>
-                                    <a href="#tab-1" title="Список">
+                                    <a href="{{ route('site.tenders.index') }}" title="Список">
                                         <i class=" fa fa-list"></i>
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="#tab-2" title="Показать на карте">
+                                    <a href="{{ route('site.maps.index') }}" title="Показать на карте">
                                         <i class=" fa fa-map-marker"></i>
                                     </a>
                                 </li>
@@ -123,7 +130,7 @@
                             @endif
                         </div>
                         <div class="list tabs-stage">
-                            <div class="tab" id="tab-1">
+                            <div class="tab" >
                             @foreach($tenders as $tender)
                                 <div class="job-item">
                                     <div class="row align-items-center">
@@ -236,7 +243,7 @@
                             @endforeach
                             </div>
 
-                            <div class="tab" id="tab-2">
+                            <div class="tab" >
 
                             </div>
                             <div class="pagination-page d-flex justify-content-end">

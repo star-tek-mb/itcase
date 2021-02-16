@@ -318,4 +318,11 @@ class TenderController extends Controller
             return view('site.pages.tenders.index', compact('tenders', 'currentCategory', 'tendersCount'));
         }
     }
+
+    public function maps()
+    {
+        echo 5+5;
+        dd($this->menuItemsRepository);
+        return 0;
+    }
 }
