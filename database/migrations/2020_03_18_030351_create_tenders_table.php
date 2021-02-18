@@ -25,7 +25,7 @@ class CreateTendersTable extends Migration
 
             $table->string('title');
             $table->longText('description');
-            $table->integer('budget');
+            $table->bigInteger('budget')->default(0);
             $table->date('deadline');
 
             $table->string('target_audience')->nullable();
@@ -39,7 +39,7 @@ class CreateTendersTable extends Migration
             $table->boolean('opened')->default(true);
 
             $table->integer('need_id')->nullable();
-
+            $table->text('geo_location')->nullable();
             $table->timestamps();
         });
     }

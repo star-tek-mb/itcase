@@ -3,7 +3,7 @@
     <div class="wrapper-admin">
         <div class="sidebar-admin">
             <div class="header-user">
-                <div class="avatar"><a href="#"><img src="{{ $user->getImage() }}" alt="Image"></a></div>
+                <div class="avatar"><a href="#"><img src="{{ $user->getImage() }}" alt="Image" width=""></a></div>
                 <div class="info-user">
                     <h3><a href="{{ route('site.account.index') }}">{{ $user->getCommonTitle() }}</a></h3>
                 </div>

@@ -18,6 +18,13 @@
 @section('header')
     @include('site.layouts.partials.headers.default')
 @endsection
+@section('css')
+    <style>
+        #map {
+            width: 730px; height: 730px; padding: 0; margin: 0;
+        }
+    </style>
+@endsection
 
 @section('content')
     <div class="primary-page">
@@ -48,16 +55,16 @@
                                 </div>
                             </form>
 
-                            <ul class="d-flex ul-nav align-items-center tabs-nav">
+                            <ul class="d-flex ul-nav align-items-center ">
 
                                 <li>
-                                    <a href="#tab-1" title="Список">
+                                    <a href="{{ route('site.tenders.index') }}" title="Список">
                                         <i class=" fa fa-list"></i>
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="#tab-2" title="Показать на карте">
+                                    <a href="{{ route('site.maps.index') }}" title="Показать на карте">
                                         <i class=" fa fa-map-marker"></i>
                                     </a>
                                 </li>
@@ -65,194 +72,94 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <form id="leftcolumn" action="#">
-                            <div class="toggle-sidebar-left d-lg-none">Фильтр</div>
-                            <div class="sidebar-left">
-                                <button class="btn-close-sidebar-left btn-clear">
-                                    <i class="fa fa-times-circle"></i>
-                                </button>
-                                <div class="box-sidebar">
-                                    <div class="header-box d-flex justify-content-between flex-wrap">
-                                        <span class="title-box">Фильтр</span>
-                                        <input type="reset" value="Очистить">
-                                    </div>
-                                    <div class="body-box">
-                                        <div class="accordion" id="needsAccordion" role="tablist" aria-multiselectable="false">
-                                            @foreach($needs as $need)
-                                                <div class="card">
-                                                    <div class="card-header d-flex justify-content-between" role="tab" id="heading{{ $need->id }}">
-                                                        <span>{{ $need->ru_title }}</span>
-                                                        <a href="#collapse{{ $need->id }}" data-toggle="collapse" data-parent="#needsAccordion" aria-expanded="true" aria-controls="collapse{{ $need->id }}" style="font-size:8px"><button class="btn btn-outline-success"><i class="fas fa-caret-down"></i></button></a>
-                                                    </div>
-                                                    <div class="collapse" id="collapse{{ $need->id }}" role="tabpanel" aria-labelledby="heading{{ $need->id }}" data-parent="#needsAccordion">
-                                                        <div class="card-body">
-                                                            <div class="accordion" id="categoriesAccordion{{ $need->id }}" role="tablist" aria-multiselectable="false">
-                                                                @foreach($need->menuItems as $item)
-                                                                    <div class="card">
-                                                                        <div class="card-header d-flex justify-content-between" id="headingCategory{{ $item->id }}">
-                                                                            <a href="{{ route('site.tenders.category', $item->ru_slug) }}">{{ $item->ru_title }}</a>
-                                                                            <a href="#collapseCategory{{ $item->id }}" data-toggle="collapse" data-parent="#categoriesAccordion{{ $need->id }}" aria-expanded="true" aria-controls="collapseCategory{{ $item->id }}" style="font-size:8px"><button class="btn btn-outline-success"><i class="fas fa-caret-down"></i></button></a>
-                                                                        </div>
-                                                                        <div class="collapse" id="collapseCategory{{ $item->id }}" role="tabpanel" aria-labelledby="headingCategory{{ $item->id }}" data-parent="#categoriesAccordion{{ $need->id }}">
-                                                                            <div class="card-body">
-                                                                                <ul class="list-group list-group-flush">
+            <div class="row">
+                <div class="col-lg-4">
+                    <form id="leftcolumn" action="{{ route('site.maps.filter') }}" method="post">
+                        <div class="toggle-sidebar-left d-lg-none">Фильтр</div>
+                        <div class="sidebar-left">
+                            <button class="btn-close-sidebar-left btn-clear">
+                                <i class="fa fa-times-circle"></i>
+                            </button>
+                            <div class="box-sidebar">
+                                <div class="header-box d-flex justify-content-between flex-wrap">
+                                    <span class="title-box">Фильтр</span>
+                                    <input type="reset" value="Очистить">
+                                </div>
+                               <!-- category checkbox -->
+                                <div class="body-box">
+                                    <div class="accordion" id="needsAccordion" role="tablist" aria-multiselectable="false">
+                                        @foreach($needs as $need)
+                                            <div class="card">
+                                                <div class="card-header d-flex justify-content-between" role="tab" id="heading{{ $need->id }}">
+                                                    <span>{{ $need->ru_title }}</span>
+                                                    <a href="#collapse{{ $need->id }}" data-toggle="collapse" data-parent="#needsAccordion" aria-expanded="true" aria-controls="collapse{{ $need->id }}" style="font-size:8px"><button class="btn btn-outline-success"><i class="fas fa-caret-down"></i></button></a>
+                                                </div>
+                                                <div class="collapse" id="collapse{{ $need->id }}" role="tabpanel" aria-labelledby="heading{{ $need->id }}" data-parent="#needsAccordion">
+                                                    <div class="card-body">
+                                                        <div class="accordion" id="categoriesAccordion{{ $need->id }}" role="tablist" aria-multiselectable="false">
+                                                            @foreach($need->menuItems as $item)
+                                                                <div class="card">
+                                                                    <div class="card-header d-flex justify-content-between" id="headingCategory{{ $item->id }}">
+                                                                        <a href="{{ route('site.tenders.category', $item->ru_slug) }}">{{ $item->ru_title }}</a>
+                                                                        <a href="#collapseCategory{{ $item->id }}" data-toggle="collapse" data-parent="#categoriesAccordion{{ $need->id }}" aria-expanded="true" aria-controls="collapseCategory{{ $item->id }}" style="font-size:8px"><button class="btn btn-outline-success"><i class="fas fa-caret-down"></i></button></a>
+                                                                    </div>
+                                                                    <div class="collapse" id="collapseCategory{{ $item->id }}" role="tabpanel" aria-labelledby="headingCategory{{ $item->id }}" data-parent="#categoriesAccordion{{ $need->id }}">
+                                                                        <div class="card-body">
+                                                                            <ul class="list-group list-group-flush">
                                                                                 @foreach($item->categories as $category)
                                                                                     <!--<a href="{{ route('site.tenders.category', $category->getAncestorsSlugs()) }}" class="list-group-item list-group-item-action">{{ $category->getTitle() }}</a>__DIR__-->
-                                                                                        <li class="list-group-item list-group-item-action">
-                                                                                            <input type="checkbox" class="ajax-filter">
-                                                                                            {{ $category->getTitle() }}
-                                                                                        </li>
-                                                                                    @endforeach
-                                                                                </ul>
-                                                                            </div>
+                                                                                    <li class="list-group-item list-group-item-action">
+                                                                                        <input type="checkbox" class="ajax-filter" value=" {{ $category->id }}">
+                                                                                        {{ $category->getTitle() }}
+                                                                                    </li>
+                                                                                @endforeach
+                                                                            </ul>
                                                                         </div>
                                                                     </div>
-                                                                @endforeach
-                                                            </div>
+                                                                </div>
+                                                            @endforeach
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="content-main-right list-jobs">
-                            <div class="header-list-job d-flex flex-wrap justify-content-between align-items-center">
-                                <h4>{{ $tendersCount }} Конкурсов найдено</h4>
-                                @if (!\Request::is('tenders'))
-                                    <a class="btn btn-outline-success" href="{{ route('site.tenders.index') }}">Все результаты</a>
-                                @endif
-                            </div>
-                            <div class="list tabs-stage">
-                                <div class="tab" id="tab-1">
-                                    @foreach($tenders as $tender)
-                                        <div class="job-item">
-                                            <div class="row align-items-center">
-                                                <div class="col-md-2">
-                                                    <div class="img-job text-center"><a href="#"></a></div>
-                                                </div>
-                                                <div class="col-md-10 job-info">
-                                                    <div class="text">
-                                                        <h3 class="title-job"><a href="{{ route('site.tenders.category', $tender->slug) }}">{{ $tender->title }}</a><span class="ml-2 tags"><a>@if ($tender->opened==0 || $tender->contractor) Приём заявок окончен @else Открыт @endif</a></span></h3>
-                                                        <div class="date-job">
-                                                            <i class="fa fa-check-circle"></i><span
-                                                                    class="company-name">Опубликован: {{ \Carbon\Carbon::create($tender->published_at)->format('d.m.Y') }}</span>
-                                                            <div class="date-job"><i class="fa fa-check-circle"></i><span
-                                                                        class="company-name">Крайний срок приема заявок: {{ \Carbon\Carbon::create($tender->deadline)->format('d.m.Y') }}</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="meta-job">
-                                                            <div class="categories">@foreach($tender->categories as $category){{ $category->getTitle() }} @endforeach</div>
-                                                            <span class="salary">Бюджет {{ $tender->budget }} сум</span>
-                                                        </div>
-                                                        @guest
-                                                        <a href="{{ route('login') }}" class="add-favourites" data-toggle="tooltip" title="Оставить заявку"><i class="fas fa-plus"></i></a>
-                                                        @else
-                                                            @php
-                                                                $user = auth()->user();
-                                                            @endphp
-                                                            @if ($user->hasRole('contractor'))
-                                                                @if (in_array($user->id, $tender->requests()->pluck('user_id')->toArray()))
-                                                                    <span class="text-primary"><i class="fas fa-check"></i> Вы уже участвуете в этом конкурсе</span>
-                                                                @else
-                                                                    <button class="add-favourites" type="button" data-toggle="modal"
-                                                                            data-target="#requestFormModal{{ $tender->id }}" title="Оставить заявку"><div class="h-100 w-100" data-toggle="tooltip" title="Оставить заявку"><i class="fas fa-plus"></i></div>
-                                                                    </button>
-                                                                    <div class="modal fade" id="requestFormModal{{ $tender->id }}" tabindex="-1" role="dialog"
-                                                                         aria-labelledby="requestFormModelLabel{{ $tender->id }}" aria-hidden="true">
-                                                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <h5 class="modal-title" id="requestFormModelLabel{{ $tender->id }}">Ваша заявка</h5>
-                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                        <span aria-hidden="true">&times;</span>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <form action="{{ route('site.tenders.requests.make') }}" method="post">
-                                                                                    @csrf
-                                                                                    <input type="hidden" name="user_id" value="{{ $user->id }}">
-                                                                                    <input type="hidden" name="tender_id" value="{{ $tender->id }}">
-                                                                                    <div class="modal-body">
-                                                                                        <p>Заинтересованы в данной задаче? Сразу отправляйте заявку. Так вы сможете
-                                                                                            быстрее
-                                                                                            связаться с заказчиком и обсудить все детали.
-                                                                                            <b>Бюджет</b> и <b>Cроки</b> в
-                                                                                            заявке — <b>ориентировочные</b>. Их требуется указать
-                                                                                            лишь для того, чтобы заказчик понимал ваш уровень цен и скорость работы.
-                                                                                            При
-                                                                                            общении с заказчиком вы всегда сможете их пересмотреть.
-                                                                                            Ваше предложение и дальнейшую переписку увидит только организатор
-                                                                                            задачи.
-                                                                                        </p>
-                                                                                        <div class="form-group">
-                                                                                            <label for="budget">Бюджет</label>
-                                                                                            <div class="row">
-                                                                                                <div class="col-sm-12 col-lg-6">
-                                                                                                    <input type="text" required name="budget_from" id="budgetFrom{{ $tender->id }}"
-                                                                                                           class="form-control" placeholder="500 000">
-                                                                                                </div>
-                                                                                                <div class="col-sm-12 col-lg-6">
-                                                                                                    <input type="text" required name="budget_to" id="budgetTo{{ $tender->id }}"
-                                                                                                           class="form-control" placeholder="1 000 000">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                            <label for="period">Срок</label>
-                                                                                            <div class="row">
-                                                                                                <div class="col-ms-12 col-lg-6">
-                                                                                                    <input type="text" required name="period_from" id="period_from{{ $tender->id }}"
-                                                                                                           class="form-control" placeholder="2 дня">
-                                                                                                </div>
-                                                                                                <div class="col-ms-12 col-lg-6">
-                                                                                                    <input type="text" required name="period_to" id="period_to{{ $tender->id }}"
-                                                                                                           class="form-control" placeholder="3 дня">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                            <label for="comment">Комментарий (по желанию)</label>
-                                                                                            <textarea name="comment" id="comment{{ $tender->id }}" rows="3"
-                                                                                                      class="form-control"></textarea>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                                                            Закрыть
-                                                                                        </button>
-                                                                                        <button class="btn btn-light-green" type="submit">Отправить заявку <i
-                                                                                                    class="fas fa-send"></i></button>
-                                                                                    </div>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                @endif
-                                                            @endif
-                                                            @endguest
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
 
-                                <div class="tab" id="tab-2">
+                                <!-- other checkbox -->
+                                <div class="body-box">
+                                        <label >
 
+                                            Поиск заданий на расстоянии <input type="text" class="ajax-filter" name="distance">км
+                                        </label>
+                                        <label >
+
+                                            Стоимости заданий от<input type="text" class="ajax-filter" name="min_price"> сум
+                                        </label>
+                                        <label >
+                                            <input type="checkbox" class="ajax-filter"  name="remote">
+                                            Удаленная работа
+                                        </label>
                                 </div>
-                                <div class="pagination-page d-flex justify-content-end">
-                                    {{ $tenders->links() }}
-                                </div>
+<button>Фильтр</button>
+
                             </div>
                         </div>
+                    </form>
+                </div>
+                <div class="col-lg-8">
+                    <div class="content-main-right list-jobs">
+                        <div class="header-list-job d-flex flex-wrap justify-content-between align-items-center">
+                            <h4>{{ $tendersCount }} Конкурсов найдено</h4>
+                            @if (!\Request::is('tenders'))
+                              <a class="btn btn-outline-success" href="{{ route('site.maps.index') }}">Все результаты</a>
+                            @endif
+                        </div>
+                        <div id="map"></div>
+
                     </div>
                 </div>
+            </div>
                 @if ($currentCategory !== null && $currentCategory->ru_description)
                     <div class="row">
                         <div class="col-lg">
@@ -271,6 +178,134 @@
                         </div>
                     </div>
                 @endif
-            </div>
         </div>
+    </div>
+    </div>
+
+@endsection
+        @section('js')
+            <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9b7e0e79-b7ed-43b7-87c6-671049c7c8f3" type="text/javascript"></script>
+
+            <script>
+                ymaps.ready(init);
+                function init() {
+
+                    destinations = {
+                        'Адрес 1': [41.347504, 69.286773],
+                        'Адрес 2': [41.303755, 69.283424],
+                    },
+
+                        myMap = new ymaps.Map("map", {
+                            center: destinations['Адрес 1'],
+                            zoom: 16,
+                            controls: [],
+                            draggable: false
+                        }),
+
+                        // Создаем геообъект с типом геометрии "Точка".
+                        myGeoObject = new ymaps.GeoObject({
+                            // Описание геометрии.
+                            geometry: {
+                                type: "Point",
+                                coordinates: [41.347504, 69.286773]
+                            },
+                            // Свойства.
+                            properties: {
+                                // Контент метки.
+                                iconContent: '',
+                                balloonContent: '+998 99 910 03 00  / +998 99 510 03 00',
+                                hintContent: '+998 99 910 03 00  / +998 99 510 03 00'
+                            }
+                        }, {
+                            // Опции.
+                            // Иконка метки будет растягиваться под размер ее содержимого.
+                            //preset: 'islands#orangeIcon',
+                            iconLayout: 'default#image',
+                            // Путь до нашей картинки
+                            iconImageHref: 'https://cityrentcar.uz/wp-content/themes/cityrentcar/images/address.png',
+                            // Размер по ширине и высоте
+                            iconImageSize: [92, 88],
+                            // Смещение левого верхнего угла иконки относительно
+                            // её «ножки» (точки привязки).
+                            iconImageOffset: [-38, -88],
+                            // Метку можно перемещать.
+
+                        });
+
+
+
+                    myGeoObject_1 = new ymaps.GeoObject({
+                        // Описание геометрии.
+                        geometry: {
+
+                            type: "Point",
+                            coordinates: [41.303755, 69.283424]
+                        },
+                        // Свойства.
+                        properties: {
+                            // Контент метки.
+                            iconContent: '',
+                            balloonContent: '+998 90 120 03 00   / +998 95 420 03 00',
+                            hintContent: '+998 90 120 03 00  /  +998 95 420 03 00'
+                        }
+                    }, {
+                        // Опции.
+                        // Иконка метки будет растягиваться под размер ее содержимого.
+                        //preset: 'islands#orangeIcon',
+                        iconLayout: 'default#image',
+                        // Путь до нашей картинки
+                        iconImageHref: 'https://cityrentcar.uz/wp-content/themes/cityrentcar/images/address.png',
+                        // Размер по ширине и высоте
+                        iconImageSize: [92, 88],
+                        // Смещение левого верхнего угла иконки относительно
+                        // её «ножки» (точки привязки).
+                        iconImageOffset: [-38, -88],
+                        // Метку можно перемещать.
+
+                    });
+
+
+
+
+
+                    //myMap.controls.add('smallZoomControl');
+                    // Добавляем все метки на карту.
+                    myMap.geoObjects.add(myGeoObject);
+                    myMap.geoObjects.add(myGeoObject_1);
+                    myMap.behaviors.disable('scrollZoom');
+                    myMap.behaviors.disable('drag');
+
+                    function clickGoto() {
+
+                        // город
+                        var pos = this.textContent;
+                        //result.textContent = pos;
+
+                        // переходим по координатам
+                        myMap.panTo(destinations[pos], {
+                            flying: 1
+                        });
+
+
+                        return false;
+                    }
+
+
+                }
+                $('#ajaxFilter').click(function (e) {
+                    var frm = $('#filter');
+                    var formData = frm.serialize();
+
+                    $.ajax({
+                        type: frm.attr('method'),
+                        url: frm.attr('action'),
+                        data: formData,
+                        success: function (data) {
+                            $('#result').html(data);
+
+                        }
+                    });
+
+                });
+            </script>
 @endsection

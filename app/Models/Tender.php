@@ -17,7 +17,9 @@ class Tender extends Model
         'slug', 'opened',
         'need_id', 'owner_id', 'contractor_id'
     ];
-
+    protected $casts = [
+        'budget' => 'integer'
+    ];
     protected static function boot()
     {
         parent::boot();

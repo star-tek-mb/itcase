@@ -299,7 +299,7 @@
                                aria-expanded="false">
                                 @if(auth()->user()->getImage())
                                     <span class="user-photo">
-                                        <img src="{{ auth()->user()->getImage() }}" alt="">
+                                        <img src="{{ auth()->user()->getImage() }}" alt="" width="50px">
                                     </span>
                                 @endif
                                 @if(auth()->user()->name)
@@ -349,7 +349,7 @@
                            aria-expanded="false">
                             @if(auth()->user()->getImage())
                                 <span class="user-photo">
-                                    <img src="{{ auth()->user()->getImage() }}" alt="">
+                                    <img src="{{ auth()->user()->getImage() }}" alt="" width="50px">
                                 </span>
                             @endif
                             @if(auth()->user()->name)

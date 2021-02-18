@@ -17,7 +17,7 @@ class HandbookCategoryRepository implements HandbookCategoryRepositoryInterface
      * @param int $id
      * @return \App\Models\HandbookCategory
      */
-    public function get(int $id)
+    public function get( $id)
     {
         return HandbookCategory::find($id);
     }

@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use App\Models\MenuItem;
 
 class TenderController extends Controller
 {
@@ -291,38 +292,43 @@ class TenderController extends Controller
 
     public function ajaxFilter()
     {
-        $minPrice = request('min_price');
-        $sort = request('sort');
-        $category = request('category');
-        $remote = request('remote');
-        $no_click = request('no_click');
-        $menuItem = $this->menuItemsRepository->get($category);
 
-        if ($menuItem) {
+        $minPrice = empty(request('min_price')) ? 0 : (int)(request('min_price'));
+        $category_ids = request('category');
+        $remote = request('remote')=='remote'  ? 'remote' : null;
+        $distance = request('distance');
+        $categories =  $this->categoryRepository->get($category_ids);
+
+
+        if ($categories) {
             $tenders = collect();
             $currentCategory = null;
-            foreach ($menuItem->categories as $category)
+            foreach ($categories as $category)
                 $tenders = $tenders->merge($category->tenders()
                     ->whereNotNull('owner_id')
                     ->where('published', true)
+                    ->where('type', $remote)
                     ->where('budget', '>',$minPrice)
                     ->orderBy('opened', 'desc')
-                    ->orderBy('created_at', $sort)
                     ->get());
             $tenders = $tenders->unique(function ($item) {
                 return $item->id;
             });
-            $currentCategory = $menuItem;
+            $currentCategory = $this->categoryRepository->get(current($category_ids));
             $tendersCount = $tenders->count();
             $tenders = PaginateCollection::paginateCollection($tenders, 5);
-            return view('site.pages.tenders.index', compact('tenders', 'currentCategory', 'tendersCount'));
+            $tenders->withPath('');
+            return view('site.pages.tenders.components.ajax-result', compact('tenders', 'currentCategory', 'tendersCount'));
         }
     }
 
     public function maps()
     {
-        echo 5+5;
-        dd($this->menuItemsRepository);
-        return 0;
+        $tenders = $this->tenderRepository->allOrderedByCreatedAt();
+        $currentCategory = null;
+        $tendersCount = $tenders->count();
+        $tenders = PaginateCollection::paginateCollection($tenders, 5);
+
+        return view('site.pages.tenders.maps', compact('tenders', 'currentCategory', 'tendersCount'));
     }
 }
