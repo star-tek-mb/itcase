@@ -80,14 +80,16 @@ class TenderController extends Controller
         return view('site.pages.tenders.index', compact('tenders', 'currentCategory', 'tendersCount'));
     }
 
-    public function searchTender(Request $request){
-      $tenders = $this->tenderRepository->TenderSearch($request);
-      $currentCategory = null;
-      $tendersCount = $tenders->count();
-      $tenders = PaginateCollection::paginateCollection($tenders, 5);
-      return view('site.pages.tenders.index', compact('tenders', 'currentCategory', 'tendersCount'));
+    public function searchTender(Request $request)
+    {
+        $tenders = $this->tenderRepository->TenderSearch($request);
+        $currentCategory = null;
+        $tendersCount = $tenders->count();
+        $tenders = PaginateCollection::paginateCollection($tenders, 5);
+        return view('site.pages.tenders.index', compact('tenders', 'currentCategory', 'tendersCount'));
 
     }
+
     public function category(string $params)
     {
         if (preg_match('/[A-Z]/', $params)) {
@@ -295,31 +297,61 @@ class TenderController extends Controller
 
         $minPrice = empty(request('min_price')) ? 0 : (int)(request('min_price'));
         $category_ids = request('category');
-        $remote = request('remote')=='remote'  ? 'remote' : null;
+        $remote = request('remote') == 'remote' ? 'remote' : null;
         $distance = request('distance');
-        $categories =  $this->categoryRepository->get($category_ids);
+        $location = request('location');
+        $map = request('map_filter');
+        $location=empty($location) ? "41.31064707835609, 69.2795380845336" : $location;
+        if (empty($map)) {
+            $categories = $this->categoryRepository->get($category_ids);
+            if ($categories) {
+                $tenders = collect();
+                $currentCategory = null;
+                foreach ($categories as $category)
+                    $tenders = $tenders->merge($category->tenders()
+                        ->whereNotNull('owner_id')
+                        ->where('published', true)
+                        ->where('type', $remote)
+                        ->where('budget', '>', $minPrice)
+                        ->orderBy('opened', 'desc')
+                        ->get());
+                $tenders = $tenders->unique(function ($item) {
+                    return $item->id;
+                });
+                $currentCategory = $this->categoryRepository->get(current($category_ids));
+                $tendersCount = $tenders->count();
+                $tenders = PaginateCollection::paginateCollection($tenders, 5);
+                $tenders->withPath('');
+                return view('site.pages.tenders.components.ajax-result', compact('tenders', 'currentCategory', 'tendersCount'));
+            }
+        } else {
 
+            if (!empty($category_ids))
+                $categories = $this->categoryRepository->get($category_ids);
+            else
+                $categories = $this->categoryRepository->all();
 
-        if ($categories) {
             $tenders = collect();
             $currentCategory = null;
             foreach ($categories as $category)
                 $tenders = $tenders->merge($category->tenders()
                     ->whereNotNull('owner_id')
+                    ->whereNotNull('geo_location')
                     ->where('published', true)
                     ->where('type', $remote)
-                    ->where('budget', '>',$minPrice)
+                    ->where('budget', '>', $minPrice)
                     ->orderBy('opened', 'desc')
                     ->get());
             $tenders = $tenders->unique(function ($item) {
                 return $item->id;
             });
-            $currentCategory = $this->categoryRepository->get(current($category_ids));
             $tendersCount = $tenders->count();
-            $tenders = PaginateCollection::paginateCollection($tenders, 5);
-            $tenders->withPath('');
-            return view('site.pages.tenders.components.ajax-result', compact('tenders', 'currentCategory', 'tendersCount'));
+            return view('site.pages.tenders.components.ajax-map', compact('tenders', 'location','distance', 'tendersCount'));
+
+
         }
+
+
     }
 
     public function maps()
