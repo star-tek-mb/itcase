@@ -18,7 +18,19 @@
         }
     </style>
     <link rel="stylesheet" href="{{ asset('assets/css/ckeditor.css') }}">
+
+    <style>
+        #location {
+            width: 800px;
+            height: 300px;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
 @endsection
+
+
+
 
 @section('content')
 
@@ -125,6 +137,20 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="geo_location">Укажите местоположение</label>
+                                    <input hidden class="form-control" id="geo_location" name="geo_location" value="41.31064707835609, 69.2795380845336">
+                                    <div id="location"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="remote" class="form-check-label">
+                                        Удаленная работа
+                                    </label>
+                                    <input type="checkbox" name="remote" id="remote"  class="css-control-input" >
+                                </div>
+
                             </div>
                         </div>
                         <div class="mb-30 mt-5">
@@ -196,4 +222,68 @@
             // };
         });
     </script>
+
+   {{-- Map--}}
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9b7e0e79-b7ed-43b7-87c6-671049c7c8f3"
+            type="text/javascript"></script>
+    <script>
+        //Map input
+        ymaps.ready(function () {
+            var map;
+            ymaps.geolocation.get({
+                provider: 'browser',
+                mapStateAutoApply: true
+            }).then(function (res) {
+                var mapContainer = $('#location'),
+                    bounds = res.geoObjects.get(0).properties.get('boundedBy'),
+                    // Рассчитываем видимую область для текущей положения пользователя.
+                    mapState = ymaps.util.bounds.getCenterAndZoom(
+                        bounds,
+                        [mapContainer.width(), mapContainer.height()]
+                    );
+                createMap(mapState);
+            }, function (e) {
+                // Если местоположение невозможно получить, то просто создаем карту.
+                createMap({
+                    center: [41.2825125, 69.1392828],
+                    zoom: 10
+                });
+            });
+
+            function createMap(state) {
+                map = new ymaps.Map('location', state);
+                map.events.add('click', function (e) {
+                    if (!map.balloon.isOpen()) {
+                        var coords = e.get('coords');
+                        $('input[name=geo_location]').val(coords);
+                        console.log(coords);
+                        myPlacemark = new ymaps.Placemark(coords, {
+                            //hintContent: 'Собственный значок метки',
+                            //   balloonContent: 'Это красивая метка'
+                        }, {
+                            // Опции.
+                            // Необходимо указать данный тип макета.
+                            iconLayout: 'default#image',
+                            // Своё изображение иконки метки.
+                            iconImageHref: '/front/images/location.gif',
+                            // Размеры метки.
+                            iconImageSize: [30, 42],
+                            // Смещение левого верхнего угла иконки относительно
+                            // её "ножки" (точки привязки).
+                            iconImageOffset: [-5, -38]
+                        });
+                        map.geoObjects
+                            .removeAll()
+                            .add(myPlacemark);
+
+                    }
+                    else {
+                        map.balloon.close();
+                    }
+                });
+            }
+        });
+    </script>
+
+
 @endsection

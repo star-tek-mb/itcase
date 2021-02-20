@@ -177,7 +177,7 @@
                                         </label>
                                         <label>
                                             <input hidden class="ajax-filter" name="location">
-                                            <input hidden class="ajax-filter" name="map_filter" value="true">
+                                            <input hidden class="ajax-filter" name="map_filter" value="41.31064707835609, 69.2795380845336">
                                             Укажите местоположение
                                         </label>
                                         <div id="location"></div>
@@ -259,7 +259,8 @@
                                 "coordinates": [ {{ $tender->geo_location }} ]
                             },
                             "properties": {
-                                "hintContent": "Центр выдачи в Великом Новгороде"
+                                "balloonContent": "<a href='{{ route('site.tenders.category', $tender->slug) }}'>{{ $tender->title }}</a> {{ ($tender->opened==0 || $tender->contractor) ? "(Приём заявок окончен)" :"(Открыт)" }}",
+                                "hintContent": "{{ $tender->title }} {{ ($tender->opened==0 || $tender->contractor) ? "(Приём заявок окончен)" :"(Открыт)" }}"
                             }
                         },
 

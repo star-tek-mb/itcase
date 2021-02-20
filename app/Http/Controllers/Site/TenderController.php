@@ -15,6 +15,7 @@ use App\Repositories\UserRepositoryInterface;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
@@ -177,7 +178,8 @@ class TenderController extends Controller
             'description' => 'required|string|max:5000',
             'files' => 'nullable',
             'budget' => 'required',
-            'deadline' => 'required|date'
+            'deadline' => 'required|date',
+            'geo_location' => 'nullable'
         ], $validationMessages)->validate();
         $tender = $this->tenderRepository->create($request);
 
@@ -256,7 +258,8 @@ class TenderController extends Controller
             'description' => 'required|string|max:5000',
             'files' => 'nullable',
             'budget' => 'required',
-            'deadline' => 'required|date'
+            'deadline' => 'required|date',
+            'geo_location' => 'nullable'
         ], $validationMessages)->validate();
         $this->tenderRepository->update($id, $request);
         return redirect($request->get('redirect_to'))->with('account.success', 'Конкрус отредактитрован!');
@@ -297,13 +300,19 @@ class TenderController extends Controller
 
         $minPrice = empty(request('min_price')) ? 0 : (int)(request('min_price'));
         $category_ids = request('category');
-        $remote = request('remote') == 'remote' ? 'remote' : null;
+        $remote = request('remote') == 'on' ? 'remote' : null;
         $distance = request('distance');
         $location = request('location');
         $map = request('map_filter');
-        $location=empty($location) ? "41.31064707835609, 69.2795380845336" : $location;
+        $location = empty($location) ? "41.31064707835609, 69.2795380845336" : $location;
+
         if (empty($map)) {
-            $categories = $this->categoryRepository->get($category_ids);
+            if (!empty($category_ids)) {
+                $currentCategory = $this->categoryRepository->get(current($category_ids));
+                $categories = $this->categoryRepository->get($category_ids);
+            } else
+                $categories = $this->categoryRepository->allWithoutTree();
+
             if ($categories) {
                 $tenders = collect();
                 $currentCategory = null;
@@ -318,7 +327,7 @@ class TenderController extends Controller
                 $tenders = $tenders->unique(function ($item) {
                     return $item->id;
                 });
-                $currentCategory = $this->categoryRepository->get(current($category_ids));
+
                 $tendersCount = $tenders->count();
                 $tenders = PaginateCollection::paginateCollection($tenders, 5);
                 $tenders->withPath('');
@@ -329,7 +338,7 @@ class TenderController extends Controller
             if (!empty($category_ids))
                 $categories = $this->categoryRepository->get($category_ids);
             else
-                $categories = $this->categoryRepository->all();
+                $categories = $this->categoryRepository->allWithoutTree();
 
             $tenders = collect();
             $currentCategory = null;
@@ -346,7 +355,7 @@ class TenderController extends Controller
                 return $item->id;
             });
             $tendersCount = $tenders->count();
-            return view('site.pages.tenders.components.ajax-map', compact('tenders', 'location','distance', 'tendersCount'));
+            return view('site.pages.tenders.components.ajax-map', compact('tenders', 'location', 'distance', 'tendersCount'));
 
 
         }
@@ -356,7 +365,7 @@ class TenderController extends Controller
 
     public function maps()
     {
-        $tenders = $this->tenderRepository->allOrderedByCreatedAt();
+        $tenders = $this->tenderRepository->allOrderedByCreatedAt(false, true);
         $currentCategory = null;
         $tendersCount = $tenders->count();
         $tenders = PaginateCollection::paginateCollection($tenders, 5);

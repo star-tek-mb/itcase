@@ -15,7 +15,7 @@ class Tender extends Model
         'title', 'description', 'budget', 'deadline',
         'target_audience', 'links', 'additional_info', 'other_info', 'what_for', 'type',
         'slug', 'opened',
-        'need_id', 'owner_id', 'contractor_id'
+        'need_id', 'owner_id', 'contractor_id','geo_location'
     ];
     protected $casts = [
         'budget' => 'integer'

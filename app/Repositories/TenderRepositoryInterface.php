@@ -18,7 +18,7 @@ interface TenderRepositoryInterface
      * @param bool $withoutContractors
      * @return mixed
      */
-    public function allOrderedByCreatedAt($withoutContractors = false);
+    public function allOrderedByCreatedAt($withoutContractors = false,$map=false);
 
     // Search tender
     // @param Request $search

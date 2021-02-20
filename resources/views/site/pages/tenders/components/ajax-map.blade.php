@@ -26,7 +26,7 @@
                                 "coordinates": [ {{ $tender->geo_location }} ]
                             },
                             "properties": {
-                                "hintContent": "Центр выдачи в Великом Новгороде"
+                                "hintContent": "<a href='{{ route('site.tenders.category', $tender->slug) }}'>{{ $tender->title }}</a>"
                             }
                         },
 

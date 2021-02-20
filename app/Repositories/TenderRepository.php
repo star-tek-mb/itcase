@@ -6,6 +6,7 @@ namespace App\Repositories;
 use App\Models\Tender;
 use App\Models\TenderRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 
 
 class TenderRepository implements TenderRepositoryInterface
@@ -22,13 +23,16 @@ class TenderRepository implements TenderRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function allOrderedByCreatedAt($withoutContractors = false)
+    public function allOrderedByCreatedAt($withoutContractors = false,$map=false)
     {
 
         $query = Tender::whereNotNull('owner_id')->where('published', true);
         if ($withoutContractors){
             $query = $query->whereNull('contractor_id');
         }
+        if($map)
+            $query = $query->whereNotNull('geo_location');
+
         return $query->whereNotNull('owner_id')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
 
     }
@@ -64,6 +68,8 @@ class TenderRepository implements TenderRepositoryInterface
             $tenderData['client_type'] = '';
             $tenderData['client_phone_number'] = '';
         }
+        if(Arr::get($tenderData, 'remote')=='on')
+            $tenderData['type']='remote';
         $tenderData['deadline'] = Carbon::createFromFormat('d.m.Y', $data->get('deadline'))->setHour(23)->setMinutes(59)->setSecond(59)->format('Y-m-d H:i:s');
         $tender = Tender::create($tenderData);
         $tender->saveFiles($data->file('files'));
@@ -80,6 +86,8 @@ class TenderRepository implements TenderRepositoryInterface
         $tender = $this->get($id);
         $tenderData = $data->all();
         $tenderData['deadline'] = Carbon::createFromFormat('d.m.Y', $data->get('deadline'))->setHour(23)->setMinutes(59)->setSecond(59)->format('Y-m-d H:i:s');
+        if(Arr::get($tenderData, 'remote')=='on')
+            $tenderData['type']='remote';
         $tender->update($tenderData);
         $tender->saveFiles($data->file('files'));
         $tender->categories()->detach();
