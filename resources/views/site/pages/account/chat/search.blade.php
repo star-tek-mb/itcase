@@ -47,30 +47,25 @@
         <div class="body-box-admin p-0">
             <div class="chat" @if ($user->chats()->count() == 0)style="height: 500px"@endif>
                 <div class="contact-chat">
-                    @if ($user->chats()->count() > 0)
+
                         <ul class="msg-contacts">
-                            @foreach($user->chats as $chat)
-                                @php
-                                  $anotherUser = $chat->getAnotherUser()
-                                @endphp
-                                <li><a href="{{ route('site.account.chats') }}?chat_id={{ $chat->id }}" class="msg-contact-item">
+                            @foreach($results as $chat)
+
+                                <li>
+                                    <a href="{{route('site.account.chats', ['chat_id'=>$chat['id']])}}" class="msg-contact-item">
                                         <div class="avatar-user">
-                                            <img src="@if ($user->hasRole('contractor') && $anotherUser->hasRole('customer')) /assets/img/avatars/avatar15.jpg @else {{ $anotherUser->getImage() }} @endif"
-                                                 alt="@if ($user->hasRole('contractor') && $anotherUser->hasRole('customer')) Заказчик @else {{ $anotherUser->getCommonTitle() }} @endif">
+                                            <img src="@if ($user->hasRole('contractor') && $chat['anotherUser']) /assets/img/avatars/avatar15.jpg @else {{ $chat['image']}} @endif"
+                                                 alt="@if ($user->hasRole('contractor') && $chat['anotherUser']) Заказчик @else {{ $chat['title'] }} @endif">
                                         </div>
                                         <div class="text">
-                                            <div class="msg-contact-name">@if ($user->hasRole('contractor') && $anotherUser->hasRole('customer')) Заказчик @else {{ $anotherUser->getCommonTitle() }} @endif</div>
-                                            <div class="desc-short">{{ $chat->getLastMessageText() }}</div>
+                                            <div class="msg-contact-name">@if ($user->hasRole('contractor') && $chat['anotherUser']) Заказчик @else {{ $chat['title'] }} @endif</div>
+                                            <div class="desc-short">{{ $chat['text'] }}</div>
                                         </div>
                                     </a>
                                 </li>
                             @endforeach
                         </ul>
-                    @else
-                        <div class="d-flex justify-content-center align-items-center h-100">
-                            <p>У вас нет открытых диалогов</p>
-                        </div>
-                    @endif
+
                 </div>
                 <div class="content-chat">
                     <div class="d-flex justify-content-center align-items-center h-100">

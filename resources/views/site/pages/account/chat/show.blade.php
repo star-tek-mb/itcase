@@ -12,6 +12,22 @@
     @php
         $currentCompanion = $chat->getAnotherUser()
     @endphp
+    <div class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <div class="search-form d-flex justify-content-end pr-0 align-items-center">
+                <form action="{{ route('site.chats.search') }}" method="post">
+                    @csrf
+                    <div class="form-group d-flex">
+                        <input class="form-control mr-md-4" name="search" type="text"
+                               placeholder="Поиск здесь...">
+                        <button class="btn-clear position-relative" type="submit"><i
+                                    class=" fa fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div id="app">
         <div class="box-admin account-chat employer-messages">
             <div class="header-box-admin d-block d-xl-flex flex-wrap">

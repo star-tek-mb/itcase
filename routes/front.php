@@ -114,5 +114,5 @@ Route::middleware('needsList')->name('site.')->namespace('Site')->group(function
     // Route::get('/{params}', 'ContractorsController@category')->where('params', '.+')->name('catalog.main');
     Route::post('/search', 'CatalogController@search')->name('catalog.search');
     Route::post('/live-search', 'CatalogController@ajax_search');
-    Route::post('/chat-search', 'ChatsController@searchChat');
+    Route::post('/chat-search', 'ChatsController@searchChat')->name('chats.search');
 });

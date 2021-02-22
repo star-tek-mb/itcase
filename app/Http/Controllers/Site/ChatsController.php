@@ -88,18 +88,24 @@ class ChatsController extends Controller
     }
     public function searchChat(Request $request)
     {
+        $accountPage = 'chat';
         $user = auth()->user();
         $chats=Message::where('user_id', $user->id)->where('text', 'LIKE', "%{$request->search}%")
             ->orWhere('text', 'LIKE', "%{$request->search}")
             ->orWhere('text', 'LIKE', "{$request->search}%")
             ->get();
 
-        $result="";
+        $results=[];
         foreach ($chats as $chat){
-            var_dump($chat->chat_id);
-            $result.='<a href="'.route('site.account.chats', ['chat_id'=>$chat->chat_id]) .'">'.$chat->text.' </a>';
-            $result.="<br>";
+            $chatId = $this->chatRepository->getById($chat->chat_id);
+           $results[]= [
+               'id'=>$chat->chat_id,
+               'text'=>$chat->text,
+               'anotherUser'=>$chatId->getAnotherUser()->hasRole('customer'),
+               'title'=>$chatId->getAnotherUser()->getCommonTitle(),
+               'image'=>$chatId->getAnotherUser()->getImage()
+           ];
         }
-        return $result;
+        return view('site.pages.account.chat.search', compact('results','user','accountPage'));
     }
 }
