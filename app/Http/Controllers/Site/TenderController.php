@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Helpers\PaginateCollection;
+use App\Http\Requests\Tender\EmailSubsctiptionRequest;
+use App\Models\Tender;
+use App\Models\Visit;
 use App\Notifications\InviteRequest;
 use App\Notifications\NewRequest;
 use App\Notifications\RequestAction;
@@ -125,6 +128,11 @@ class TenderController extends Controller
                 if ($tender->slug !== $params) {
                     return redirect(route('site.catalog.tenders', $tender->slug), 301);
                 }
+                if($tender->showTender()){
+                    return view('site.pages.tenders.show', compact('tender'));
+                }
+                $tender->increment('views');
+                Visit::createVisitLog($tender);
                 return view('site.pages.tenders.show', compact('tender'));
             }
             abort(404, "Ресурс не найден");
@@ -148,6 +156,8 @@ class TenderController extends Controller
     {
         $tender = $this->tenderRepository->getBySlug($slug);
         abort_if(!$tender, 404);
+
+
         return view('site.pages.tenders.show', compact('tender'));
     }
 
@@ -294,6 +304,14 @@ class TenderController extends Controller
         }
     }
 
+    public function emailSubscription(EmailSubsctiptionRequest $request, Tender $tender)
+    {
+        $tender->update([
+            'email_subscription' => $request->email_subscription
+        ]);
+
+        return redirect()->back();
+    }
 
     public function ajaxFilter()
     {

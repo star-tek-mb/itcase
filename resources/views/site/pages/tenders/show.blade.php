@@ -150,7 +150,7 @@
                                 <span class="mail"><i class="far fa-calendar"></i>Опубликовано: {{ \Carbon\Carbon::create($tender->published_at)->format('d.m.Y') }}</span>
                                 <span><i class="fas fa-calendar-times"></i>Крайний срок приёма заявок: {{ $tender->deadline }}</span>
                                 <span><i class="fa fa-list"></i><b>Категория:</b> <a href="#">Выброс мусора</a></span>
-                                <span><i class="fa fa-eye"></i> 100</span>
+                                <span><i class="fa fa-eye"></i> {{$tender->views}}</span>
                             </div>
                         </div>
 

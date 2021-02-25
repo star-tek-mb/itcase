@@ -239,7 +239,7 @@
 
                         @guest
                         @else
-                        @if (auth()->user()->hasRole('customer'))
+                        @if (auth()->user()->hasRole('customer') && $has_comment )
                         <form action="{{ route('site.contractors.comment.contractor') }}" method="post">
                           @csrf
 

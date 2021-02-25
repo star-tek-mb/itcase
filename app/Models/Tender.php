@@ -18,6 +18,7 @@ class Tender extends Model
         'need_id', 'owner_id', 'contractor_id','geo_location'
     ];
     protected $casts = [
+        'email_subscription' => 'boolean',
         'budget' => 'integer'
     ];
     protected static function boot()
@@ -147,5 +148,22 @@ class Tender extends Model
     {
         $this->requests()->delete();
         return parent::delete();
+    }
+
+    public function Visit()
+    {
+        return $this->hasMany(Visit::class,'listing_id');
+    }
+    public function showTender()
+    {
+        if(auth()->id()==null){
+            return $this->Visit()
+                ->where('ip', '=',  request()->ip())->exists();
+        }
+
+        return $this->Visit()
+            ->where(function($postViewsQuery) { $postViewsQuery
+                ->where('session_id', '=', request()->getSession()->getId())
+                ->orWhere('user_id', '=', (auth()->check()));})->exists();
     }
 }

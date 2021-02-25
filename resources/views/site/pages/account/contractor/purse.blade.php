@@ -6,9 +6,13 @@
     @include('site.layouts.partials.headers.default')
 @endsection
 
-@section('account.title.h1', 'Мои конкурсы')
+@section('account.title.h1', 'Кошелек')
+
 
 @section('account.content')
+    <div class="money">
+        <p>У вас на счету: <b>1000 сум</b></p>
+    </div>
     <form action="" method="post" enctype="multipart/form-data">
 
         <label class="mt-3">Выберите платежную систему: </label>
