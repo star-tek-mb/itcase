@@ -129,10 +129,12 @@ class TenderController extends Controller
                     return redirect(route('site.catalog.tenders', $tender->slug), 301);
                 }
                 if($tender->showTender()){
+                    $tender->setRelation('requests', $tender->requests()->paginate(1));
                     return view('site.pages.tenders.show', compact('tender'));
                 }
                 $tender->increment('views');
                 Visit::createVisitLog($tender);
+                $tender->setRelation('requests', $tender->requests()->paginate(1));
                 return view('site.pages.tenders.show', compact('tender'));
             }
             abort(404, "Ресурс не найден");
@@ -156,8 +158,7 @@ class TenderController extends Controller
     {
         $tender = $this->tenderRepository->getBySlug($slug);
         abort_if(!$tender, 404);
-
-
+        $tender->setRelation('requests', $tender->requests()->paginate(1));
         return view('site.pages.tenders.show', compact('tender'));
     }
 
