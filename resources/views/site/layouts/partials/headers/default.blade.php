@@ -293,6 +293,11 @@
                             <a href="https://www.instagram.com/vid.market/"><i class="fab fa-instagram pl-3"
                                                                                style="font-size:25px"></i></a>
                         </li>
+                        @auth
+                            @if (auth()->user()->hasRole('customer'))
+                        <li> ({{$user->ownedTenders()->count()}})</li>
+                            @endif
+                        @endauth
                         <li>
                             <a href="#" id="navBarDropdown" class="nav-link dropdown-toggle" role="button"
                                data-toggle="dropdown" aria-haspopup="true"

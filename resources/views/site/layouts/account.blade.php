@@ -6,6 +6,11 @@
                 <div class="avatar"><a href="#"><img src="{{ $user->getImage() }}" alt="Image" width=""></a></div>
                 <div class="info-user">
                     <h3><a href="{{ route('site.account.index') }}">{{ $user->getCommonTitle() }}</a></h3>
+                    @auth
+                    @if (auth()->user()->hasRole('customer'))
+                        ({{$user->ownedTenders()->count()}})
+                    @endif
+                    @endauth
                 </div>
             </div>
             <ul class="nav-sidebar-admin">
