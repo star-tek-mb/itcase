@@ -253,10 +253,11 @@
                                                                            type="button" href="tel:+998991234567">Позвонить</a>
                                                                     </div>
                                                                     @if($tender->opened || $tender->status != 'done')
-                                                                    <form
-                                                                          action="{{ route('site.tenders.contractors.add', ['tenderId' => $tender->id, 'contractorId' => $request->user->id]) }}">
+                                                                        <form action="{{ route('site.tenders.accept', ['tenderId' => $tender->id, 'requestId' => $request->id]) }}" method="post">
+                                                                            @csrf
+                                                                            <input type="hidden" name="redirect_to" value="{{ route('site.account.tenders.candidates', $tender->slug) }}">
                                                                         <button class="btn btn-light btn-lg tender-item mt-2 w-100"
-                                                                                type="submit">Выбрать исполнителем
+                                                                                type="submit" onclick="return confirm('Вы уверены, что хотите принять кандидата {{ $request->user->getCommonTitle() }} на роль исполнителя этого конкурса? В будущем вы не сможете поменять своё решение.')" data-toggle="tooltip" data-placement="top" title="Принять заявку">Выбрать исполнителем
                                                                         </button>
                                                                     </form>
                                                                     @endif

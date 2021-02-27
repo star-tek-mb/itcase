@@ -295,7 +295,7 @@
                         </li>
                         @auth
                             @if (auth()->user()->hasRole('customer'))
-                        <li> ({{$user->ownedTenders()->count()}})</li>
+                        <li> ({{auth()->user()->ownedTenders()->count()}})</li>
                             @endif
                         @endauth
                         <li>
