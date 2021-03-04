@@ -103,7 +103,7 @@ class ContractorsController extends Controller
      */
     public function category(Request $request, $category_id)
     {
-        $category = $this->categories->get($id);
+        $category = $this->categories->get($category_id);
         if ($category) {
             $contractors = $category->getAllCompaniesFromDescendingCategories()->sortByDesc('created_at');
             $contractorsCount = $contractors->count();
