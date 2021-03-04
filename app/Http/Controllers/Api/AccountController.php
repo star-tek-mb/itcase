@@ -105,7 +105,7 @@ class AccountController extends Controller
             $userType . '_email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
             $userType . '_about_myself' => ['required', 'string'],
             $userType . '_company_name' => Rule::requiredIf($request->get('customer_type') == 'legal_entity'),
-            // REMOVED IMAGE VALIDATION OF Base64
+            'image' => 'required|image',
             'agree_personal_data_processing' => 'required|accepted'
         ], $validationMessages);
         if ($validator->fails() || !$request->file('image')) {
