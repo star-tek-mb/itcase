@@ -25,6 +25,8 @@ class AddEmailTenderTable extends Migration
      */
     public function down()
     {
-
+        Schema::table('tenders', function (Blueprint $table) {
+            $table->dropColumn('email_subscription');
+        });
     }
 }

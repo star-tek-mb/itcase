@@ -26,7 +26,7 @@ class AddLastUserTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('last_online_at');
         });
     }
 }

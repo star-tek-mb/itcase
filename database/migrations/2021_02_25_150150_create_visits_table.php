@@ -25,7 +25,7 @@ class CreateVisitsTable extends Migration
             $table->timestamps();
         });
         Schema::table('tenders', function (Blueprint $table) {
-            $table->unsignedBigInteger('views');
+            $table->unsignedBigInteger('views')->default(0);
         });
     }
 
@@ -37,5 +37,8 @@ class CreateVisitsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('visits');
+        Schema::table('tenders', function (Blueprint $table) {
+            $table->dropColumn('views');
+        });
     }
 }

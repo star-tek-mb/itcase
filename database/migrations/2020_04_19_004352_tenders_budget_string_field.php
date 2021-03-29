@@ -20,7 +20,6 @@ class TendersBudgetStringField extends Migration
         }
         Schema::table('tenders', function (Blueprint $table) {
             $table->bigInteger('budget')->change();
-            $table->text('geo_location')->nullable();
         });
     }
 
