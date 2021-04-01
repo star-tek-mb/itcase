@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\MustVerifyPhone;
 use App\Models\Chat\Chat;
 use Illuminate\Http\UploadedFile;
 use Laravel\Sanctum\HasApiTokens;
@@ -14,8 +15,7 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use Notifiable;
-    use HasApiTokens;
+    use Notifiable, HasApiTokens, MustVerifyPhone;
 
     const INDIVIDUAL = 'individual';
     const LEGAL_ENTITY = 'legal_entity';
@@ -86,8 +86,9 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone_verified_at' => 'datetime',
         'agree_personal_data_processing' => 'boolean',
-        "last_online_at" => "datetime"
+        'last_online_at' => 'datetime',
     ];
 
     private static $UPLOAD_DIRECTORY = 'uploads/users/';
@@ -390,7 +391,7 @@ class User extends Authenticatable
      */
     public function checkCompletedAccount()
     {
-        return $this->completed;
+        return $this->completed && $this->hasVerifiedPhone();
     }
 
     public function getFirstName()

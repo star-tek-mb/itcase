@@ -7,7 +7,7 @@
  */
 
 
-Route::middleware('checkIsAdmin')->prefix('admin')->name('admin.')->namespace('Admin')->group(function (){
+Route::middleware('checkIsAdmin')->prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
     // Dashboard
     Route::get('/', 'DashboardController@index')->name('index');
     // Cgu Site Routes
@@ -73,6 +73,6 @@ Route::middleware('checkIsAdmin')->prefix('admin')->name('admin.')->namespace('A
     Route::resource('/faq', 'FaqController');
 });
 
-Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function() {
+Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
     Auth::routes(['verify' => true]);
 });

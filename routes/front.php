@@ -82,7 +82,7 @@ Route::middleware('needsList')->name('site.')->namespace('Site')->group(function
     Route::get('/account/comment', 'CommentController@index')->name('account.comment');
     Route::post('/account/comment', 'CommentController@createCommentAll')->name('account.comment.create');
     Route::get('/account/purse', 'PurseController@index')->name('account.purse');
-
+    Route::post('/account/phone/verify', 'AccountController@verifyPhone');
 
     // Tenders routes
     Route::get('/tenders', 'TenderController@index')->name('tenders.index');
@@ -97,9 +97,9 @@ Route::middleware('needsList')->name('site.')->namespace('Site')->group(function
     Route::post('/tenders/{tenderId}/accept/{requestId}', 'TenderController@acceptTenderRequest')->name('tenders.accept');
     Route::patch('/tenders/email-subscription/{tender}', 'TenderController@emailSubscription')->name('tenders.email-subscription');
 
-    Route::prefix('/tender/maps')->name('maps.')->group( function () {
-        Route::get('/', [TenderController::class,'maps'] )->name('index');
-        Route::post('filter',[TenderController::class,'ajaxFilter'])->name('filter') ;
+    Route::prefix('/tender/maps')->name('maps.')->group(function () {
+        Route::get('/', [TenderController::class,'maps'])->name('index');
+        Route::post('filter', [TenderController::class,'ajaxFilter'])->name('filter') ;
     });
 
     Route::get('/', 'HomeController@index')->name('catalog.index');

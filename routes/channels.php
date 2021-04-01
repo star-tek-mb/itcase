@@ -13,7 +13,8 @@
 
 Broadcast::channel('chat.{id}', function ($user, $id) {
     $chat = \App\Models\Chat\Chat::find($id);
-    if (!$chat)
+    if (!$chat) {
         return false;
+    }
     return $chat->participants()->where('user_id', $user->id)->count() > 0;
 });
