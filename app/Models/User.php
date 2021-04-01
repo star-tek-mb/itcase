@@ -245,15 +245,18 @@ class User extends Authenticatable
      *
      * @return void
      */
-    public function generateSlug() {
+    public function generateSlug()
+    {
         $slug = Str::slug($this->email);
-        if ($this->company_name)
+        if ($this->company_name) {
             $slug = Str::slug($this->company_name);
-        elseif ($this->name)
+        } elseif ($this->name) {
             $slug = Str::slug($this->name);
+        }
         $existCount = self::where('slug', $slug)->count();
-        if ($existCount > 0)
+        if ($existCount > 0) {
             $slug .= "-$existCount";
+        }
         $this->slug = $slug;
         $this->save();
     }
@@ -275,18 +278,22 @@ class User extends Authenticatable
      *
      * @param $image
      */
-    public function uploadImage( $image)
+    public function uploadImage($image)
     {
-        if (!$image) return;
+        if (!$image) {
+            return;
+        }
 
         $this->removeImage();
         $filename = $this->generateFileName($image->extension());
         $image->storeAs(self::$UPLOAD_DIRECTORY, $filename, '');
         $this->saveImageName($filename);
     }
-    public function uploadResume( $resume)
+    public function uploadResume($resume)
     {
-        if (!$resume) return;
+        if (!$resume) {
+            return;
+        }
 
         if ($this->resume) {
             Storage::delete(self::$UPLOAD_DIRECTORY . $this->resume);
@@ -326,17 +333,19 @@ class User extends Authenticatable
      */
     public function getImage()
     {
-        if ($this->image)
+        if ($this->image) {
             return '/' . self::$UPLOAD_DIRECTORY . $this->image;
-        else
+        } else {
             return asset('assets/img/avatars/avatar15.jpg');
+        }
     }
     public function getResume()
     {
-        if ($this->resume)
+        if ($this->resume) {
             return '/' . self::$UPLOAD_DIRECTORY . $this->resume;
-        else
+        } else {
             return asset('assets/img/avatars/avatar15.jpg');
+        }
     }
     /**
      * Remove an image
@@ -387,8 +396,9 @@ class User extends Authenticatable
     public function getFirstName()
     {
         $explodedName = explode(' ', $this->name);
-        if (isset($explodedName[0]))
+        if (isset($explodedName[0])) {
             return $explodedName[0];
+        }
         return '';
     }
 
@@ -401,15 +411,15 @@ class User extends Authenticatable
 
     public function getContractorTitle()
     {
-        if ($this->contractor_type === 'legal_entity')
+        if ($this->contractor_type === 'legal_entity') {
             return $this->company_name;
-        elseif ($this->contractor_type === 'individual')
+        } elseif ($this->contractor_type === 'individual') {
             return $this->name;
-        else
-            if ($this->name)
-                return $this->name;
-            else
-                return $this->email;
+        } elseif ($this->name) {
+            return $this->name;
+        } else {
+            return $this->email;
+        }
     }
 
     public function getCommonTitle()
@@ -420,8 +430,7 @@ class User extends Authenticatable
                 case 'individual': return $this->name;
                 default: return $this->email;
             }
-        }
-        else if ($this->hasRole('contractor')) {
+        } elseif ($this->hasRole('contractor')) {
             switch ($this->contractor_type) {
                 case 'legal_entity': return $this->company_name;
                 case 'individual': return $this->name;
@@ -432,7 +441,8 @@ class User extends Authenticatable
         }
     }
 
-    public function hasRequestFromContractor(User $contractor) {
+    public function hasRequestFromContractor(User $contractor)
+    {
         if ($this->hasRole('customer')) {
             if ($contractor->requests()->count() > 0) {
                 $tendersIds = $this->ownedTenders()->pluck('id')->toArray();

@@ -13,10 +13,10 @@ class CompanyService extends Migration
      */
     public function up()
     {
-        Schema::create('company_service', function(Blueprint $table) {
-           $table->bigIncrements('id');
-           $table->integer('company_id')->unsigned();
-           $table->integer('service_id')->unsigned();
+        Schema::create('company_service', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('company_id')->unsigned();
+            $table->integer('service_id')->unsigned();
         });
     }
 

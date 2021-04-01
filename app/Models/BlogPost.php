@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Components\Image;
 use App\Models\Components\Slug;
+
 //use Kalnoy\Nestedset\NodeTrait;
 
 class BlogPost extends Model
 {
-
     use Image;
     use Slug;
 
@@ -74,10 +74,10 @@ class BlogPost extends Model
 
     public function getAncestorsSlugs()
     {
-        if ($this->category)
+        if ($this->category) {
             return $this->category->ru_slug . "/$this->ru_slug";
-        else
+        } else {
             return $this->ru_slug;
+        }
     }
-
 }

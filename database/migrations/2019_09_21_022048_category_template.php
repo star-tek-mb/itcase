@@ -13,7 +13,7 @@ class CategoryTemplate extends Migration
      */
     public function up()
     {
-        Schema::table('handbook_categories', function(Blueprint $table) {
+        Schema::table('handbook_categories', function (Blueprint $table) {
             $table->string('template')->default('default');
         });
     }
@@ -25,8 +25,8 @@ class CategoryTemplate extends Migration
      */
     public function down()
     {
-      Schema::table('handbook_categories', function(Blueprint $table) {
-          $table->dropColumn('template');
-      });
+        Schema::table('handbook_categories', function (Blueprint $table) {
+            $table->dropColumn('template');
+        });
     }
 }

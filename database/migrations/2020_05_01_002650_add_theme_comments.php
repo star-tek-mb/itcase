@@ -13,10 +13,9 @@ class AddThemeComments extends Migration
      */
     public function up()
     {
-      Schema::table('comments', function (Blueprint $table) {
-
-          $table->text('theme')->nullable();
-      });
+        Schema::table('comments', function (Blueprint $table) {
+            $table->text('theme')->nullable();
+        });
     }
 
     /**
@@ -26,8 +25,8 @@ class AddThemeComments extends Migration
      */
     public function down()
     {
-      Schema::table('comments', function (Blueprint $table) {
-          $table->dropColumn('theme');
-      });
+        Schema::table('comments', function (Blueprint $table) {
+            $table->dropColumn('theme');
+        });
     }
 }

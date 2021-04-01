@@ -12,24 +12,23 @@ use Illuminate\Support\ServiceProvider;
 
 class BackendServiceProvider extends ServiceProvider
 {
-
     public function register()
     {
         $this->app->bind(
-        'App\Repositories\CguCategoryRepositoryInterface',
-        'App\Repositories\CguCategoryRepository'
+            'App\Repositories\CguCategoryRepositoryInterface',
+            'App\Repositories\CguCategoryRepository'
         );
         $this->app->bind(
-        'App\Repositories\CguSiteRepositoryInterface',
-        'App\Repositories\CguSiteRepository'
+            'App\Repositories\CguSiteRepositoryInterface',
+            'App\Repositories\CguSiteRepository'
         );
         $this->app->bind(
             'App\Repositories\HandbookCategoryRepositoryInterface',
             'App\Repositories\HandbookCategoryRepository'
         );
         $this->app->bind(
-        'App\Repositories\CguCatalogRepositoryInterface',
-        'App\Repositories\CguCatalogRepository'
+            'App\Repositories\CguCatalogRepositoryInterface',
+            'App\Repositories\CguCatalogRepository'
         );
 
         $this->app->bind(

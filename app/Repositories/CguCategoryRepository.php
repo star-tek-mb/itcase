@@ -42,8 +42,9 @@ class CguCategoryRepository implements CguCategoryRepositoryInterface
         $category = $this->get($category_id);
 
         $parent = null;
-        if($category->parent_id != null)
+        if ($category->parent_id != null) {
             $parent = $category->parent_id;
+        }
 
         $category->remove();
 
@@ -61,8 +62,7 @@ class CguCategoryRepository implements CguCategoryRepositoryInterface
         $category->update($category_data->all());
         $category->uploadImage($category_data->file('image'));
 
-        if($category_data->get('parent_id') != 0)
-        {
+        if ($category_data->get('parent_id') != 0) {
             $parent = CguCategory::find($category_data->get('parent_id'));
             $category->appendToNode($parent)->save();
         }
@@ -94,8 +94,7 @@ class CguCategoryRepository implements CguCategoryRepositoryInterface
         $category = CguCategory::create($category_data->all());
         $category->uploadImage($category_data->file('image'));
 
-        if($category_data->get('parent_id') != 0)
-        {
+        if ($category_data->get('parent_id') != 0) {
             $parent = CguCategory::find($category_data->get('parent_id'));
             $category->appendToNode($parent)->save();
         }

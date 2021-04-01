@@ -7,7 +7,6 @@ use App\Models\HandbookCategory;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-
 class HandbookCategoryRepository implements HandbookCategoryRepositoryInterface
 {
 
@@ -17,7 +16,7 @@ class HandbookCategoryRepository implements HandbookCategoryRepositoryInterface
      * @param int $id
      * @return \App\Models\HandbookCategory
      */
-    public function get( $id)
+    public function get($id)
     {
         return HandbookCategory::find($id);
     }
@@ -68,12 +67,14 @@ class HandbookCategoryRepository implements HandbookCategoryRepositoryInterface
     {
         $category = $this->get($categoryId);
         $category->update($categoryData->all());
-        if (empty($categoryData->get('ru_slug')))
+        if (empty($categoryData->get('ru_slug'))) {
             $category->generateSlug();
-        if ($categoryData->has('favorite'))
+        }
+        if ($categoryData->has('favorite')) {
             $category->favorite = true;
-        else
+        } else {
             $category->favorite = false;
+        }
         $category->save();
         $category->uploadImage($categoryData->file('image'));
 
@@ -92,19 +93,20 @@ class HandbookCategoryRepository implements HandbookCategoryRepositoryInterface
     public function store($categoryData)
     {
         $category = HandbookCategory::create($categoryData->all());
-        if ($categoryData->has('favorite'))
+        if ($categoryData->has('favorite')) {
             $category->favorite = true;
-        else
+        } else {
             $category->favorite = false;
+        }
         $category->save();
-        if (empty($categoryData->get('ru_slug')))
+        if (empty($categoryData->get('ru_slug'))) {
             $category->generateSlug();
+        }
         $category->uploadImage($categoryData->file('image'));
 
         $parentId = $categoryData->get('parent_id');
 
-        if ($parentId != 0)
-        {
+        if ($parentId != 0) {
             $parent = $this->get($parentId);
             $category->appendToNode($parent)->save();
         }
@@ -162,10 +164,11 @@ class HandbookCategoryRepository implements HandbookCategoryRepositoryInterface
      */
     public function search(string $query, $findOne = false)
     {
-        if ($findOne)
+        if ($findOne) {
             return HandbookCategory::where('ru_title', $query)->first();
-        else
+        } else {
             return HandbookCategory::where('ru_title', 'like', "%$query%")->get();
+        }
     }
 
     /**
@@ -182,12 +185,12 @@ class HandbookCategoryRepository implements HandbookCategoryRepositoryInterface
 
     private static function setTemplate(HandbookCategory $category, string $template)
     {
-        if (!Storage::disk('catalog_templates')->exists($template . '.blade.php'))
+        if (!Storage::disk('catalog_templates')->exists($template . '.blade.php')) {
             $template = 'default';
+        }
         $category->template = $template;
         $category->save();
-        foreach ($category->descendants as $descendant)
-        {
+        foreach ($category->descendants as $descendant) {
             $descendant->template = $template;
             $descendant->save();
         }

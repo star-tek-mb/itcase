@@ -61,8 +61,7 @@ class MigrateCguToHandbook extends Command
 
         $this->info('Starting migration...');
 
-        foreach ($sites as $site)
-        {
+        foreach ($sites as $site) {
             $this->info("Migrating site $site->ru_title into companies");
             $newCompany = Company::create([
                 'ru_title' => $site->ru_title,
@@ -70,8 +69,7 @@ class MigrateCguToHandbook extends Command
                 'active' => $site->active,
                 'url' => $site->link
             ]);
-            if ($site->image)
-            {
+            if ($site->image) {
                 $newCompany->image = $site->image;
                 try {
                     File::copy($siteDirectory . $site->image, $companyDirectory . $site->image);

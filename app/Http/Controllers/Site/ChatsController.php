@@ -39,7 +39,8 @@ class ChatsController extends Controller
         return view('site.pages.account.chat.index', compact('user', 'accountPage'));
     }
 
-    public function sendMessage(Request $request) {
+    public function sendMessage(Request $request)
+    {
         $currentUser = auth()->user();
         $chatId = $request->get('chatId');
         $message = $request->get('message');
@@ -66,11 +67,12 @@ class ChatsController extends Controller
             return $messages;
         }
         $messages = $chat->messages()->with('user')->get();
-        foreach ($messages as $message)
+        foreach ($messages as $message) {
             if ($message->user_id == $otherUser->id) {
                 $message->read = true;
                 $message->save();
             }
+        }
         return $messages;
     }
 
@@ -79,8 +81,9 @@ class ChatsController extends Controller
         $withUserId = $request->get('with_user_id');
         $currentUser = auth()->user();
         foreach ($currentUser->chats as $chat) {
-            if ($chat->getAnotherUser()->id == $withUserId)
+            if ($chat->getAnotherUser()->id == $withUserId) {
                 return redirect(route('site.account.chats') . '?chat_id=' . $chat->id);
+            }
         }
         $chat = Chat::create();
         $chat->participants()->attach([$currentUser->id, $withUserId]);
@@ -96,9 +99,9 @@ class ChatsController extends Controller
             ->get();
 
         $results=[];
-        foreach ($chats as $chat){
+        foreach ($chats as $chat) {
             $chatId = $this->chatRepository->getById($chat->chat_id);
-           $results[]= [
+            $results[]= [
                'id'=>$chat->chat_id,
                'text'=>$chat->text,
                'anotherUser'=>$chatId->getAnotherUser()->hasRole('customer'),
@@ -106,6 +109,6 @@ class ChatsController extends Controller
                'image'=>$chatId->getAnotherUser()->getImage()
            ];
         }
-        return view('site.pages.account.chat.search', compact('results','user','accountPage'));
+        return view('site.pages.account.chat.search', compact('results', 'user', 'accountPage'));
     }
 }

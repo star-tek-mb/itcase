@@ -16,9 +16,11 @@ class CheckAdminMiddleware
     public function handle($request, Closure $next)
     {
         $user = auth()->user();
-        if ($user)
-            if ($user->hasRole('admin'))
+        if ($user) {
+            if ($user->hasRole('admin')) {
                 return $next($request);
+            }
+        }
         return redirect()->route('admin.login');
     }
 }

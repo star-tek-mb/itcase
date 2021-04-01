@@ -67,7 +67,7 @@ class RequestAction extends Notification
                 'tenderId' => $this->request->tender_id,
                 'tenderSlug' => $this->tender->slug
             ];
-        } else if ($this->type === 'accepted') {
+        } elseif ($this->type === 'accepted') {
             return [
                 'type' => $this->type,
                 'tenderName' => $this->request->tender->title,

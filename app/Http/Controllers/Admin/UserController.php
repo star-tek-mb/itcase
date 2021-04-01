@@ -70,10 +70,11 @@ class UserController extends Controller
         $roleId = $request->get('roleId', 0);
         $this->usersRepository->create($request, $roleId);
 
-        if ($request->has('saveQuit'))
+        if ($request->has('saveQuit')) {
             return redirect()->route('admin.users.index');
-        else
+        } else {
             return redirect()->route('admin.users.create');
+        }
     }
 
     /**
@@ -156,15 +157,16 @@ class UserController extends Controller
     {
         $user = $this->usersRepository->get($id);
         $paginate = true;
-        if ($request->has(['start_date', 'end_date']))
-        {
-            $query = $user->history()->where('type','=', 'company.create');
+        if ($request->has(['start_date', 'end_date'])) {
+            $query = $user->history()->where('type', '=', 'company.create');
             $startDate = $request->get('start_date');
             $endDate = $request->get('end_date');
-            if (!empty($startDate))
+            if (!empty($startDate)) {
                 $query->whereDate('created_at', '>=', $startDate.' 00:00:00');
-            if (!empty($endDate))
+            }
+            if (!empty($endDate)) {
                 $query->whereDate('created_at', '<=', $endDate.' 23:59:59');
+            }
             $paginate = false;
             $history = $query->get();
             $companiesCount = $query->count();

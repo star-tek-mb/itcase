@@ -13,7 +13,7 @@ class MenuItemSlug extends Migration
      */
     public function up()
     {
-        Schema::table('menu_items', function($table) {
+        Schema::table('menu_items', function ($table) {
             $table->string('ru_slug')->nullable();
             $table->string('en_slug')->nullable();
             $table->string('uz_slug')->nullable();

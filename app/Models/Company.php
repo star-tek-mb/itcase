@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
-
 class Company extends Model
 {
     use Slug;
@@ -94,7 +93,9 @@ class Company extends Model
      */
     public function uploadImage($image)
     {
-        if (!$image) return;
+        if (!$image) {
+            return;
+        }
 
         $this->removeImages();
         $filename = $this->generateFileName($image->extension());
@@ -109,8 +110,7 @@ class Company extends Model
 
     public function createDirectory()
     {
-        if(!File::exists(public_path() . '/' . self::UPLOAD_BAD_QUALITY_IMAGE_DIRECTORY))
-        {
+        if (!File::exists(public_path() . '/' . self::UPLOAD_BAD_QUALITY_IMAGE_DIRECTORY)) {
             File::makeDirectory(public_path() . '/' . self::UPLOAD_BAD_QUALITY_IMAGE_DIRECTORY, 0777, true, true);
         }
     }
@@ -133,10 +133,11 @@ class Company extends Model
      */
     public function getImage()
     {
-        if ($this->image)
+        if ($this->image) {
             return '/' . self::UPLOAD_DIRECTORY . $this->image;
-        else
+        } else {
             return '';
+        }
     }
 
     /**
@@ -146,10 +147,11 @@ class Company extends Model
      */
     public function getPoorImage()
     {
-        if ($this->bad_quality_image)
+        if ($this->bad_quality_image) {
             return '/' . self::UPLOAD_BAD_QUALITY_IMAGE_DIRECTORY . $this->bad_quality_image;
-        else
+        } else {
             return '';
+        }
     }
 
     /**
@@ -169,7 +171,7 @@ class Company extends Model
         }
     }
 
-        /**
+    /**
      * Save an image name to the database
      *
      * @param string $imageName
@@ -243,12 +245,15 @@ class Company extends Model
      */
     public function hasSocialLink(string $socialName)
     {
-        if ($socialName == 'telegram')
+        if ($socialName == 'telegram') {
             return !empty($this->telegram_link);
-        if ($socialName == 'instagram')
+        }
+        if ($socialName == 'instagram') {
             return !empty($this->instagram_link);
-        if ($socialName == 'facebook')
+        }
+        if ($socialName == 'facebook') {
             return !empty($this->facebook_link);
+        }
     }
 
     /**

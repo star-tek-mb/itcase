@@ -90,8 +90,7 @@ class MenuItem extends Model
     public function getCompanyFromCategories()
     {
         $companies = collect();
-        foreach ($this->categories as $category)
-        {
+        foreach ($this->categories as $category) {
             $categoryCompanies = $category->getAllCompaniesFromDescendingCategories();
             $companies = $companies->merge($categoryCompanies);
         }

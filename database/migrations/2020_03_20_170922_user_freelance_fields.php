@@ -35,7 +35,6 @@ class UserFreelanceFields extends Migration
             $table->string('phone_number')->nullable();
             $table->longText('about_myself')->nullable();
             $table->boolean('agree_personal_data_processing')->nullable();
-
         });
     }
 

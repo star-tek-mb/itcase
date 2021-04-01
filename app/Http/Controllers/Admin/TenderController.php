@@ -49,13 +49,14 @@ class TenderController extends Controller
     {
         //
     }
-    public function allTenders(){
-      $tenders = $this->tenderRepository->allOrderedByCreatedAtAdmin();
-      $currentCategory = null;
-      $tendersCount = $tenders->count();
-      $tenders = PaginateCollection::paginateCollection($tenders, 10);
+    public function allTenders()
+    {
+        $tenders = $this->tenderRepository->allOrderedByCreatedAtAdmin();
+        $currentCategory = null;
+        $tendersCount = $tenders->count();
+        $tenders = PaginateCollection::paginateCollection($tenders, 10);
 
-      return view('admin.pages.tenders.alltenders', compact('tenders', 'currentCategory', 'tendersCount'));
+        return view('admin.pages.tenders.alltenders', compact('tenders', 'currentCategory', 'tendersCount'));
     }
 
     /**
@@ -103,14 +104,14 @@ class TenderController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-      if($request->get('from_category')){
-        $fromCategory = $request->get('from_category');
-        $this->tenderRepository->delete($id);
-        return redirect()->route('admin.categories.tenders', $fromCategory);
-      }else{
-        $this->tenderRepository->delete($id);
-        return redirect()->route('admin.tenders.all');
-      }
+        if ($request->get('from_category')) {
+            $fromCategory = $request->get('from_category');
+            $this->tenderRepository->delete($id);
+            return redirect()->route('admin.categories.tenders', $fromCategory);
+        } else {
+            $this->tenderRepository->delete($id);
+            return redirect()->route('admin.tenders.all');
+        }
     }
 
 
@@ -118,11 +119,13 @@ class TenderController extends Controller
     {
         $tender = $this->tenderRepository->get($id);
         $userId = $request->get('user_id');
-        if ($tender->requests()->where('user_id', $userId)->count() > 0)
+        if ($tender->requests()->where('user_id', $userId)->count() > 0) {
             return back()->with('info', 'Пользователь уже участвует в конкурсе');
+        }
         $request = $tender->requests()->create($request->all());
-        if ($tender->owner)
+        if ($tender->owner) {
             $tender->owner->notify(new NewRequest($request));
+        }
         return back()->with('success', 'Добалена новая заявка на участие в этом конкурсе!');
     }
 

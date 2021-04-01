@@ -3,10 +3,10 @@
 
 namespace App\Http\Controllers\Helpers;
 
-
 class PaginateCollection
 {
-    public static function paginateCollection(\Illuminate\Support\Collection $collection, $perPage, $pageName = 'page', $fragment=null) {
+    public static function paginateCollection(\Illuminate\Support\Collection $collection, $perPage, $pageName = 'page', $fragment=null)
+    {
         $currentPage = \Illuminate\Pagination\LengthAwarePaginator::resolveCurrentPage($pageName);
         $currentPageItems = $collection->slice(($currentPage - 1) * $perPage, $perPage);
         parse_str(request()->getQueryString(), $query);

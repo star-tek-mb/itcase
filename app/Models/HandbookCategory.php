@@ -213,7 +213,9 @@ class HandbookCategory extends Model
         foreach ($categories as $category) {
             $companies = $companies->merge($category->users->load('categories'));
         }
-        $companies = $companies->unique(function ($item) { return $item->id; });
+        $companies = $companies->unique(function ($item) {
+            return $item->id;
+        });
 
         return $companies;
     }
@@ -223,9 +225,12 @@ class HandbookCategory extends Model
         $categories = $this->descendants;
         $tenders = collect();
         $tenders = $tenders->merge($this->tenders);
-        foreach ($categories as $category)
+        foreach ($categories as $category) {
             $tenders = $tenders->merge($category->tenders);
-        $tenders = $tenders->unique(function ($item) { return $item->id; });
+        }
+        $tenders = $tenders->unique(function ($item) {
+            return $item->id;
+        });
         return $tenders;
     }
 

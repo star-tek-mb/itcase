@@ -87,10 +87,11 @@ class CguCategoryController extends Controller
 
         $category = $this->cguCategoryRepository->store($request);
 
-        if($request->has('save'))
+        if ($request->has('save')) {
             return redirect()->route('admin.cgucategories.create');
-        else
+        } else {
             return redirect()->route('admin.cgucategories.index');
+        }
     }
 
     /**
@@ -153,12 +154,13 @@ class CguCategoryController extends Controller
             'image'    => 'nullable|image'
         ]);
 
-        $category = $this->cguCategoryRepository->update($id,$request);
+        $category = $this->cguCategoryRepository->update($id, $request);
 
-        if($request->has('save'))
+        if ($request->has('save')) {
             return redirect()->route('admin.cgucategories.edit', $category->id);
-        else
+        } else {
             return redirect()->route('admin.cgucategories.index');
+        }
     }
 
     /**
@@ -171,19 +173,21 @@ class CguCategoryController extends Controller
     {
         $parent = $this->cguCategoryRepository->delete($id);
 
-        if($parent != null && $this->cguCategoryRepository->get($parent)->hasCategories())
+        if ($parent != null && $this->cguCategoryRepository->get($parent)->hasCategories()) {
             return redirect()->route('admin.cgucategories.show', $parent);
-        else
+        } else {
             return redirect()->route('admin.cgucategories.index');
+        }
     }
 
     public function changePosition(Request $request)
     {
         $category = CguCategory::find($request->get('id'));
         $category->position = $request->get('position');
-        if($category->save())
+        if ($category->save()) {
             return json_encode(['message' => 'success']);
-        else
+        } else {
             return json_encode(['message' => 'failed']);
+        }
     }
 }

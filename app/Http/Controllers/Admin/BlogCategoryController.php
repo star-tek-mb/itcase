@@ -45,7 +45,6 @@ class BlogCategoryController extends Controller
      */
     public function create()
     {
-
         return view('admin.pages.blog.categories.create');
     }
 
@@ -63,10 +62,11 @@ class BlogCategoryController extends Controller
 
         $this->blogCategoryRepository->store($request);
 
-        if ($request->has('save'))
+        if ($request->has('save')) {
             return redirect()->route('admin.blogcategories.create');
-        else
+        } else {
             return redirect()->route('admin.blogcategories.index');
+        }
     }
 
     /**
@@ -99,10 +99,11 @@ class BlogCategoryController extends Controller
 
         $category = $this->blogCategoryRepository->update($id, $request);
 
-        if ($request->has('save'))
+        if ($request->has('save')) {
             return redirect()->route('admin.blogcategories.edit', $category->id);
-        else
+        } else {
             return redirect()->route('admin.blogcategories.index');
+        }
     }
 
     /**

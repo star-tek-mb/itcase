@@ -13,10 +13,9 @@ class AddVictoriousUser extends Migration
      */
     public function up()
     {
-      Schema::table('users', function (Blueprint $table) {
-
-          $table->integer('victories_count')->default('0');
-      });
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('victories_count')->default('0');
+        });
     }
 
     /**
@@ -26,8 +25,8 @@ class AddVictoriousUser extends Migration
      */
     public function down()
     {
-      Schema::table('users', function (Blueprint $table) {
-          $table->dropColumn('victories_count');
-      });
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('victories_count');
+        });
     }
 }

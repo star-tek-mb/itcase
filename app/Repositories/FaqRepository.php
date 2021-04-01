@@ -3,7 +3,6 @@
 
 namespace App\Repositories;
 
-
 use App\Models\FaqGroup;
 use App\Models\FaqItem;
 use Illuminate\Database\Eloquent\Collection;
@@ -54,11 +53,10 @@ class FaqRepository implements FaqRepositoryInterface
             $items = $faqData->get('items');
             $currentItems = $faq->items;
             foreach ($currentItems as $key => $currentItem) {
-                if (!isset($items[$key]))
+                if (!isset($items[$key])) {
                     $currentItem->delete();
-                else {
+                } else {
                     $currentItem->update($items[$key]);
-
                 }
             }
             foreach ($items as $key => $item) {

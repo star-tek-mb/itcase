@@ -13,13 +13,12 @@ class Images extends Migration
      */
     public function up()
     {
-      Schema::create('images', function (Blueprint $table) {
-        $table->increments('id');
-        $table->string('filename')->nullable();
-        $table->integer('user_id')->nullable();
-        $table->timestamps();
-
-      });
+        Schema::create('images', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('filename')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**

@@ -11,7 +11,7 @@ interface HandbookCategoryRepositoryInterface
      * @param int $id
      * @return \App\Models\HandbookCategory
     */
-    public function get( $id);
+    public function get($id);
 
     /**
      * Get category by slug

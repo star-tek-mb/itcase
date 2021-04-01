@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\BlogCategory;
+
 //use Your Model
 
 /**

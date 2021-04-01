@@ -8,13 +8,11 @@
 
 namespace App\Models\Components;
 
-
 trait File
 {
-
     public function getRenderedFile()
     {
-        switch ($this->getFileType()){
+        switch ($this->getFileType()) {
             case 'image/jpeg':
                 return $this->getImageRender();
             case 'application/pdf':
@@ -41,5 +39,4 @@ trait File
 
         return $html;
     }
-
 }

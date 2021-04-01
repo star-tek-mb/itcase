@@ -14,8 +14,8 @@ class CategoriesMenuRelationship extends Migration
     public function up()
     {
         Schema::table('handbook_categories', function (Blueprint $table) {
-           $table->dropColumn('need_id');
-           $table->integer('menu_id')->unsigned();
+            $table->dropColumn('need_id');
+            $table->integer('menu_id')->unsigned();
         });
     }
 

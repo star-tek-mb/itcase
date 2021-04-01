@@ -3,7 +3,6 @@
 
 namespace App\Repositories;
 
-
 use App\Models\Company;
 use App\Models\NeedType;
 use App\Models\Service;
@@ -20,10 +19,11 @@ class CompanyRepository implements CompanyRepositoryInterface
      */
     public function all($paginate = null)
     {
-        if ($paginate)
+        if ($paginate) {
             return Company::orderBy('position', 'asc')->paginate($paginate);
-        else
+        } else {
             return Company::orderBy('position', 'asc')->get();
+        }
     }
 
     /**
@@ -56,18 +56,17 @@ class CompanyRepository implements CompanyRepositoryInterface
     public function create($companyData)
     {
         $company = Company::create($companyData->all());
-        if ($companyData->has('favourite'))
-        {
+        if ($companyData->has('favourite')) {
             $company->favourite = true;
             $company->save();
         }
-        if ($companyData->has('showPage'))
-        {
+        if ($companyData->has('showPage')) {
             $company->show_page = true;
             $company->save();
         }
-        if (empty($companyData->get('ru_slug')))
+        if (empty($companyData->get('ru_slug'))) {
             $company->generateSlug();
+        }
         $company->uploadImage($companyData->file('image'));
         $services = $companyData->get('services');
         $company->services()->attach($services);
@@ -85,18 +84,21 @@ class CompanyRepository implements CompanyRepositoryInterface
     {
         $company = $this->get($companyId);
         $company->update($companyData->all());
-        if ($companyData->has('favourite'))
+        if ($companyData->has('favourite')) {
             $company->favourite = true;
-        else
+        } else {
             $company->favourite = false;
+        }
         $company->save();
-        if ($companyData->has('showPage'))
+        if ($companyData->has('showPage')) {
             $company->show_page = true;
-         else
+        } else {
             $company->show_page = false;
+        }
         $company->save();
-        if (empty($companyData->get('ru_slug')))
+        if (empty($companyData->get('ru_slug'))) {
             $company->generateSlug();
+        }
         $company->uploadImage($companyData->file('image'));
         $company->services()->detach();
         $services = $companyData->get('services');
@@ -143,10 +145,11 @@ class CompanyRepository implements CompanyRepositoryInterface
     public function search(string $query, $paginate = null)
     {
         $queryResult = Company::where('ru_title', 'like', '%' . $query . '%');
-        if ($paginate)
+        if ($paginate) {
             return $queryResult->paginate($paginate);
-        else
+        } else {
             return $queryResult->get();
+        }
     }
 
     /**

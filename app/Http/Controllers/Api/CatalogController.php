@@ -75,13 +75,15 @@ class CatalogController extends Controller
      * @param BlogPostRepositoryInterface $blogPostRepository
      * @param UserRepositoryInterface $userRepository
      */
-    public function __construct(NeedTypeRepositoryInterface $needsRepository,
-                                HandbookCategoryRepositoryInterface $categoriesRepository,
-                                CompanyRepositoryInterface $companyRepository,
-                                MenuRepositoryInterface $menuRepository,
-                                TenderRepositoryInterface $tenderRepository,
-                                BlogPostRepositoryInterface $blogPostRepository,
-                                UserRepositoryInterface $userRepository)
+    public function __construct(
+        NeedTypeRepositoryInterface $needsRepository,
+        HandbookCategoryRepositoryInterface $categoriesRepository,
+        CompanyRepositoryInterface $companyRepository,
+        MenuRepositoryInterface $menuRepository,
+        TenderRepositoryInterface $tenderRepository,
+        BlogPostRepositoryInterface $blogPostRepository,
+        UserRepositoryInterface $userRepository
+    )
     {
         $this->needs = $needsRepository;
         $this->categories = $categoriesRepository;
@@ -109,14 +111,17 @@ class CatalogController extends Controller
         $slug = end($paramsArray);
 
         $menuItem = $this->menus->getBySlug($slug);
-        if ($menuItem)
+        if ($menuItem) {
             return $this->processMenuItem($request, $menuItem);
+        }
         $category = $this->categories->getBySlug($slug);
-        if ($category)
+        if ($category) {
             return $this->processCategory($request, $category);
+        }
         $company = $this->companies->getBySlug($slug);
-        if ($company)
+        if ($company) {
             return $this->processCompany($request, $company);
+        }
         abort(404);
     }
 
@@ -131,11 +136,11 @@ class CatalogController extends Controller
         $companies = $menuItem->getCompanyFromCategories();
         if ($request->has('price')) {
             $orderingMethod = $request->get('price');
-            if ($orderingMethod == 'asc')
+            if ($orderingMethod == 'asc') {
                 $companies = $companies->sortBy('price');
-            else if ($orderingMethod == 'desc')
+            } elseif ($orderingMethod == 'desc') {
                 $companies = $companies->sortBydesc('price');
-            else {
+            } else {
                 abort(400);
             }
         }
@@ -150,11 +155,11 @@ class CatalogController extends Controller
 
         if ($request->has('price')) {
             $orderingMethod = $request->get('price');
-            if ($orderingMethod == 'asc')
+            if ($orderingMethod == 'asc') {
                 $companies = $companies->sortBy('price');
-            else if ($orderingMethod == 'desc')
+            } elseif ($orderingMethod == 'desc') {
                 $companies = $companies->sortBydesc('price');
-            else {
+            } else {
                 abort(400);
             }
         }
@@ -213,15 +218,19 @@ class CatalogController extends Controller
         $companies = collect();
         $resultCompanies = [];
         $companies = $companies->merge($category->companies);
-        foreach ($descendantsCategories as $descendantsCategory)
+        foreach ($descendantsCategories as $descendantsCategory) {
             $companies = $companies->merge($descendantsCategory->companies);
+        }
         if ($request->has('service')) {
             $serviceId = $request->get('service');
-            foreach ($companies as $company)
-                if ($company->hasService($serviceId))
+            foreach ($companies as $company) {
+                if ($company->hasService($serviceId)) {
                     array_push($resultCompanies, $company);
-        } else
+                }
+            }
+        } else {
             $resultCompanies = $companies;
+        }
 
         $data = [
             'category' => $category,
@@ -262,22 +271,25 @@ class CatalogController extends Controller
     {
         $query = $request->get('query');
         $category = $this->categories->search($query, $findOne = true);
-        if ($category)
+        if ($category) {
             return redirect()->route('site.catalog.main', $category->getAncestorsSlugs());
+        }
         $data = [];
         $categories = $this->categories->search($query);
         $companies = $this->companies->search($query);
-        if ($categories->count() > 0 and $companies->count() == 0)
-            foreach ($categories as $category)
+        if ($categories->count() > 0 and $companies->count() == 0) {
+            foreach ($categories as $category) {
                 $companies = $companies->merge($category->companies);
-        if ($companies->count() == 0 and $categories->count() == 1 and $categories[0]->hasCategories())
+            }
+        }
+        if ($companies->count() == 0 and $categories->count() == 1 and $categories[0]->hasCategories()) {
             $companies = $categories[0]->getAllCompaniesFromDescendingCategories();
+        }
         $data['categories'] = $categories;
         $data['companies'] = $companies;
         $data['queryString'] = $query;
         return response()->json([
             'data' => $data
         ]);
-
     }
 }

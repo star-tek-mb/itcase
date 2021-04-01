@@ -3,7 +3,6 @@
 
 namespace App\Repositories;
 
-
 use App\Models\Chat\Chat;
 
 class ChatRepository implements ChatRepositoryInterface

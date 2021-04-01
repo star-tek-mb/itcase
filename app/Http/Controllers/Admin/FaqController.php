@@ -47,8 +47,9 @@ class FaqController extends Controller
     {
         $this->faqRepository->create($request);
 
-        if ($request->has('saveQuit'))
+        if ($request->has('saveQuit')) {
             return redirect()->route('admin.faq.index');
+        }
         return redirect()->route('admin.faq.create');
     }
 
@@ -76,8 +77,9 @@ class FaqController extends Controller
     {
         $this->faqRepository->update($id, $request);
 
-        if ($request->has('saveQuit'))
+        if ($request->has('saveQuit')) {
             return redirect()->route('admin.faq.index');
+        }
         return redirect()->route('admin.faq.create');
     }
 

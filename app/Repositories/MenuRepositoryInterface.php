@@ -3,10 +3,11 @@ namespace App\Repositories;
 
 use App\Models\MenuItem;
 
-interface MenuRepositoryInterface {
+interface MenuRepositoryInterface
+{
     /**
      * Get Menu item by id
-     * 
+     *
      * @param int $id
      * @return MenuItem
      */

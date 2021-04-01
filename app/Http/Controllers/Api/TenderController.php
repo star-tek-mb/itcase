@@ -56,11 +56,13 @@ class TenderController extends Controller
      * @param MenuRepositoryInterface $menuItemsRepository
      * @param UserRepositoryInterface $userRepository
      */
-    public function __construct(NeedTypeRepositoryInterface $needRepository,
-                                TenderRepositoryInterface $tenderRepository,
-                                HandbookCategoryRepositoryInterface $categoryRepository,
-                                MenuRepositoryInterface $menuItemsRepository,
-                                UserRepositoryInterface $userRepository)
+    public function __construct(
+        NeedTypeRepositoryInterface $needRepository,
+        TenderRepositoryInterface $tenderRepository,
+        HandbookCategoryRepositoryInterface $categoryRepository,
+        MenuRepositoryInterface $menuItemsRepository,
+        UserRepositoryInterface $userRepository
+    )
     {
         $this->needRepository = $needRepository;
         $this->tenderRepository = $tenderRepository;
@@ -93,7 +95,6 @@ class TenderController extends Controller
             'currentCategory' => $currentCategory,
             'tendersCount' => $tendersCount
         ]);
-
     }
 
     public function category($category_id)
@@ -137,8 +138,9 @@ class TenderController extends Controller
             'string' => 'Укажите стороковое значение',
             'email' => 'Неверный формат электронной почты'
         ];
-        if (auth()->user())
+        if (auth()->user()) {
             auth()->user()->authorizeRole('customer');
+        }
         Validator::make($request->all(), [
             'categories' => 'required',
             'title' => 'required|string|max:255',
@@ -153,7 +155,6 @@ class TenderController extends Controller
         return response()->json([
             'success' => "Тендер $tender->title создан и отправлен на модерацию!"
         ]);
-
     }
 
     public function makeRequest(Request $request)
@@ -199,12 +200,10 @@ class TenderController extends Controller
             return response()->json([
                 'success' =>  'Заявка отклонена.'
             ]);
-
         }
         return response()->json([
             'success' =>  'Ваша заявка отменена'
         ]);
-
     }
 
     public function update(Request $request, int $id)
@@ -237,20 +236,19 @@ class TenderController extends Controller
         return response()->json([
             'success' =>  'Конкурс удалён'
         ]);
-
     }
 
     public function acceptTenderRequest(Request $request, int $tenderId, int $requestId)
     {
-
         $redirectTo = $request->get('redirect_to');
         if ($request = $this->tenderRepository->acceptRequest($tenderId, $requestId)) {
             $request->user->notify(new RequestAction('accepted', $request));
             $requests = $request->tender->requests;
 
             foreach ($requests as $otherRequest) {
-                if ($otherRequest->user_id == $request->user_id)
+                if ($otherRequest->user_id == $request->user_id) {
                     continue;
+                }
                 $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
             }
             $adminUsers = $this->userRepository->getAdmins();

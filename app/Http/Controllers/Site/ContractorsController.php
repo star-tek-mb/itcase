@@ -47,10 +47,12 @@ class ContractorsController extends Controller
      * @param TenderRepositoryInterface $tenderRepository
      * @param MenuRepositoryInterface $menuRepository
      */
-    public function __construct(UserRepositoryInterface $userRepository,
-                                HandbookCategoryRepositoryInterface $categoriesRepository,
-                                TenderRepositoryInterface $tenderRepository,
-                                MenuRepositoryInterface $menuRepository)
+    public function __construct(
+        UserRepositoryInterface $userRepository,
+        HandbookCategoryRepositoryInterface $categoriesRepository,
+        TenderRepositoryInterface $tenderRepository,
+        MenuRepositoryInterface $menuRepository
+    )
     {
         $this->users = $userRepository;
         $this->categories = $categoriesRepository;
@@ -73,14 +75,12 @@ class ContractorsController extends Controller
         $contractorsCount = $contractors->count();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
         return view('site.pages.contractors.index', compact('category', 'contractors', 'contractorsCount'));
-
     }
 
     public function contractorSearch(Request $request)
     {
         $categories = $this->categories->all();
         foreach ($categories as $category) {
-
         }
         $contractors = $this->users->searchContractors($request);
 
@@ -114,8 +114,9 @@ class ContractorsController extends Controller
         $slug = end($paramsArray);
         $category = $this->categories->getBySlug($slug);
         if ($category) {
-            if ($category->getAncestorsSlugs() !== $params)
+            if ($category->getAncestorsSlugs() !== $params) {
                 return redirect(route('site.catalog.main', $category->getAncestorsSlugs()), 301);
+            }
             $contractors = $category->getAllCompaniesFromDescendingCategories()->sortByDesc('created_at');
             $contractorsCount = $contractors->count();
             $contractors = PaginateCollection::paginateCollection($contractors, 5);
@@ -124,8 +125,9 @@ class ContractorsController extends Controller
         }
         $menuItem = $this->menu->getBySlug($slug);
         if ($menuItem) {
-            if ($menuItem->ru_slug !== $params)
+            if ($menuItem->ru_slug !== $params) {
                 return redirect(route('site.catalog.main', $menuItem->ru_slug), 301);
+            }
             $contractors = $menuItem->getCompanyFromCategories();
             $category = $menuItem->categories[0]->parent;
             $contractorsCount = $contractors->count();
@@ -144,7 +146,6 @@ class ContractorsController extends Controller
      */
     public function contractor(string $slug)
     {
-
         $contractor = $this->users->getContractorBySlug($slug);
         $portfolio = $this->users->getPortfolioBySlug($slug);
         $comments = $this->users->getCommentBySlug($slug);
@@ -159,10 +160,12 @@ class ContractorsController extends Controller
 
         abort_if(!$contractor, 404);
 
-        if (auth()->user()->hasRole('customer'))
-            if (!empty(Tender::where('owner_id', auth()->user()->id)->where('contractor_id', $contractor->id)->first()))
+        if (auth()->user()->hasRole('customer')) {
+            if (!empty(Tender::where('owner_id', auth()->user()->id)->where('contractor_id', $contractor->id)->first())) {
                 $has_comment=true;
-        return view('site.pages.contractors.show', compact('contractor', 'portfolio', 'comments', 'mean','has_comment'));
+            }
+        }
+        return view('site.pages.contractors.show', compact('contractor', 'portfolio', 'comments', 'mean', 'has_comment'));
     }
 
     public function addContractor(int $contractorId, int $tenderId)
@@ -176,8 +179,9 @@ class ContractorsController extends Controller
     {
         $user = $this->users->get($contractorId);
         $contractors = \Session::get('contractors', collect());
-        if ($contractors->contains('id', $contractorId))
+        if ($contractors->contains('id', $contractorId)) {
             return back();
+        }
         $contractors->push([
             'id' => $contractorId,
             'name' => $user->getCommonTitle(),
@@ -190,8 +194,9 @@ class ContractorsController extends Controller
     public function deleteContractorFromSession(int $contractorId)
     {
         $contractors = \Session::get('contractors');
-        if (!$contractors->contains('id', $contractorId))
+        if (!$contractors->contains('id', $contractorId)) {
             return back();
+        }
         $contractors = $contractors->filter(function ($item) use ($contractorId) {
             return $item['id'] !== $contractorId;
         });

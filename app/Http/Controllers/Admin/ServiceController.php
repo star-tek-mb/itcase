@@ -30,8 +30,10 @@ class ServiceController extends Controller
      * @param HandbookCategoryRepositoryInterface $categoryRepository
      * @return void
     */
-    public function __construct(ServiceRepositoryInterface $serviceRepository,
-                                HandbookCategoryRepositoryInterface $categoryRepository)
+    public function __construct(
+        ServiceRepositoryInterface $serviceRepository,
+        HandbookCategoryRepositoryInterface $categoryRepository
+    )
     {
         $this->services = $serviceRepository;
         $this->categories = $categoryRepository;
@@ -74,8 +76,9 @@ class ServiceController extends Controller
 
         $this->services->create($request);
 
-        if ($request->has('saveQuit'))
+        if ($request->has('saveQuit')) {
             return redirect()->route('admin.services.index');
+        }
         return redirect()->route('admin.services.create');
     }
 

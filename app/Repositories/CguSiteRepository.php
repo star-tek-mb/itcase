@@ -8,7 +8,6 @@
 
 namespace App\Repositories;
 
-
 use App\Models\CguCategory;
 use App\Models\CguSite;
 

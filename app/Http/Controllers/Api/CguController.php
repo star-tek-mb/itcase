@@ -36,7 +36,6 @@ class CguController extends Controller
             'files'=>$files,
             'sites'=>$sites
         ]);
-
     }
 
     public function cguAd()
@@ -50,7 +49,6 @@ class CguController extends Controller
             'files'=>$files,
             'sites'=>$sites
         ]);
-
     }
 
     public function cguCategory($id)
@@ -64,6 +62,5 @@ class CguController extends Controller
             'files'=>$files,
             'sites'=>$sites
         ]);
-
     }
 }

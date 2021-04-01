@@ -3,7 +3,6 @@
 
 namespace App\Repositories;
 
-
 use App\Models\MenuItem;
 
 class MenuRepository implements MenuRepositoryInterface
@@ -45,8 +44,9 @@ class MenuRepository implements MenuRepositoryInterface
         $metaWords = ['Тендеры по', 'Заказы по', 'Работа по'];
         $newMenuItem->tender_meta_title_prefix = $metaWords[array_rand($metaWords)];
         $newMenuItem->save();
-        if (empty($menuData->get('ru_slug')))
+        if (empty($menuData->get('ru_slug'))) {
             $newMenuItem->generateSlug();
+        }
     }
 
     /**
@@ -62,8 +62,9 @@ class MenuRepository implements MenuRepositoryInterface
         $menuItem->uploadImage($menuData->file('image'));
         $menuItem->categories()->detach();
         $menuItem->categories()->attach($menuData->get('categories'));
-        if (empty($menuData->get('ru_slug')))
+        if (empty($menuData->get('ru_slug'))) {
             $menuItem->generateSlug();
+        }
     }
 
     /**

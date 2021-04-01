@@ -32,9 +32,11 @@ class HomeController extends Controller
      */
     private $categories;
 
-    public function __construct(HandbookCategoryRepositoryInterface $categoriesRepository,
-                                TenderRepositoryInterface $tenderRepository,
-                                BlogPostRepositoryInterface $blogPostRepository)
+    public function __construct(
+        HandbookCategoryRepositoryInterface $categoriesRepository,
+        TenderRepositoryInterface $tenderRepository,
+        BlogPostRepositoryInterface $blogPostRepository
+    )
     {
         $this->categories = $categoriesRepository;
         $this->tenders = $tenderRepository;
@@ -50,12 +52,14 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         // Check if url path has get parameters
-        if (array_key_exists('query', parse_url($request->fullUrl())))
+        if (array_key_exists('query', parse_url($request->fullUrl()))) {
             return redirect(route('site.catalog.index'), 301);
+        }
         $parentCategories = $this->categories->all();
         $tenders = $this->tenders->allOrderedByCreatedAt($withoutContractors = true)->take(3);
         $posts = $this->posts->allOrderByDesc()->take(3);
-        $comments = Comments::latest()->limit(3)->whereNull('for_set')->get()->reverse();;
+        $comments = Comments::latest()->limit(3)->whereNull('for_set')->get()->reverse();
+        ;
         return view('site.pages.home', compact('parentCategories', 'tenders', 'posts', 'comments'));
     }
 }

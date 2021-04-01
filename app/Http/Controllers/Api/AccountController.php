@@ -44,10 +44,12 @@ class AccountController extends Controller
      * @param TenderRepositoryInterface $tenderRepository
      * @param NeedTypeRepositoryInterface $needsRepository
      */
-    public function __construct(UserRepositoryInterface $userRepository,
-                                HandbookCategoryRepositoryInterface $categoryRepository,
-                                TenderRepositoryInterface $tenderRepository,
-                                NeedTypeRepositoryInterface $needsRepository)
+    public function __construct(
+        UserRepositoryInterface $userRepository,
+        HandbookCategoryRepositoryInterface $categoryRepository,
+        TenderRepositoryInterface $tenderRepository,
+        NeedTypeRepositoryInterface $needsRepository
+    )
     {
         $this->middleware(['auth:sanctum', 'verified']);
         $this->middleware('account.completed')->except(['create', 'store']);
@@ -72,17 +74,19 @@ class AccountController extends Controller
                 'accountPage' => $accountPage,
                 'user' => $user
             ]);
-        }
-        else if ($user->hasRole('customer')) {
-            if ($user->customer_type == 'legal_entity') $accountPage = 'company';
-            else $accountPage = 'personal';
+        } elseif ($user->hasRole('customer')) {
+            if ($user->customer_type == 'legal_entity') {
+                $accountPage = 'company';
+            } else {
+                $accountPage = 'personal';
+            }
             return response()->json([
                 'accountPage' => $accountPage,
                 'user' => $user
             ]);
-        }
-        else
+        } else {
             abort(403);
+        }
     }
 
     public function store(Request $request)
@@ -147,7 +151,6 @@ class AccountController extends Controller
 
     public function professional()
     {
-
         $user = auth()->user();
         $user->authorizeRole('contractor');
         $chosenSpecs = $user->categories()->pluck('category_id')->toArray();
@@ -159,7 +162,6 @@ class AccountController extends Controller
             'chosenSpecs' => $chosenSpecs,
             'categories' => $categories,
         ]);
-
     }
 
     public function saveProfessional(Request $request)
@@ -168,9 +170,11 @@ class AccountController extends Controller
         $user->authorizeRole('contractor');
         
         $categories = collect();
-        foreach ($request->get('categories') as $requestCategory)
-            if (isset($requestCategory['id']))
+        foreach ($request->get('categories') as $requestCategory) {
+            if (isset($requestCategory['id'])) {
                 $categories->push($requestCategory);
+            }
+        }
         if ($categories->count() == 0) {
             return response()->json([
                 'message' => 'Укажите услуги, которые вы предоставляете'
@@ -188,10 +192,11 @@ class AccountController extends Controller
                 }
             }
         }
-        if ($selectedNeedsCount >= 3)
+        if ($selectedNeedsCount >= 3) {
             return response()->json([
                 'message' =>  'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены'
             ]);
+        }
 
         foreach ($categories as $category) {
             if (!isset($category['price_from']) || !isset($category['price_to'])
@@ -202,7 +207,8 @@ class AccountController extends Controller
         }
         $user->categories()->detach();
         foreach ($categories as $category) {
-            $user->categories()->attach($category['id'],
+            $user->categories()->attach(
+                $category['id'],
                 ['price_to' => $category['price_to'],
                     'price_from' => $category['price_from'],
                     'price_per_hour' => $category['price_per_hour']]
@@ -213,7 +219,7 @@ class AccountController extends Controller
             'message' =>  'Ваши профессиональные данные обновлены']);
     }
 
-    public function saveCustomerProfile (Request $request)
+    public function saveCustomerProfile(Request $request)
     {
         $user = auth()->user();
         $user->authorizeRole('customer');
@@ -241,6 +247,4 @@ class AccountController extends Controller
         return response()->json([
             'message' =>  'Ваш профиль обновлён']);
     }
-
-
 }

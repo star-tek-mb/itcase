@@ -61,11 +61,13 @@ class TenderController extends Controller
      * @param MenuRepositoryInterface $menuItemsRepository
      * @param UserRepositoryInterface $userRepository
      */
-    public function __construct(NeedTypeRepositoryInterface $needRepository,
-                                TenderRepositoryInterface $tenderRepository,
-                                HandbookCategoryRepositoryInterface $categoryRepository,
-                                MenuRepositoryInterface $menuItemsRepository,
-                                UserRepositoryInterface $userRepository)
+    public function __construct(
+        NeedTypeRepositoryInterface $needRepository,
+        TenderRepositoryInterface $tenderRepository,
+        HandbookCategoryRepositoryInterface $categoryRepository,
+        MenuRepositoryInterface $menuItemsRepository,
+        UserRepositoryInterface $userRepository
+    )
     {
         $this->needRepository = $needRepository;
         $this->tenderRepository = $tenderRepository;
@@ -91,7 +93,6 @@ class TenderController extends Controller
         $tendersCount = $tenders->count();
         $tenders = PaginateCollection::paginateCollection($tenders, 5);
         return view('site.pages.tenders.index', compact('tenders', 'currentCategory', 'tendersCount'));
-
     }
 
     public function category(string $params)
@@ -111,10 +112,12 @@ class TenderController extends Controller
             $menuItemSlug = $paramsArray[0];
             $menuItem = $this->menuItemsRepository->getBySlug($menuItemSlug);
             if ($menuItem) {
-                if ($menuItem->ru_slug !== $params)
+                if ($menuItem->ru_slug !== $params) {
                     return redirect(route('site.tenders.category', $menuItem->ru_slug), 301);
-                foreach ($menuItem->categories as $category)
+                }
+                foreach ($menuItem->categories as $category) {
                     $tenders = $tenders->merge($category->tenders()->whereNotNull('owner_id')->where('published', true)->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get());
+                }
                 $tenders = $tenders->unique(function ($item) {
                     return $item->id;
                 });
@@ -128,7 +131,7 @@ class TenderController extends Controller
                 if ($tender->slug !== $params) {
                     return redirect(route('site.catalog.tenders', $tender->slug), 301);
                 }
-                if($tender->showTender()){
+                if ($tender->showTender()) {
                     $tender->setRelation('requests', $tender->requests()->paginate(1));
                     return view('site.pages.tenders.show', compact('tender'));
                 }
@@ -142,8 +145,9 @@ class TenderController extends Controller
             $categorySlug = end($paramsArray);
             $currentCategory = $this->categoryRepository->getBySlug($categorySlug);
             if ($currentCategory) {
-                if ($currentCategory->getAncestorsSlugs() !== $params)
+                if ($currentCategory->getAncestorsSlugs() !== $params) {
                     return redirect(route('site.tenders.category', $currentCategory->getAncestorsSlugs()), 301);
+                }
                 $tenders = $currentCategory->tenders()->whereNotNull('owner_id')->where('published', true)->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
                 $tendersCount = $tenders->count();
                 $tenders = PaginateCollection::paginateCollection($tenders, 5);
@@ -181,8 +185,9 @@ class TenderController extends Controller
             'string' => 'Укажите стороковое значение',
             'email' => 'Неверный формат электронной почты'
         ];
-        if (auth()->user())
+        if (auth()->user()) {
             auth()->user()->authorizeRole('customer');
+        }
         Validator::make($request->all(), [
             'categories' => 'required',
             'title' => 'required|string|max:255',
@@ -285,21 +290,21 @@ class TenderController extends Controller
 
     public function acceptTenderRequest(Request $request, int $tenderId, int $requestId)
     {
-
         $redirectTo = $request->get('redirect_to');
         if ($request = $this->tenderRepository->acceptRequest($tenderId, $requestId)) {
             $request->user->notify(new RequestAction('accepted', $request));
             $requests = $request->tender->requests;
 
             foreach ($requests as $otherRequest) {
-                if ($otherRequest->user_id == $request->user_id)
+                if ($otherRequest->user_id == $request->user_id) {
                     continue;
+                }
                 $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
             }
             $adminUsers = $this->userRepository->getAdmins();
             Notification::send($adminUsers, new RequestAction('accepted', $request));
             return redirect()->route('site.account.chats.create');
-            // return redirect($redirectTo)->with('account.success', 'Исполнитель на этот конкурс назначен! Администратор сайта с вами свяжется и вы получите инструкции, необходимые для того, чтобы исполнитель приступил к работе.');
+        // return redirect($redirectTo)->with('account.success', 'Исполнитель на этот конкурс назначен! Администратор сайта с вами свяжется и вы получите инструкции, необходимые для того, чтобы исполнитель приступил к работе.');
         } else {
             return redirect($redirectTo)->with('account.error', 'Невозможно назначить исполнителя на этот конкурс');
         }
@@ -316,7 +321,6 @@ class TenderController extends Controller
 
     public function ajaxFilter()
     {
-
         $minPrice = empty(request('min_price')) ? 0 : (int)(request('min_price'));
         $category_ids = request('category');
         $remote = request('remote') == 'on' ? 'remote' : null;
@@ -329,13 +333,14 @@ class TenderController extends Controller
             if (!empty($category_ids)) {
                 $currentCategory = $this->categoryRepository->get(current($category_ids));
                 $categories = $this->categoryRepository->get($category_ids);
-            } else
+            } else {
                 $categories = $this->categoryRepository->allWithoutTree();
+            }
 
             if ($categories) {
                 $tenders = collect();
                 $currentCategory = null;
-                foreach ($categories as $category)
+                foreach ($categories as $category) {
                     $tenders = $tenders->merge($category->tenders()
                         ->whereNotNull('owner_id')
                         ->where('published', true)
@@ -343,6 +348,7 @@ class TenderController extends Controller
                         ->where('budget', '>', $minPrice)
                         ->orderBy('opened', 'desc')
                         ->get());
+                }
                 $tenders = $tenders->unique(function ($item) {
                     return $item->id;
                 });
@@ -353,15 +359,15 @@ class TenderController extends Controller
                 return view('site.pages.tenders.components.ajax-result', compact('tenders', 'currentCategory', 'tendersCount'));
             }
         } else {
-
-            if (!empty($category_ids))
+            if (!empty($category_ids)) {
                 $categories = $this->categoryRepository->get($category_ids);
-            else
+            } else {
                 $categories = $this->categoryRepository->allWithoutTree();
+            }
 
             $tenders = collect();
             $currentCategory = null;
-            foreach ($categories as $category)
+            foreach ($categories as $category) {
                 $tenders = $tenders->merge($category->tenders()
                     ->whereNotNull('owner_id')
                     ->whereNotNull('geo_location')
@@ -370,16 +376,13 @@ class TenderController extends Controller
                     ->where('budget', '>', $minPrice)
                     ->orderBy('opened', 'desc')
                     ->get());
+            }
             $tenders = $tenders->unique(function ($item) {
                 return $item->id;
             });
             $tendersCount = $tenders->count();
             return view('site.pages.tenders.components.ajax-map', compact('tenders', 'location', 'distance', 'tendersCount'));
-
-
         }
-
-
     }
 
     public function maps()

@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-
 use App\Models\BlogCategory;
 use App\Models\BlogPost;
 
@@ -47,7 +46,7 @@ class BlogPostRepository implements BlogPostRepositoryInterface
         $post = $this->get($post_id);
         $post->update($post_data->all());
         $post->uploadImage($post_data->file('image'));
-       // $post->removeImage($post_data->file('image'));
+        // $post->removeImage($post_data->file('image'));
         return $post;
     }
 

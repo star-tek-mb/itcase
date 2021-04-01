@@ -8,7 +8,6 @@
 
 namespace App\Repositories;
 
-
 interface CguSiteRepositoryInterface
 {
     /**

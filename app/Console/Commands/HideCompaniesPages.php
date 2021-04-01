@@ -40,13 +40,11 @@ class HideCompaniesPages extends Command
     {
         $categoryId = $this->argument('category');
         $category = HandbookCategory::find($categoryId);
-        if (!$category)
-        {
+        if (!$category) {
             $this->error('Category not found');
             return;
         }
-        foreach ($category->getAllCompaniesFromDescendingCategories() as $company)
-        {
+        foreach ($category->getAllCompaniesFromDescendingCategories() as $company) {
             $this->info("Прячем компанию $company->ru_title...");
             $company->show_page = false;
             $company->save();

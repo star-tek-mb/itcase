@@ -44,10 +44,12 @@ class AccountController extends Controller
      * @param TenderRepositoryInterface $tenderRepository
      * @param NeedTypeRepositoryInterface $needsRepository
      */
-    public function __construct(UserRepositoryInterface $userRepository,
-                                HandbookCategoryRepositoryInterface $categoryRepository,
-                                TenderRepositoryInterface $tenderRepository,
-                                NeedTypeRepositoryInterface $needsRepository)
+    public function __construct(
+        UserRepositoryInterface $userRepository,
+        HandbookCategoryRepositoryInterface $categoryRepository,
+        TenderRepositoryInterface $tenderRepository,
+        NeedTypeRepositoryInterface $needsRepository
+    )
     {
         $this->middleware(['auth', 'verified'])->except(['telegramCallback']);
         $this->middleware('account.completed')->except(['create', 'store', 'telegramCallback', 'markNotificationsAsRead']);
@@ -70,21 +72,24 @@ class AccountController extends Controller
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';
             return view('site.pages.account.contractor.index', compact('user', 'accountPage'));
-        }
-        else if ($user->hasRole('customer')) {
-            if ($user->customer_type == 'legal_entity') $accountPage = 'company';
-            else $accountPage = 'personal';
+        } elseif ($user->hasRole('customer')) {
+            if ($user->customer_type == 'legal_entity') {
+                $accountPage = 'company';
+            } else {
+                $accountPage = 'personal';
+            }
             return view('site.pages.account.customer.index', compact('user', 'accountPage'));
-        }
-        else
+        } else {
             abort(403);
+        }
     }
 
     public function create()
     {
         $user = auth()->user();
-        if ($user->checkCompletedAccount())
+        if ($user->checkCompletedAccount()) {
             return redirect()->route('site.account.index');
+        }
         return \view('site.pages.account.create', compact('user'));
     }
 
@@ -115,8 +120,9 @@ class AccountController extends Controller
         $data->request->add([($userType.'_name')=> $request->first_name . ' ' . $request->last_name]);
         $this->userRepository->createAccount($data);
 
-        if ($userType == 'contractor')
+        if ($userType == 'contractor') {
             return redirect()->route('site.account.contractor.professional')->with('account.success', 'Ваш аккаунт создан! Заполните свои профессиональные данные, что бы вас могли найти в каталоге');
+        }
         if ($request->hasCookie('tenderId')) {
             $tenderId = $request->cookie('tenderId');
             $this->tenderRepository->setOwnerToTender($tenderId, auth()->user()->id);
@@ -170,8 +176,10 @@ class AccountController extends Controller
         $accountPage = 'professional';
         $categories = $this->categoryRepository->all();
 
-        return view('site.pages.account.contractor.professional',
-            compact('categories', 'user', 'accountPage', 'chosenSpecs'));
+        return view(
+            'site.pages.account.contractor.professional',
+            compact('categories', 'user', 'accountPage', 'chosenSpecs')
+        );
     }
 
     public function saveProfessional(Request $request)
@@ -179,9 +187,11 @@ class AccountController extends Controller
         $user = auth()->user();
         $user->authorizeRole('contractor');
         $categories = collect();
-        foreach ($request->get('categories') as $requestCategory)
-            if (isset($requestCategory['id']))
+        foreach ($request->get('categories') as $requestCategory) {
+            if (isset($requestCategory['id'])) {
                 $categories->push($requestCategory);
+            }
+        }
         if ($categories->count() == 0) {
             return back()->with('account.error', 'Укажите услуги, которые вы предоставляете');
         }
@@ -197,8 +207,9 @@ class AccountController extends Controller
                 }
             }
         }
-        if ($selectedNeedsCount >= 3)
+        if ($selectedNeedsCount >= 3) {
             return back()->with('account.error', 'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены');
+        }
         foreach ($categories as $category) {
             if (!isset($category['price_from']) || !isset($category['price_to'])
             || empty($category['price_from']) || empty($category['price_to'])) {
@@ -207,7 +218,8 @@ class AccountController extends Controller
         }
         $user->categories()->detach();
         foreach ($categories as $category) {
-            $user->categories()->attach($category['id'],
+            $user->categories()->attach(
+                $category['id'],
                 ['price_to' => $category['price_to'],
                     'price_from' => $category['price_from'],
                     'price_per_hour' => $category['price_per_hour']]
@@ -217,7 +229,7 @@ class AccountController extends Controller
         return redirect()->route('site.account.contractor.professional')->with('account.success', 'Ваши профессиональные данные обновлены');
     }
 
-    public function saveCustomerProfile (Request $request)
+    public function saveCustomerProfile(Request $request)
     {
         $user = auth()->user();
         $user->authorizeRole('customer');
@@ -257,7 +269,7 @@ class AccountController extends Controller
         $accountPage = 'tenders';
         if ($user->hasRole('customer')) {
             return \view('site.pages.account.customer.tenders', compact('user', 'accountPage'));
-        } else if ($user->hasRole('contractor')) {
+        } elseif ($user->hasRole('contractor')) {
             return \view('site.pages.account.contractor.tenders', compact('user', 'accountPage'));
         } else {
             abort(404);
@@ -273,7 +285,8 @@ class AccountController extends Controller
         return \view('site.pages.account.customer.editTender', compact('user', 'tender', 'accountPage'));
     }
 
-    public function tenderCandidates (string $slug) {
+    public function tenderCandidates(string $slug)
+    {
         $user = auth()->user();
         $tender = $user->ownedTenders()->where('slug', $slug)->first();
         abort_if(!$tender, 404);

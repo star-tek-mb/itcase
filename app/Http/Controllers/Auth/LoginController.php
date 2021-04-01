@@ -12,9 +12,6 @@ use Socialite;
 use Auth;
 use Exception;
 
-
-
-
 class LoginController extends Controller
 {
     /*
@@ -61,32 +58,33 @@ class LoginController extends Controller
 
     protected function credentials(Request $request)
     {
-        if(is_numeric($request->get('username')))
+        if (is_numeric($request->get('username'))) {
             return [
                 'phone' => $request->get('username'),
                 'password' => $request->get('password')
             ];
-        elseif (filter_var($request->get('username'), FILTER_VALIDATE_EMAIL))
+        } elseif (filter_var($request->get('username'), FILTER_VALIDATE_EMAIL)) {
             return [
                 'email' => $request->get('username'),
                 'password' => $request->get('password')
             ];
+        }
     }
 
     protected function sendLoginResponse(Request $request)
     {
-        if(is_numeric($request->get('username'))) {
+        if (is_numeric($request->get('username'))) {
             $phone = $request->get('username');
             $user = User::where('phone_number', $phone)->first();
-        }
-        elseif (filter_var($request->get('username'), FILTER_VALIDATE_EMAIL)) {
+        } elseif (filter_var($request->get('username'), FILTER_VALIDATE_EMAIL)) {
             $email = $request->get('username');
             $user = User::where('email', $email)->first();
         }
 //        $email = $request->get('email');
 //        $user = User::where('email', $email)->first();
-        if (!$user->completed)
+        if (!$user->completed) {
             return redirect('/account/create');
+        }
         $request->session()->regenerate();
 
         $this->clearLoginAttempts($request);
@@ -99,7 +97,8 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToGoogle(){
+    public function redirectToGoogle()
+    {
         return Socialite::driver('google')->with(["prompt" => "select_account"])->redirect();
     }
 
@@ -108,26 +107,28 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleGoogleCallback(){
-      try {
-          $user = Socialite::driver('google')->stateless()->user();;
-          $finduser = User::where('google_id', $user->id)->first();
-          if($finduser){
-              Auth::login($finduser);
-              return redirect()->route('site.account.index');
-          }else{
-              $newUser = User::create([
+    public function handleGoogleCallback()
+    {
+        try {
+            $user = Socialite::driver('google')->stateless()->user();
+            ;
+            $finduser = User::where('google_id', $user->id)->first();
+            if ($finduser) {
+                Auth::login($finduser);
+                return redirect()->route('site.account.index');
+            } else {
+                $newUser = User::create([
                   'name' => $user->name,
                   'email' => $user->email,
                   'google_id'=> $user->id,
                   'password' => ''
               ]);
-              Auth::login($newUser);
-              return redirect()->route('site.account.index');
-          }
-      } catch (Exception $e) {
-          return redirect()->route('site.catalog.index')->with('error', 'Авторизация через Google в данный момент недоступна.');
-      }
+                Auth::login($newUser);
+                return redirect()->route('site.account.index');
+            }
+        } catch (Exception $e) {
+            return redirect()->route('site.catalog.index')->with('error', 'Авторизация через Google в данный момент недоступна.');
+        }
     }
 
     protected function loggedOut(Request $request)

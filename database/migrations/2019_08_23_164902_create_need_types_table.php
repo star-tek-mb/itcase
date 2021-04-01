@@ -21,8 +21,8 @@ class CreateNeedTypesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('handbook_categories', function(Blueprint $table) {
-           $table->integer('need_id')->unsigned()->nullable();
+        Schema::table('handbook_categories', function (Blueprint $table) {
+            $table->integer('need_id')->unsigned()->nullable();
         });
 
         Schema::table('companies', function (Blueprint $table) {

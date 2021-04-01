@@ -21,8 +21,10 @@ class BlogPostController extends Controller
     protected $categoryRepository;
 
 
-    public function __construct(BlogPostRepositoryInterface $blogPostRepository,
-                                BlogCategoryRepositoryInterface $categoryRepository)
+    public function __construct(
+        BlogPostRepositoryInterface $blogPostRepository,
+        BlogCategoryRepositoryInterface $categoryRepository
+    )
     {
         $this->postRepository = $blogPostRepository;
         $this->categoryRepository = $categoryRepository;
@@ -66,10 +68,11 @@ class BlogPostController extends Controller
 
         $post = $this->postRepository->store($request);
 
-        if ($request->has('save'))
+        if ($request->has('save')) {
             return redirect()->route('admin.blogposts.create');
-        else
+        } else {
             return redirect()->route('admin.blogposts.index');
+        }
     }
 
     /**
@@ -103,10 +106,11 @@ class BlogPostController extends Controller
 
         $post = $this->postRepository->update($id, $request);
 
-        if ($request->has('save'))
+        if ($request->has('save')) {
             return redirect()->route('admin.blogposts.edit', $post->id);
-        else
+        } else {
             return redirect()->route('admin.blogposts.index');
+        }
     }
 
     /**

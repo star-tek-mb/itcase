@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories;
+
 //use Your Model
 
 /**
@@ -29,5 +30,4 @@ interface BlogCategoryRepositoryInterface
     public function update($blogcategory_id, $blogcategory_data);
 
     public function store($blogcategory_data);
-
 }

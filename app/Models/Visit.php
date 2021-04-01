@@ -11,7 +11,8 @@ class Visit extends Model
         return $this->belongsTo(Tender::class);
     }
 
-    public static function createVisitLog($tender) {
+    public static function createVisitLog($tender)
+    {
         $tenderViews= new Visit();
         $tenderViews->listing_id = $tender->id;
         $tenderViews->slug = $tender->slug;

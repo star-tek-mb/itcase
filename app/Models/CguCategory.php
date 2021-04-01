@@ -96,7 +96,9 @@ class CguCategory extends Model
      */
     public function uploadImage($image)
     {
-        if($image == null) return;
+        if ($image == null) {
+            return;
+        }
 
         $this->removeImage();
         $filename = $this->generateFileName($image->extension());
@@ -127,8 +129,7 @@ class CguCategory extends Model
      */
     public function removeImage()
     {
-        if($this->image != null)
-        {
+        if ($this->image != null) {
             Storage::delete(self::UPLOAD_IMAGE_DIRECTORY . $this->image);
             $this->image = null;
             $this->save();

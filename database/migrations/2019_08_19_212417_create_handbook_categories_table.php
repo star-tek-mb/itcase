@@ -27,7 +27,6 @@ class CreateHandbookCategoriesTable extends Migration
 
             $table->nestedSet();
             $table->timestamps();
-
         });
     }
 

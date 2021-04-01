@@ -18,7 +18,7 @@ class PurseController extends Controller
         $accountPage = 'tenders';
         if ($user->hasRole('customer')) {
             return \view('site.pages.account.customer.purse', compact('user', 'accountPage'));
-        } else if ($user->hasRole('contractor')) {
+        } elseif ($user->hasRole('contractor')) {
             return \view('site.pages.account.contractor.purse', compact('user', 'accountPage'));
         } else {
             abort(404);
@@ -26,5 +26,4 @@ class PurseController extends Controller
     }
 
     //Todo Click, Payme,Visa
-
 }

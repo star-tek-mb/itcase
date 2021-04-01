@@ -38,7 +38,9 @@ class Service extends Model
      */
     public function uploadImage($image)
     {
-        if (!$image) return;
+        if (!$image) {
+            return;
+        }
 
         $this->removeImage();
         $filename = $this->generateFileName($image->extension());
@@ -64,10 +66,11 @@ class Service extends Model
      */
     public function getImage()
     {
-        if ($this->image)
+        if ($this->image) {
             return '/' . self::UPLOAD_DIRECTORY . $this->image;
-        else
+        } else {
             return '';
+        }
     }
 
     /**

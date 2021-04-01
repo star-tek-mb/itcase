@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use Validator,Redirect,Response,File;
+use Validator;
+use Redirect;
+use Response;
+use File;
 use App\Document;
 use App\Models\FormMultipleUpload;
 use App\Models\PortfolioLink;
@@ -24,10 +27,10 @@ class FileController extends Controller
             'user'=>$user,
             'accountPage'=>$accountPage
         ]);
-
     }
 
-    public function save(Request $request){
+    public function save(Request $request)
+    {
         $user = auth()->user();
         $validationMessages = [
             'project_link' => 'Неверный формат ссылки: попробуйте добавить https:// или http://. Пример: https://example.uz',
@@ -57,8 +60,5 @@ class FileController extends Controller
         return response()->json([
             'success' => 'Файл успешно добавлен',
         ]);
-
     }
-
-
 }

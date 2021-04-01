@@ -58,10 +58,11 @@ class CguCatalogController extends Controller
     {
         $catalog = $this->catalogRepository->store($request);
 
-        if($request->has('save'))
+        if ($request->has('save')) {
             return redirect()->route('admin.cgucatalogs.create');
-        else
+        } else {
             return redirect()->route('admin.cgucatalogs.index');
+        }
     }
 
     /**
@@ -102,10 +103,11 @@ class CguCatalogController extends Controller
     {
         $catalog = $this->catalogRepository->update($id, $request);
 
-        if($request->has('save'))
+        if ($request->has('save')) {
             return redirect()->route('admin.cgucatalogs.edit', $catalog->id);
-        else
+        } else {
             return redirect()->route('admin.cgucatalogs.index');
+        }
     }
 
     /**
@@ -140,9 +142,10 @@ class CguCatalogController extends Controller
     {
         $catalog = $this->catalogRepository->get($request->get('id'));
         $catalog->position = $request->get('position');
-        if($catalog->save())
+        if ($catalog->save()) {
             return json_encode(['status' => 'success']);
-        else
+        } else {
             return json_encode(['status' => 'failed']);
+        }
     }
 }

@@ -38,16 +38,15 @@ class ChatsController extends Controller
                 'accountPage' => $accountPage,
                 'chat' => $chat,
             ]);
-
         }
         return response()->json([
             'user' => $user,
             'accountPage' => $accountPage,
         ]);
-
     }
 
-    public function sendMessage(Request $request) {
+    public function sendMessage(Request $request)
+    {
         $currentUser = auth()->user();
         $chatId = $request->get('chatId');
         $message = $request->get('message');
@@ -78,11 +77,12 @@ class ChatsController extends Controller
             ]);
         }
         $messages = $chat->messages()->with('user')->get();
-        foreach ($messages as $message)
+        foreach ($messages as $message) {
             if ($message->user_id == $otherUser->id) {
                 $message->read = true;
                 $message->save();
             }
+        }
         return response()->json([
             'messages'=>$messages
         ]);
@@ -93,8 +93,9 @@ class ChatsController extends Controller
         $withUserId = $request->get('with_user_id');
         $currentUser = auth()->user();
         foreach ($currentUser->chats as $chat) {
-            if ($chat->getAnotherUser()->id == $withUserId)
+            if ($chat->getAnotherUser()->id == $withUserId) {
                 return redirect(route('site.account.chats') . '?chat_id=' . $chat->id);
+            }
         }
         $chat = Chat::create();
         $chat->participants()->attach([$currentUser->id, $withUserId]);

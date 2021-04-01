@@ -38,7 +38,8 @@ class AuthController extends Controller
         return response()->json(['token' => $token], 200);
     }
 
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
@@ -54,5 +55,4 @@ class AuthController extends Controller
         $token = $user->createToken($request->device_name)->plainTextToken;
         return response()->json(['token' => $token], 200);
     }
-
 }

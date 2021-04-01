@@ -14,7 +14,8 @@ class Authenticate extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return string
      */
-    public function handle($request, Closure $next, ...$guards) {
+    public function handle($request, Closure $next, ...$guards)
+    {
         if (substr($request->path(), 0, 3) === "api" && Auth::guard('sanctum')->guest()) {
             return response()->json(['message' => 'Выполните вход']);
         }

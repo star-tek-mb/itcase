@@ -14,7 +14,7 @@ class FavouriteCategoryServiceImage extends Migration
     public function up()
     {
         Schema::table('handbook_categories', function (Blueprint $table) {
-           $table->boolean('favorite')->default(false);
+            $table->boolean('favorite')->default(false);
         });
 
         Schema::table('services', function (Blueprint $table) {
@@ -30,7 +30,7 @@ class FavouriteCategoryServiceImage extends Migration
     public function down()
     {
         Schema::table('handbook_categories', function (Blueprint $table) {
-           $table->dropColumn('favourite');
+            $table->dropColumn('favourite');
         });
 
         Schema::table('services', function (Blueprint $table) {

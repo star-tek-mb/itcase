@@ -13,7 +13,7 @@ class AdvantagesAndSocialLinks extends Migration
      */
     public function up()
     {
-        Schema::table('companies', function(Blueprint $table) {
+        Schema::table('companies', function (Blueprint $table) {
             $table->string('advantages')->nullable();
             $table->string('telegram_link')->nullable();
             $table->string('instagram_link')->nullable();
@@ -28,7 +28,7 @@ class AdvantagesAndSocialLinks extends Migration
      */
     public function down()
     {
-        Schema::table('companies', function(Blueprint $table) {
+        Schema::table('companies', function (Blueprint $table) {
             $table->dropColumn('advantages');
             $table->dropColumn('telegram_link');
             $table->dropColumn('instagram_link');

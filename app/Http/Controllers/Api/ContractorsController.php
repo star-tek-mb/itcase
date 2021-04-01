@@ -46,10 +46,12 @@ class ContractorsController extends Controller
      * @param TenderRepositoryInterface $tenderRepository
      * @param MenuRepositoryInterface $menuRepository
      */
-    public function __construct(UserRepositoryInterface $userRepository,
-                                HandbookCategoryRepositoryInterface $categoriesRepository,
-                                TenderRepositoryInterface $tenderRepository,
-                                MenuRepositoryInterface $menuRepository)
+    public function __construct(
+        UserRepositoryInterface $userRepository,
+        HandbookCategoryRepositoryInterface $categoriesRepository,
+        TenderRepositoryInterface $tenderRepository,
+        MenuRepositoryInterface $menuRepository
+    )
     {
         $this->users = $userRepository;
         $this->categories = $categoriesRepository;
@@ -66,7 +68,7 @@ class ContractorsController extends Controller
     {
         $categories = $this->categories->all();
         $contractors = collect();
-        foreach($categories as $category){
+        foreach ($categories as $category) {
             $contractors = $contractors->merge($category->getAllCompaniesFromDescendingCategories()->sortByDesc('created_at'));
         }
         $contractorsCount = $contractors->count();
@@ -75,20 +77,18 @@ class ContractorsController extends Controller
             'contractors'=>$contractors,
             'contractorsCount'=>$contractorsCount
         ]);
-
-
     }
 
-    public function contractorSearch(Request $request){
-      $categories = $this->categories->all();
-      foreach($categories as $category){
+    public function contractorSearch(Request $request)
+    {
+        $categories = $this->categories->all();
+        foreach ($categories as $category) {
+        }
+        $contractors = $this->users->searchContractors($request);
 
-      }
-      $contractors = $this->users->searchContractors($request);
-
-      $contractorsCount = $contractors->count();
-      $contractors = PaginateCollection::paginateCollection($contractors, 5);
-      return response()->json([
+        $contractorsCount = $contractors->count();
+        $contractors = PaginateCollection::paginateCollection($contractors, 5);
+        return response()->json([
             'category'=>$category,
             'contractors'=>$contractors,
             'contractorsCount'=>$contractorsCount
@@ -147,12 +147,12 @@ class ContractorsController extends Controller
         ]);
     }
 
-    public function addContractor(int $contractorId, int $tenderId) {
+    public function addContractor(int $contractorId, int $tenderId)
+    {
         $request = $this->tenders->addContractor($tenderId, $contractorId);
         $this->users->get($contractorId)->notify(new InviteRequest($request));
         return response()->json([
             'success'=>'Исполнитель добавлен в конкурс!',
         ]);
     }
-
 }

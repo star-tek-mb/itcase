@@ -39,9 +39,11 @@ class MenuItemController extends Controller
      * @param HandbookCategoryRepositoryInterface $categoryRepository
      * @return void
     */
-    public function __construct(MenuRepositoryInterface $menuRepository,
-                                NeedTypeRepositoryInterface $needsRepository,
-                                HandbookCategoryRepositoryInterface $categoryRepository)
+    public function __construct(
+        MenuRepositoryInterface $menuRepository,
+        NeedTypeRepositoryInterface $needsRepository,
+        HandbookCategoryRepositoryInterface $categoryRepository
+    )
     {
         $this->menuItems = $menuRepository;
         $this->needs = $needsRepository;
@@ -83,10 +85,11 @@ class MenuItemController extends Controller
         $this->menuItems->create($request);
 
         $needId = $request->get('need_id');
-        if ($request->has('saveQuit'))
+        if ($request->has('saveQuit')) {
             return redirect()->route('admin.needs.menu', $needId);
-        else
+        } else {
             return redirect()->route('admin.menu.create', ['needId' => $needId]);
+        }
     }
 
     /**

@@ -43,10 +43,9 @@ class CguSite extends Model
 
     public function getActiveRender()
     {
-        if($this->active)
-        {
+        if ($this->active) {
             return "<i class='text-success'>Активный</i>";
-        }else{
+        } else {
             return "<i class='text-danger'>Не активный</i>";
         }
     }
@@ -64,7 +63,9 @@ class CguSite extends Model
      */
     public function uploadImage($image)
     {
-        if($image == null) return;
+        if ($image == null) {
+            return;
+        }
 
         $this->removeImage();
         $filename = $this->generateFilename($image->extension());
@@ -95,8 +96,7 @@ class CguSite extends Model
      */
     public function removeImage()
     {
-        if($this->image != null)
-        {
+        if ($this->image != null) {
             Storage::delete(self::UPLOAD_FILE_PATH, $this->image);
             $this->saveImage('');
         }

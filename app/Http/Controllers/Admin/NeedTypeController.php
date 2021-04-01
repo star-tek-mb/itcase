@@ -64,10 +64,11 @@ class NeedTypeController extends Controller
         ]);
         $this->needTypesRepository->create($request);
 
-        if ($request->has('saveQuit'))
+        if ($request->has('saveQuit')) {
             return redirect()->route('admin.needs.index');
-        else
+        } else {
             return redirect()->route('admin.needs.create');
+        }
     }
 
     /**

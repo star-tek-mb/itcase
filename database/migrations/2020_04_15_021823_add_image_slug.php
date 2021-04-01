@@ -13,9 +13,9 @@ class AddImageSlug extends Migration
      */
     public function up()
     {
-      Schema::table('images', function (Blueprint $table) {
-        $table->string('slug')->nullable();
-      });
+        Schema::table('images', function (Blueprint $table) {
+            $table->string('slug')->nullable();
+        });
     }
 
     /**

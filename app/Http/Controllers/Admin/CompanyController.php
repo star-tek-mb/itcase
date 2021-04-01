@@ -64,12 +64,14 @@ class CompanyController extends Controller
      * @param ServiceRepositoryInterface $servicesRepository
      * @param FaqRepositoryInterface $faqRepository
      */
-    public function __construct(HandbookCategoryRepositoryInterface $companyCategoryRepository,
-                                CompanyRepositoryInterface $companyRepository,
-                                UserRepositoryInterface $userRepository,
-                                NeedTypeRepositoryInterface $needTypesRepository,
-                                ServiceRepositoryInterface $servicesRepository,
-                                FaqRepositoryInterface $faqRepository)
+    public function __construct(
+        HandbookCategoryRepositoryInterface $companyCategoryRepository,
+        CompanyRepositoryInterface $companyRepository,
+        UserRepositoryInterface $userRepository,
+        NeedTypeRepositoryInterface $needTypesRepository,
+        ServiceRepositoryInterface $servicesRepository,
+        FaqRepositoryInterface $faqRepository
+    )
     {
         $this->companyCategories = $companyCategoryRepository;
         $this->companies = $companyRepository;
@@ -90,8 +92,7 @@ class CompanyController extends Controller
         if ($request->has('searchQuery')) {
             $companies = $this->companies->search($request->get('searchQuery'));
             $paginate = false;
-        }
-        else {
+        } else {
             $companies = $this->companies->all(10);
             $paginate = true;
         }
@@ -135,8 +136,7 @@ class CompanyController extends Controller
         ]);
         $company = $this->companies->create($request);
         $categoryId = $request->get('category_id');
-        if($categoryId != 0)
-        {
+        if ($categoryId != 0) {
             $position = $this->companyCategories->get($categoryId)->companies()->count();
             $company->position = $position;
             $company->save();
@@ -144,8 +144,9 @@ class CompanyController extends Controller
         $companyMeta = $company->createMetaInformation();
         auth()->user()->addHistoryItem('company.create', $companyMeta);
 
-        if ($request->has('saveQuit'))
+        if ($request->has('saveQuit')) {
             return redirect()->route('admin.companies.index');
+        }
         return redirect()->route('admin.companies.create');
     }
 
@@ -218,10 +219,11 @@ class CompanyController extends Controller
     {
         $companyId = $request->get('id');
         $position = $request->get('position');
-        if ($this->companies->setPosition($companyId, $position))
+        if ($this->companies->setPosition($companyId, $position)) {
             return Response::create('', 200);
-        else
+        } else {
             return Response::create('', 400);
+        }
     }
 
     /**

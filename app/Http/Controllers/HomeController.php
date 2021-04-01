@@ -6,7 +6,6 @@ use App\Repositories\UserClickRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Helpers\Tracking\Track;
 
-
 class HomeController extends Controller
 {
     use Track;
@@ -46,15 +45,12 @@ class HomeController extends Controller
     */
     public function userClick(Request $request)
     {
-        if ($request->has('companyId'))
-        {
+        if ($request->has('companyId')) {
             $companyId = $request->get('companyId');
-            if ($request->hasCookie('showedCompanies'))
-            {
+            if ($request->hasCookie('showedCompanies')) {
                 $showedCompanies = $request->cookie('showedCompanies');
                 $showedCompanies = explode('@', $showedCompanies);
-                if (!in_array($companyId, $showedCompanies))
-                {
+                if (!in_array($companyId, $showedCompanies)) {
                     $clickData = [
                         'browser' => $this->getBrowser(),
                         'os' => $this->getOs(),
@@ -66,8 +62,7 @@ class HomeController extends Controller
                     // TODO: Implement redirect logic. Later
                 }
             }
-        }
-        else {
+        } else {
             abort(400);
         }
     }

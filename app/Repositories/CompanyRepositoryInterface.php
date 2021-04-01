@@ -3,7 +3,6 @@
 
 namespace App\Repositories;
 
-
 use App\Models\Company;
 
 interface CompanyRepositoryInterface

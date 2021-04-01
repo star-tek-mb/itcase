@@ -5,7 +5,6 @@ namespace App\Repositories;
 
 use App\Models\UserClick;
 
-
 class UserClickRepository implements UserClickRepositoryInterface
 {
 

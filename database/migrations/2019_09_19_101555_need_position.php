@@ -13,7 +13,7 @@ class NeedPosition extends Migration
      */
     public function up()
     {
-        Schema::table('need_types', function(Blueprint $table) {
+        Schema::table('need_types', function (Blueprint $table) {
             $table->integer('position')->default(0);
         });
     }
@@ -25,7 +25,7 @@ class NeedPosition extends Migration
      */
     public function down()
     {
-        Schema::table('need_types', function(Blueprint $table) {
+        Schema::table('need_types', function (Blueprint $table) {
             $table->dropColumn('position');
         });
     }

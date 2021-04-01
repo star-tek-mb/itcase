@@ -13,15 +13,14 @@ class Comments extends Migration
      */
     public function up()
     {
-      Schema::create('comments', function (Blueprint $table) {
-        $table->increments('id');
-        $table->string('assessment')->nullable();
-        $table->string('who_set')->nullable();
-        $table->string('for_set')->nullable();
-        $table->text('comment')->nullable();
-        $table->timestamps();
-
-      });
+        Schema::create('comments', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('assessment')->nullable();
+            $table->string('who_set')->nullable();
+            $table->string('for_set')->nullable();
+            $table->text('comment')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**

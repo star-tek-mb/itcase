@@ -73,8 +73,12 @@ class Tender extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany(HandbookCategory::class, 'tender_category',
-            'tender_id', 'category_id');
+        return $this->belongsToMany(
+            HandbookCategory::class,
+            'tender_category',
+            'tender_id',
+            'category_id'
+        );
     }
 
     /**
@@ -99,8 +103,9 @@ class Tender extends Model
 
     public function saveFiles($files)
     {
-        if (!$files)
+        if (!$files) {
             return;
+        }
         $this->files()->delete();
         foreach ($files as $file) {
             $filename = Str::random(20) . '.' . $file->extension();
@@ -116,21 +121,26 @@ class Tender extends Model
      *
      * @return void
      */
-    public function generateSlug() {
+    public function generateSlug()
+    {
         $slug = Str::slug($this->title);
-        if ($this->slug == $slug)
+        if ($this->slug == $slug) {
             return;
+        }
         $existCount = self::where('slug', $slug)->count();
-        if ($existCount > 0)
+        if ($existCount > 0) {
             $slug .= "-$existCount";
+        }
         $this->slug = $slug;
     }
 
-    public function getCustomerTitle() {
-        if ($this->client_type == 'individual')
+    public function getCustomerTitle()
+    {
+        if ($this->client_type == 'individual') {
             return $this->client_name;
-        else
+        } else {
             return $this->client_company_name;
+        }
     }
 
     public function checkDeadline()
@@ -152,18 +162,20 @@ class Tender extends Model
 
     public function Visit()
     {
-        return $this->hasMany(Visit::class,'listing_id');
+        return $this->hasMany(Visit::class, 'listing_id');
     }
     public function showTender()
     {
-        if(auth()->id()==null){
+        if (auth()->id()==null) {
             return $this->Visit()
-                ->where('ip', '=',  request()->ip())->exists();
+                ->where('ip', '=', request()->ip())->exists();
         }
 
         return $this->Visit()
-            ->where(function($postViewsQuery) { $postViewsQuery
+            ->where(function ($postViewsQuery) {
+                $postViewsQuery
                 ->where('session_id', '=', request()->getSession()->getId())
-                ->orWhere('user_id', '=', (auth()->check()));})->exists();
+                ->orWhere('user_id', '=', (auth()->check()));
+            })->exists();
     }
 }

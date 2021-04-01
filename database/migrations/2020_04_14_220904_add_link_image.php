@@ -13,9 +13,9 @@ class AddLinkImage extends Migration
      */
     public function up()
     {
-      Schema::table('images', function (Blueprint $table) {
-        $table->string('link')->nullable();
-      });
+        Schema::table('images', function (Blueprint $table) {
+            $table->string('link')->nullable();
+        });
     }
 
     /**

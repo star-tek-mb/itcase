@@ -8,7 +8,6 @@ use App\Models\TenderRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 
-
 class TenderRepository implements TenderRepositoryInterface
 {
 
@@ -23,29 +22,30 @@ class TenderRepository implements TenderRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function allOrderedByCreatedAt($withoutContractors = false,$map=false)
+    public function allOrderedByCreatedAt($withoutContractors = false, $map=false)
     {
-
         $query = Tender::whereNotNull('owner_id')->where('published', true);
-        if ($withoutContractors){
+        if ($withoutContractors) {
             $query = $query->whereNull('contractor_id');
         }
-        if($map)
+        if ($map) {
             $query = $query->whereNotNull('geo_location');
+        }
 
         return $query->whereNotNull('owner_id')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
-
     }
 
-    public function TenderSearch($search){
-      $query = Tender::whereNotNull('owner_id')->where('published', true);
-      return $query->whereNotNull('owner_id')->where('title', 'like', '%'.$search->search.'%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
+    public function TenderSearch($search)
+    {
+        $query = Tender::whereNotNull('owner_id')->where('published', true);
+        return $query->whereNotNull('owner_id')->where('title', 'like', '%'.$search->search.'%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
     }
     public function allOrderedByCreatedAtAdmin($withoutContractors = false)
     {
         $query = Tender::whereNotNull('owner_id')->where('published', true);
-        if ($withoutContractors)
+        if ($withoutContractors) {
             $query = $query->whereNull('contractor_id');
+        }
         return $query->whereNotNull('owner_id')->orderBy('created_at', 'desc')->get();
         //orderBy('created_at', 'desc') orderByRaw('-contractor_id asc')
     }
@@ -68,13 +68,15 @@ class TenderRepository implements TenderRepositoryInterface
             $tenderData['client_type'] = '';
             $tenderData['client_phone_number'] = '';
         }
-        if(Arr::get($tenderData, 'remote')=='on')
+        if (Arr::get($tenderData, 'remote')=='on') {
             $tenderData['type']='remote';
+        }
         $tenderData['deadline'] = Carbon::createFromFormat('d.m.Y', $data->get('deadline'))->setHour(23)->setMinutes(59)->setSecond(59)->format('Y-m-d H:i:s');
         $tender = Tender::create($tenderData);
         $tender->saveFiles($data->file('files'));
-        foreach ($data->get('categories') as $categoryId)
+        foreach ($data->get('categories') as $categoryId) {
             $tender->categories()->attach($categoryId);
+        }
         return $tender;
     }
 
@@ -86,8 +88,9 @@ class TenderRepository implements TenderRepositoryInterface
         $tender = $this->get($id);
         $tenderData = $data->all();
         $tenderData['deadline'] = Carbon::createFromFormat('d.m.Y', $data->get('deadline'))->setHour(23)->setMinutes(59)->setSecond(59)->format('Y-m-d H:i:s');
-        if(Arr::get($tenderData, 'remote')=='on')
+        if (Arr::get($tenderData, 'remote')=='on') {
             $tenderData['type']='remote';
+        }
         $tender->update($tenderData);
         $tender->saveFiles($data->file('files'));
         $tender->categories()->detach();
@@ -145,8 +148,9 @@ class TenderRepository implements TenderRepositoryInterface
     {
         $tender = $this->get($tenderId);
         $request = TenderRequest::findOrFail($requestId);
-        if ($tender->contractor)
+        if ($tender->contractor) {
             return false;
+        }
         abort_if($tender->owner->id !== auth()->user()->id, 401);
         $tender->contractor_id = $request->user_id;
         $tender->opened = false;

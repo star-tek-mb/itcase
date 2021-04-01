@@ -30,16 +30,18 @@ class Chat extends Model
 
     public function getAnotherUser($currentUser = null)
     {
-        if (!$currentUser)
+        if (!$currentUser) {
             $currentUser = auth()->user();
+        }
         return $this->participants()->where('user_id', '!=', $currentUser->id)->first();
     }
 
     public function getLastMessageText()
     {
         $message = $this->messages()->orderByDesc('created_at')->first();
-        if ($message)
+        if ($message) {
             return $message->text;
+        }
         return 'Новых сообщений нет';
     }
 }

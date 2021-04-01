@@ -17,7 +17,7 @@ class CreateUserClicksTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('browser')->nullable();
-            $table->string('os' )->nullable();
+            $table->string('os')->nullable();
             $table->integer('user_form_id')->nullable();
             $table->integer('company_id')->default(0);
 

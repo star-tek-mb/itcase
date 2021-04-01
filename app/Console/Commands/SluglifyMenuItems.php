@@ -39,9 +39,11 @@ class SluglifyMenuItems extends Command
     public function handle()
     {
         $this->info('Generating slug for menu items...');
-        foreach (MenuItem::all() as $menuItem)
-            if (empty($menuItem->ru_slug))
-              $menuItem->generateSlug();
+        foreach (MenuItem::all() as $menuItem) {
+            if (empty($menuItem->ru_slug)) {
+                $menuItem->generateSlug();
+            }
+        }
         $this->info('Done!');
     }
 }

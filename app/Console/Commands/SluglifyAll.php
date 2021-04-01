@@ -43,21 +43,27 @@ class SluglifyAll extends Command
     {
         $this->info('Generating slug for companies, categories, types of needs');
         $this->info('Generating slug for types of needs...');
-        foreach (NeedType::all() as $needType)
-            if (empty($needType->ru_slug))
+        foreach (NeedType::all() as $needType) {
+            if (empty($needType->ru_slug)) {
                 $needType->generateSlug();
+            }
+        }
         $this->info('Done!');
 
         $this->info('Generating slug for categories...');
-        foreach (HandbookCategory::all() as $category)
-            if (empty($category->ru_slug))
+        foreach (HandbookCategory::all() as $category) {
+            if (empty($category->ru_slug)) {
                 $category->generateSlug();
+            }
+        }
         $this->info('Done!');
 
         $this->info('Generating slug for companies. It can be take several minutes...');
-        foreach (Company::all() as $company)
-            if (empty($company->ru_slug))
+        foreach (Company::all() as $company) {
+            if (empty($company->ru_slug)) {
                 $company->generateSlug();
+            }
+        }
         $this->info('Done!');
         $this->info('Slugs for companies, categories and types of needs generated successfully!');
     }

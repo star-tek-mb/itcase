@@ -3,7 +3,6 @@
 
 namespace App\Repositories;
 
-
 use App\Models\User;
 use App\Models\Role;
 use App\Models\FormMultipleUpload;
@@ -25,12 +24,12 @@ class UserRepository implements UserRepositoryInterface
         return User::all();
     }
 
-    public function searchContractors($search){
-      
-      $users = User::where('name', 'like', '%'.$search->contractorSearch.'%')->get();
-      return $users->filter(function ($user) { return $user->hasRole('contractor');});
-
-
+    public function searchContractors($search)
+    {
+        $users = User::where('name', 'like', '%'.$search->contractorSearch.'%')->get();
+        return $users->filter(function ($user) {
+            return $user->hasRole('contractor');
+        });
     }
     //$allUsers = User::all();
     // return $allUsers->filter(function ($user) { return $user->hasRole('contractor'); });
@@ -79,8 +78,9 @@ class UserRepository implements UserRepositoryInterface
     {
         $user = $this->get($userId);
         $data = $userData->all();
-        if (isset($data['birthday_date']))
+        if (isset($data['birthday_date'])) {
             $data['birthday_date'] = Carbon::createFromFormat('d.m.Y', $data['birthday_date'])->format('Y-m-d');
+        }
         $user->update($data);
         $user->generateSlug();
         $user->uploadImage($userData->file('image'));
@@ -136,7 +136,9 @@ class UserRepository implements UserRepositoryInterface
     public function getContractors()
     {
         $allUsers = User::all();
-        return $allUsers->filter(function ($user) { return $user->hasRole('contractor'); });
+        return $allUsers->filter(function ($user) {
+            return $user->hasRole('contractor');
+        });
     }
 
 
@@ -152,30 +154,30 @@ class UserRepository implements UserRepositoryInterface
     }
 
 
-    public function getPortfolio(string $slug){
-      $allPortfolio = FormMultipleUpload::where('slug', $slug)->get();
-      return $allPortfolio;
-
+    public function getPortfolio(string $slug)
+    {
+        $allPortfolio = FormMultipleUpload::where('slug', $slug)->get();
+        return $allPortfolio;
     }
 
-    public function getPortfolioBySlug(string $slug){
-
-      return $this->getPortfolio($slug)->all(function ($user) use ($slug) {
-          return $user->slug === $slug;
-      });
+    public function getPortfolioBySlug(string $slug)
+    {
+        return $this->getPortfolio($slug)->all(function ($user) use ($slug) {
+            return $user->slug === $slug;
+        });
     }
 
-    public function getComment(string $slug){
-      $allComments = Comments::where('for_set', $slug)->whereNotNull('comment')->get();
-      return $allComments;
-
+    public function getComment(string $slug)
+    {
+        $allComments = Comments::where('for_set', $slug)->whereNotNull('comment')->get();
+        return $allComments;
     }
 
-    public function getCommentBySlug(string $slug){
-
-      return $this->getComment($slug)->all(function ($user) use ($slug) {
-          return $user->slug === $slug;
-      });
+    public function getCommentBySlug(string $slug)
+    {
+        return $this->getComment($slug)->all(function ($user) use ($slug) {
+            return $user->slug === $slug;
+        });
     }
 
     /**
@@ -231,6 +233,4 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::where('telegram_id', $telegramId)->first();
     }
-
-
 }

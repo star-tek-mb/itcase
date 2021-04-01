@@ -66,10 +66,11 @@ class CguSiteController extends Controller
 
         $site = $this->siteRepository->store($request);
 
-        if($request->has('save'))
+        if ($request->has('save')) {
             return redirect()->route('admin.cgusites.create');
-        else
+        } else {
             return redirect()->route('admin.cgusites.index');
+        }
     }
 
     /**
@@ -115,10 +116,11 @@ class CguSiteController extends Controller
 
         $site = $this->siteRepository->update($id, $request);
 
-        if($request->has('save'))
+        if ($request->has('save')) {
             return redirect()->route('admin.cgusites.edit', $site->id);
-        else
+        } else {
             return redirect()->route('admin.cgusites.index');
+        }
     }
 
     /**
@@ -150,9 +152,10 @@ class CguSiteController extends Controller
     {
         $category = CguSite::find($request->get('id'));
         $category->position = $request->get('position');
-        if($category->save())
+        if ($category->save()) {
             return json_encode(['message' => 'success']);
-        else
+        } else {
             return json_encode(['message' => 'failed']);
+        }
     }
 }

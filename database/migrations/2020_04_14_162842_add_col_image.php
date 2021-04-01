@@ -13,13 +13,9 @@ class AddColImage extends Migration
      */
     public function up()
     {
-      Schema::table('images', function (Blueprint $table) {
-
-        
-        $table->string('project_name')->nullable();
-
-
-      });
+        Schema::table('images', function (Blueprint $table) {
+            $table->string('project_name')->nullable();
+        });
     }
 
     /**

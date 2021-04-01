@@ -36,7 +36,7 @@ class CguCatalog extends Model
      */
     public function parentCategory()
     {
-        return $this->belongsTo(CguCategory::class, 'id', 'id','category_id');
+        return $this->belongsTo(CguCategory::class, 'id', 'id', 'category_id');
     }
 
     /**
@@ -76,7 +76,9 @@ class CguCatalog extends Model
      */
     public function uploadFile($file)
     {
-        if($file == null) return;
+        if ($file == null) {
+            return;
+        }
 
         $this->removeFile();
         $filename = $this->generateFilename($file->extension());
@@ -121,8 +123,7 @@ class CguCatalog extends Model
      */
     public function removeFile()
     {
-        if($this->file != null)
-        {
+        if ($this->file != null) {
             Storage::delete(self::UPLOAD_FILE_DIRECTORY . $this->file);
             $this->saveFileName('');
         }
@@ -141,14 +142,13 @@ class CguCatalog extends Model
      */
     public function getFileType()
     {
-        if($this->file != null)
-        {
-            if(File::exists(public_path() . '/' . self::UPLOAD_FILE_DIRECTORY . $this->file))
+        if ($this->file != null) {
+            if (File::exists(public_path() . '/' . self::UPLOAD_FILE_DIRECTORY . $this->file)) {
                 return File::mimeType(public_path() . '/' . self::UPLOAD_FILE_DIRECTORY . $this->file);
-            else
+            } else {
                 return null;
-        }else
-        {
+            }
+        } else {
             return null;
         }
     }
@@ -160,14 +160,13 @@ class CguCatalog extends Model
      */
     public function getFileSize()
     {
-        if($this->file != null)
-        {
-            if(File::exists(public_path() . '/' . self::UPLOAD_FILE_DIRECTORY . $this->file))
+        if ($this->file != null) {
+            if (File::exists(public_path() . '/' . self::UPLOAD_FILE_DIRECTORY . $this->file)) {
                 return File::size(public_path() . '/' . self::UPLOAD_FILE_DIRECTORY . $this->file);
-            else
+            } else {
                 return null;
-        }else
-        {
+            }
+        } else {
             return null;
         }
     }
@@ -179,10 +178,11 @@ class CguCatalog extends Model
      */
     public function getFileUrl()
     {
-        if($this->file != null)
+        if ($this->file != null) {
             return '/' . self::UPLOAD_FILE_DIRECTORY . $this->file;
-        else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -192,10 +192,9 @@ class CguCatalog extends Model
      */
     public function getActiveRender()
     {
-        if($this->active)
-        {
+        if ($this->active) {
             return "<i class='text-success'>Active</i>";
-        }else{
+        } else {
             return "<i class='text-danger'>Not active</i>";
         }
     }

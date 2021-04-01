@@ -42,7 +42,9 @@ class CguController extends Controller
         $sites = $category->sites()->get();
 
         return view('site.pages.cgu.categories', compact(
-            'category', 'files', 'sites'
+            'category',
+            'files',
+            'sites'
         ));
     }
 
@@ -53,7 +55,9 @@ class CguController extends Controller
         $sites = $category->sites()->get();
 
         return view('site.pages.cgu.category', compact(
-            'category', 'files', 'sites'
+            'category',
+            'files',
+            'sites'
         ));
     }
 }

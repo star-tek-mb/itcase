@@ -20,8 +20,10 @@ class BlogController extends Controller
      */
     private $blogPosts;
 
-    public function __construct(BlogCategoryRepositoryInterface $blogCategoryRepository,
-                                BlogPostRepositoryInterface $blogPostRepository)
+    public function __construct(
+        BlogCategoryRepositoryInterface $blogCategoryRepository,
+        BlogPostRepositoryInterface $blogPostRepository
+    )
     {
         $this->blogCategories = $blogCategoryRepository;
         $this->blogPosts = $blogPostRepository;
@@ -67,9 +69,9 @@ class BlogController extends Controller
                 return redirect(route('site.blog.main', $blogPost->getAncestorsSlugs()), 301);
             }
             return $this->processBlogPost($request, $blogPost);
-        }
-        else
+        } else {
             abort(404);
+        }
     }
 
     private function processBlogCategory(Request $request, \App\Models\BlogCategory $category)
@@ -83,6 +85,4 @@ class BlogController extends Controller
         $categories = $this->blogCategories->all();
         return view('site.pages.blog.post', compact('post', 'categories'));
     }
-
-
 }

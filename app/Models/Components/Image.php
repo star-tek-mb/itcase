@@ -3,7 +3,6 @@
 
 namespace App\Models\Components;
 
-
 use Illuminate\Support\Facades\Storage;
 
 trait Image
@@ -15,7 +14,9 @@ trait Image
      */
     public function uploadImage($image)
     {
-        if (!$image) return;
+        if (!$image) {
+            return;
+        }
 
         $this->removeImage();
         $filename = $this->generateFileName($image->extension());
@@ -41,10 +42,11 @@ trait Image
      */
     public function getImage()
     {
-        if ($this->image)
+        if ($this->image) {
             return '/' . self::UPLOAD_DIRECTORY . $this->image;
-        else
+        } else {
             return '';
+        }
     }
 
     /**

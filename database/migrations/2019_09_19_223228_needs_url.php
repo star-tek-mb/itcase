@@ -25,8 +25,8 @@ class NeedsUrl extends Migration
      */
     public function down()
     {
-      Schema::table('need_types', function (Blueprint $table) {
-          $table->dropColumn('url');
-      });
+        Schema::table('need_types', function (Blueprint $table) {
+            $table->dropColumn('url');
+        });
     }
 }

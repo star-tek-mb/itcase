@@ -32,8 +32,10 @@ class HandbookCategoryController extends Controller
      * @param NeedTypeRepositoryInterface $needTypesRepository
      * @return void
     */
-    public function __construct(HandbookCategoryRepositoryInterface $handbookCategoryRepository,
-                                NeedTypeRepositoryInterface $needTypesRepository)
+    public function __construct(
+        HandbookCategoryRepositoryInterface $handbookCategoryRepository,
+        NeedTypeRepositoryInterface $needTypesRepository
+    )
     {
         $this->handbookCategoryRepository = $handbookCategoryRepository;
         $this->needTypesRepository = $needTypesRepository;
@@ -62,8 +64,9 @@ class HandbookCategoryController extends Controller
     {
         $templateFiles = Storage::disk('catalog_templates')->allFiles();
         $templateStrings = array();
-        foreach ($templateFiles as $file)
+        foreach ($templateFiles as $file) {
             array_push($templateStrings, explode('.', $file)[0]);
+        }
 
         $data = [
             'categories' => $this->handbookCategoryRepository->getTree(),
@@ -89,16 +92,16 @@ class HandbookCategoryController extends Controller
         $category = $this->handbookCategoryRepository->store($request);
         $categoryMeta = $category->createMetaInformation();
         auth()->user()->addHistoryItem('category.create', $categoryMeta);
-        if ($request->has('saveQuit'))
-        {
+        if ($request->has('saveQuit')) {
             $parent = $category->getParentId();
-            if ($parent != null)
+            if ($parent != null) {
                 return redirect()->route('admin.categories.show', $parent);
-            else
+            } else {
                 return redirect()->route('admin.categories.index');
-        }
-        else
+            }
+        } else {
             return redirect()->route('admin.categories.create');
+        }
     }
 
     /**
@@ -149,8 +152,9 @@ class HandbookCategoryController extends Controller
     {
         $templateFiles = Storage::disk('catalog_templates')->allFiles();
         $templateStrings = array();
-        foreach ($templateFiles as $file)
+        foreach ($templateFiles as $file) {
             array_push($templateStrings, explode('.', $file)[0]);
+        }
         $data = [
             'category' => $this->handbookCategoryRepository->get($id),
             'categories' => $this->handbookCategoryRepository->getTree(),
@@ -176,10 +180,11 @@ class HandbookCategoryController extends Controller
         auth()->user()->addHistoryItem('category.update', $categoryMeta);
 
         $parentId = $category->getParentId();
-        if ($parentId != null)
+        if ($parentId != null) {
             return redirect()->route('admin.categories.show', $parentId);
-        else
+        } else {
             return redirect()->route('admin.categories.index');
+        }
     }
 
     /**
@@ -195,10 +200,11 @@ class HandbookCategoryController extends Controller
 
         $parent = $this->handbookCategoryRepository->delete($id);
 
-        if ($parent != null && $this->handbookCategoryRepository->get($parent)->hasCategories())
+        if ($parent != null && $this->handbookCategoryRepository->get($parent)->hasCategories()) {
             return redirect()->route('admin.categories.show', $parent);
-        else
+        } else {
             return redirect()->route('admin.categories.index');
+        }
     }
 
     /**
@@ -225,9 +231,10 @@ class HandbookCategoryController extends Controller
     {
         $categoryId = $request->get('id');
         $position = $request->get('position');
-        if ($this->handbookCategoryRepository->setPosition($categoryId, $position))
+        if ($this->handbookCategoryRepository->setPosition($categoryId, $position)) {
             return Response::create("", 200);
-        else
+        } else {
             return Response::create("", 400);
+        }
     }
 }

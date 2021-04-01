@@ -20,8 +20,10 @@ class BlogController extends Controller
      */
     private $blogPosts;
 
-    public function __construct(BlogCategoryRepositoryInterface $blogCategoryRepository,
-                                BlogPostRepositoryInterface $blogPostRepository)
+    public function __construct(
+        BlogCategoryRepositoryInterface $blogCategoryRepository,
+        BlogPostRepositoryInterface $blogPostRepository
+    )
     {
         $this->blogCategories = $blogCategoryRepository;
         $this->blogPosts = $blogPostRepository;
@@ -40,7 +42,6 @@ class BlogController extends Controller
             'categories' => $categories,
             'posts' => $posts,
         ]);
-
     }
 
     /**
@@ -55,7 +56,7 @@ class BlogController extends Controller
         if (preg_match('/[A-Z]/', $params)) {
             return response()->json([
                 'messages' => strtolower($params),
-            ],301);
+            ], 301);
         }
         $paramsArray = explode('/', trim($params, '/'));
         $slug = end($paramsArray);
@@ -65,7 +66,7 @@ class BlogController extends Controller
             if ($blogCategory->ru_slug !== $params) {
                 return response()->json([
                     'messages' => $blogCategory->ru_slug,
-                ],301);
+                ], 301);
             }
             return response()->json([
                 $this->processBlogCategory($request, $blogCategory)
@@ -76,15 +77,14 @@ class BlogController extends Controller
             if ($blogPost->getAncestorsSlugs() !== $params) {
                 return response()->json([
                     'messages' =>  $blogPost->getAncestorsSlugs(),
-                ],301);
+                ], 301);
             }
             return response()->json([
                 $this->processBlogPost($request, $blogPost)
             ]);
-
-        }
-        else
+        } else {
             abort(404);
+        }
     }
 
     private function processBlogCategory(Request $request, \App\Models\BlogCategory $category)
@@ -103,9 +103,5 @@ class BlogController extends Controller
             'post'=>$post,
             'categories'=>$categories,
         ]);
-
-
     }
-
-
 }
