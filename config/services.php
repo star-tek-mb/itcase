@@ -45,10 +45,15 @@ return [
     ],
 
     'google' => [
-        'client_id' => '160118332866-8pcdg8uoieadvfm7bs48q75g92aa8kvc.apps.googleusercontent.com',
-        'client_secret' => 'VHQ7KAtdWKrEsHzTDGJcROA5',
-        'redirect' => 'https://vid.uz/auth/google/callback',
+        'client_id' => env('GOOGLE_ID'),
+        'client_secret' => env('GOOGLE_SECRET'),
+        'redirect' => env('APP_URL') . '/auth/google/callback',
+    ],
 
+    'sms' => [
+        'url' => env('SMS_URL'),
+        'login' => env('SMS_LOGIN'),
+        'password' => env('SMS_PASSWORD')
     ],
 
 ];
