@@ -29,6 +29,17 @@
                 </div>
                 <hr>
                 <div class="body-box-admin">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                </div>
+                <div class="body-box-admin">
                     <ul class="nav nav-tabs btn-group-toggle" data-toggle="buttons" id="myTab" role="tablist">
                         @if (!request()->hasCookie('tenderId'))
                             <li class="nav-item">
@@ -56,8 +67,11 @@
                                         <div class="upload">
                                             <div class="desc">Минимальные пропорции: 120х120 пикселей</div>
                                             <div class="btn-upload">
-                                                <input type="file" name="image" id="image" required>
+                                                <input type="file" name="image" id="image" required class="@error('image') is-invalid @enderror">
                                                 <span class="btn btn-light-green">Выбрать изображение</span>
+                                                @error('image')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -202,8 +216,11 @@
                                     <div class="upload">
                                         <div class="desc">Минимальные пропорции: 120х120 пикселей</div>
                                         <div class="btn-upload">
-                                            <input type="file" name="image" id="image">
+                                            <input type="file" name="image" id="image" required class="@error('image') is-invalid @enderror">
                                             <span class="btn btn-light-green">Выбрать изображение</span>
+                                            @error('image')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>

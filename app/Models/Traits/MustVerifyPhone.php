@@ -12,6 +12,11 @@ trait MustVerifyPhone
         return !is_null($this->phone_verified_at);
     }
 
+    public function verifyPhoneCode($code)
+    {
+        return $this->phone_confirmation_code && $this->phone_confirmation_code == $code;
+    }
+
     public function markPhoneAsVerified()
     {
         return $this->forceFill([
@@ -19,15 +24,25 @@ trait MustVerifyPhone
         ])->save();
     }
 
-    public function sendPhoneVerificationMessage(SmsService $sms)
+    public function sendPhoneVerificationMessage()
     {
+        if ($this->hasVerifiedPhone()) {
+            return;
+        }
+
+        $sms = resolve(SmsService::class);
         $code = rand(100000, 999999);
+        $this->forceFill([
+            'phone_confirmation_code' => $code,
+        ])->save();
         $message = __('auth.code', ['code' => $code]);
         $sms->send($this->getPhoneForVerification(), $message);
     }
 
     public function getPhoneForVerification()
     {
-        return $this->phone;
+        return !is_null($this->phone_number)
+            ? ($this->phone_number[0] == '+' ? substr($this->phone_number, 1) : $this->phone_number)
+            : null;
     }
 }

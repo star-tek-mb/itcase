@@ -111,7 +111,6 @@ class LoginController extends Controller
     {
         try {
             $user = Socialite::driver('google')->stateless()->user();
-            ;
             $finduser = User::where('google_id', $user->id)->first();
             if ($finduser) {
                 Auth::login($finduser);
@@ -122,7 +121,7 @@ class LoginController extends Controller
                   'email' => $user->email,
                   'google_id'=> $user->id,
                   'password' => ''
-              ]);
+                ]);
                 Auth::login($newUser);
                 return redirect()->route('site.account.index');
             }

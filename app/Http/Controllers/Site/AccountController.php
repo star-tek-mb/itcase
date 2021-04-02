@@ -97,17 +97,9 @@ class AccountController extends Controller
     {
         $userType = $request->get('user_role');
         $user = auth()->user();
-        $validationMessages = [
-            'required' => 'Это поле обязательно к заполнению',
-            'max' => 'Количество символов должно быть не больше :max',
-            'integer' => 'Укажите целочисленное значение',
-            'date' => 'Неверный формат даты',
-            'string' => 'Укажите стороковое значение',
-            'email' => 'Неверный формат электронной почты',
-            $userType . '_email.unique' => 'Такая электронная почта уже зарегистрирована'
-        ];
         Validator::make($request->all(), [
-            $userType . '_name' => ['required', 'string', 'max:255'],
+            $userType . '_first_name' => ['required', 'string', 'max:255'],
+            $userType . '_last_name' => ['required', 'string', 'max:255'],
             $userType . '_phone_number' => ['required', 'string'],
             'contractor_birthday_date' => Rule::requiredIf($userType == 'contractor' && $request->get('contractor_type') == 'individual'),
             $userType . '_email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
@@ -115,10 +107,8 @@ class AccountController extends Controller
             $userType . '_company_name' => Rule::requiredIf($request->get('customer_type') == 'legal_entity'),
             'image' => 'required|image',
             'agree_personal_data_processing' => 'required|accepted'
-        ], $validationMessages)->validate();
-        $data = $request;
-        $data->request->add([($userType.'_name')=> $request->first_name . ' ' . $request->last_name]);
-        $this->userRepository->createAccount($data);
+        ])->validate();
+        $this->userRepository->createAccount($request->all());
 
         if ($userType == 'contractor') {
             return redirect()->route('site.account.contractor.professional')->with('account.success', 'Ваш аккаунт создан! Заполните свои профессиональные данные, что бы вас могли найти в каталоге');
@@ -129,9 +119,9 @@ class AccountController extends Controller
             \Cookie::forget('tenderId');
             $tender = $this->tenderRepository->get($tenderId);
             \Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
-            return redirect()->route('site.account.index')->with('account.success', 'Ваш аккаунт создан, а тендер отправлен на модерацию, вы можете посмотреть его в разделе "Мои тендеры".');
+            return redirect()->route('phone.verification.notice')->with('account.success', 'Ваш аккаунт создан, а тендер отправлен на модерацию, вы можете посмотреть его в разделе "Мои тендеры".');
         }
-        return redirect()->route('site.account.index');
+        return redirect()->route('phone.verification.notice');
     }
 
 
@@ -139,19 +129,9 @@ class AccountController extends Controller
     {
         $user = auth()->user();
         $user->authorizeRole('contractor');
-        $validationMessages = [
-            'required' => 'Это поле обязательно к заполнению',
-            'max' => 'Количество символов должно быть не больше :max',
-            'min' => 'Количество символов должно быть не меньше :min',
-            'password' => 'Неверное пароль',
-            'integer' => 'Укажите целочисленное значение',
-            'date' => 'Неверный формат даты',
-            'string' => 'Укажите стороковое значение',
-            'email' => 'Неверный формат электронной почты',
-            'mimes' => 'Неверный формат резюме',
-        ];
         Validator::make($request->all(), [
             'first_name' => 'required|max:255|string',
+            'last_name' => 'required|max:255|string',
             'about_myself' => 'required|string|max:5000',
             'company_name' => Rule::requiredIf($user->contractor_type == 'legal_entity'),
             'phone_number' => 'required',
@@ -159,11 +139,11 @@ class AccountController extends Controller
             'newPasswordRepeat' => 'nullable|min:6',
             'currentPassword' => 'nullable|password|required_with:newPassword',
             'resume' => 'sometimes|mimes:jpeg,pdf,jpg',
-        ], $validationMessages)->validate();
-        $data = $request;
-        $data->request->add(['name' => $request->first_name . ' ' . $request->last_name]);
-
-        $this->userRepository->update($user->id, $data);
+        ])->validate();
+        $this->userRepository->update($user->id, $request->all());
+        if (!$user->hasVerifiedPhone()) {
+            return redirect()->route('phone.verification.notice')->with('message', 'Ваши личные данные обновлены');
+        }
 
         return redirect()->route('site.account.index')->with('account.success', 'Ваши личные данные обновлены');
     }
@@ -233,16 +213,6 @@ class AccountController extends Controller
     {
         $user = auth()->user();
         $user->authorizeRole('customer');
-        $validationMessages = [
-            'required' => 'Это поле обязательно к заполнению',
-            'max' => 'Количество символов должно быть не больше :max',
-            'min' => 'Количество символов должно быть не меньше :min',
-            'integer' => 'Укажите целочисленное значение',
-            'date' => 'Неверный формат даты',
-            'string' => 'Укажите стороковое значение',
-            'email' => 'Неверный формат электронной почты',
-            'password' => 'Неверное пароль',
-        ];
         Validator::make($request->all(), [
             'image' => 'required|image',
             'company_name' => [Rule::requiredIf($user->customer_type == 'legal_entity')],
@@ -252,13 +222,17 @@ class AccountController extends Controller
             'phone_number' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
             'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
             'newPasswordRepeat' => 'nullable|min:6',
             'currentPassword' => 'nullable|password|required_with:newPassword',
-        ], $validationMessages)->validate();
+        ])->validate();
         $data = $request;
         $data->request->add(['name' => $request->first_name . ' ' . $request->last_name]);
         $this->userRepository->update($user->id, $data);
+        if (!$user->hasVerifiedPhone()) {
+            return redirect()->route('phone.verification.notice')->with('message', 'Ваш профиль обновлен');
+        }
 
         return redirect()->route('site.account.index')->with('account.success', 'Ваш профиль обновлён');
     }

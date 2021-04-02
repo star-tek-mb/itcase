@@ -72,30 +72,33 @@ Route::middleware('needsList')->name('site.')->namespace('Site')->group(function
     Route::get('/account/professional', 'AccountController@professional')->name('account.contractor.professional');
     Route::post('/account/professional', 'AccountController@saveProfessional');
     Route::post('/account/customer/profile/save', 'AccountController@saveCustomerProfile')->name('account.customer.profile.save');
-    Route::get('/account/tenders', 'AccountController@tenders')->name('account.tenders');
-    Route::get('/account/portfolio', 'FileController@index')->name('account.portfolio');
-    Route::post('/account/portfolio/save', 'FileController@save')->name('account.portfolio.save');
-    Route::get('/account/tenders/{slug}/edit', 'AccountController@editTender')->name('account.tenders.edit');
-    Route::get('/account/tenders/{slug}/candidates', 'AccountController@tenderCandidates')->name('account.tenders.candidates');
-    Route::get('/account/chats', 'ChatsController@index')->name('account.chats');
-    Route::post('/account/chats', 'ChatsController@createChat')->name('account.chats.create');
-    Route::get('/account/comment', 'CommentController@index')->name('account.comment');
-    Route::post('/account/comment', 'CommentController@createCommentAll')->name('account.comment.create');
-    Route::get('/account/purse', 'PurseController@index')->name('account.purse');
-    Route::post('/account/phone/verify', 'AccountController@verifyPhone');
+    Route::middleware('phone.verified')->group(function() {
+        Route::get('/account/tenders', 'AccountController@tenders')->name('account.tenders');
+        Route::get('/account/portfolio', 'FileController@index')->name('account.portfolio');
+        Route::post('/account/portfolio/save', 'FileController@save')->name('account.portfolio.save');
+        Route::get('/account/tenders/{slug}/edit', 'AccountController@editTender')->name('account.tenders.edit');
+        Route::get('/account/tenders/{slug}/candidates', 'AccountController@tenderCandidates')->name('account.tenders.candidates');
+        Route::get('/account/chats', 'ChatsController@index')->name('account.chats');
+        Route::post('/account/chats', 'ChatsController@createChat')->name('account.chats.create');
+        Route::get('/account/comment', 'CommentController@index')->name('account.comment');
+        Route::post('/account/comment', 'CommentController@createCommentAll')->name('account.comment.create');
+        Route::get('/account/purse', 'PurseController@index')->name('account.purse');
+    });
 
     // Tenders routes
+    Route::middleware('phone.verified')->group(function() {
+        Route::get('/tenders/create', 'TenderController@create')->name('tenders.common.create');
+        Route::post('/tenders/create', 'TenderController@store');
+        Route::post('/tenders/makeRequest', 'TenderController@makeRequest')->name('tenders.requests.make');
+        Route::post('/tenders/cancelRequest', 'TenderController@cancelRequest')->name('tenders.requests.cancel');
+        Route::delete('/tenders/{id}/delete', 'TenderController@delete')->name('tenders.delete');
+        Route::post('/tenders/{id}/update', 'TenderController@update')->name('tenders.edit');
+        Route::post('/tenders/{tenderId}/accept/{requestId}', 'TenderController@acceptTenderRequest')->name('tenders.accept');
+        Route::patch('/tenders/email-subscription/{tender}', 'TenderController@emailSubscription')->name('tenders.email-subscription');
+    });
     Route::get('/tenders', 'TenderController@index')->name('tenders.index');
     Route::post('/tenders/search', 'TenderController@searchTender')->name('tenders.index.search');
-    Route::get('/tenders/create', 'TenderController@create')->name('tenders.common.create');
     Route::get('/tenders/{params}', 'TenderController@category')->where('params', '.+')->name('tenders.category');
-    Route::post('/tenders/create', 'TenderController@store');
-    Route::post('/tenders/makeRequest', 'TenderController@makeRequest')->name('tenders.requests.make');
-    Route::post('/tenders/cancelRequest', 'TenderController@cancelRequest')->name('tenders.requests.cancel');
-    Route::delete('/tenders/{id}/delete', 'TenderController@delete')->name('tenders.delete');
-    Route::post('/tenders/{id}/update', 'TenderController@update')->name('tenders.edit');
-    Route::post('/tenders/{tenderId}/accept/{requestId}', 'TenderController@acceptTenderRequest')->name('tenders.accept');
-    Route::patch('/tenders/email-subscription/{tender}', 'TenderController@emailSubscription')->name('tenders.email-subscription');
 
     Route::prefix('/tender/maps')->name('maps.')->group(function () {
         Route::get('/', [TenderController::class,'maps'])->name('index');

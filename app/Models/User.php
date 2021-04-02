@@ -26,7 +26,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'company_name',
@@ -391,7 +392,7 @@ class User extends Authenticatable
      */
     public function checkCompletedAccount()
     {
-        return $this->completed && $this->hasVerifiedPhone();
+        return $this->completed;
     }
 
     public function getFirstName()

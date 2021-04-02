@@ -35,6 +35,11 @@ Route::middleware('needsList')->group(function () {
     Route::get('/email/verify', 'Auth\VerificationController@show')->name('verification.notice');
     Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
 
+    
+    Route::post('/phone/resend', 'Auth\PhoneVerificationController@resend')->name('phone.verification.resend');
+    Route::get('/phone/verify', 'Auth\PhoneVerificationController@show')->name('phone.verification.notice');
+    Route::post('/phone/verify', 'Auth\PhoneVerificationController@verify')->name('phone.verification.verify');
+
     Route::get('/home', 'HomeControllerReg@index')->name('home');
 });
 

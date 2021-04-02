@@ -81,6 +81,10 @@ class UserRepository implements UserRepositoryInterface
         if (isset($data['birthday_date'])) {
             $data['birthday_date'] = Carbon::createFromFormat('d.m.Y', $data['birthday_date'])->format('Y-m-d');
         }
+        if ($data['phone_number'] != $user->phone_number) {
+            $user->phone_verified_at = null;
+            $user->sendPhoneVerificationMessage();
+        }
         $user->update($data);
         $user->generateSlug();
         $user->uploadImage($userData->file('image'));
@@ -190,7 +194,8 @@ class UserRepository implements UserRepositoryInterface
         $role = Role::where('name', $userRole)->first();
         $user->roles()->attach($role->id);
         $dataToSet = [];
-        $dataToSet['name'] = $data->get($userRole.'_name');
+        $dataToSet['first_name'] = $data->get($userRole.'_first_name');
+        $dataToSet['last_name'] = $data->get($userRole.'_last_name');
         $dataToSet['phone_number'] = $data->get($userRole.'_phone_number');
         $dataToSet[$userRole.'_type'] = $data->get($userRole.'_type');
         $dataToSet['email'] = $data->get($userRole.'_email');
@@ -200,8 +205,13 @@ class UserRepository implements UserRepositoryInterface
             $dataToSet['birthday_date'] = Carbon::createFromFormat('d.m.Y', $data->get('contractor_birthday_date'))->format('Y-m-d');
             $dataToSet['gender'] = $data->get('gender');
         }
+        if ($dataToSet['phone_number'] != $user->phone_number) {
+            $user->phone_verified_at = null;
+            $user->sendPhoneVerificationMessage();
+        }
         $user->update($dataToSet);
         $user->completed = true;
+        $user->phone_verified_at = null;
         $user->save();
         $user->generateSlug();
         $user->uploadImage($data->file('image'));
