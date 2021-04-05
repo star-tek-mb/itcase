@@ -87,7 +87,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'phone_verified_at' => 'datetime',
+        'phone_confirmed_at' => 'datetime',
         'agree_personal_data_processing' => 'boolean',
         'last_online_at' => 'datetime',
     ];
@@ -395,20 +395,9 @@ class User extends Authenticatable
         return $this->completed;
     }
 
-    public function getFirstName()
+    public function getNameAttribute()
     {
-        $explodedName = explode(' ', $this->name);
-        if (isset($explodedName[0])) {
-            return $explodedName[0];
-        }
-        return '';
-    }
-
-    public function getSecondName()
-    {
-        $explodedName = explode(' ', $this->name);
-        array_slice($explodedName, 1);
-        return implode(' ', array_slice($explodedName, 1));
+        return "{$this->first_name} {$this->last_name}";
     }
 
     public function getContractorTitle()

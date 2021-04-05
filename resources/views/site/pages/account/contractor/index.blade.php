@@ -18,6 +18,17 @@
 @section('account.title.h1', 'Профиль')
 @section('account.title', 'Личные данные')
 @section('account.content')
+    <div class="body-box-admin">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    </div>
     <form action="{{ route('site.account.contractor.profile.save') }}" enctype="multipart/form-data" method="post">
         @csrf
         <section class="box-admin edit-profile">
@@ -41,7 +52,6 @@
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                             <label for="first_name">Ваше имя</label>
-                            <input type="hidden" name="name">
                             <input type="text" name="first_name" id="first_name"
                                    class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name }}">
                             @error('first_name')
@@ -53,7 +63,7 @@
                         <div class="form-group">
                             <label for="last_name">Ваше Фамилия</label>
                             <input type="text" name="last_name" id="last_name"
-                                   class="form-control @error('name') is-invalid @enderror" value="{{ $user->last_name }}">
+                                   class="form-control @error('last_name') is-invalid @enderror" value="{{ $user->last_name }}">
                             @error('last_name')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

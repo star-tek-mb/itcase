@@ -79,10 +79,9 @@
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="first_name">Ваше имя</label>
-                                                <input type="hidden" name="contractor_name" value="contractor_name">
-                                                <input type="text" name="first_name" id="first_name"
-                                                       class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name }}">
-                                                @error('first_name')
+                                                <input type="text" name="contractor_first_name" id="first_name"
+                                                       class="form-control @error('contractor_first_name') is-invalid @enderror" value="{{ $user->first_name }}">
+                                                @error('contractor_first_name')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -90,12 +89,29 @@
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="last_name">Ваше Фамилия</label>
-                                                <input type="text" name="last_name" id="last_name"
-                                                       class="form-control @error('name') is-invalid @enderror" value="{{ $user->last_name }}">
-                                                @error('last_name')
+                                                <input type="text" name="contractor_last_name" id="last_name"
+                                                       class="form-control @error('contractor_last_name') is-invalid @enderror" value="{{ $user->last_name }}">
+                                                @error('contractor_last_name')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="contractor_phoneNumber">Номер телефона</label>
+                                                <input type="text" name="contractor_phone_number" id="contractor_phoneNumber" class="form-control @error('contractor_phone_number') is-invalid @enderror" value="{{ old('contractor_phone_number') }}">
+                                                @error('contractor_phone_number')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <label for="contractor_birthdayDate">Дата рождения</label>
+                                            <input type="text" class="form-control @error('contractor_birthday_date') is-invalid @enderror"
+                                                   id="contractor_birthdayDate" name="contractor_birthday_date" value="{{ old('contractor_birthday_date')  }}">
+                                            @error('contractor_birthday_date')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-sm-12 col-md-6">
                                             <div class="form-group">
@@ -108,15 +124,6 @@
                                                     <input type="radio" name="contractor_type" value="legal_entity" id="agencyRadioInput" class="custom-control-input" @if (old('contractor_type') == 'legal_entity') checked @endif>
                                                     <label for="agencyRadioInput" class="custom-control-label">Юр. лицо</label>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group contractor-type-agency @if (!old('contractor_type') || old('contractor_type') == 'individual') d-none @endif">
-                                                <label for="contractor_companyName">Название компании</label>
-                                                <input type="text" name="contractor_company_name" id="contractor_companyName" class="form-control @error('contractor_company_name') is-invalid @enderror" value="{{ old('contractor_company_name') }}">
-                                                @error('contractor_company_name')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-6">
@@ -132,31 +139,17 @@
                                                 <label for="femaleRadio" class="custom-control-label">Женский</label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-6">
-
-                                            <label for="contractor_birthdayDate">Дата рождения</label>
-                                            <input type="text" class="form-control @error('contractor_birthday_date') is-invalid @enderror"
-                                                   id="contractor_birthdayDate" name="contractor_birthday_date" value="{{ old('contractor_birthday_date')  }}">
-                                            @error('contractor_birthday_date')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-
-                                        </div>
                                         <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="">Вы являетесь:</label>
-                                                <div class="custom-control custom-radio" id="freelancerRadio">
-                                                    <input type="radio" name="contractor_type" value="individual" id="freelancerRadioInput" class="custom-control-input" @if (!old('contractor_type') || old('contractor_type') == 'freelancer') checked @endif>
-                                                    <label for="freelancerRadioInput" class="custom-control-label">Физ. лицо</label>
-                                                </div>
-                                                <div class="custom-control custom-radio" id="agencyRadio">
-                                                    <input type="radio" name="contractor_type" value="legal_entity" id="agencyRadioInput" class="custom-control-input" @if (old('contractor_type') == 'agency') checked @endif>
-                                                    <label for="agencyRadioInput" class="custom-control-label">Юр. лицо</label>
-                                                </div>
+                                            <div class="form-group contractor-type-freelancer @if (!old('contractor_type') || old('contractor_type') == 'individual') d-none @endif">
+                                                <label for="contractor_companyName">Название компании</label>
+                                                <input type="text" name="contractor_company_name" id="contractor_companyName" class="form-control @error('contractor_company_name') is-invalid @enderror" value="{{ old('contractor_company_name') }}">
+                                                @error('contractor_company_name')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <div class="form-group contractor-type-agency @if (!old('contractor_type') || old('contractor_type') == 'freelancer') d-none @endif">
+                                            <div class="form-group contractor-type-agency @if (!old('contractor_type') || old('contractor_type') == 'legal_entity') d-none @endif">
                                                 <label for="contractor_companyName">Название компании</label>
                                                 <input type="text" name="contractor_company_name" id="contractor_companyName" class="form-control @error('contractor_company_name') is-invalid @enderror" value="{{ old('contractor_company_name') }}">
                                                 @error('contractor_company_name')
@@ -228,8 +221,7 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
                                             <label for="first_name">Ваше имя</label>
-                                            <input type="hidden" name="customer_name" value="customer_name">
-                                            <input type="text" name="first_name" id="first_name"
+                                            <input type="text" name="customer_first_name" id="first_name"
                                                    class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name }}">
                                             @error('first_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -239,7 +231,7 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
                                             <label for="last_name">Ваше Фамилия</label>
-                                            <input type="text" name="last_name" id="last_name"
+                                            <input type="text" name="customer_last_name" id="last_name"
                                                    class="form-control @error('name') is-invalid @enderror" value="{{ $user->last_name }}">
                                             @error('last_name')
                                             <div class="invalid-feedback">{{ $message }}</div>

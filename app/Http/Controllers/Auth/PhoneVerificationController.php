@@ -33,7 +33,7 @@ class PhoneVerificationController extends Controller
                 'code' => __('auth.code.invalid'),
             ]);
         }
-        return redirect($redirectTo);
+        return redirect($this->redirectTo);
     }
 
     public function show()

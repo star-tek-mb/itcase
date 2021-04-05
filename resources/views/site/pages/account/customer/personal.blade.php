@@ -51,14 +51,14 @@
             </div>
             <div class="uk-grid uk-margin-remove-top">
                 <div class="uk-width-1-2">
-                    <input type="text" placeholder="Имя" name="firstName"
-                           class="uk-input @error('firstName') uk-form-danger @enderror"
-                           value="{{ $user->getFirstName() }}">
+                    <input type="text" placeholder="Имя" name="first_name"
+                           class="uk-input @error('first_name') uk-form-danger @enderror"
+                           value="{{ $user->first_name }}">
                 </div>
                 <div class="uk-width-1-2">
-                    <input type="text" placeholder="Фамилия" name="secondName"
-                           class="uk-input @error('secondName') uk-form-danger @enderror"
-                           value="{{ $user->getSecondName() }}">
+                    <input type="text" placeholder="Фамилия" name="last_name"
+                           class="uk-input @error('last_name') uk-form-danger @enderror"
+                           value="{{ $user->last_name }}">
                 </div>
             </div>
             @if ($user->customer_type == 'individual')

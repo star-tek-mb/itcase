@@ -9,7 +9,7 @@ trait MustVerifyPhone
 
     public function hasVerifiedPhone()
     {
-        return !is_null($this->phone_verified_at);
+        return !is_null($this->phone_confirmed_at);
     }
 
     public function verifyPhoneCode($code)
@@ -20,7 +20,7 @@ trait MustVerifyPhone
     public function markPhoneAsVerified()
     {
         return $this->forceFill([
-            'phone_verified_at' => $this->freshTimestamp(),
+            'phone_confirmed_at' => $this->freshTimestamp(),
         ])->save();
     }
 

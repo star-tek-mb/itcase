@@ -68,7 +68,6 @@ class AccountController extends Controller
     public function index()
     {
         $user = auth()->user();
-        list($user->first_name, $user->last_name) = array_pad(explode(' ', trim($user->name)), 2, null);
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';
             return view('site.pages.account.contractor.index', compact('user', 'accountPage'));
@@ -108,7 +107,7 @@ class AccountController extends Controller
             'image' => 'required|image',
             'agree_personal_data_processing' => 'required|accepted'
         ])->validate();
-        $this->userRepository->createAccount($request->all());
+        $this->userRepository->createAccount($request);
 
         if ($userType == 'contractor') {
             return redirect()->route('site.account.contractor.professional')->with('account.success', 'Ваш аккаунт создан! Заполните свои профессиональные данные, что бы вас могли найти в каталоге');
@@ -140,7 +139,7 @@ class AccountController extends Controller
             'currentPassword' => 'nullable|password|required_with:newPassword',
             'resume' => 'sometimes|mimes:jpeg,pdf,jpg',
         ])->validate();
-        $this->userRepository->update($user->id, $request->all());
+        $this->userRepository->update($user->id, $request);
         if (!$user->hasVerifiedPhone()) {
             return redirect()->route('phone.verification.notice')->with('message', 'Ваши личные данные обновлены');
         }
@@ -214,9 +213,9 @@ class AccountController extends Controller
         $user = auth()->user();
         $user->authorizeRole('customer');
         Validator::make($request->all(), [
-            'image' => 'required|image',
+            'image' => 'nullable|image',
             'company_name' => [Rule::requiredIf($user->customer_type == 'legal_entity')],
-            'about_myself' => 'required|string|max:5000',
+            'about_myself' => 'nullable|string|max:5000',
             'foundation_year' => 'nullable|integer',
             'site' => 'nullable|string|max:255',
             'phone_number' => 'required|string|max:255',
@@ -227,9 +226,7 @@ class AccountController extends Controller
             'newPasswordRepeat' => 'nullable|min:6',
             'currentPassword' => 'nullable|password|required_with:newPassword',
         ])->validate();
-        $data = $request;
-        $data->request->add(['name' => $request->first_name . ' ' . $request->last_name]);
-        $this->userRepository->update($user->id, $data);
+        $this->userRepository->update($user->id, $request);
         if (!$user->hasVerifiedPhone()) {
             return redirect()->route('phone.verification.notice')->with('message', 'Ваш профиль обновлен');
         }

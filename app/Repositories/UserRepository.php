@@ -82,7 +82,7 @@ class UserRepository implements UserRepositoryInterface
             $data['birthday_date'] = Carbon::createFromFormat('d.m.Y', $data['birthday_date'])->format('Y-m-d');
         }
         if ($data['phone_number'] != $user->phone_number) {
-            $user->phone_verified_at = null;
+            $user->phone_confirmed_at = null;
             $user->sendPhoneVerificationMessage();
         }
         $user->update($data);
@@ -206,12 +206,12 @@ class UserRepository implements UserRepositoryInterface
             $dataToSet['gender'] = $data->get('gender');
         }
         if ($dataToSet['phone_number'] != $user->phone_number) {
-            $user->phone_verified_at = null;
+            $user->phone_confirmed_at = null;
             $user->sendPhoneVerificationMessage();
         }
         $user->update($dataToSet);
         $user->completed = true;
-        $user->phone_verified_at = null;
+        $user->phone_confirmed_at = null;
         $user->save();
         $user->generateSlug();
         $user->uploadImage($data->file('image'));
