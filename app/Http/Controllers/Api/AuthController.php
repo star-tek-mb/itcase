@@ -22,19 +22,18 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-            'device_name' => 'required',
+            'password' => ['required', 'string', 'min:8']
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
         $input = $request->all();
         $user = User::create([
-            'name' => $input['name'],
+            'first_name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
-        $token = $user->createToken($request->device_name)->plainTextToken;
+        $token = $user->createToken($request->email)->plainTextToken;
         return response()->json(['token' => $token], 200);
     }
 
@@ -42,8 +41,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required',
-            'device_name' => 'required',
+            'password' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
@@ -52,7 +50,7 @@ class AuthController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['message' => 'Неверный логин или пароль'], 401);
         }
-        $token = $user->createToken($request->device_name)->plainTextToken;
+        $token = $user->createToken($request->email)->plainTextToken;
         return response()->json(['token' => $token], 200);
     }
 }

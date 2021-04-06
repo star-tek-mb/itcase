@@ -58,7 +58,7 @@ class ImportCompanies extends Command
                 'meta_title' => $metaTitle,
                 'email' => '',
                 'password' => '',
-                'name' => '',
+                'first_name' => '',
                 'fake' => true
             ]);
             $user->categories()->attach($categoryId, ['price_from' => $price]);

@@ -24,7 +24,7 @@ class TenderRepository implements TenderRepositoryInterface
      */
     public function allOrderedByCreatedAt($withoutContractors = false, $map=false)
     {
-        $query = Tender::whereNotNull('owner_id')->where('published', true);
+        $query = Tender::whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason');
         if ($withoutContractors) {
             $query = $query->whereNull('contractor_id');
         }
@@ -37,12 +37,12 @@ class TenderRepository implements TenderRepositoryInterface
 
     public function TenderSearch($search)
     {
-        $query = Tender::whereNotNull('owner_id')->where('published', true);
+        $query = Tender::whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason');
         return $query->whereNotNull('owner_id')->where('title', 'like', '%'.$search->search.'%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
     }
     public function allOrderedByCreatedAtAdmin($withoutContractors = false)
     {
-        $query = Tender::whereNotNull('owner_id')->where('published', true);
+        $query = Tender::whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason');
         if ($withoutContractors) {
             $query = $query->whereNull('contractor_id');
         }
@@ -102,9 +102,12 @@ class TenderRepository implements TenderRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function delete($id)
+    public function delete($id, $reason = '')
     {
-        Tender::destroy($id);
+        $tender = Tender::find($id);
+        $tender->forceFill([
+            'delete_reason' => $reason
+        ])->save();
     }
 
     /**

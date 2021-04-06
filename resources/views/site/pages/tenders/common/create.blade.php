@@ -109,6 +109,13 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group mt-3">
+                            <label for="additional_info">Дополнительная информация (показывается исполнителю)</label>
+                            <textarea name="additional_info" @error('additional_info') class="is-invalid" @enderror id="additional_info">{{ old('additional_info') }}</textarea>
+                            @error('additional_info')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <div class="upload-avatar">
                             <div class="upload">
                                 <div class="desc"><p>Если есть готовое задание или пожелания, обязательно прикрепите их
@@ -148,9 +155,8 @@
                                     <label for="remote" class="form-check-label">
                                         Удаленная работа
                                     </label>
-                                    <input type="checkbox" name="remote" id="remote"  class="css-control-input" >
+                                    <input type="checkbox" name="remote" id="remote" class="css-control-input">
                                 </div>
-
                             </div>
                         </div>
                         <div class="mb-30 mt-5">

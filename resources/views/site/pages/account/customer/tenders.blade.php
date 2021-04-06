@@ -36,17 +36,11 @@
                                 </div>
                                 <div class="job-info d-xl-none"><a href="{{ route('site.account.tenders.candidates', $tender->slug) }}"
                                         class="number-application">{{ $tender->requests()->count() }} заявок</a>  <span
-                                        class="active">@if ($tender->opened) Активный @else Закрыт @endif</span></div>
+                                        class="active">@if ($tender->isDeleted()) Удален @elseif($tender->opened) Активный @else Закрыт @endif</span></div>
                                 <div class="job-func d-flex d-md-none">
                                     <a class="btn btn-light btn-edit"><i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <form action="{{ route('site.tenders.delete', $tender->id) }}">
-                                        @csrf
-                                        @method('delete')
-                                        <input type="hidden" name="redirect_to" value="{{ route('site.account.tenders') }}">
-                                        <button type="submit" onclick="return confirm('Вы уверены, что хотите безвозвратно удалить конкурс {{ $tender->title }}?')" class="btn btn-light btn-delete"><i class="far fa-trash-alt"></i>
-                                        </button>
-                                    </form>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#delete-modal" data-route="{{ route('site.tenders.delete', $tender->id) }}"><i class="far fa-trash-alt"></i></button>
                                 </div>
                             </td>
                             <td class="d-none d-xl-table-cell text-center number-application"><a href="{{ route('site.account.tenders.candidates', $tender->slug) }}">{{ $tender->requests()->count() }} заявок</a>
@@ -56,20 +50,16 @@
                                     <div>{{ $category->getTitle() }} </div>
                                 @endforeach
                             </td>
-                            <td class="d-none d-xl-table-cell text-center active">@if ($tender->status !== 'done') @if ($tender->checkDeadline()) Открыт @else @if($tender->owner_id && $tender->opened) В разработке @else Приём заявок закрыт @endif @endif @else Выполнен! @endif</td>
+                            <td class="d-none d-xl-table-cell text-center active">@if ($tender->status !== 'done' && !$tender->isDeleted()) @if ($tender->checkDeadline()) Открыт @else @if($tender->owner_id && $tender->opened) В разработке @else Приём заявок закрыт @endif @endif @elseif ($tender->isDeleted()) Удален @else Выполнен! @endif</td>
                             <td class="d-none d-md-table-cell text-right">
+                                @if (!$tender->isDeleted())
                                 <div class="d-flex">
                                     <a href="{{ route('site.account.tenders.candidates', $tender->slug) }}" class="btn btn-light btn-new" data-toggle="tooltip" title="Посмотреть кандидатов"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('site.account.tenders.edit', $tender->slug) }}" class="btn btn-light btn-edit"><i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <form action="{{ route('site.tenders.delete', $tender->id) }}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                        <input type="hidden" name="redirect_to" value="{{ route('site.account.tenders') }}">
-                                        <button type="submit" onclick="return confirm('Вы уверены, что хотите безвозвратно удалить конкурс {{ $tender->title }}?')" class="btn btn-light btn-delete"><i class="far fa-trash-alt"></i>
-                                        </button>
-                                    </form>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#delete-modal" data-route="{{ route('site.tenders.delete', $tender->id) }}"><i class="far fa-trash-alt"></i></button>
                                 </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -78,4 +68,34 @@
             </div>
         </div>
     </section>
+    <div id="delete-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <form method="post" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Вы точно уверены что вы хотите удалить конкурс?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @csrf
+                    @method('delete')
+                    <input type="hidden" name="redirect_to" value="{{ route('site.account.tenders') }}">
+                    <input type="text" class="form-control" name="delete_reason" placeholder="Укажите причину" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-light btn-delete">Да</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Я передумал</button>
+                </div>
+            </form>
+        </div>
+    </div>
+@endsection
+
+@section('js')
+<script>
+$('#delete-modal').on('show.bs.modal', function (e) {
+    $('form', e.target)[0].action = $(e.relatedTarget).data('route');
+});
+</script>
 @endsection

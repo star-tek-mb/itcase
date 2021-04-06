@@ -84,13 +84,13 @@ class RegisterController extends Controller
     {
         if (is_numeric($data['username'])) {
             $user = User::create([
-                'name' => '',
+                'first_name' => '',
                 'phone_number' => $data['username'],
                 'password' => Hash::make($data['password']),
             ]);
         } elseif (filter_var($data['username'], FILTER_VALIDATE_EMAIL)) {
             $user = User::create([
-                'name' => '',
+                'first_name' => '',
                 'email' => $data['username'],
                 'password' => Hash::make($data['password']),
             ]);

@@ -117,7 +117,7 @@ class LoginController extends Controller
                 return redirect()->route('site.account.index');
             } else {
                 $newUser = User::create([
-                  'name' => $user->name,
+                  'first_name' => $user->name,
                   'email' => $user->email,
                   'google_id'=> $user->id,
                   'password' => ''

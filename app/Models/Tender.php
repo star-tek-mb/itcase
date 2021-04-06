@@ -15,12 +15,14 @@ class Tender extends Model
         'title', 'description', 'budget', 'deadline',
         'target_audience', 'links', 'additional_info', 'other_info', 'what_for', 'type',
         'slug', 'opened',
-        'need_id', 'owner_id', 'contractor_id','geo_location'
+        'need_id', 'owner_id', 'contractor_id', 'geo_location', 'place', 'delete_reason'
     ];
+
     protected $casts = [
         'email_subscription' => 'boolean',
         'budget' => 'integer'
     ];
+
     protected static function boot()
     {
         parent::boot();
@@ -54,6 +56,11 @@ class Tender extends Model
     public function files()
     {
         return $this->hasMany(TenderFile::class, 'tender_id', 'id');
+    }
+
+    public function isDeleted()
+    {
+        return !is_null($this->delete_reason);
     }
 
     /**

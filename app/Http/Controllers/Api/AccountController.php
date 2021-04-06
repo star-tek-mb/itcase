@@ -103,7 +103,8 @@ class AccountController extends Controller
             $userType . '_email.unique' => 'Такая электронная почта уже зарегистрирована'
         ];
         $validator = Validator::make($request->all(), [
-            $userType . '_name' => ['required', 'string', 'max:255'],
+            $userType . '_first_name' => ['required', 'string', 'max:255'],
+            $userType . '_last_name' => ['required', 'string', 'max:255'],
             $userType . '_phone_number' => ['required', 'string'],
             'contractor_birthday_date' => Rule::requiredIf($userType == 'contractor' && $request->get('contractor_type') == 'individual'),
             $userType . '_email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
@@ -112,7 +113,7 @@ class AccountController extends Controller
             'image' => 'required|image',
             'agree_personal_data_processing' => 'required|accepted'
         ], $validationMessages);
-        if ($validator->fails() || !$request->file('image')) {
+        if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 500);
         }
         $this->userRepository->createAccount($request);
@@ -135,7 +136,8 @@ class AccountController extends Controller
             'email' => 'Неверный формат электронной почты'
         ];
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255|string',
+            'first_name' => 'required|max:255|string',
+            'last_name' => 'required|max:255|string',
             'about_myself' => 'required|string|max:5000',
             'company_name' => Rule::requiredIf($user->contractor_type == 'legal_entity'),
             'phone_number' => 'required'
@@ -239,7 +241,8 @@ class AccountController extends Controller
             'site' => 'nullable|string|max:255',
             'phone_number' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'name' => 'required|max:255'
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255'
         ], $validationMessages)->validate();
 
         $this->userRepository->update($user->id, $request);

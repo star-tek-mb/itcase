@@ -56,7 +56,7 @@ class UserRepository implements UserRepositoryInterface
     {
         $role = Role::findOrFail($userRoleId);
         $data = [
-            'name' => $userData->get('name'),
+            'first_name' => $userData->get('name'),
             'email' => $userData->get('email'),
             'password' => Hash::make($userData->get('password'))
         ];
@@ -83,9 +83,9 @@ class UserRepository implements UserRepositoryInterface
         }
         if ($data['phone_number'] != $user->phone_number) {
             $user->phone_confirmed_at = null;
-            $user->sendPhoneVerificationMessage();
         }
         $user->update($data);
+        $user->sendPhoneVerificationMessage();
         $user->generateSlug();
         $user->uploadImage($userData->file('image'));
         $user->uploadResume($userData->file('resume'));
@@ -205,16 +205,13 @@ class UserRepository implements UserRepositoryInterface
             $dataToSet['birthday_date'] = Carbon::createFromFormat('d.m.Y', $data->get('contractor_birthday_date'))->format('Y-m-d');
             $dataToSet['gender'] = $data->get('gender');
         }
-        if ($dataToSet['phone_number'] != $user->phone_number) {
-            $user->phone_confirmed_at = null;
-            $user->sendPhoneVerificationMessage();
-        }
         $user->update($dataToSet);
         $user->completed = true;
         $user->phone_confirmed_at = null;
         $user->save();
         $user->generateSlug();
         $user->uploadImage($data->file('image'));
+        $user->sendPhoneVerificationMessage();
     }
 
     /**
@@ -223,10 +220,10 @@ class UserRepository implements UserRepositoryInterface
     public function createUserViaTelegram($data)
     {
         $telegramId = $data->get('id');
-        $name = $data->get('first_name') . ' ' . $data->get('last_name');
         $username = $data->get('username');
         $user = User::create([
-            'name' => $name,
+            'first_name' => $data->get('first_name'),
+            'last_name' => $data->get('last_name'),
             'telegram_id' => $telegramId,
             'telegram_username' => $username,
             'email' => '',
