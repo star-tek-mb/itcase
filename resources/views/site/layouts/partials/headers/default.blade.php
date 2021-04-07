@@ -327,6 +327,21 @@
                             </div>
                         </li>
                     @endguest
+                        <ul class="main-menu" style="display: inline-block;">
+                            <li class="header-menu-item">
+                                <a href="#" class="d-flex justify-content-between align-items-center">Язык<i class="fas fa-caret-down ml-2 mr-3"></i></a>
+                                <ul class="sub-menu" style="left: -100%;">
+                                    @foreach(config('app.enabled_locales') as $locale)
+                                        <li class="menu-item" style="display: block; margin-left: 15px;">
+                                            <a href="{{ route(request()->route()->getName(), array_merge(['locale' => $locale], request()->route()->parameters())) }}" class="d-flex justify-content-between align-items-center">
+                                            {{ __($locale) }}
+                                        </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        </ul>
+
                 </ul>
             </div>
         </div>

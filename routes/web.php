@@ -10,7 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-include __DIR__ . '/registration.php';
+Route::prefix('{locale}')->where(['locale' => '(' . implode('|', config('app.enabled_locales')) . ')'])->middleware('setlocale')->group(function () {
+    include __DIR__ . '/registration.php';
+    include __DIR__ . '/front.php';
+});
+Route::get('/', function () {
+    return redirect(config('app.locale'));
+});
+
 include __DIR__ . '/admin.php';
-include __DIR__ . '/front.php';
+
+// TODO???
 Route::post('/ajax-search', 'HomeController@search');

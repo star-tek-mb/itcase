@@ -87,7 +87,7 @@
     </noscript>
     <!-- /Yandex.Metrika counter -->
 </head>
-<body @if (request()->path() == '/') class="home" @endif>
+<body @if (request()->route()->getName() === 'site.catalog.index') class="home" @endif>
 <div class="wrapper" id="wrapper">
 
 

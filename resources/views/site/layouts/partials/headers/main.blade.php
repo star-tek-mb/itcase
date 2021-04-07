@@ -40,10 +40,6 @@
                     <li><a href="29_sign_in.html"><i class="fas fa-sign-out-alt"></i> Вход</a><span> / </span><a
                             href="30_register.html">Регистрация</a></li>
                 </ul>
-<<<<<<< HEAD
-
-
-
 	        </div>
 	        <div class="uk-navbar-right">
 	          <div>
@@ -101,9 +97,4 @@
 			</div>
 		</div>
 	</div>
-=======
-            </div>
-        </div>
-    </div>
->>>>>>> 5d4a510c8fe5acaea664df7e3125cbd31a3a0f78
 </header>
