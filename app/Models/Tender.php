@@ -14,12 +14,14 @@ class Tender extends Model
         'client_type', 'client_name', 'client_email', 'client_phone_number', 'client_company_name', 'client_site_url',
         'title', 'description', 'budget', 'deadline',
         'target_audience', 'links', 'additional_info', 'other_info', 'what_for', 'type',
-        'slug', 'opened',
+        'slug', 'opened', 'work_start_at', 'work_end_at',
         'need_id', 'owner_id', 'contractor_id', 'geo_location', 'place', 'delete_reason'
     ];
 
     protected $casts = [
         'email_subscription' => 'boolean',
+        'work_start_at' => 'datetime',
+        'work_end_at' => 'datetime',
         'budget' => 'integer'
     ];
 

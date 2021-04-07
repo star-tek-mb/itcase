@@ -16,6 +16,8 @@ class ExtendTendersTable extends Migration
         Schema::table('tenders', function (Blueprint $table) {
             $table->string('delete_reason')->nullable();
             $table->string('place')->nullable();
+            $table->date('work_start_at')->nullable();
+            $table->date('work_end_at')->nullable();
         });
     }
 
@@ -29,6 +31,8 @@ class ExtendTendersTable extends Migration
         Schema::table('tenders', function (Blueprint $table) {
             $table->dropColumn('delete_reason');
             $table->dropColumn('place');
+            $table->dropColumn('work_start_at');
+            $table->dropColumn('work_end_at');
         });
     }
 }

@@ -152,9 +152,12 @@
                                 <span><b>ID:</b> {{ $tender->id }}</span>
                                 <span class="phone"><i class="far fa-money-bill-alt"></i>Бюджет: {{ $tender->budget }}
                                     сум </span>
+                                <span><i class="fas fa-building"></i> Место оказания услуг: {{ __($tender->place) }}</span>
                                 <span class="mail"><i
                                             class="far fa-calendar"></i>Опубликовано: {{ \Carbon\Carbon::create($tender->published_at)->format('d.m.Y') }}</span>
                                 <span><i class="fas fa-calendar-times"></i>Крайний срок приёма заявок: {{ $tender->deadline }}</span>
+                                <span><i class="fas fa-calendar-times"></i>Дата начала работ: {{ optional($tender->work_start_at)->format('d.m.Y H:i') }}</span>
+                                <span><i class="fas fa-calendar-times"></i>Дата окончания работ: {{ optional($tender->work_end_at)->format('d.m.Y H:i') }}</span>
                                 <span><i class="fa fa-list"></i><b>Категория:</b>
                                     @foreach($tender->categories as $category)
                                         <a href="#">{{ $category->getTitle() }}</a>
@@ -211,6 +214,10 @@
 
                                     <h3 class="mt-4 mb-0">Что требуется сделать</h3>
                                     {!! $tender->description !!}
+                                    @if (auth()->user() && (auth()->user()->id == $tender->contractor_id || auth()->user()->id == $tender->owner_id))
+                                    <h3 class="mt-4 mb-0">Дополнительная информация (видна только вам)</h3>
+                                    {!! $tender->additional_info !!}
+                                    @endif
                                 </div>
                                 @auth
                                 @if(auth()->user()->id === $tender->owner_id)
@@ -359,16 +366,18 @@
                             <div class="job-detail-summary">
                                 <h3 class="title-block mb-1">Организатор</h3>
                                 <span class="tender-author-type text-muted text-bold">
-                                    @if ($tender->client_type == 'private')
+                                    @if ($tender->client_type == 'individual')
                                         Частное лицо
-                                    @elseif ($tender->client_type == 'company')
+                                    @elseif ($tender->client_type == 'legal_entity')
                                         Компания
                                     @endif
                                 </span>
                                 <br>
 
-                                @if($tender->contractor_id)
-                                    <span><i class="fa fa-phone mr-2"></i>{{ $tender->phone_number }}</span>
+                                @if(auth()->user() && (auth()->user()->id == $tender->contractor_id || auth()->user()->id == $tender->owner_id))
+                                    <span><i class="fa fa-phone mr-2"></i>{{ $tender->owner->phone_number }}</span>
+                                    <br>
+                                    {!! $tender->other_info !!}
                                 @endif
                             </div>
                         </div>

@@ -59,6 +59,17 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="place">Место оказания услуги</label>
+                            <select name="place" id="place" class="form-control">
+                                <option selected value="dont_mind">{{ __('dont_mind') }}</option>
+                                <option value="my_place">{{ __('my_place') }}</option>
+                                <option value="contractor_place">{{ __('contractor_place') }}</option>
+                            </select>
+                            @error('place')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <label class="mt-3">Выберите услуги: </label>
                         @error('categories')
                             <div class="text-danger">{{ $message }}</div>
@@ -116,6 +127,13 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group mt-3">
+                            <label for="other_info">Способы связи с вами (показывается исполнителю)</label>
+                            <textarea name="other_info" @error('other_info') class="is-invalid" @enderror id="other_info">{{ old('other_info') }}</textarea>
+                            @error('other_info')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <div class="upload-avatar">
                             <div class="upload">
                                 <div class="desc"><p>Если есть готовое задание или пожелания, обязательно прикрепите их
@@ -126,6 +144,22 @@
                                     <input type="file" name="file" id="file" multiple>
                                     <span class="btn btn-light-green">Прикрепить файлы</span>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 form-group">
+                                <label for="work_start_at">Дата начала работ</label>
+                                <input type="text" class="date form-control @error('work_start_at') is-invalid @enderror" id="work_start_at" name="work_start_at" value="{{ old('work_start_at') }}">
+                                @error('work_start_at')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="work_end_at">Дата окончания работ</label>
+                                <input type="text" class="date form-control @error('work_end_at') is-invalid @enderror" id="work_end_at" name="work_end_at" value="{{ old('work_end_at') }}">
+                                @error('work_end_at')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="row">
@@ -199,6 +233,60 @@
                 console.error(error);
             });
     </script>
+    <script>ClassicEditor
+            .create(document.querySelector('#additional_info'), {
+
+                toolbar: {
+                    items: [
+                        '|',
+                        'bold',
+                        'italic',
+                        'link',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        '|',
+                        'undo',
+                        'redo'
+                    ]
+                },
+                language: 'ru',
+                licenseKey: '',
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    <script>ClassicEditor
+            .create(document.querySelector('#other_info'), {
+
+                toolbar: {
+                    items: [
+                        '|',
+                        'bold',
+                        'italic',
+                        'link',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        '|',
+                        'undo',
+                        'redo'
+                    ]
+                },
+                language: 'ru',
+                licenseKey: '',
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 
     <script>
     function validate(evt) {
@@ -212,9 +300,14 @@
         }
       }
         document.addEventListener('DOMContentLoaded', function () {
-            flatpickr(document.getElementById('deadline'), {
+            flatpickr('#deadline', {
                 dateFormat: 'd.m.Y',
                 minDate: new Date()
+            });
+            flatpickr('.date', {
+                dateFormat: 'd.m.Y H:i',
+                minDate: new Date(),
+                enableTime: true
             });
 
             // document.getElementById('budget').onkeydown = function(event) {

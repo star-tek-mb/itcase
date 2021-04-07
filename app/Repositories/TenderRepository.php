@@ -72,6 +72,8 @@ class TenderRepository implements TenderRepositoryInterface
             $tenderData['type']='remote';
         }
         $tenderData['deadline'] = Carbon::createFromFormat('d.m.Y', $data->get('deadline'))->setHour(23)->setMinutes(59)->setSecond(59)->format('Y-m-d H:i:s');
+        $tenderData['work_start_at'] = Carbon::createFromFormat('d.m.Y H:i', $data->get('work_start_at'));
+        $tenderData['work_end_at'] = Carbon::createFromFormat('d.m.Y H:i', $data->get('work_end_at'));
         $tender = Tender::create($tenderData);
         $tender->saveFiles($data->file('files'));
         foreach ($data->get('categories') as $categoryId) {
