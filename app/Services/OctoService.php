@@ -19,11 +19,12 @@ class OctoService
             'total_sum' => '5000',
             'test' => (config('app.env') != 'production'),
             'description' => 'Оплата аккаунта на itcase.com',
-            'init_time' => now(),
+            'init_time' => now()->format('Y-m-d H:i:s'),
+            'notify_url' => 'https://itcase.com/endpoint/octo',
             'return_url' => 'https://itcase.com'
         ]]);
-        $data = json_decode($response->getBody());
-        return $data['octo_pay_url'];
+        $data = json_decode($response->getBody(), true);
+        return $data;
     }
 
     public function process(array $data)

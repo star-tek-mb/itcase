@@ -12,9 +12,9 @@ class ContractorRoleSeeder extends Seeder
      */
     public function run()
     {
-        $role_customer = new Role();
-        $role_customer->name = 'contractor';
-        $role_customer->description = 'Исполнитель';
-        $role_customer->save();
+        $role_contractor = new Role();
+        $role_contractor->name = 'contractor';
+        $role_contractor->description = 'Исполнитель';
+        $role_contractor->save();
     }
 }
