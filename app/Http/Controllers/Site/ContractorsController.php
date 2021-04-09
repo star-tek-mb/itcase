@@ -52,8 +52,7 @@ class ContractorsController extends Controller
         HandbookCategoryRepositoryInterface $categoriesRepository,
         TenderRepositoryInterface $tenderRepository,
         MenuRepositoryInterface $menuRepository
-    )
-    {
+    ) {
         $this->users = $userRepository;
         $this->categories = $categoriesRepository;
         $this->tenders = $tenderRepository;
@@ -160,9 +159,9 @@ class ContractorsController extends Controller
 
         abort_if(!$contractor, 404);
 
-        if (auth()->user()->hasRole('customer')) {
+        if (auth()->user() && auth()->user()->hasRole('customer')) {
             if (!empty(Tender::where('owner_id', auth()->user()->id)->where('contractor_id', $contractor->id)->first())) {
-                $has_comment=true;
+                $has_comment = true;
             }
         }
         return view('site.pages.contractors.show', compact('contractor', 'portfolio', 'comments', 'mean', 'has_comment'));
