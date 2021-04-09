@@ -7,7 +7,7 @@ use App\Repositories\HandbookCategoryRepository;
 use App\Repositories\NeedTypeRepository;
 use App\Repositories\TenderRepository;
 use App\Repositories\UserRepository;
-use foo\bar;
+use App\Services\OctoService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
