@@ -14,6 +14,7 @@ class OctoService
         $response = $client->post('https://secure.octo.uz/prepare_payment', ['json' => [
             'octo_shop_id' => config('services.octo.shop_id'),
             'octo_secret' => config('services.octo.secret'),
+            'auto_capture' => true,
             'shop_transaction_id' => 'user:' . $user->id,
             'currency' => 'UZS',
             'total_sum' => '5000',
@@ -29,11 +30,6 @@ class OctoService
 
     public function process(array $data)
     {
-        return $this->status($data);
-    }
-    
-    public function status(array $data)
-    {
         if (strpos($data['shop_transaction_id'], 'user:') === false) {
             return ['status' => 'error', 'message' => 'shop_transaction_id not found'];
         }
@@ -47,7 +43,7 @@ class OctoService
             'octo_payment_UUID' => $data['octo_payment_UUID'],
         ]]);
         $check = json_decode($response->getBody(), true);
-
+        
         if ($check['status'] == 'succeeded') {
             $user = User::find($userId);
             $user->forceFill([
@@ -55,8 +51,18 @@ class OctoService
             ])->save();
 
             return ['accept_status' => 'completed'];
+        } else if ($check['status'] == 'waiting_for_capture') {
+            return ['accept_status' => 'capture'];
+        } else if ($check['status'] == 'canceled') {
+            $user = User::find($userId);
+            $user->forceFill([
+                'account_paid_at' => null
+            ])->save();
+
+            return ['accept_status' => 'canceled'];
         }
 
         return ['status' => 'error', 'message' => 'unsupported request'];
     }
+
 }
