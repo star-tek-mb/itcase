@@ -14,13 +14,12 @@ Route::prefix('{locale}')->where(['locale' => '(' . implode('|', config('app.ena
     include __DIR__ . '/registration.php';
     include __DIR__ . '/front.php';
 });
-Route::get('{any}', function () {
-    return redirect(app()->getLocale() . '/' . request()->path());
-})->where(['any' => '(?!(' . implode('|', config('app.enabled_locales')) . ')).*']);
 
 include __DIR__ . '/admin.php';
 
-// TODO???
 Route::post('/ajax-search', 'HomeController@search');
-
 Route::post('/endpoint/octo', 'OctoController');
+
+Route::get('{any}', function () {
+    return redirect(app()->getLocale() . '/' . request()->path());
+})->where(['any' => '(?!(' . implode('|', config('app.enabled_locales')) . ')).*']);
