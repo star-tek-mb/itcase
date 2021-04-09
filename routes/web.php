@@ -22,3 +22,5 @@ include __DIR__ . '/admin.php';
 
 // TODO???
 Route::post('/ajax-search', 'HomeController@search');
+
+Route::post('/endpoint/octo', 'OctoController');

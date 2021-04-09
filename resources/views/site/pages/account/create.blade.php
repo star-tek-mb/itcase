@@ -140,15 +140,6 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <div class="form-group contractor-type-freelancer @if (!old('contractor_type') || old('contractor_type') == 'individual') d-none @endif">
-                                                <label for="contractor_companyName">Название компании</label>
-                                                <input type="text" name="contractor_company_name" id="contractor_companyName" class="form-control @error('contractor_company_name') is-invalid @enderror" value="{{ old('contractor_company_name') }}">
-                                                @error('contractor_company_name')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
                                             <div class="form-group contractor-type-agency @if (!old('contractor_type') || old('contractor_type') == 'legal_entity') d-none @endif">
                                                 <label for="contractor_companyName">Название компании</label>
                                                 <input type="text" name="contractor_company_name" id="contractor_companyName" class="form-control @error('contractor_company_name') is-invalid @enderror" value="{{ old('contractor_company_name') }}">
@@ -418,16 +409,14 @@
                     });
             </script>
             <script>
-                    @if (!request()->hasCookie('tenderId'))
-                        document.getElementById('agencyRadio').addEventListener('click', function () {
-                            $('.contractor-type-freelancer').addClass('d-none');
-                            $('.contractor-type-agency').removeClass('d-none');
-                        });
-                        document.getElementById('freelancerRadio').addEventListener('click', function () {
-                            $('.contractor-type-agency').addClass('d-none');
-                            $('.contractor-type-freelancer').removeClass('d-none');
-                        });
-                    @endif
+                    document.getElementById('agencyRadio').addEventListener('click', function () {
+                        $('.contractor-type-freelancer').addClass('d-none');
+                        $('.contractor-type-agency').removeClass('d-none');
+                    });
+                    document.getElementById('freelancerRadio').addEventListener('click', function () {
+                        $('.contractor-type-agency').addClass('d-none');
+                        $('.contractor-type-freelancer').removeClass('d-none');
+                    });
                     document.getElementById('privateRadio').addEventListener('click', function () {
                         $('.customer-type-company').addClass('d-none');
                         $('.customer-type-private').removeClass('d-none');

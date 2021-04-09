@@ -14,7 +14,7 @@
         "cviebrock/eloquent-sluggable": "^7.0",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.4",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.0",
         "hshn/base64-encoded-file": "^2.1",
         "intervention/image": "^2.5",
         "kalnoy/nestedset": "^5.0",

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Helpers\PaginateCollection;
-use App\Http\Requests\Tender\EmailSubsctiptionRequest;
+use App\Http\Requests\Tender\EmailSubscriptionRequest;
 use App\Models\Tender;
 use App\Models\Visit;
 use App\Notifications\InviteRequest;
@@ -312,7 +312,7 @@ class TenderController extends Controller
         }
     }
 
-    public function emailSubscription(EmailSubsctiptionRequest $request, Tender $tender)
+    public function emailSubscription(EmailSubscriptionRequest $request, Tender $tender)
     {
         $tender->update([
             'email_subscription' => $request->email_subscription

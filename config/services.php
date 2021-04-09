@@ -56,4 +56,9 @@ return [
         'password' => env('SMS_PASSWORD')
     ],
 
+    'octo' => [
+        'secret' => env('OCTO_SECRET'),
+        'shop_id' => env('OCTO_SHOP_ID')
+    ]
+
 ];

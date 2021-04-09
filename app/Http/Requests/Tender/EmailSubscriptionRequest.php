@@ -4,7 +4,7 @@ namespace App\Http\Requests\Tender;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EmailSubsctiptionRequest extends FormRequest
+class EmailSubscriptionRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.

@@ -110,7 +110,7 @@ class AccountController extends Controller
         $this->userRepository->createAccount($request);
 
         if ($userType == 'contractor') {
-            return redirect()->route('site.account.contractor.professional')->with('account.success', 'Ваш аккаунт создан! Заполните свои профессиональные данные, что бы вас могли найти в каталоге');
+            return redirect()->route('phone.verification.notice')->with('account.success', 'Ваш аккаунт создан! Подтвердите номер телефона и заполните свои профессиональные данные, что бы вас могли найти в каталоге');
         }
         if ($request->hasCookie('tenderId')) {
             $tenderId = $request->cookie('tenderId');
@@ -122,7 +122,6 @@ class AccountController extends Controller
         }
         return redirect()->route('phone.verification.notice');
     }
-
 
     public function savePersonalContractor(Request $request)
     {
