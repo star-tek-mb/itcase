@@ -33,7 +33,7 @@ class OctoService
         try {
             return $this->notify($data);
         } catch (\Exception $e) {
-            return ['status' => 'error', 'message' => 'shop_transaction_id find failed?']
+            return ['status' => 'error', 'message' => 'shop_transaction_id find failed?'];
         }
     }
 
