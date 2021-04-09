@@ -46,7 +46,7 @@ class OctoService
             'shop_transaction_id' => $data['shop_transaction_id'],
             'octo_payment_UUID' => $data['octo_payment_UUID'],
         ]]);
-        $check = json_decode($response->getBody());
+        $check = json_decode($response->getBody(), true);
 
         if ($check['status'] == 'succeeded') {
             $user = User::find($userId);
