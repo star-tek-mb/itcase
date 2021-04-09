@@ -30,6 +30,15 @@ class OctoService
 
     public function process(array $data)
     {
+        try {
+            return $this->notify($data);
+        } catch (\Exception $e) {
+            return ['status' => 'error', 'message' => 'shop_transaction_id find failed?']
+        }
+    }
+
+    public function notify(array $data)
+    {
         if (strpos($data['shop_transaction_id'], 'user:') === false) {
             return ['status' => 'error', 'message' => 'shop_transaction_id not found'];
         }
