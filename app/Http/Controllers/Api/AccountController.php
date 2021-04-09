@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Notifications\TenderCreated;
-use App\Repositories\HandbookCategoryRepositoryInterface;
-use App\Repositories\NeedTypeRepositoryInterface;
-use App\Repositories\TenderRepositoryInterface;
-use App\Repositories\UserRepositoryInterface;
+use App\Repositories\HandbookCategoryRepository;
+use App\Repositories\NeedTypeRepository;
+use App\Repositories\TenderRepository;
+use App\Repositories\UserRepository;
 use foo\bar;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -18,37 +18,37 @@ use Illuminate\View\View;
 class AccountController extends Controller
 {
     /**
-     * @var UserRepositoryInterface
+     * @var UserRepository
      */
     private $userRepository;
 
     /**
-     * @var HandbookCategoryRepositoryInterface
+     * @var HandbookCategoryRepository
      */
     private $categoryRepository;
 
     /**
-     * @var TenderRepositoryInterface
+     * @var TenderRepository
      */
     private $tenderRepository;
 
     /**
-     * @var NeedTypeRepositoryInterface
+     * @var NeedTypeRepository
      */
     private $needsRepository;
 
     /**
      * AccountController constructor.
-     * @param UserRepositoryInterface $userRepository
-     * @param HandbookCategoryRepositoryInterface $categoryRepository
-     * @param TenderRepositoryInterface $tenderRepository
-     * @param NeedTypeRepositoryInterface $needsRepository
+     * @param UserRepository $userRepository
+     * @param HandbookCategoryRepository $categoryRepository
+     * @param TenderRepository $tenderRepository
+     * @param NeedTypeRepository $needsRepository
      */
     public function __construct(
-        UserRepositoryInterface $userRepository,
-        HandbookCategoryRepositoryInterface $categoryRepository,
-        TenderRepositoryInterface $tenderRepository,
-        NeedTypeRepositoryInterface $needsRepository
+        UserRepository $userRepository,
+        HandbookCategoryRepository $categoryRepository,
+        TenderRepository $tenderRepository,
+        NeedTypeRepository $needsRepository
     )
     {
         $this->middleware(['auth:sanctum', 'verified']);
@@ -87,6 +87,13 @@ class AccountController extends Controller
         } else {
             abort(403);
         }
+    }
+
+    public function create(OctoService $octo)
+    {
+        $user = auth()->user();
+        $paymentUrl = $octo->requestPayment($user);
+        return response()->json(compact('user', 'paymentUrl'));
     }
 
     public function store(Request $request)

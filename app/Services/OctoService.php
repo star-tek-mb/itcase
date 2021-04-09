@@ -24,7 +24,7 @@ class OctoService
             'return_url' => 'https://itcase.com'
         ]]);
         $data = json_decode($response->getBody(), true);
-        return $data;
+        return $data['octo_pay_url'];
     }
 
     public function process(array $data)
