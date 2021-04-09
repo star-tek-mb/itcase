@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Site;
 
 use App\Notifications\TenderCreated;
-use App\Repositories\HandbookCategoryRepositoryInterface;
-use App\Repositories\NeedTypeRepositoryInterface;
-use App\Repositories\TenderRepositoryInterface;
-use App\Repositories\UserRepositoryInterface;
+use App\Repositories\HandbookCategoryRepository;
+use App\Repositories\NeedTypeRepository;
+use App\Repositories\TenderRepository;
+use App\Repositories\UserRepository;
 use foo\bar;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -18,22 +18,22 @@ use Illuminate\View\View;
 class AccountController extends Controller
 {
     /**
-     * @var UserRepositoryInterface
+     * @var UserRepository
      */
     private $userRepository;
 
     /**
-     * @var HandbookCategoryRepositoryInterface
+     * @var HandbookCategoryRepository
      */
     private $categoryRepository;
 
     /**
-     * @var TenderRepositoryInterface
+     * @var TenderRepository
      */
     private $tenderRepository;
 
     /**
-     * @var NeedTypeRepositoryInterface
+     * @var NeedTypeRepository
      */
     private $needsRepository;
 
@@ -45,10 +45,10 @@ class AccountController extends Controller
      * @param NeedTypeRepositoryInterface $needsRepository
      */
     public function __construct(
-        UserRepositoryInterface $userRepository,
-        HandbookCategoryRepositoryInterface $categoryRepository,
-        TenderRepositoryInterface $tenderRepository,
-        NeedTypeRepositoryInterface $needsRepository
+        UserRepository $userRepository,
+        HandbookCategoryRepository $categoryRepository,
+        TenderRepository $tenderRepository,
+        NeedTypeRepository $needsRepository
     )
     {
         $this->middleware(['auth', 'verified'])->except(['telegramCallback']);

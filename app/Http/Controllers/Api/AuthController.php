@@ -17,6 +17,12 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth', 'throttle:6,1'])->only('verify', 'resend');
+    }
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -52,5 +58,21 @@ class AuthController extends Controller
         }
         $token = $user->createToken($request->email)->plainTextToken;
         return response()->json(['token' => $token], 200);
+    }
+
+    public function resend(Request $request)
+    {
+        $request->user()->sendPhoneVerificationMessage();
+        return response()->json(null);
+    }
+
+    public function verify(Request $request)
+    {
+        if ($request->user()->verifyPhoneCode($request->code)) {
+            $request->user()->markPhoneAsVerified();
+        } else {
+            return response()->setStatusCode(403)->json(null);
+        }
+        return response()->setStatusCode(200)->json(null);
     }
 }

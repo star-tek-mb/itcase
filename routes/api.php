@@ -56,6 +56,10 @@ Route::namespace('Api')->group(function () {
     Route::post('/contractors/comment', 'CommentController@createCommentContractor');
     Route::post('/contractors/search', 'ContractorsController@contractorSearch');
 
+    // Phone verify routes
+    Route::post('/phone/verify', 'AuthController@verify');
+    Route::post('/phone/resend', 'AuthController@resend');
+
     Route::get('/catalog', 'HomeController@index');
     Route::post('/search', 'CatalogController@search');
     Route::get('/blog', 'BlogController@index');

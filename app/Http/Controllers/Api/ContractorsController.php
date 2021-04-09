@@ -123,7 +123,6 @@ class ContractorsController extends Controller
                 $contractor->mean = $mean;
             }
             return response()->json([
-                'category'=>$category,
                 'contractors'=>$contractors,
                 'contractorsCount'=>$contractorsCount
             ]);
