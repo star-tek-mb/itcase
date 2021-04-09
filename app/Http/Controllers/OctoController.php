@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\User;
 use Illuminate\Http\Request;
-use App\Services\Octo;
+use App\Services\OctoService;
 
 class OctoController extends Controller
 {
