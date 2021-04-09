@@ -66,7 +66,7 @@ Route::middleware('needsList')->name('site.')->namespace('Site')->group(function
     // Account routes
     Route::get('/account', 'AccountController@index')->name('account.index');
     Route::get('/account/notifications/markAsRead', 'AccountController@markNotificationsAsRead')->name('account.notifications.read');
-    Route::get('/account/create', 'AccountController@create');
+    Route::get('/account/create', 'AccountController@create')->name('account.create');
     Route::post('/account/create', 'AccountController@store');
     Route::post('/account/contractor/profile/save', 'AccountController@savePersonalContractor')->name('account.contractor.profile.save');
     Route::get('/account/professional', 'AccountController@professional')->name('account.contractor.professional');
@@ -118,6 +118,6 @@ Route::middleware('needsList')->name('site.')->namespace('Site')->group(function
 
     // Route::get('/{params}', 'ContractorsController@category')->where('params', '.+')->name('catalog.main');
     Route::post('/search', 'CatalogController@search')->name('catalog.search');
-    Route::post('/live-search', 'CatalogController@ajax_search');
+    Route::post('/live-search', 'CatalogController@ajax_search')->name('catalog.live-search');
     Route::post('/chat-search', 'ChatsController@searchChat')->name('chats.search');
 });

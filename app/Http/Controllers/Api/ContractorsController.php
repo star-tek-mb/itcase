@@ -73,6 +73,12 @@ class ContractorsController extends Controller
         }
         $contractorsCount = $contractors->count();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
+        foreach ($contractors as $contractor) {
+            $comments = $this->users->getCommentBySlug($contractor->slug);
+            $mean = (int) collect($comments)->avg('assessment');
+            $contractor->comments = $comments;
+            $contractor->mean = $mean;
+        }
         return response()->json([
             'contractors'=>$contractors,
             'contractorsCount'=>$contractorsCount
@@ -81,15 +87,17 @@ class ContractorsController extends Controller
 
     public function contractorSearch(Request $request)
     {
-        $categories = $this->categories->all();
-        foreach ($categories as $category) {
-        }
         $contractors = $this->users->searchContractors($request);
 
         $contractorsCount = $contractors->count();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
+        foreach ($contractors as $contractor) {
+            $comments = $this->users->getCommentBySlug($contractor->slug);
+            $mean = (int) collect($comments)->avg('assessment');
+            $contractor->comments = $comments;
+            $contractor->mean = $mean;
+        }
         return response()->json([
-            'category'=>$category,
             'contractors'=>$contractors,
             'contractorsCount'=>$contractorsCount
         ]);
@@ -108,6 +116,12 @@ class ContractorsController extends Controller
             $contractors = $category->getAllCompaniesFromDescendingCategories()->sortByDesc('created_at');
             $contractorsCount = $contractors->count();
             $contractors = PaginateCollection::paginateCollection($contractors, 5);
+            foreach ($contractors as $contractor) {
+                $comments = $this->users->getCommentBySlug($contractor->slug);
+                $mean = (int) collect($comments)->avg('assessment');
+                $contractor->comments = $comments;
+                $contractor->mean = $mean;
+            }
             return response()->json([
                 'category'=>$category,
                 'contractors'=>$contractors,
