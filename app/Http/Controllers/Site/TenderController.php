@@ -171,6 +171,8 @@ class TenderController extends Controller
         $user = auth()->user();
         if ($user) {
             $user->authorizeRole('customer');
+        } else {
+            return redirect(route('register'))->with('warning', __('Для данного действия необходима регистрация'));
         }
         return view('site.pages.tenders.common.create');
     }
