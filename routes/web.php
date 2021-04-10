@@ -19,6 +19,7 @@ include __DIR__ . '/admin.php';
 
 Route::post('/ajax-search', 'HomeController@search');
 Route::post('/endpoint/octo', 'OctoController');
+Route::view('/thanks', 'site.pages.thanks');
 
 Route::get('{any}', function () {
     return redirect(app()->getLocale() . '/' . request()->path());

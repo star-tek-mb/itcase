@@ -325,7 +325,7 @@
                                 <button type="submit" class="btn btn-light-green"><i class="fas fa-save"></i> Сохранить</button>
                             </form>
                         </div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#payment-modal">{{ __('Оплатить аккаунт') }}</button>
+                        <button id="payment-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#payment-modal">{{ __('Оплатить аккаунт') }}</button>
                     </div>
                 </div>
             </div>
@@ -342,7 +342,7 @@
                     </button>
                 </div>
                 <div class="modal-body text-center">
-                    <iframe src="{{ $paymentUrl }}" width="400" height="400"></iframe>
+                    <iframe id="payment-iframe" src="{{ $paymentUrl }}" width="400" height="400"></iframe>
                 </div>
             </div>
         </div>
@@ -350,6 +350,15 @@
 @endsection
 
         @section('js')
+            <script>
+                window.addEventListener('message', function(message){
+                    if (message.data == "close") {
+                        $('#payment-modal').modal('hide');
+                        $('#payment-button').prop("disabled", true);
+                        $('#payment-iframe').remove();
+                    }
+                });
+            </script>
             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
             <script src="{{ asset('js/ckeditor.js') }}"></script>
