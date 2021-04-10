@@ -160,9 +160,9 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label for="city">Город</label>
-                                                <input type="text" name="city" id="city" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') }}" placeholder="Ваш город проживания">
-                                                @error('city')
+                                                <label for="contractor_city">Город</label>
+                                                <input type="text" name="contractor_city" id="contractor_city" class="form-control @error('contractor_city') is-invalid @enderror" value="{{ old('contractor_city') }}" placeholder="Ваш город проживания">
+                                                @error('contractor_city')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -296,9 +296,9 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label for="city">Город</label>
-                                            <input type="text" name="city" id="city" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') }}" placeholder="Ваш город проживания">
-                                            @error('city')
+                                            <label for="customer_city">Город</label>
+                                            <input type="text" name="customer_city" id="customer_city" class="form-control @error('customer_city') is-invalid @enderror" value="{{ old('customer_city') }}" placeholder="Ваш город проживания">
+                                            @error('customer_city')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>

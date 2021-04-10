@@ -91,6 +91,16 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="city">{{ __('Ваш город проживания') }}</label>
+                            <input type="text" name="city" id="city"
+                                    class="form-control @error('city') is-invalid @enderror" value="{{ $user->city }}">
+                            @error('city')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
 
 
                     {{--@if ($user->contractor_type == 'freelancer')--}}

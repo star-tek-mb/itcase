@@ -32,6 +32,7 @@ class User extends Authenticatable
         'password',
         'company_name',
         'site',
+        'city',
         'foundation_year',
         'customer_type',
         'contractor_type',
