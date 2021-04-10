@@ -9,7 +9,7 @@ class CheckPhone
 
     public function handle($request, Closure $next)
     {
-        if ($request->is('phone/*')) {
+        if ($request->is('*/phone/*')) {
             return $next($request);
         }
 
@@ -18,7 +18,7 @@ class CheckPhone
             if (substr($request->path(), 0, 3) === "api") {
                 return response()->json(['message' => ['Подтвердите номер телефона']]);
             } else {
-                return redirect('/phone/verify');
+                return redirect(route('phone.verification.notice'));
             }
         }
         return $next($request);
