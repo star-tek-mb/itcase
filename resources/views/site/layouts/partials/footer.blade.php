@@ -45,8 +45,7 @@
                 <div class="col-lg-4">
                     <div class="newsletter">
                         <span class="title-footer">{{ __('Рассылка') }}</span>
-                        <p>{{ __('Подпишись на') }} <span class="name"><span>IT</span>CASE</span> {{ __('и получай на уведомления о
-                            новостях и акциях.') }}</p>
+                        <p>{{ __('Подпишись на') }} <span class="name"><span>IT</span>CASE</span> {{ __('и получай на уведомления о новостях и акциях.') }}</p>
                         <div class="form">
                             <input class="form-control" type="text" placeholder="Введите email адресс">
                             <button><i class="fa fa-envelope"></i></button>
