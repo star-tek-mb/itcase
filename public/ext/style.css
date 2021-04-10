@@ -12,7 +12,6 @@
 --------------------------------------------------------------*/
 body {
   font-family: "Montserrat", sans-serif;
-  color: #444444;
 }
 
 a {
@@ -34,23 +33,14 @@ p {
   margin: 0;
 }
 
-@media only screen and (min-width: 1200px) {
-  .container {
-    max-width: 1170px;
-  }
-}
 
 
 
 /*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
-section {
-  margin: 20px 0;
-}
-
 .section-title {
-  margin: 20px 0;
+  margin-bottom: 20px;
   text-align: center;
 }
 @media (min-width: 900px) {
@@ -75,7 +65,9 @@ section {
 /*--------------------------------------------------------------
 # Disable aos animation delay on mobile devices
 --------------------------------------------------------------*/
-
+.carousel-section {
+  background: #fff;
+}
 #services-carousel {
   width: 85%;
   height: 160px;
@@ -123,7 +115,6 @@ section {
   font-size: 14px;
   font-weight: 500;
 }
-
 
 
 .owl-nav > div {
@@ -178,6 +169,47 @@ section {
   background-color: #808080;
   mask: url(./arrow-forward-circle-outline.svg) no-repeat;
   -webkit-mask: url(./arrow-forward-circle-outline.svg) no-repeat;
+}
+
+
+/*--------------------------------------------------------------
+# Services
+--------------------------------------------------------------*/
+.why-we-section {
+  background: #fff;
+  position: relative;
+}
+
+.why-we-section .whywe-box {
+  padding: 20px 10px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.why-we-section .whywe-image {
+  margin-bottom: 5px;
+}
+.why-we-section .whywe-image img {
+  max-width: 80%;
+}
+
+.why-we-section .whywe-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin-bottom: 5px;
+}
+.why-we-section .whywe-title h4 {
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+}
+.why-we-section .whywe-description {
+  font-weight: 400;
+  font-size: 13px;
+  color: #000;
 }
 
 
@@ -259,47 +291,6 @@ section {
 }
 
 
-
-/*--------------------------------------------------------------
-# Services
---------------------------------------------------------------*/
-.why-we-section {
-  position: relative;
-}
-
-.why-we-section .whywe-box {
-  padding: 20px 10px;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-}
-
-.why-we-section .whywe-image {
-  margin-bottom: 5px;
-}
-.why-we-section .whywe-image img {
-  max-width: 80%;
-}
-
-.why-we-section .whywe-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  margin-bottom: 5px;
-}
-.why-we-section .whywe-title h4 {
-  font-weight: 700;
-  font-size: 18px;
-  color: #000;
-}
-.why-we-section .whywe-description {
-  font-weight: 400;
-  font-size: 13px;
-  color: #000;
-}
-
-
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
@@ -313,28 +304,28 @@ section {
   display: flex;
   height: 50vh;
   padding: 0 4%;
+  color: #000;
   align-items: center;
 }
-.download-text-part h1 {
+.download-text-part h3 {
   margin: 0;
   font-size: 22px;
   font-weight: 700;
-  color: #0f394c;
-  text-transform: uppercase;
 }
-.download-text-part h2 {
-  color: #1c698c;
-  margin: 10px 0 0 0;
-  font-size: 20px;
+.download-text-part p {
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 15px;
 }
 
-.buttons {
+.buttons-download {
   display: grid;
+  margin-top: 30px;
   grid-template-rows: 100%;
   grid-template-columns: repeat(3, 33.33%);
 }
 @media (max-width: 900px) {
-  .buttons {
+  .buttons-download {
     display: grid;
     grid-template-rows: repeat(3, 33.33%);
     grid-template-columns: 100%;
@@ -358,153 +349,16 @@ section {
   display: flex;
   height: 50vh;
   align-items: center;
-  justify-content: center;
 }
 .download-image-part .download-image img {
   max-width: 100%;
   max-height: 70vh;
   bottom: 0;
+  right: 0;
   position: absolute;
 }
 @media (max-width: 991px) {
   .download-image-part .download-image img {
     max-height: 50vh;
   }
-}
-
-/* 
-@media (max-width: 991px) {
-  #hero {
-    height: 100vh;
-    text-align: center;
-  }
-  #hero .hero-img img {
-    width: 50%;
-  }
-}
-
-@media (max-width: 768px) {
-  #hero h1 {
-    font-size: 28px;
-    line-height: 36px;
-  }
-  #hero h2 {
-    font-size: 18px;
-    line-height: 24px;
-  }
-  #hero .hero-img img {
-    width: 80%;
-  }
-} */
-
-
-
-
-
-
-
-
-/*--------------------------------------------------------------
-Владимир сказал не нужно
---------------------------------------------------------------*/
-.steps {
-  padding-top: 20px;
-  background-color: red;
-}
-
-.steps .row {
-  overflow: hidden;
-}
-
-.steps .content-item {
-  padding: 40px;
-  /* border-left: 1px solid #eee;
-  border-bottom: 1px solid #eee; */
-  margin: -1px;
-}
-
-.we-do-item {
-  margin: 15px 0;
-  display: grid;
-  grid-template-rows: 50px;
-  grid-template-columns: 30% 70%;
-}
-
-.we-do-item .what-item-image {
-  position: relative;
-  /* background: cornflowerblue; */
-}
-.we-do-item .what-item-image img {
-  max-width: 50%;
-  height: 50px;
-  right: 0;
-  position: absolute;
-  /* background: chocolate; */
-}
-
-.we-do-item .what-item-text {
-  display: flex;
-  text-align: left;
-  padding-left: 10px;
-  align-items: center;
-  /* background: chartreuse; */
-}
-.we-do-item .what-item-text h4 {
-  font-size: 16px;
-}
-
-.steps .content-item span {
-  display: block;
-  font-size: 24px;
-  font-weight: 400;
-  color: #3b4ef8;
-}
-
-.steps .content-item h4 {
-  font-size: 28px;
-  font-weight: 400;
-  padding: 0;
-  margin: 20px 0;
-  color: #2d405f;
-}
-
-.steps .content-item p {
-  color: #aaaaaa;
-  font-size: 15px;
-  margin: 0;
-  padding: 0;
-}
-
-@media (max-width: 768px) {
-  .steps .content-item {
-    padding: 40px 0;
-  }
-}
-
-.add_catalog_button {
-  position: relative;
-  width: 161px;
-  height: 43px;
-  border-radius: 5px;
-  background: #2b6ec7;
-}
-.add_catalog_button p {
-  padding-left: 32px;
-  padding-top: 13px;
-  font-size: 13px;
-  color: #fff;
-}
-.add_catalog_button span {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 43px;
-  height: 100%;
-  border-radius: 5px;
-  background: #5085f9;
-}
-.add_catalog_button span ion-icon {
-  padding-left: 14px;
-  padding-top: 14px;
-  color: #fff;
 }
