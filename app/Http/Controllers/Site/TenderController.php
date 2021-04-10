@@ -140,22 +140,19 @@ class TenderController extends Controller
                 $tender->setRelation('requests', $tender->requests()->paginate(1));
                 return view('site.pages.tenders.show', compact('tender'));
             }
-            abort(404, "Ресурс не найден");
-        } else {
-            $categorySlug = end($paramsArray);
-            $currentCategory = $this->categoryRepository->getBySlug($categorySlug);
-            if ($currentCategory) {
-                if ($currentCategory->getAncestorsSlugs() !== $params) {
-                    return redirect(route('site.tenders.category', $currentCategory->getAncestorsSlugs()), 301);
-                }
-                $tenders = $currentCategory->tenders()->whereNotNull('owner_id')->where('published', true)->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
-                $tendersCount = $tenders->count();
-                $tenders = PaginateCollection::paginateCollection($tenders, 5);
-                return view('site.pages.tenders.index', compact('tenders', 'currentCategory', 'tendersCount'));
-            } else {
-                abort(404, "Ресурс не найден");
-            }
         }
+        $categorySlug = end($paramsArray);
+        $currentCategory = $this->categoryRepository->getBySlug($categorySlug);
+        if ($currentCategory) {
+            if ($currentCategory->getAncestorsSlugs() !== $params) {
+                return redirect(route('site.tenders.category', $currentCategory->getAncestorsSlugs()), 301);
+            }
+            $tenders = $currentCategory->tenders()->whereNotNull('owner_id')->where('published', true)->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
+            $tendersCount = $tenders->count();
+            $tenders = PaginateCollection::paginateCollection($tenders, 5);
+            return view('site.pages.tenders.index', compact('tenders', 'currentCategory', 'tendersCount'));
+        }
+        abort(404, "Ресурс не найден");
     }
 
     public function show(string $slug)
