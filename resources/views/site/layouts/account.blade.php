@@ -1,4 +1,4 @@
-{{ __('@extends('site.layouts.app')
+@extends('site.layouts.app')
 @section('content')
     <div class="wrapper-admin">
         <div class="sidebar-admin">

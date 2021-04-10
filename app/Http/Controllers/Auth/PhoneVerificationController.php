@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 class PhoneVerificationController extends Controller
 {
 
-    protected $redirectTo = '/account/create';
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -33,7 +31,7 @@ class PhoneVerificationController extends Controller
                 'code' => __('auth.code.invalid'),
             ]);
         }
-        return redirect($this->redirectTo);
+        return redirect(route('site.account.index'))->with('account.success', __('Номер подтвержден'));
     }
 
     public function show()
