@@ -72,7 +72,8 @@ class AccountController extends Controller
             $accountPage = 'personal';
             return response()->json([
                 'accountPage' => $accountPage,
-                'user' => $user
+                'user' => $user,
+                'role' => 'contractor'
             ]);
         } elseif ($user->hasRole('customer')) {
             if ($user->customer_type == 'legal_entity') {
@@ -82,7 +83,8 @@ class AccountController extends Controller
             }
             return response()->json([
                 'accountPage' => $accountPage,
-                'user' => $user
+                'user' => $user,
+                'role' => 'customer'
             ]);
         } else {
             abort(403);
