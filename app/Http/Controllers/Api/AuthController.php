@@ -20,7 +20,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth', 'throttle:6,1'])->only('verify', 'resend');
+        $this->middleware(['auth:sanctum', 'throttle:6,1'])->only('verify', 'resend');
     }
 
     public function register(Request $request)
