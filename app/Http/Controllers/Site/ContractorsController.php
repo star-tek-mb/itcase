@@ -73,7 +73,7 @@ class ContractorsController extends Controller
         }
         $contractorsCount = $contractors->count();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
-        return view('site.pages.contractors.index', compact('contractors', 'contractorsCount'));
+        return view('site.pages.contractors.index', compact('category', 'contractors', 'contractorsCount'));
     }
 
     public function contractorSearch(Request $request)
