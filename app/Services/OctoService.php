@@ -22,7 +22,7 @@ class OctoService
             'description' => 'Оплата аккаунта на itcase.com',
             'init_time' => now()->format('Y-m-d H:i:s'),
             'notify_url' => 'https://itcase.com/endpoint/octo',
-            'return_url' => 'https://itcase.com'
+            'return_url' => 'https://itcase.com/thanks'
         ]]);
         $data = json_decode($response->getBody(), true);
         return $data['octo_pay_url'];
