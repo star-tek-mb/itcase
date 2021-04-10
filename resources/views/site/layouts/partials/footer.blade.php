@@ -30,8 +30,8 @@
                         <div class="col-6 col-md-4">
                             <span class="title-footer">{{ __('Конкурсы') }}</span>
                             <ul class="links-footer">
-                                <li><a href="{{ route('site.tenders.common.create') }}">{{ __('Создание конкурса') }}</a></li>
-                                <li><a href="{{ route('site.tenders.index') }}">{{ __('Каталог конкурсов') }}</a></li>
+                                <li><a href="{{ route('site.tenders.common.create') }}">{{ __('Создание конкурсов') }}</a></li>
+                                <li><a href="{{ route('site.tenders.index') }}">{{ __('Каталог заданий') }}</a></li>
                             </ul>
                         </div>
                         <div class="col-6 col-md-4">
@@ -45,7 +45,7 @@
                 <div class="col-lg-4">
                     <div class="newsletter">
                         <span class="title-footer">{{ __('Рассылка') }}</span>
-                        <p>{{ __('Подпишись на') }} <span class="name"><span>V</span>ID</span> {{ __('и получай на уведомления о
+                        <p>{{ __('Подпишись на') }} <span class="name"><span>IT</span>CASE</span> {{ __('и получай на уведомления о
                             новостях и акциях.') }}</p>
                         <div class="form">
                             <input class="form-control" type="text" placeholder="Введите email адресс">
@@ -60,7 +60,7 @@
             </div>
         </div>
         <div class="footer-bottom d-md-flex text-center justify-content-between">
-            <div class="copyright">© {{ now()->year }} <span class="text-green">V</span><span class="text-white">ID.</span>
+            <div class="copyright">© {{ now()->year }} <span class="text-green">IT</span><span class="text-white">ICASE.</span>
                 {{ __('Спроектировано') }} <span class="text-white">VID STUDIO</span>. {{ __('Все права защищены.') }}
             </div>
         </div>
