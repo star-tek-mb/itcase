@@ -33,11 +33,11 @@
         <input type="hidden" name="redirect_to" value="{{ route('site.account.tenders') }}">
         <section class="box-admin">
             <div class="header-box-admin">
-                <h3>Редактировать данные</h3>
+                <h3>{{ __('Редактировать данные') }}</h3>
             </div>
             <div class="body-box-admin">
                 <div class="form-group">
-                    <label for="title">Что требуется сделать?</label>
+                    <label for="title">{{ __('Что требуется сделать?') }}</label>
                     <input type="text" name="title" id="title"
                            class="form-control @error('title') is-invalid @enderror"
                            placeholder="Название проекта..." value="{{ $tender->title }}">
@@ -46,7 +46,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="place">Место оказания услуги</label>
+                    <label for="place">{{ __('Место оказания услуги') }}</label>
                     <select name="place" id="place" class="form-control">
                         <option value="dont_mind" @if ($tender->place == 'dont_mind') selected @endif>{{ __('dont_mind') }}</option>
                         <option value="my_place" @if ($tender->place == 'my_place') selected @endif>{{ __('my_place') }}</option>
@@ -56,7 +56,7 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
-                <label class="mt-3">Выберите услуги: </label>
+                <label class="mt-3">{{ __('Выберите услуги:') }} </label>
                 @error('categories')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
@@ -100,21 +100,21 @@
                     @endforeach
                 </div>
                 <div class="form-group mt-3">
-                    <label for="description">Опишите проект подробнее</label>
+                    <label for="description">{{ __('Опишите проект подробнее') }}</label>
                     <textarea name="description" @error('description') class="is-invalid" @enderror id="description">{{ $tender->description }}</textarea>
                     @error('description')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group mt-3">
-                    <label for="additional_info">Дополнительная информация (показывается исполнителю)</label>
+                    <label for="additional_info">{{ __('Дополнительная информация (показывается исполнителю)') }}</label>
                     <textarea name="additional_info" @error('additional_info') class="is-invalid" @enderror id="additional_info">{{ $tender->additional_info }}</textarea>
                     @error('additional_info')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group mt-3">
-                    <label for="other_info">Способы связи с вами (показывается исполнителю)</label>
+                    <label for="other_info">{{ __('Способы связи с вами (показывается исполнителю)') }}</label>
                     <textarea name="other_info" @error('other_info') class="is-invalid" @enderror id="other_info">{{ $tender->other_info }}</textarea>
                     @error('other_info')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -122,26 +122,26 @@
                 </div>
                 <div class="upload-avatar">
                     <div class="upload">
-                        <div class="desc"><p>Если есть готовое задание или пожелания, обязательно прикрепите их
+                        <div class="desc"><p>{{ __('Если есть готовое задание или пожелания, обязательно прикрепите их
                                 сюда. Исполнители лучше поймут задачу и зададут минимум уточняющих вопросов, а вы
-                                сэкономите много времени.</p>
-                            <p>Максималльный размер: 50 MB    Максимальное количество файлов: 10</p></div>
+                                сэкономите много времени.') }}</p>
+                            <p>{{ __('Максималльный размер: 50 MB    Максимальное количество файлов: 10') }}</p></div>
                         <div class="btn-upload">
                             <input type="file" name="file" id="file" multiple>
-                            <span class="btn btn-light-green">Прикрепить файлы</span>
+                            <span class="btn btn-light-green">{{ __('Прикрепить файлы') }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-6 form-group">
-                        <label for="work_start_at">Дата начала работ</label>
+                        <label for="work_start_at">{{ __('Дата начала работ') }}</label>
                         <input type="text" class="date form-control @error('work_start_at') is-invalid @enderror" id="work_start_at" name="work_start_at" value="{{ optional($tender->work_start_at)->format('d.m.Y H:i') }}">
                         @error('work_start_at')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-md-6 form-group">
-                        <label for="work_end_at">Дата окончания работ</label>
+                        <label for="work_end_at">{{ __('Дата окончания работ') }}</label>
                         <input type="text" class="date form-control @error('work_end_at') is-invalid @enderror" id="work_end_at" name="work_end_at" value="{{ optional($tender->work_end_at)->format('d.m.Y H:i') }}">
                         @error('work_end_at')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -151,14 +151,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="budget">Ориентировочный бюджет</label>
+                            <label for="budget">{{ __('Ориентировочный бюджет') }}</label>
                             <input type="text" name="budget" id="budget" class="form-control @error('budget') is-invalid @enderror" placeholder="Укажите ориентировочный бюджет в сумах..." value="{{ $tender->budget }}">
                             @error('budget')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="deadline">Срок окончания приёма заявок</label>
+                            <label for="deadline">{{ __('Срок окончания приёма заявок') }}</label>
                             <input type="text" class="form-control @error('deadline') is-invalid @enderror" id="deadline" name="deadline" value="{{ \Carbon\Carbon::create($tender->deadline)->format('d.m.Y') }}">
                             @error('deadline')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -166,14 +166,14 @@
                         </div>
 
                                 <div class="form-group">
-                                    <label for="geo_location">Укажите местоположение</label>
+                                    <label for="geo_location">{{ __('Укажите местоположение') }}</label>
                                     <input hidden class="form-control" id="geo_location" name="geo_location" value="41.31064707835609, 69.2795380845336">
                                     <div id="location"></div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="remote" class="form-check-label">
-                                        Удаленная работа
+                                        {{ __('Удаленная работа') }}
                                     </label>
                                     <input type="checkbox" name="remote" id="remote"  class="css-control-input" >
                                 </div>
@@ -183,14 +183,14 @@
                     </div>
                 </div>
                 <div class="mb-30 mt-5">
-                    <button class="btn btn-light-green"><i class="fas fa-save"></i>  Сохранить конкурс</button>
+                    <button class="btn btn-light-green"><i class="fas fa-save"></i>  {{ __('Сохранить конкурс') }}</button>
                 </div>
             </div>
         </section>
     </form>
     <section class="box-admin">
         <div class="header-box-admin">
-            <h3>Заявки от исполнителей</h3>
+            <h3>{{ __('Заявки от исполнителей') }}</h3>
         </div>
     </section>
 @endsection

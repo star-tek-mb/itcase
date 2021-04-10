@@ -33,7 +33,7 @@
    @endif
    </div>
   <div class="header-box-admin">
-      <h3>Добавить изображения</h3>
+      <h3>{{ __('Добавить изображения') }}</h3>
   </div>
   <div class="body-box-admin p-0">
 
@@ -50,14 +50,14 @@
             <input type="text" class="form-control" name="project_link" placeholder="Ссылка на проект">
         </div>
         <div class="col-3 my-1" style="text-align:left">
-            <button type="submit" class="btn btn-success">Добавить</button>
+            <button type="submit" class="btn btn-success">{{ __('Добавить') }}</button>
         </div>
       </div>
     </form>
 
     <div class="intro-profile pt-5">
       <div class="header-box-admin">
-          <h3>Добавленные изображения проектов</h3>
+          <h3>{{ __('Добавленные изображения проектов') }}</h3>
       </div>
       <div class="candidate-box">
         <div class="item-list">
@@ -65,9 +65,9 @@
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <td>Название проекта</td>
-                    <td>Изображение</td>
-                    <td>Ссылка</td>
+                    <td>{{ __('Название проекта') }}</td>
+                    <td>{{ __('Изображение') }}</td>
+                    <td>{{ __('Ссылка') }}</td>
                 </thead>
 
                 <tbody>
@@ -82,10 +82,10 @@
                     </td>
                     @if($row->link)
                       <td>
-                        <a href="{{ $row->link }}">Перейти на проект</a>
+                        <a href="{{ $row->link }}">{{ __('Перейти на проект') }}</a>
                       </td>
                     @else
-                      <td>Ссылка не указана исполнителем</td>
+                      <td>{{ __('Ссылка не указана исполнителем') }}</td>
                     @endif
                   </tr>
                 @endif

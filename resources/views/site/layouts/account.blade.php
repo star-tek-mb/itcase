@@ -1,4 +1,4 @@
-@extends('site.layouts.app')
+{{ __('@extends('site.layouts.app')
 @section('content')
     <div class="wrapper-admin">
         <div class="sidebar-admin">
@@ -14,19 +14,19 @@
                 </div>
             </div>
             <ul class="nav-sidebar-admin">
-                <li @if ($accountPage == 'personal') class="active" @endif><a href="{{ route('site.account.index') }}"><i class="fas fa-user"></i> Профиль</a></li>
+                <li @if ($accountPage == 'personal') class="active" @endif><a href="{{ route('site.account.index') }}"><i class="fas fa-user"></i> {{ __('Профиль') }}</a></li>
                 @if ($user->hasRole('contractor'))
-                    <li><a href="{{ route('site.account.contractor.professional') }}"><i class="fas fa-suitcase"></i> Проф. данные</a></li>
-                    <li><a href="{{ route('site.account.tenders') }}"><i class="fas fa-file-alt"></i> Мои конкурсы</a></li>
-                    <li><a href="{{ route('site.account.portfolio') }}"><i class="far fa-images"></i>Портфолио</a></li>
-                    <li><a href="{{ route('site.account.purse') }}"><i class="fa fa-wallet"></i>Мой кошелек</a></li>
+                    <li><a href="{{ route('site.account.contractor.professional') }}"><i class="fas fa-suitcase"></i> {{ __('Проф. данные') }}</a></li>
+                    <li><a href="{{ route('site.account.tenders') }}"><i class="fas fa-file-alt"></i> {{ __('Мои конкурсы') }}</a></li>
+                    <li><a href="{{ route('site.account.portfolio') }}"><i class="far fa-images"></i>{{ __('Портфолио') }}</a></li>
+                    <li><a href="{{ route('site.account.purse') }}"><i class="fa fa-wallet"></i>{{ __('Мой кошелек') }}</a></li>
                 @endif
                 @if ($user->hasRole('customer'))
-                    <li><a href="{{ route('site.account.tenders') }}"><i class="fas fa-file-alt"></i> Мои конкурсы</a></li>
-                    <li><a href="{{ route('site.account.purse') }}"><i class="fa fa-wallet"></i>Мой кошелек</a></li>
+                    <li><a href="{{ route('site.account.tenders') }}"><i class="fas fa-file-alt"></i> {{ __('Мои конкурсы') }}</a></li>
+                    <li><a href="{{ route('site.account.purse') }}"><i class="fa fa-wallet"></i>{{ __('Мой кошелек') }}</a></li>
                 @endif
-                <li><a href="{{ route('site.account.chats') }}"><i class="fas fa-comments"></i>Чаты</a></li>
-                <li><a href="{{ route('site.account.comment') }}"><i class="fas fa-comment-alt"></i>Оставить комментарий</a></li>
+                <li><a href="{{ route('site.account.chats') }}"><i class="fas fa-comments"></i>{{ __('Чаты') }}</a></li>
+                <li><a href="{{ route('site.account.comment') }}"><i class="fas fa-comment-alt"></i>{{ __('Оставить комментарий') }}</a></li>
             </ul>
         </div>
         <button class="toggle-sidebar-admin"><i class="fas fa-long-arrow-alt-right"></i></button>

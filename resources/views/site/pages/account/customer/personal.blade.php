@@ -37,16 +37,16 @@
                         <div class="js-upload" uk-form-custom>
                             <input type="file" name="image" id="image">
                             <button class="uk-button uk-button-primary-outline" type="button" tabindex="-1"><span
-                                    uk-icon="image" class="uk-margin-small-right"></span>Загрузить фото
+                                    uk-icon="image" class="uk-margin-small-right"></span>{{ __('Загрузить фото') }}
                             </button>
                         </div>
-                        <span class="uk-text-muted uk-text-small uk-margin-small-top"><span uk-icon="info"></span> Минимальные пропорции: 120х120 пикселей</span>
+                        <span class="uk-text-muted uk-text-small uk-margin-small-top"><span uk-icon="info"></span> {{ __('Минимальные пропорции: 120х120 пикселей') }}</span>
                     </div>
                 </div>
             </div>
             <div class="wrapper uk-padding-small uk-padding-remove-horizontal uk-flex-middle uk-margin-top" uk-grid>
                 <div class="wrapper_title">
-                    <h4>Ваше имя: <span class="uk-text-danger">*</span></h4>
+                    <h4>{{ __('Ваше имя:') }} <span class="uk-text-danger">*</span></h4>
                 </div>
             </div>
             <div class="uk-grid uk-margin-remove-top">
@@ -64,7 +64,7 @@
             @if ($user->customer_type == 'individual')
                 <div class="wrapper uk-padding-small uk-padding-remove-horizontal uk-flex-middle uk-margin-top" uk-grid>
                     <div class="wrapper_title">
-                        <h4>О себе: <span class="uk-text-danger">*</span></h4>
+                        <h4>{{ __('О себе:') }} <span class="uk-text-danger">*</span></h4>
                     </div>
                 </div>
                 <div class="uk-grid uk-margin-remove-top">
@@ -74,7 +74,7 @@
                 </div>
                 <div class="wrapper uk-padding-small uk-padding-remove-horizontal uk-flex-middle uk-margin-top" uk-grid>
                     <div class="wrapper_title">
-                        <h4>Ваш сайт</h4>
+                        <h4>{{ __('Ваш сайт') }}</h4>
                     </div>
                 </div>
                 <div class="uk-grid uk-margin-remove-top">
@@ -86,7 +86,7 @@
                 </div>
                 <div class="wrapper uk-padding-small uk-padding-remove-horizontal uk-flex-middle uk-margin-top" uk-grid>
                     <div class="wrapper_title">
-                        <h4>Телефон и Email: <span class="uk-text-danger">*</span></h4>
+                        <h4>{{ __('Телефон и Email:') }} <span class="uk-text-danger">*</span></h4>
                     </div>
                 </div>
                 <div class="uk-grid uk-margin-remove-top">
@@ -104,7 +104,7 @@
             @elseif($user->customer_type == 'legal_entity')
                 <div class="wrapper uk-padding-small uk-padding-remove-horizontal uk-flex-middle uk-margin-top" uk-grid>
                     <div class="wrapper_title">
-                        <h4>Email: <span class="uk-text-danger">*</span></h4>
+                        <h4>{{ __('Email:') }} <span class="uk-text-danger">*</span></h4>
                     </div>
                 </div>
                 <div class="uk-grid uk-margin-remove-top">
@@ -117,7 +117,7 @@
             @endif
             <div class="wrapper uk-padding-small uk-padding-remove-horizontal uk-flex-middle uk-margin-top" uk-grid>
                 <div class="wrapper_title">
-                    <h4>Ссылки на соц. сети:</h4>
+                    <h4>{{ __('Ссылки на соц. сети:') }}</h4>
                 </div>
             </div>
             <div class="uk-grid uk-margin-remove-top">
@@ -158,7 +158,7 @@
                 </div>
             </div>
             <div class="uk-grid">
-                <button type="submit" class="uk-button uk-button-success uk-width-1-1 uk-margin-medium-left">Сохранить
+                <button type="submit" class="uk-button uk-button-success uk-width-1-1 uk-margin-medium-left">{{ __('Сохранить') }}
                 </button>
             </div>
         </section>

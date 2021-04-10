@@ -6,12 +6,12 @@
         <div class="container">
             <div class="row w-100">
                 <div class="col-sm-12 col-md-3">
-                    <a href="{{ route('site.tenders.common.create') }}" class="btn btn-light-green">Организовать конкурс</a>
+                    <a href="{{ route('site.tenders.common.create') }}" class="btn btn-light-green">{{ __('Организовать конкурс') }}</a>
                 </div>
                 <div class="col-sm-6 col-md-5">
-                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#contractorsModal">У вас {{ count($contractors) }} @if (count($contractors) == 1)исполнитель@elseif(count($contractors) <= 4)исполнителя@elseисполнителей@endif</button>
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#contractorsModal">{{ __('У вас') }} {{ count($contractors) }} @if (count($contractors) == 1){{ __('исполнитель') }}@elseif(count($contractors) <= 4){{ __('исполнитель') }}@else{{ __('исполнителей') }}@endif</button>
                 </div>
-                <div class="col-sm-6 col-md-4"><a href="#" data-target="{{ route('site.tenders.contractors.clear') }}" class="btn btn-link btn-delete tender-item"><i class="fas fa-trash"></i> Удалить всех исполнителей</a></div>
+                <div class="col-sm-6 col-md-4"><a href="#" data-target="{{ route('site.tenders.contractors.clear') }}" class="btn btn-link btn-delete tender-item"><i class="fas fa-trash"></i> {{ __('Удалить всех исполнителей') }}</a></div>
             </div>
         </div>
     </nav>
@@ -19,7 +19,7 @@
         <div class="modal-dialog modal-dialog-centered contractors-modal" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="contractorsModalLabel">Выбранные исполнители</h5>
+                    <h5 class="modal-title" id="contractorsModalLabel">{{ __('Выбранные исполнители') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -37,7 +37,7 @@
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light-green" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-light-green" data-dismiss="modal">{{ __('Закрыть') }}</button>
                 </div>
             </div>
         </div>

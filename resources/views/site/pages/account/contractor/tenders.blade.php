@@ -11,18 +11,18 @@
 @section('account.content')
     <section class="box-admin">
         <div class="header-box-admin">
-            <h3>Мои заявки на конкурсы</h3>
+            <h3>{{ __('Мои заявки на конкурсы') }}</h3>
         </div>
         <div class="body-box-admin p-0">
             <div class="table-responsive">
                 <table class="table tbl-job">
                     <thead>
                         <tr>
-                            <th>Название проекта</th>
-                            <th class="d-none d-xl-table-cell text-center">Локация</th>
-                            <th class="d-none d-xl-table-cell text-center">Категории</th>
-                            <th class="d-none d-xl-table-cell text-center">Статус</th>
-                            <th class="d-none d-md-table-cell text-right">Действия</th>
+                            <th>{{ __('Название проекта') }}</th>
+                            <th class="d-none d-xl-table-cell text-center">{{ __('Локация') }}</th>
+                            <th class="d-none d-xl-table-cell text-center">{{ __('Категории') }}</th>
+                            <th class="d-none d-xl-table-cell text-center">{{ __('Статус') }}</th>
+                            <th class="d-none d-md-table-cell text-right">{{ __('Действия') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,13 +33,13 @@
                             <tr class="my-job-item">
                                 <td>
                                     <h3 class="title-job"><a href="{{ route('site.tenders.category', $request->tender->slug) }}">{{ $request->tender->title }}</a></h3>
-                                    <div class="meta-job"><span> <i class="fas fa-calendar-alt"></i>Опубликован: {{ \Carbon\Carbon::create($request->tender->published_at)->format('d.m.Y') }}</span><span> <i
-                                                class="fas fa-calendar-alt"></i>Истекает {{ \Carbon\Carbon::create($request->tender->deadline)->format('d.m.Y') }}</span></div>
-                                    <div class="salary-job"><i class="fas fa-money-bill-alt"></i>{{ $request->tender->budget }} сум
+                                    <div class="meta-job"><span> <i class="fas fa-calendar-alt"></i>{{ __('Опубликован:') }} {{ \Carbon\Carbon::create($request->tender->published_at)->format('d.m.Y') }}</span><span> <i
+                                                class="fas fa-calendar-alt"></i>{{ __('Истекает') }} {{ \Carbon\Carbon::create($request->tender->deadline)->format('d.m.Y') }}</span></div>
+                                    <div class="salary-job"><i class="fas fa-money-bill-alt"></i>{{ $request->tender->budget }} {{ __('сум') }}
                                     </div>
                                     <div class="job-info d-xl-none"><span
-                                            class="number-application">Ташкент</span>@foreach($request->tender->categories as $category) <span>{{ $category->getTitle() }} </span>@endforeach<span
-                                            class="active">@if($request->tender->contractor_id == $request->user_id) Активный @else В ожидании @endif </span></div>
+                                            class="number-application">{{ __('Ташкент') }}</span>@foreach($request->tender->categories as $category) <span>{{ $category->getTitle() }} </span>@endforeach<span
+                                            class="active">@if($request->tender->contractor_id == $request->user_id) {{ __('Активный') }} @else {{ __('В ожидании') }} @endif </span></div>
                                     <div class="job-func d-flex d-md-none">
                                         <form action="{{ route('site.account.chats') }}" method="post">
                                             @csrf
@@ -54,9 +54,9 @@
                                         </form>
                                     </div>
                                 </td>
-                                <td class="d-none d-xl-table-cell text-center number-application">Ташкент</td>
+                                <td class="d-none d-xl-table-cell text-center number-application">{{ __('Ташкент') }}</td>
                                 <td class="d-none d-xl-table-cell text-center">@foreach($request->tender->categories as $category) <div>{{ $category->getTitle() }} </div>@endforeach</td>
-                                <td class="d-none d-xl-table-cell text-center active">@if($request->tender->contractor_id == $request->user_id) Активный @else В ожидании @endif</td>
+                                <td class="d-none d-xl-table-cell text-center active">@if($request->tender->contractor_id == $request->user_id) {{ __('Активный') }} @else {{ __('В ожидании') }} @endif</td>
                                 <td class="d-none d-md-table-cell text-right">
                                     <div class="d-flex">
                                         <form action="{{ route('site.account.chats') }}" method="post">

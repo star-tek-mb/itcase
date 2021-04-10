@@ -23,7 +23,7 @@
         <div class="contacts_popup_outer">
             <div class="contacts_popup_inner">
                 <h1 class="contacts_popup_inner_title">
-                    <i class="fa fa-phone fa-2x"></i>размещение <br> web сайтов и рекламы в цгу:
+                    <i class="fa fa-phone fa-2x"></i>{{ __('размещение') }} <br> {{ __('web сайтов и рекламы в цгу:') }}
                 </h1>
                 <a href="tel:+998953411717" class="contacts_popup_inner_link">
                     +99895 341 17 17
@@ -48,11 +48,11 @@
                 </div>
                 <div class="main_header_logo_text">
                     <h1 class="main_header_logo_text_title">
-                        Business Info
+                        {{ __('Business Info') }}
                     </h1>
                     <p class="main_header_logo_text_small">
-                        Бизнес
-                        портал
+                        {{ __('Бизнес') }}
+                        {{ __('портал')) }}
                     </p>
                 </div>
             </a>
@@ -87,10 +87,10 @@
 
             <div class="main_header_inner_buttons">
                 <button class="mobile_main_links_inner_btn_contacts">
-                    Контакты
+                    {{ __('Контакты')) }}
                 </button>
                 <a href="{{ route('home.cgu.ad') }}">
-                    Реклама в ЦГУ
+                    {{ __('Реклама в ЦГУ') }}
                 </a>
             </div>
         </div>

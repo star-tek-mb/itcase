@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="header-box-right order-md-first">
-                <h3>Ваши диалоги</h3>
+                <h3>{{ __('Ваши диалоги') }}</h3>
             </div>
         </div>
         <div class="body-box-admin p-0">
@@ -68,13 +68,13 @@
                         </ul>
                     @else
                         <div class="d-flex justify-content-center align-items-center h-100">
-                            <p>У вас нет открытых диалогов</p>
+                            <p>{{ __('У вас нет открытых диалогов') }}</p>
                         </div>
                     @endif
                 </div>
                 <div class="content-chat">
                     <div class="d-flex justify-content-center align-items-center h-100">
-                        <p>Выберите чат</p>
+                        <p>{{ __('Выберите чат') }}</p>
                     </div>
                 </div>
             </div>

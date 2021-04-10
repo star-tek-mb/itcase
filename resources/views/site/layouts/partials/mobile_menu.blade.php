@@ -7,75 +7,75 @@
                 <button class="button btn-menu-close" type="button"></button>
             </div>
             <ul class="user-profile">
-                <li><a href="#"><i class="fas fa-plus-circle"></i> Post a Job</a></li>
-                <li><a href="29_sign_in.html"><i class="fas fa-sign-out-alt"></i> Sign In</a></li>
-                <li><a href="30_register.html"><i class="fas fa-registered"></i> Register</a></li>
+                <li><a href="#"><i class="fas fa-plus-circle"></i> {{ __('Post a Job') }}</a></li>
+                <li><a href="29_sign_in.html"><i class="fas fa-sign-out-alt"></i> {{ __('Sign In') }}</a></li>
+                <li><a href="30_register.html"><i class="fas fa-registered"></i> {{ __('Register') }}</a></li>
             </ul>
         </div>
         <div class="menu-mobile">
             <ul class="main-menu-mobile">
-                <li class="active"><a href="{{ route('site.catalog.index') }}">Главная</a></li>
-                <li><a data-toggle="collapse" href="#sub-1" aria-expanded="false" aria-controls="sub-1">Find
-                        Jobs</a>
+                <li class="active"><a href="{{ route('site.catalog.index') }}">{{ __('Главная') }}</a></li>
+                <li><a data-toggle="collapse" href="#sub-1" aria-expanded="false" aria-controls="sub-1">{{ __('Find
+                        Jobs') }}</a>
                     <div class="collapse" id="sub-1">
                         <ul class="sub-menu-mobile">
-                            <li><a href="02_browse_job_list.html">Job list</a></li>
-                            <li><a href="03_browse_job_list_map.html">Job List Map</a></li>
-                            <li><a href="04_job_details.html">Job Single</a></li>
+                            <li><a href="02_browse_job_list.html">{{ __('Job list') }}</a></li>
+                            <li><a href="03_browse_job_list_map.html">{{ __('Job List Map') }}</a></li>
+                            <li><a href="04_job_details.html">{{ __('Job Single') }}</a></li>
                         </ul>
                     </div>
                 </li>
                 <li><a data-toggle="collapse" href="#sub-2" aria-expanded="false"
-                       aria-controls="sub-2">Employers</a>
+                       aria-controls="sub-2">{{ __('Employers') }}</a>
                     <div class="collapse" id="sub-2">
                         <ul class="sub-menu-mobile">
-                            <li><a href="05_browse_employer_list.html">Employer List</a></li>
-                            <li><a href="06_employer_list.html">Employer Grid</a></li>
-                            <li><a href="07_employer_details.html">Employer Single</a></li>
-                            <li><a href="08_employer_dashboard.html">Employer Dashboard</a></li>
-                            <li><a href="09_employer_edit_profile.html">Employer Edit Profile</a></li>
-                            <li><a href="10_employer_manage_jobs.html">Employer Manage Jobs</a></li>
-                            <li><a href="11_employer_manage_candidates.html">Employer Manage Candidates</a></li>
-                            <li><a href="12_employer_post_a_job.html">Employer Post A Job</a></li>
-                            <li><a href="13_employer_bookmarks.html">Employer Bookmarks</a></li>
-                            <li><a href="14_employer_message.html">Employer Message</a></li>
-                            <li><a href="15_employer_transactions.html">Employer Transactions</a></li>
+                            <li><a href="05_browse_employer_list.html">{{ __('Employer List') }}</a></li>
+                            <li><a href="06_employer_list.html">{{ __('Employer Grid') }}</a></li>
+                            <li><a href="07_employer_details.html">{{ __('Employer Single') }}</a></li>
+                            <li><a href="08_employer_dashboard.html">{{ __('Employer Dashboard') }}</a></li>
+                            <li><a href="09_employer_edit_profile.html">{{ __('Employer Edit Profile') }}</a></li>
+                            <li><a href="10_employer_manage_jobs.html">{{ __('Employer Manage Jobs') }}</a></li>
+                            <li><a href="11_employer_manage_candidates.html">{{ __('Employer Manage Candidates') }}</a></li>
+                            <li><a href="12_employer_post_a_job.html">{{ __('Employer Post A Job') }}</a></li>
+                            <li><a href="13_employer_bookmarks.html">{{ __('Employer Bookmarks') }}</a></li>
+                            <li><a href="14_employer_message.html">{{ __('Employer Message') }}</a></li>
+                            <li><a href="15_employer_transactions.html">{{ __('Employer Transactions') }}</a></li>
                         </ul>
                     </div>
                 </li>
                 <li><a data-toggle="collapse" href="#sub-3" aria-expanded="false"
-                       aria-controls="sub-3">Candidates</a>
+                       aria-controls="sub-3">{{ __('Candidates') }}</a>
                     <div class="collapse" id="sub-3">
                         <ul class="sub-menu-mobile">
-                            <li><a href="16_browse_candidate_list.html">Candidate List</a></li>
-                            <li><a href="17_candidate_details.html">Candidate Single</a></li>
-                            <li><a href="18_candidate_dashboard.html">Candidate Dashboard</a></li>
-                            <li><a href="19_candidate_edit_profile.html">Candidate Edit Profile</a></li>
-                            <li><a href="20_candidate_edit_resume.html">Candidate Edit Resume</a></li>
-                            <li><a href="21_candidate_applied_jobs.html">Candidate Applied Jobs</a></li>
-                            <li><a href="22_candidate_bookmarks.html">Candidate Bookmarks</a></li>
-                            <li><a href="23_candidate_message.html">Candidate Message</a></li>
+                            <li><a href="16_browse_candidate_list.html">{{ __('Candidate List') }}</a></li>
+                            <li><a href="17_candidate_details.html">{{ __('Candidate Single') }}</a></li>
+                            <li><a href="18_candidate_dashboard.html">{{ __('Candidate Dashboard') }}</a></li>
+                            <li><a href="19_candidate_edit_profile.html">{{ __('Candidate Edit Profile') }}</a></li>
+                            <li><a href="20_candidate_edit_resume.html">{{ __('Candidate Edit Resume') }}</a></li>
+                            <li><a href="21_candidate_applied_jobs.html">{{ __('Candidate Applied Jobs') }}</a></li>
+                            <li><a href="22_candidate_bookmarks.html">{{ __('Candidate Bookmarks') }}</a></li>
+                            <li><a href="23_candidate_message.html">{{ __('Candidate Message') }}</a></li>
                         </ul>
                     </div>
                 </li>
-                <li><a data-toggle="collapse" href="#sub-4" aria-expanded="false" aria-controls="sub-4">Pages</a>
+                <li><a data-toggle="collapse" href="#sub-4" aria-expanded="false" aria-controls="sub-4">{{ __('Pages') }}</a>
                     <div class="collapse" id="sub-4">
                         <ul class="sub-menu-mobile">
-                            <li><a href="24_blog_style1.html">Blog Grid</a></li>
-                            <li><a href="25_blog_style2.html">Blog Grid SideRight</a></li>
-                            <li><a href="26_blog_style3.html">Blog List SideRight</a></li>
-                            <li><a href="27_blog_details.html">Blog Single</a></li>
-                            <li><a href="28_pricing.html">Pricing</a></li>
-                            <li><a href="29_sign_in.html">Sign In</a></li>
-                            <li><a href="30_register.html">Register</a></li>
-                            <li><a href="31_faq.html">FAQ</a></li>
-                            <li><a href="32_checkout.html">Checkout</a></li>
-                            <li><a href="33_error.html">Error</a></li>
-                            <li><a href="34_contact.html">Contact</a></li>
+                            <li><a href="24_blog_style1.html">{{ __('Blog Grid') }}</a></li>
+                            <li><a href="25_blog_style2.html">{{ __('Blog Grid SideRight') }}</a></li>
+                            <li><a href="26_blog_style3.html">{{ __('Blog List SideRight') }}</a></li>
+                            <li><a href="27_blog_details.html">{{ __('Blog Single') }}</a></li>
+                            <li><a href="28_pricing.html">{{ __('Pricing') }}</a></li>
+                            <li><a href="29_sign_in.html">{{ __('Sign In') }}</a></li>
+                            <li><a href="30_register.html">{{ __('Register') }}</a></li>
+                            <li><a href="31_faq.html">{{ __('FAQ') }}</a></li>
+                            <li><a href="32_checkout.html">{{ __('Checkout') }}</a></li>
+                            <li><a href="33_error.html">{{ __('Error') }}</a></li>
+                            <li><a href="34_contact.html">{{ __('Contact') }}</a></li>
                         </ul>
                     </div>
                 </li>
-                <li><a href="34_contact.html">Contact</a></li>
+                <li><a href="34_contact.html">{{ __('Contact') }}</a></li>
             </ul>
         </div>
     </div>
@@ -88,7 +88,7 @@
 {{--                <span class="icon">--}}
 {{--                    <iconify-icon data-icon="simple-line-icons:fire"></iconify-icon>--}}
 {{--                </span>--}}
-{{--                <span class="font-size-xl text-dual-primary-dark">Tez</span><span class="font-size-xl text-primary">Info</span>--}}
+{{--                <span class="font-size-xl text-dual-primary-dark">{{ __('Tez</span><span class="font-size-xl text-primary">Info</span>--}}
 {{--            </a>--}}
 {{--            <nav class="uk-navbar-container vid-bar" uk-navbar>--}}
 {{--                <div class="uk-navbar-left">--}}
@@ -106,7 +106,7 @@
 {{--        </div>--}}
 {{--        <ul class="uk-margin-small-bottom uk-nav-primary uk-nav-parent-icon uk-list uk-list-divider" uk-nav="multiple: true">--}}
 {{--            <!--class="uk-active"-->--}}
-{{--            <li ><a href="{{ route('site.catalog.index') }}">Главная</a></li>--}}
+{{--            <li ><a href="{{ route('site.catalog.index') }}">{{ __('Главная') }}</a></li>--}}
 {{--            @foreach ($needs as $need)--}}
 {{--                @if (!empty($need->url))--}}
 {{--                    <li><a href="{{ $need->url }}">{{ $need->ru_title }}</a></li>--}}
@@ -134,7 +134,7 @@
 {{--                @endif--}}
 {{--            @endforeach--}}
 {{--        </ul>--}}
-{{--        <a class="uk-button uk-button-primary uk-button-large uk-margin-top" href="#">Добавить компанию</a>--}}
+{{--        <a class="uk-button uk-button-primary uk-button-large uk-margin-top" href="#">{{ __('Добавить компанию') }}</a>--}}
 
 
 

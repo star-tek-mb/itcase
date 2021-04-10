@@ -12,7 +12,7 @@
                             class="qdesk-logo-black" src="{{ asset('front/images/logo-black.png') }}" alt="VID"></a></div>
                 <div class="navigation" id="navigation">
                     <ul class="main-menu">
-                        <li class="active"><a href="/">Главная</a></li>
+                        <li class="active"><a href="/">{{ __(('Главная')) }}</a></li>
                         @foreach($needs as $need)
                             <li><a href="#">{{ $need->ru_title }} <i class="fas fa-caret-down"></i></a>
                                 <ul class="sub-menu">
@@ -36,9 +36,9 @@
             </div>
             <div class="header-right">
                 <ul>
-                    <li><a href="#"><i class="fas fa-plus-circle"></i> Добавить заказ</a></li>
-                    <li><a href="29_sign_in.html"><i class="fas fa-sign-out-alt"></i> Вход</a><span> / </span><a
-                            href="30_register.html">Регистрация</a></li>
+                    <li><a href="#"><i class="fas fa-plus-circle"></i> {{ __('Добавить заказ') }}</a></li>
+                    <li><a href="29_sign_in.html"><i class="fas fa-sign-out-alt"></i> {{ __('Вход')) }}</a><span> / </span><a
+                            href="30_register.html">{{ __('Регистрация') }}</a></li>
                 </ul>
 	        </div>
 	        <div class="uk-navbar-right">
@@ -49,7 +49,7 @@
 	            </div>
 	          </div>
 	          <div style="    visibility: hidden;"class="uk-navbar-item uk-visible@m">
-	            <div><a rel="nofollow" class="uk-button uk-button-success-outline" href="#">Добавить компанию</a></div>
+	            <div><a rel="nofollow" class="uk-button uk-button-success-outline" href="#">{{ __('Добавить компанию')) }}</a></div>
 	          </div>
 	          <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas" uk-toggle><span uk-icon="icon: menu" ></span></a>
 	        </div>
@@ -61,13 +61,13 @@
 		<div uk-grid uk-height-viewport="offset-top: true">
 			<div class="uk-header-left uk-section uk-visible@m uk-flex uk-flex-bottom">
 				<div class="uk-text-xsmall uk-text-bold">
-					<a class="hvr-back" href="#about" uk-scroll="offset: 80"><span class="uk-margin-small-right" uk-icon="icon: arrow-left" ></span>Прокрутить вниз</a>
+					<a class="hvr-back" href="#about" uk-scroll="offset: 80"><span class="uk-margin-small-right" uk-icon="icon: arrow-left" ></span>{{ __(('Прокрутить вниз') }}</a>
 				</div>
 			</div>
 			<div class="uk-width-expand@m uk-section uk-flex uk-flex-column">
 				<div class="uk-margin-auto-top uk-margin-auto-bottom">
-					<h1 class="uk-heading-easy uk-margin-remove-top uk-letter-spacing-xl" uk-scrollspy="cls: uk-animation-slide-bottom-medium; repeat: true">Фриланс площадка в Узбекистане</h1>
-                        <span class="uk-heading-easy uk-margin-remove-top uk-letter-spacing-xl" uk-scrollspy="cls: uk-animation-slide-bottom-medium; repeat: true">Найдите<mark> компанию или фрилансера,</mark> готовых увеличить прибыль <mark>вашего бизнеса.</mark></span>
+					<h1 class="uk-heading-easy uk-margin-remove-top uk-letter-spacing-xl" uk-scrollspy="cls: uk-animation-slide-bottom-medium; repeat: true">{{ __('Фриланс площадка в Узбекистане') }}</h1>
+                        <span class="uk-heading-easy uk-margin-remove-top uk-letter-spacing-xl" uk-scrollspy="cls: uk-animation-slide-bottom-medium; repeat: true">{{ __('Найдите') }}<mark> {{ __('компанию или фрилансера,') }}</mark> {{ __('готовых увеличить прибыль') }} <mark>{{ __('вашего бизнеса.') }}</mark></span>
                     @include('site.components.search')
 				</div>
 				<div class="uk-margin-auto-top"
@@ -75,13 +75,13 @@
 					<div class="uk-child-width-1-2@s uk-grid-large uk-margin-medium-top" uk-grid>
 
 						<div>
-							<span class="uk-margin-remove uk-text-bold uk-text-large">Все в одном сайте</span>
-							<p class="uk-margin-xsmall-top uk-text-small uk-text-muted uk-text-bold">Компании и фрилансеры в сфере интернет и наружной рекламы, разработки сайтов и мобильных приложений, юридической помощи и бухгалтерии и многом другом</p>
+							<span class="uk-margin-remove uk-text-bold uk-text-large">{{ __('Все в одном сайте') }}</span>
+							<p class="uk-margin-xsmall-top uk-text-small uk-text-muted uk-text-bold">{{ __('Компании и фрилансеры в сфере интернет и наружной рекламы, разработки сайтов и мобильных приложений, юридической помощи и бухгалтерии и многом другом') }}</p>
 						</div>
 						<div>
 							<span class="uk-margin-remove uk-text-bold uk-text-large">
-                                Большой выбор</h4>
-							<p class="uk-margin-xsmall-top uk-text-small uk-text-muted uk-text-bold">Выберите более чем из 500 компаний и фрилансеров. Отфильтруй по цене и найди самое выгодное предложение</p>
+                                {{ __('Большой выбор') }}</h4>
+							<p class="uk-margin-xsmall-top uk-text-small uk-text-muted uk-text-bold">{{ __(Выберите более чем из 500 компаний и фрилансеров. Отфильтруй по цене и найди самое выгодное предложение') }}</p>
 						</div>
 					</div>
 				</div>

@@ -14,8 +14,8 @@
                 </div>
                 <div class="navigation" id="navigation">
                     <ul class="main-menu">
-                        <li class="active"><a href="/">Главная</a></li>
-                        <li class="header-menu-item"><a href="{{ route('site.tenders.index') }}">Конкурсы <i
+                        <li class="active"><a href="/">{{ __('Главная') }}</a></li>
+                        <li class="header-menu-item"><a href="{{ route('site.tenders.index') }}">{{ __('Конкурсы') }} <i
                                     class="fas fa-caret-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach($needs as $need)
@@ -42,7 +42,7 @@
                                 @endforeach
                             </ul>
                         </li>
-                        <li class="header-menu-item"><a href="{{ route('site.contractors.index') }}">Исполнители <i
+                        <li class="header-menu-item"><a href="{{ route('site.contractors.index') }}">{{ __('Исполнители') }} <i
                                     class="fas fa-caret-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach($needs as $need)
@@ -76,11 +76,11 @@
                 <ul>
                     @guest
                         <li><a href="{{ route('site.tenders.common.create') }}"><i class="fas fa-plus-circle"></i>
-                                Добавить заказ</a></li>
+                               {{ __('Добавить заказ') }}</a></li>
                     @else
                         @if (auth()->user()->hasRole('customer'))
                             <li><a href="{{ route('site.tenders.common.create') }}"><i class="fas fa-plus-circle"></i>
-                                    Добавить заказ</a></li>@endif
+                            {{ __('Добавить заказ') }}</a></li>@endif
                         <li>
                             <div class="notification-item">
                                 <a role="button" id="page-header-notifications" class="notification-button"
@@ -91,7 +91,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right notifications-dropdown"
                                      aria-labelledby="page-header-notifications">
-                                    <h5 class="h6 text-center py-10 mb-0 border-bottom text-uppercase">Оповещения</h5>
+                                    <h5 class="h6 text-center py-10 mb-0 border-bottom text-uppercase">{{ __('Оповещения') }}</h5>
                                     <ul>
                                         @foreach(auth()->user()->unreadNotifications as $notification)
                                             <li class="ml-0">
@@ -101,7 +101,7 @@
                                                             <small><i class="fas fa-info text-primary"></i></small>
                                                         </div>
                                                         <div class="notification-item-body">
-                                                            <p class="mb-0">Новая заявка на участие в конкурсе <span
+                                                            <p class="mb-0">{{ __('Новая заявка на участие в конкурсе') }} <span
                                                                     class="font-weight-bold">{{ $notification->data['tenderName'] }}</span>
                                                                 от исполнителя <span
                                                                     class="font-weight-bold">{{ $notification->data['contractorName'] }}</span>
@@ -117,11 +117,11 @@
                                                             <small><i class="fas fa-info text-primary"></i></small>
                                                         </div>
                                                         <div class="notification-item-body">
-                                                            <p class="mb-0">Заказчик <span
+                                                            <p class="mb-0">{{ __('Заказчик') }} <span
                                                                     class="font-weight-bold">{{ $notification->data['customerName'] }}</span>
-                                                                приглашает вас принять участие в конкурсе <span
+                                                                {{ __('приглашает вас принять участие в конкурсе') }} <span
                                                                     class="font-weight-bold">{{ $notification->data['tenderName'] }}</span>
-                                                                и добавил вас в список участников</p>
+                                                                {{ __('и добавил вас в список участников') }}</p>
                                                             <small
                                                                 class="text-muted font-italic">{{ $notification->created_at->diffForHumans() }}</small>
                                                         </div>
@@ -140,13 +140,13 @@
                                                             @if ($notification->data['type'] === 'rejected')
                                                                 <p class="mb-0">Заказчик <span
                                                                         class="font-weight-bold">{{ $notification->data['customerName'] }}</span>
-                                                                    отклонил вашу заявку на участие в конкурсе <span
+                                                                    {{ __('отклонил вашу заявку на участие в конкурсе') }} <span
                                                                         class="font-weight-bold">{{ $notification->data['tenderName'] }}</span>
                                                                 </p>
                                                             @elseif ($notification->data['type'] === 'accepted')
-                                                                <p class="mb-0">Заказчик <span
+                                                                <p class="mb-0">{{ __('Заказчик') }}<span
                                                                         class="font-weight-bold">{{ $notification->data['customerName'] }}</span>
-                                                                    выбрал Вас в качестве исполнителя на конкурс <span
+                                                                    {{ __('выбрал Вас в качестве исполнителя на конкурс') }} <span
                                                                         class="font-weight-bold">{{ $notification->data['tenderName'] }}</span>
                                                                 </p>
                                                             @endif
@@ -162,7 +162,7 @@
                                                         </div>
                                                         <div class="notification-item-body">
                                                             <p class="mb-0">
-                                                                Ваш конкурс <span class="font-weight-bold">{{ $notification->data['tender']['title'] }}</span> опубликован!
+                                                                {{ __('Ваш конкурс') }} <span class="font-weight-bold">{{ $notification->data['tender']['title'] }}</span> {{ __('опубликован!') }}
                                                             </p>
                                                             <small class="text-muted font-italic">{{ $notification->created_at->diffForHumans() }}</small>
                                                         </div>
@@ -182,19 +182,19 @@
 
                     @guest
                         <li><a href="{{ route('site.tenders.common.create') }}"><i class="fas fa-plus-circle"></i>
-                                Добавить заказ</a></li>
+                                {{ __('Добавить заказ') }}</a></li>
                         <li>
                             <a href="https://t.me/gde_podeshevle"><i class="fab fa-telegram" style="font-size:25px"></i></a>
                             <a href="https://www.instagram.com/vid.market/"><i class="fab fa-instagram pl-3"
                                                                                style="font-size:25px"></i></a>
                         </li>
                         <li><a href="{{ route('login') }}"><i class="fas fa-sign-out-alt"></i>
-                                Вход</a><span> / </span><a
-                                href="{{ route('register') }}">Регистрация</a></li>
+                                {{ __('Вход') }}</a><span> / </span><a
+                                href="{{ route('register') }}">{{ __('Регистрация') }}</a></li>
                     @else
                         @if (auth()->user()->hasRole('customer'))
                             <li><a href="{{ route('site.tenders.common.create') }}"><i class="fas fa-plus-circle"></i>
-                                    Добавить заказ</a></li>@endif
+                            {{ __('Добавить заказ') }}</a></li>@endif
                         <li>
                             <div class="notification-item">
                                 <a role="button" id="page-header-notifications" class="notification-button"
@@ -205,7 +205,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right notifications-dropdown"
                                      aria-labelledby="page-header-notifications">
-                                    <h5 class="h6 text-center py-10 mb-0 border-bottom text-uppercase">Оповещения</h5>
+                                    <h5 class="h6 text-center py-10 mb-0 border-bottom text-uppercase">{{ __('Оповещения') }}</h5>
                                     <ul>
                                         @foreach(auth()->user()->unreadNotifications as $notification)
                                             <li class="ml-0">
@@ -215,7 +215,7 @@
                                                             <small><i class="fas fa-info text-primary"></i></small>
                                                         </div>
                                                         <div class="notification-item-body">
-                                                            <p class="mb-0">Новая заявка на участие в конкурсе <span
+                                                            <p class="mb-0">{{ __('Новая заявка на участие в конкурсе') }} <span
                                                                     class="font-weight-bold">{{ $notification->data['tenderName'] }}</span>
                                                                 от исполнителя <span
                                                                     class="font-weight-bold">{{ $notification->data['contractorName'] }}</span>
@@ -231,11 +231,11 @@
                                                             <small><i class="fas fa-info text-primary"></i></small>
                                                         </div>
                                                         <div class="notification-item-body">
-                                                            <p class="mb-0">Заказчик <span
+                                                            <p class="mb-0">{{ __('Заказчик') }}<span
                                                                     class="font-weight-bold">{{ $notification->data['customerName'] }}</span>
-                                                                приглашает вас принять участие в конкурсе <span
+                                                                {{ __('приглашает вас принять участие в конкурсе') }} <span
                                                                     class="font-weight-bold">{{ $notification->data['tenderName'] }}</span>
-                                                                и добавил вас в список участников</p>
+                                                                {{ __('и добавил вас в список участников') }}</p>
                                                             <small
                                                                 class="text-muted font-italic">{{ $notification->created_at->diffForHumans() }}</small>
                                                         </div>
@@ -252,15 +252,15 @@
                                                         </div>
                                                         <div class="notification-item-body">
                                                             @if ($notification->data['type'] === 'rejected')
-                                                                <p class="mb-0">Заказчик <span
+                                                                <p class="mb-0">{{ __('Заказчик') }} <span
                                                                         class="font-weight-bold">{{ $notification->data['customerName'] }}</span>
-                                                                    отклонил вашу заявку на участие в конкурсе <span
+                                                                    {{ __('отклонил вашу заявку на участие в конкурсе') }} <span
                                                                         class="font-weight-bold">{{ $notification->data['tenderName'] }}</span>
                                                                 </p>
                                                             @elseif ($notification->data['type'] === 'accepted')
-                                                                <p class="mb-0">Заказчик <span
+                                                                <p class="mb-0">{{ __('Заказчик') }} <span
                                                                         class="font-weight-bold">{{ $notification->data['customerName'] }}</span>
-                                                                    выбрал Вас в качестве исполнителя на конкурс <span
+                                                                    {{ __('выбрал Вас в качестве исполнителя на конкурс') }} <span
                                                                         class="font-weight-bold">{{ $notification->data['tenderName'] }}</span>
                                                                 </p>
                                                             @endif
@@ -276,7 +276,7 @@
                                                         </div>
                                                         <div class="notification-item-body">
                                                             <p class="mb-0">
-                                                                Ваш конкурс <span class="font-weight-bold">{{ $notification->data['tender']['title'] }}</span> опубликован!
+                                                                {{ __('Ваш конкурс') }} <span class="font-weight-bold">{{ $notification->data['tender']['title'] }}</span> {{ __('опубликован!') }}
                                                             </p>
                                                             <small class="text-muted font-italic">{{ $notification->created_at->diffForHumans() }}</small>
                                                         </div>
@@ -318,18 +318,18 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                                 <a href="{{ route('site.account.index') }}" class="dropdown-item user-dropdown-item"><i
-                                        class="fas fa-user"></i> Личный кабинет</a>
+                                        class="fas fa-user"></i> {{ __('Личный кабинет') }}</a>
                                 <a class="dropdown-item user-dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    <i class="fas fa-sign-out-alt"></i> Выйти
+                                    <i class="fas fa-sign-out-alt"></i> {{ __('Выйти') }}
                                 </a>
                             </div>
                         </li>
                     @endguest
                         <ul class="main-menu" style="display: inline-block;">
                             <li class="header-menu-item">
-                                <a href="#" class="d-flex justify-content-between align-items-center">Язык<i class="fas fa-caret-down ml-2 mr-3"></i></a>
+                                <a href="#" class="d-flex justify-content-between align-items-center">{{ __('Язык') }}<i class="fas fa-caret-down ml-2 mr-3"></i></a>
                                 <ul class="sub-menu" style="left: -100%;">
                                     @foreach(config('app.enabled_locales') as $locale)
                                         <li class="menu-item" style="display: block; margin-left: 15px;">
@@ -357,12 +357,12 @@
             <ul class="user-profile">
 
                 @guest
-                    <li><a href="{{ route('login') }}"><i class="fas fa-sign-out-alt"></i>Войти</a></li>
-                    <li><a href="{{ route('register') }}"><i class="fas fa-registered"></i>Зарегистрироваться</a></li>
+                    <li><a href="{{ route('login') }}"><i class="fas fa-sign-out-alt"></i>{{ __('Войти') }}</a></li>
+                    <li><a href="{{ route('register') }}"><i class="fas fa-registered"></i>{{ __('Зарегистрироваться') }}</a></li>
                 @else
                     @if (auth()->user()->hasRole('customer'))
                         <li><a href="{{ route('site.tenders.common.create') }}"><i class="fas fa-plus-circle"></i>
-                                Добавить заказ</a></li>@endif
+                                {{ __('Добавить заказ') }}</a></li>@endif
                     <li>
                         <a href="#" id="navBarDropdown" class="nav-link dropdown-toggle" role="button"
                            data-toggle="dropdown" aria-haspopup="true"
@@ -383,11 +383,11 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                             <a href="{{ route('site.account.index') }}" class="dropdown-item"><i
-                                    class="fas fa-user"></i> Личный кабинет</a>
+                                    class="fas fa-user"></i> {{ __('Личный кабинет') }}</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                <i class="fas fa-sign-out-alt"></i> Выйти
+                                <i class="fas fa-sign-out-alt"></i> {{ __('Выйти') }}
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
@@ -407,7 +407,7 @@
 
                 <li>
                     <div class="row">
-                        <div class="col-9"><a class="style_a stretched-link" href="{{ route('site.tenders.index') }}">Конкурсы</a>
+                        <div class="col-9"><a class="style_a stretched-link" href="{{ route('site.tenders.index') }}">{{ __('Конкурсы') }}</a>
                         </div>
                         <div class="col-3"><a class="text-left stretched-link" data-toggle="collapse" href="#sub-1"
                                               aria-expanded="false" aria-controls="sub-1" style="color:#383838;"><i
@@ -464,7 +464,7 @@
                 <li>
                     <div class="row">
                         <div class="col-9"><a class="style_a stretched-link"
-                                              href="{{ route('site.contractors.index') }}">Исполнители</a></div>
+                                              href="{{ route('site.contractors.index') }}">{{ __('Исполнители') }}</a></div>
                         <div class="col-3"><a class="text-left stretched-link" data-toggle="collapse" href="#sub-2"
                                               aria-expanded="false" aria-controls="sub-2" style="color:#383838;"><i
                                     class="fas fa-chevron-right" style="transform: rotate(90deg);"></i></a></div>

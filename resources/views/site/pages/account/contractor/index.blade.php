@@ -33,7 +33,7 @@
         @csrf
         <section class="box-admin edit-profile">
             <div class="header-box-admin">
-                <h3>Личные данные</h3>
+                <h3>{{ __('Личные данные') }}</h3>
             </div>
             <div class="body-box-admin">
                 <div class="upload-avatar">
@@ -41,17 +41,17 @@
                         <img src="{{ $user->getImage() }}" alt="{{ $user->getCommonTitle() }}">
                     </div>
                     <div class="upload">
-                        <div class="desc">Минимальные пропорции: 120х120 пикселей</div>
+                        <div class="desc">{{ __('Минимальные пропорции: 120х120 пикселей') }}</div>
                         <div class="btn-upload">
                             <input type="file" name="image" id="image">
-                            <span class="btn btn-light-green">Выбрать изображение</span>
+                            <span class="btn btn-light-green">{{ __('Выбрать изображение') }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label for="first_name">Ваше имя</label>
+                            <label for="first_name">{{ __('Ваше имя') }}</label>
                             <input type="text" name="first_name" id="first_name"
                                    class="form-control @error('first_name') is-invalid @enderror" value="{{ $user->first_name }}">
                             @error('first_name')
@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label for="last_name">Ваше Фамилия</label>
+                            <label for="last_name">{{ __('Ваше Фамилия') }}</label>
                             <input type="text" name="last_name" id="last_name"
                                    class="form-control @error('last_name') is-invalid @enderror" value="{{ $user->last_name }}">
                             @error('last_name')
@@ -71,7 +71,7 @@
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label for="phoneNumber">Номер телефона</label>
+                            <label for="phoneNumber">{{ __('Номер телефона') }}</label>
                             <input type="text" name="phone_number" id="phoneNumber"
                                    class="form-control @error('phone_number') is-invalid @enderror"
                                    value="{{ $user->phone_number }}">
@@ -82,7 +82,7 @@
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label for="email">E-mail</label>
+                            <label for="email">{{ __('E-mail') }}</label>
                             <input type="text" name="email" id="email"
                                    class="form-control @error('email') is-invalid @enderror"
                                    value="{{ $user->email }}">
@@ -96,22 +96,22 @@
                     {{--@if ($user->contractor_type == 'freelancer')--}}
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
-                                <label>Ваш пол:</label>
+                                <label>{{ __('Ваш пол:') }}</label>
                                 <div class="custom-control custom-radio">
                                     <input type="radio" name="gender" value="male" id="maleRadio"
                                            class="custom-control-input" @if ($user->gender == 'male') checked @endif>
-                                    <label for="maleRadio" class="custom-control-label">Мужской</label>
+                                    <label for="maleRadio" class="custom-control-label">{{ __('Мужской') }}</label>
                                 </div>
                                 <div class="custom-control custom-radio">
                                     <input type="radio" name="gender" value="female" id="femaleRadio"
                                            class="custom-control-input" @if ($user->gender == 'female') checked @endif>
-                                    <label for="femaleRadio" class="custom-control-label">Женский</label>
+                                    <label for="femaleRadio" class="custom-control-label">{{ __('Женский') }}</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
-                                <label for="birthdayDate">Дата рождения</label>
+                                <label for="birthdayDate">{{ __('Дата рождения') }}</label>
                                 <input type="text" class="form-control @error('birthday_date') is-invalid @enderror"
                                        id="birthdayDate" name="birthday_date"
                                        value="{{ \Carbon\Carbon::create($user->birthday_date)->format('d.m.Y') }}">
@@ -123,16 +123,16 @@
                     {{--@else--}}@if($user->contractor_type == 'agency')
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label for="company_name">Название компании</label>
+                                <label for="company_name">{{ __('Название компании') }}</label>
                                 <input type="text" name="company_name" id="company_name"
                                        class="form-control form-control" value="{{ $user->company_name }}">
                             </div>
                         </div>
                     @endif
-                    <div class="col-sm-12 col-md-12"> <label>Сменить пароль:</label> </div>
+                    <div class="col-sm-12 col-md-12"> <label>{{ __('Сменить пароль:') }}</label> </div>
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label for="newPassword"> Новый пароль</label>
+                            <label for="newPassword"> {{ __('Новый пароль') }}</label>
                             <input type="password" name="newPassword" id="newPassword"
                                    class="form-control @error('newPassword') is-invalid @enderror">
                             @error('newPassword')
@@ -142,7 +142,7 @@
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label for="email">Повторите новый пароль</label>
+                            <label for="email">{{ __('Повторите новый пароль') }}</label>
                             <input type="password" name="newPasswordRepeat" id="newPasswordRepeat"
                                    class="form-control @error('newPasswordRepeat') is-invalid @enderror">
                             @error('newPasswordRepeat')
@@ -152,7 +152,7 @@
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label for="currentPassword">Текущий пароль</label>
+                            <label for="currentPassword">{{ __('Текущий пароль') }}</label>
                             <input type="password" name="currentPassword" id="currentPassword"
                                    class="form-control @error('currentPassword') is-invalid @enderror">
                             @error('currentPassword')
@@ -163,8 +163,8 @@
 
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="aboutMySelf">@if($user->contractor_type == 'agency') О
-                                компании @elseif($user->contractor_type == 'freelancer') О себе @endif</label>
+                            <label for="aboutMySelf">@if($user->contractor_type == 'agency') {{ __('О
+                                компании') }} @elseif($user->contractor_type == 'freelancer') {{ __('О себе @endif</label>
                             <textarea name="about_myself" id="aboutMySelf">{{ $user->about_myself }}</textarea>
                         </div>
                     </div>
@@ -174,10 +174,10 @@
                         <embed  src="{{ $user->getResume() }}" width="100" height="85" style="max-width: 100%;"></embed >
                     </div>
                     <div class="upload">
-                        <div class="desc">Формат: pdf, jpg</div>
+                        <div class="desc">{{ __('Формат: pdf, jpg') }}</div>
                         <div class="btn-upload">
                             <input type="file" name="resume" id="resume">
-                            <span class="btn btn-light-green">Прикрепить резюме</span>
+                            <span class="btn btn-light-green">{{ __('Прикрепить резюме') }}</span>
                         </div>
                     </div>
                 </div>
@@ -186,53 +186,53 @@
         </section>
         <section class="box-admin edit-profile">
             <div class="header-box-admin">
-                <h3>Социальные сети</h3>
+                <h3>{{ __('Социальные сети') }}</h3>
             </div>
             <div class="body-box-admin">
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label for="facebook"><i class="fab fa-facebook"></i> Facebook</label>
+                            <label for="facebook"><i class="fab fa-facebook"></i> {{ __('Facebook') }}</label>
                             <input type="text" name="facebook" id="facebook" class="form-control"
                                    value="{{ $user->facebook }}">
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label for="twitter"><i class="fab fa-twitter"></i> Twitter</label>
+                            <label for="twitter"><i class="fab fa-twitter"></i> {{ __('Twitter') }}</label>
                             <input type="text" name="twitter" id="twitter" class="form-control"
                                    value="{{ $user->twitter }}">
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label for="telegram"><i class="fab fa-telegram"></i> Telegram</label>
+                            <label for="telegram"><i class="fab fa-telegram"></i> {{ __('Telegram') }}</label>
                             <input type="text" name="telegram" id="telegram" class="form-control"
                                    value="{{ $user->telegram }}">
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label for="instagram"><i class="fab fa-instagram"></i> Instagram</label>
+                            <label for="instagram"><i class="fab fa-instagram"></i> {{ __('Instagram') }}</label>
                             <input type="text" name="instagram" id="instagram" class="form-control"
                                    value="{{ $user->instagram }}">
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label for="vk"><i class="fab fa-vk"></i> Вконтакте</label>
+                            <label for="vk"><i class="fab fa-vk"></i> {{ __('Вконтакте') }}</label>
                             <input type="text" name="vk" id="vk" class="form-control" value="{{ $user->vk }}">
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label for="whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</label>
+                            <label for="whatsapp"><i class="fab fa-whatsapp"></i> {{ __('WhatsApp') }}</label>
                             <input type="text" name="whatsapp" id="whatsapp" class="form-control"
                                    value="{{ $user->whatsapp }}">
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-light-green"><i class="fas fa-save"></i> Сохранить</button>
+                <button type="submit" class="btn btn-light-green"><i class="fas fa-save"></i> {{ __('Сохранить') }}</button>
             </div>
         </section>
     </form>
