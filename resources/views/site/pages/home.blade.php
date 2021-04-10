@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 
-@section('title', 'Фриланс биржа узбекистана | Сайт для фрилансера и компаний')
+@section('title', 'Биржа работы | Сайт для фрилансера и компаний')
 
 @section('meta')
     <meta name="title" content="фриланс биржа узбекистана | фрилансер сайт">
@@ -20,7 +20,7 @@
 
                 <div class="banner-item">
                   <!-- <h4 class="banner-sub-title">VID присоединяется к борьбе с Covid-19. Все услуги на площадке на время карантина становятся бесплатными </h4> -->
-                    <h2 class="banner-title">2 Лучших способа найти IT специалиста для продвижения вашего
+                    <h2 class="banner-title">2 Лучших способа найти специалиста для продвижения вашего
                         бизнеса</h2>
                     <div class="banner-sub-title">Добавьте в конкурс на выполнение вашего заказа исполнителя
                         сами или используйте автоматическую систему подбора
@@ -61,7 +61,7 @@
     <section class="popular-category bg-white">
         <div class="container">
             <div class="section-heading text-center">
-                <h2 class="title">Каталог IT исполнителей</h2>
+                <h2 class="title">Каталог исполнителей</h2>
             </div>
             <div class="row no-gutters category-list">
                 @foreach($parentCategories as $category)
@@ -85,7 +85,7 @@
     <section class="popular-category bg-white">
         <div class="container">
             <div class="section-heading text-center">
-                <h2 class="title">Каталог Конкурсов</h2>
+                <h2 class="title">Каталог заданий</h2>
             </div>
             <div class="list">
                 @foreach($tenders as $tender)
@@ -116,7 +116,7 @@
                                         @endphp
                                         @if ($user->hasRole('contractor'))
                                             @if (in_array($user->id, $tender->requests()->pluck('user_id')->toArray()))
-                                                <span class="text-primary"><i class="fas fa-check"></i> Вы уже участвуете в этом конкурсе</span>
+                                                <span class="text-primary"><i class="fas fa-check"></i> Вы уже участвуете в этом задании</span>
                                             @else
                                                 <button class="add-favourites" type="button" data-toggle="modal"
                                                         data-target="#requestFormModal{{ $tender->id }}" title="Оставить заявку"><div class="h-100 w-100" data-toggle="tooltip" title="Оставить заявку"><i class="fas fa-plus"></i></div>
@@ -200,7 +200,7 @@
                 @endforeach
             </div>
             <div class="category-button text-center"><a class="btn btn-light-green mt-4" href="{{ route('site.tenders.index') }}">Посмотреть Все
-                    Конкурсы</a></div>
+                    задания</a></div>
         </div>
     </section>
     <section class="section-video" style="background-image: url(/front/images/video-bg.jpg)">
