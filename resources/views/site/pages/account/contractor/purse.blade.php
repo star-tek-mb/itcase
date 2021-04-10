@@ -1,4 +1,4 @@
-{{ __('@extends('site.layouts.account')
+@extends('site.layouts.account')
 
 @section('title', 'Мои конкурсы')
 
