@@ -102,15 +102,6 @@ class AccountController extends Controller
     {
         $userType = $request->get('user_role');
         $user = auth()->user();
-        $validationMessages = [
-            'required' => 'Это поле обязательно к заполнению',
-            'max' => 'Количество символов должно быть не больше :max',
-            'integer' => 'Укажите целочисленное значение',
-            'date' => 'Неверный формат даты',
-            'string' => 'Укажите стороковое значение',
-            'email' => 'Неверный формат электронной почты',
-            $userType . '_email.unique' => 'Такая электронная почта уже зарегистрирована'
-        ];
         $validator = Validator::make($request->all(), [
             $userType . '_first_name' => ['required', 'string', 'max:255'],
             $userType . '_last_name' => ['required', 'string', 'max:255'],
@@ -119,9 +110,10 @@ class AccountController extends Controller
             $userType . '_email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
             $userType . '_about_myself' => ['required', 'string'],
             $userType . '_company_name' => Rule::requiredIf($request->get('customer_type') == 'legal_entity'),
+            $userType . '_city' => 'required|string',
             'image' => 'required|image',
             'agree_personal_data_processing' => 'required|accepted'
-        ], $validationMessages);
+        ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 500);
         }
@@ -131,26 +123,18 @@ class AccountController extends Controller
         ]);
     }
 
-
     public function savePersonalContractor(Request $request)
     {
         $user = auth()->user();
         $user->authorizeRole('contractor');
-        $validationMessages = [
-            'required' => 'Это поле обязательно к заполнению',
-            'max' => 'Количество символов должно быть не больше :max',
-            'integer' => 'Укажите целочисленное значение',
-            'date' => 'Неверный формат даты',
-            'string' => 'Укажите стороковое значение',
-            'email' => 'Неверный формат электронной почты'
-        ];
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|max:255|string',
             'last_name' => 'required|max:255|string',
             'about_myself' => 'required|string|max:5000',
             'company_name' => Rule::requiredIf($user->contractor_type == 'legal_entity'),
-            'phone_number' => 'required'
-        ], $validationMessages);
+            'phone_number' => 'required',
+            'city' => 'required'
+        ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 500);
         }
@@ -234,15 +218,7 @@ class AccountController extends Controller
     {
         $user = auth()->user();
         $user->authorizeRole('customer');
-        $validationMessages = [
-            'required' => 'Это поле обязательно к заполнению',
-            'max' => 'Количество символов должно быть не больше :max',
-            'integer' => 'Укажите целочисленное значение',
-            'date' => 'Неверный формат даты',
-            'string' => 'Укажите стороковое значение',
-            'email' => 'Неверный формат электронной почты'
-        ];
-        Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'image' => 'required|image',
             'company_name' => [Rule::requiredIf($user->customer_type == 'legal_entity')],
             'about_myself' => 'required|string|max:5000',
@@ -251,8 +227,12 @@ class AccountController extends Controller
             'phone_number' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255'
-        ], $validationMessages)->validate();
+            'last_name' => 'required|max:255',
+            'city' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 500);
+        }
 
         $this->userRepository->update($user->id, $request);
 
