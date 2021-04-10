@@ -259,4 +259,28 @@ class HandbookCategory extends Model
         &meta_title=$this->meta_title&meta_description=$this->meta_description&meta_keywords=$this->meta_keywords
         &template=$this->template";
     }
+
+    public function getTitleAttribute()
+    {
+        $locale = config('app.locale');
+        if ($locale == 'uz') {
+            return $this->uz_title;
+        } else if ($locale == 'en') {
+            return $this->en_title;
+        } else {
+            return $this->ru_title;
+        }
+    }
+
+    public function getDescriptionAttribute()
+    {
+        $locale = config('app.locale');
+        if ($locale == 'uz') {
+            return $this->uz_description;
+        } else if ($locale == 'en') {
+            return $this->en_description;
+        } else {
+            return $this->ru_description;
+        }
+    }
 }

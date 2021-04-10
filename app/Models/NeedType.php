@@ -45,4 +45,17 @@ class NeedType extends Model
     {
         return strip_tags($this->ru_title);
     }
+
+    public function getTitleAttribute()
+    {
+        $locale = config('app.locale');
+        if ($locale == 'uz') {
+            return $this->uz_title;
+        } else if ($locale == 'en') {
+            return $this->en_title;
+        } else {
+            return $this->ru_title;
+        }
+    }
+
 }
