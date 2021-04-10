@@ -19,10 +19,6 @@
                                     class="fas fa-caret-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach($needs as $need)
-                                    <li class="menu-item dropdown-submenu">
-                                        <a class="d-flex justify-content-between align-items-center">{{ $need->ru_title }}
-                                            <i class="fas fa-caret-right ml-2 mr-3"></i></a>
-                                        <ul class="sub-menu">
                                             @foreach($need->menuItems as $item)
                                                 <li class="menu-item dropdown-submenu">
                                                     <a href="{{ route('site.tenders.category', $item->ru_slug) }}"
@@ -37,8 +33,6 @@
                                                     </ul>
                                                 </li>
                                             @endforeach
-                                        </ul>
-                                    </li>
                                 @endforeach
                             </ul>
                         </li>
@@ -46,10 +40,6 @@
                                     class="fas fa-caret-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach($needs as $need)
-                                    <li class="menu-item dropdown-submenu">
-                                        <a class="d-flex justify-content-between align-items-center">{{ $need->ru_title }}
-                                            <i class="fas fa-caret-right ml-2 mr-3"></i></a>
-                                        <ul class="sub-menu">
                                             @foreach($need->menuItems as $item)
                                                 <li class="menu-item dropdown-submenu">
                                                     <a href="{{ route('site.catalog.main', $item->ru_slug) }}"
@@ -64,8 +54,6 @@
                                                     </ul>
                                                 </li>
                                             @endforeach
-                                        </ul>
-                                    </li>
                                 @endforeach
                             </ul>
                         </li>
