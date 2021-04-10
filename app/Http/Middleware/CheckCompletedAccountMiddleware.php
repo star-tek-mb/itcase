@@ -31,12 +31,12 @@ class CheckCompletedAccountMiddleware
         } else {
             if ($user) {
                 if ($user->checkCompletedAccount()) {
-                    if ($user->hasRole('contractor') && $user->categories()->count() == 0 && $request->path() !== 'account/professional') {
-                        return redirect('/account/professional')->with('account.warning', 'Выберите услуги, которые вы предоставляете');
+                    if ($user->hasRole('contractor') && $user->categories()->count() == 0 && $request->route()->getName() != 'account.contractor.professional') {
+                        return redirect(route('account.contractor.professional'))->with('account.warning', 'Выберите услуги, которые вы предоставляете');
                     }
                     return $next($request);
                 } else {
-                    return redirect('/account/create')->with('warning', 'Для начала заполните данные');
+                    return redirect(route('account.create'))->with('warning', 'Для начала заполните данные');
                 }
             }
             return redirect()->route('login');
