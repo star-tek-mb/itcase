@@ -268,7 +268,7 @@ class AccountController extends Controller
 
     public function telegramCallback(Request $request)
     {
-        URL::defaults(['locale' => $locale]);
+        URL::defaults(['locale' => config('app.locale')]);
         if ($this->checkTelegramAuthorization($request->all())) {
             $telegramId = $request->get('id');
             $user = $this->userRepository->getUserByTelegramId((int) $telegramId);

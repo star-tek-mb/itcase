@@ -110,7 +110,7 @@ class LoginController extends Controller
      */
     public function handleGoogleCallback()
     {
-        URL::defaults(['locale' => $locale]);
+        URL::defaults(['locale' => config('app.locale')]);
         try {
             $user = Socialite::driver('google')->stateless()->user();
             $finduser = User::where('google_id', $user->id)->first();
