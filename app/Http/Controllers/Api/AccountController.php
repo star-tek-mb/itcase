@@ -49,8 +49,7 @@ class AccountController extends Controller
         HandbookCategoryRepository $categoryRepository,
         TenderRepository $tenderRepository,
         NeedTypeRepository $needsRepository
-    )
-    {
+    ) {
         $this->middleware(['auth:sanctum', 'verified']);
         $this->middleware('account.completed')->except(['create', 'store']);
 
@@ -238,5 +237,21 @@ class AccountController extends Controller
 
         return response()->json([
             'message' =>  'Ваш профиль обновлён']);
+    }
+
+    public function tenders()
+    {
+        $user = auth()->user();
+        if ($user->hasRole('customer')) {
+            return response()->json([
+                'tenders' => $user->ownedTenders()->orderBy('created_at', 'desc')->get()
+            ]);
+        } elseif ($user->hasRole('contractor')) {
+            return response()->json([
+                'tenders' => $user->requests()->orderBy('created_at', 'desc')->get()
+            ]);
+        } else {
+            abort(404);
+        }
     }
 }
