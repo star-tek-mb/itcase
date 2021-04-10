@@ -19,7 +19,7 @@ class CheckCompletedAccountMiddleware
         if (substr($request->path(), 0, 3) === "api") {
             if ($user) {
                 if ($user->checkCompletedAccount()) {
-                    if ($user->hasRole('contractor') && $user->categories()->count() == 0 && $request->path() !== 'api/account/professional') {
+                    if ($user->hasRole('contractor') && $user->categories()->count() == 0 && !$request->is('*/account*')) {
                         return response()->json(['message' => ['Выберите услуги которые вы предоставляете']]);
                     }
                     return $next($request);
@@ -31,7 +31,7 @@ class CheckCompletedAccountMiddleware
         } else {
             if ($user) {
                 if ($user->checkCompletedAccount()) {
-                    if ($user->hasRole('contractor') && $user->categories()->count() == 0 && $request->route()->getName() != 'site.account.contractor.professional') {
+                    if ($user->hasRole('contractor') && $user->categories()->count() == 0 && !$request->is('*/account*')) {
                         return redirect(route('site.account.contractor.professional'))->with('account.warning', 'Выберите услуги, которые вы предоставляете');
                     }
                     return $next($request);
