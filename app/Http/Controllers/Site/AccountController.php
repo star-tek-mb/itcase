@@ -267,6 +267,7 @@ class AccountController extends Controller
 
     public function telegramCallback(Request $request)
     {
+        URL::defaults(['locale' => $locale]);
         if ($this->checkTelegramAuthorization($request->all())) {
             $telegramId = $request->get('id');
             $user = $this->userRepository->getUserByTelegramId((int) $telegramId);
@@ -276,7 +277,7 @@ class AccountController extends Controller
             \Auth::loginUsingId($user->id);
             return redirect()->route('site.account.index');
         } else {
-            return back()->with('error', 'Ошибка при попытке авторизации через Telegram');
+            return back()->with('error', __('Ошибка при попытке авторизации через Telegram'));
         }
     }
 
