@@ -15,9 +15,6 @@ Route::middleware('needsList')->group(function () {
         return view('registration.email');
     })->name('password.request');
 
-    Route::get('auth/google', 'Auth\LoginController@redirectToGoogle');
-    Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleCallback');
-
     Route::post('/registration', 'Auth\RegisterController@register');
 
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -42,5 +39,3 @@ Route::middleware('needsList')->group(function () {
 
     Route::get('/home', 'HomeControllerReg@index')->name('home');
 });
-
-Route::get('/auth/telegram/callback', 'Site\AccountController@telegramCallback');
