@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Socialite;
 use Auth;
 use Exception;
+use Illuminate\Support\Facades\URL;
 
 class LoginController extends Controller
 {
