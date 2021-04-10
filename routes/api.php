@@ -64,6 +64,6 @@ Route::namespace('Api')->group(function () {
     Route::post('/search', 'CatalogController@search');
     Route::get('/blog', 'BlogController@index');
     Route::get('/blog/{params}', 'BlogController@blog')->where('params', '.+');
-    Route::post('/messages', 'Site\ChatsController@sendMessage');
-    Route::get('/messages', 'Site\ChatsController@fetchMessages');
+    Route::post('/messages', 'ChatsController@sendMessage');
+    Route::get('/messages', 'ChatsController@fetchMessages');
 });

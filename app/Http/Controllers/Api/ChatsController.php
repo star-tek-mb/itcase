@@ -56,7 +56,6 @@ class ChatsController extends Controller
             'text' => $message
         ];
         $message = Message::create($messageData);
-        // broadcast(new MessageSent($message->load('user')));
         return response()->json([
             $message->load('user')
         ]);
@@ -94,7 +93,9 @@ class ChatsController extends Controller
         $currentUser = auth()->user();
         foreach ($currentUser->chats as $chat) {
             if ($chat->getAnotherUser()->id == $withUserId) {
-                return redirect(route('site.account.chats') . '?chat_id=' . $chat->id);
+                return response()->json([
+                    'chat_id'=>$chat->id
+                ]);
             }
         }
         $chat = Chat::create();
