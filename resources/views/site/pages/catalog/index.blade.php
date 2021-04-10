@@ -16,7 +16,7 @@
         <div class="banner-content">
             <div class="container">
                 <div class="banner-item">
-                    <h2 class="banner-title">2 Лучших способа найти IT специалиста для продвижения вашего
+                    <h2 class="banner-title">2 Лучших способа найти специалиста для продвижения вашего
                         бизнеса</h2>
                     <div class="banner-sub-title">Добавьте в конкурс на выполнение вашего заказа исполнителя
                         сами или используйте автоматическую систему подбора
@@ -61,7 +61,7 @@
     <section class="popular-category bg-white">
         <div class="container">
             <div class="section-heading text-center">
-                <h2 class="title">Каталог IT исполнителей</h2>
+                <h2 class="title">Каталог исполнителей</h2>
             </div>
             <div class="row no-gutters category-list">
                 @foreach($parentCategories as $category)
@@ -84,7 +84,7 @@
     <section class="popular-category bg-white">
         <div class="container">
             <div class="section-heading text-center">
-                <h2 class="title">Каталог Конкурсов</h2>
+                <h2 class="title">Каталог заданий</h2>
             </div>
             <div class="list">
                 @foreach($tenders as $tender)
@@ -111,14 +111,14 @@
                 @endforeach
             </div>
             <div class="category-button text-center"><a class="btn btn-light-green" href="{{ route('site.tenders.index') }}">Посмотреть Все
-                    Конкурсы</a></div>
+                    Задания</a></div>
         </div>
     </section>
     <section class="section-video" style="background-image: url(/front/images/video-bg.jpg)">
         <div class="container">
             <div class="video-container">
                 <div class="section-heading">
-                    <h2 class="title">Получи самое выгодное предложение на свой заказ<br> Удаленно и Бесплатно.
+                    <h2 class="title">Получи самое выгодное предложение на свой заказ
                     </h2>
                 </div>
                 <div class="video-content">

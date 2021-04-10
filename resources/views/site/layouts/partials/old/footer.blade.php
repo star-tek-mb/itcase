@@ -14,10 +14,10 @@
                 </a>
             </div>
             <div class="main_footer_center">
-                Создано в <a href="https://vid.uz" target="_blank">VID</a>
+                {{ __('Создано в') }} <a href="https://vid.uz" target="_blank">VID</a>
             </div>
             <div class="main_footer_copy">
-                ©&nbsp;Права защищены
+                ©&nbsp;{{ __('Права защищены') }}
             </div>
         </div>
     </div>

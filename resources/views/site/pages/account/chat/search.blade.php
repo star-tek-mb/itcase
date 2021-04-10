@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="header-box-right order-md-first">
-                <h3>Ваши диалоги</h3>
+                <h3>{{ __('Ваши диалоги') }}</h3>
             </div>
         </div>
         <div class="body-box-admin p-0">
@@ -58,7 +58,7 @@
                                                  alt="@if ($user->hasRole('contractor') && $chat['anotherUser']) Заказчик @else {{ $chat['title'] }} @endif">
                                         </div>
                                         <div class="text">
-                                            <div class="msg-contact-name">@if ($user->hasRole('contractor') && $chat['anotherUser']) Заказчик @else {{ $chat['title'] }} @endif</div>
+                                            <div class="msg-contact-name">@if ($user->hasRole('contractor') && $chat['anotherUser']) {{ __('Заказчик') }} @else {{ $chat['title'] }} @endif</div>
                                             <div class="desc-short">{{ $chat['text'] }}</div>
                                         </div>
                                     </a>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="content-chat">
                     <div class="d-flex justify-content-center align-items-center h-100">
-                        <p>Выберите чат</p>
+                        <p>{{ __('Выберите чат') }}</p>
                     </div>
                 </div>
             </div>

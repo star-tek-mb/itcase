@@ -12,7 +12,7 @@
                                 <span class="icon">
                                     <iconify-icon data-icon="simple-line-icons:fire"></iconify-icon>
                                 </span>
-                                <span class="font-size-xl text-dual-primary-dark"></span><span class="font-size-xl text-primary">Porta</span>
+                                <span class="font-size-xl text-dual-primary-dark"></span><span class="font-size-xl text-primary">{{ __('Porta') }}</span>
                             </a>
                         </div>
                     <!--
@@ -41,7 +41,7 @@
                             <li ><a href="">Войти</a></li>
                         </ul>
                         <div class="uk-navbar-nav">
-                        <a class="uk-button uk-button-primary uk-visible@m " href="#">Добавить компанию</a>
+                        <a class="uk-button uk-button-primary uk-visible@m " href="#">{{ __('Добавить компанию') }}</a>
                         </div>
                         <a class="uk-navbar-toggle uk-hidden@m uk-icon uk-navbar-toggle-icon" href="#offcanvas" uk-navbar-toggle-icon="" uk-toggle=""><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="navbar-toggle-icon"><rect y="9" width="20" height="2"></rect><rect y="3" width="20" height="2"></rect><rect y="15" width="20" height="2"></rect></svg></a>
 
@@ -123,7 +123,7 @@
                     <div class="uk-navbar-center">
                         <ul class="uk-navbar-nav uk-visible@m">
                             <!--class="uk-active"-->
-                            <li ><a href="{{ route('site.catalog.index') }}">Главная</a></li>
+                            <li ><a href="{{ route('site.catalog.index') }}">{{ __('Главная') }}</a></li>
                             @foreach ($needs as $need)
                                 <li class="uk-parent">
                                     <a href="#">{{ $need->ru_title }}</a>

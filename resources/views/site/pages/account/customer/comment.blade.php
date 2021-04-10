@@ -25,7 +25,7 @@
   <div class="body-box-admin">
     <div class="row p-3">
       <div class="form-group">
-          <label for="name">Ваше имя</label>
+          <label for="name">{{ __('Ваше имя') }}</label>
           <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ $user->name }}" disabled>
 
       </div>
@@ -33,11 +33,11 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-            <label for="aboutMySelf">Напишите свой коментарий</label>
-            <p class="alert alert-info">Оставленные Вами комментарии будут видны на главной странице</p>
+            <label for="aboutMySelf">{{ __('Напишите свой коментарий') }}</label>
+            <p class="alert alert-info">{{ __('Оставленные Вами комментарии будут видны на главной странице') }}</p>
             <textarea name="about_myself" id="aboutMySelf"></textarea>
         </div>
-        <button type="submit" class="btn btn-light-green"><i class="fas fa-save"></i> Сохранить</button>
+        <button type="submit" class="btn btn-light-green"><i class="fas fa-save"></i> {{ __('Сохранить') }}</button>
       </div>
     </div>
 

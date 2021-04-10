@@ -40,7 +40,7 @@
                                 {!! $post->ru_content !!}
                             </div>
                             <div class="post-share">
-                                <label>Поделиться статьей</label>
+                                <label>{{ __('Поделиться статьей') }}</label>
                                 <div class="social-icon"><a href="#"><i class="fab fa-facebook-f"></i></a><a
                                         href="#"><i class="fab fa-behance"></i></a><a href="#"><i
                                             class="fab fa-linkedin-in"></i></a><a href="#"><i
@@ -55,7 +55,7 @@
                         <div class="sidebar-right-group">
                             <div class="box-sidebar">
                                 <div class="header-box d-flex justify-content-between flex-wrap">
-                                    <h3 class="title-box">Категории</h3>
+                                    <h3 class="title-box">{{ __('Категории') }}</h3>
                                 </div>
                                 <div class="body-box">
                                     <ul class="list-check-filter-job">
@@ -84,7 +84,7 @@
     {{--                        <div class="uk-text-xsmall uk-text-bold">--}}
     {{--                            <a class="hvr-back" href="#course" uk-scroll="offset: 80"><span--}}
     {{--                                    class="uk-margin-small-right"--}}
-    {{--                                    data-uk-icon="arrow-left"></span>Прокрутить вниз</a>--}}
+    {{--                                    data-uk-icon="arrow-left"></span>{{ __('Прокрутить вниз') }}</a>--}}
     {{--                        </div>--}}
     {{--                    </div>--}}
     {{--                    <div class="uk-width-expand@m uk-section">--}}
@@ -285,12 +285,12 @@
     {{--                        <li itemprop="itemListElement" itemscope--}}
     {{--                            itemtype="http://schema.org/ListItem"><a href="{{ route('site.catalog.index') }}"--}}
     {{--                                                                     itemprop="item"><span itemprop="name"><meta--}}
-    {{--                                        itemprop="position" content="1"/>Главная</span></a></li>--}}
+    {{--                                        itemprop="position" content="1"/>{{ __('Главная') }}</span></a></li>--}}
     {{--                        <li><img src="{{ asset('assets/img/next.svg') }}" alt=""></li>--}}
     {{--                        <li itemprop="itemListElement" itemscope--}}
     {{--                            itemtype="http://schema.org/ListItem"><a href="{{ route('site.blog.index') }}"--}}
     {{--                                                                     itemprop="item"><span itemprop="name"><meta--}}
-    {{--                                        itemprop="position" content="2"/>Блог</span></a></li>--}}
+    {{--                                        itemprop="position" content="2"/>{{ __('Блог') }}</span></a></li>--}}
     {{--                        <li><img src="{{ asset('assets/img/next.svg') }}" alt=""></li>--}}
     {{--                        <li itemprop="itemListElement" itemscope--}}
     {{--                            itemtype="http://schema.org/ListItem"><a href="{{ route('site.blog.main', $post->category->ru_slug) }}"--}}

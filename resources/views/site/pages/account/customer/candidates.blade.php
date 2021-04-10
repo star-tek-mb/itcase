@@ -11,7 +11,7 @@
 @section('account.content')
     <section class="box-admin">
         <div class="header-box-admin">
-            <h3>{{ $tender->requests()->count() }} заявок</h3>
+            <h3>{{ $tender->requests()->count() }} {{ __('заявок') }}</h3>
         </div>
         <div class="body-box-admin p-0">
             <div class="table-responsive">
@@ -19,9 +19,9 @@
                     <thead>
                     <tr>
                         <th>Кандидат</th>
-                        <th class="d-none d-xl-table-cell text-center">Предложенный срок</th>
-                        <th class="d-none d-xl-table-cell text-center text-nowrap">Предложенный бюджет</th>
-                        <th class="d-none d-md-table-cell text-right">Действия</th>
+                        <th class="d-none d-xl-table-cell text-center">{{ __('Предложенный срок') }}</th>
+                        <th class="d-none d-xl-table-cell text-center text-nowrap">{{ __('Предложенный бюджет') }}</th>
+                        <th class="d-none d-md-table-cell text-right">{{ __('Действия') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -32,18 +32,18 @@
                                     <div class="img"><img src="{{ $request->user->getImage() }}" alt="{{ $request->user->getCommonTitle() }}">
                                     </div>
                                     <div class="text">
-                                        <h3 class="title-job"><a href="{{ route('site.contractors.show', $request->user->slug) }}">{{ $request->user->getCommonTitle() }}</a> @if ($request->invited) <small class="text-primary"><i class="far fa-check-circle"></i> Приглашённый</small>@endif  @if ($tender->contractor_id == $request->user_id) <i class="fas fa-check-double text-success"></i> @endif</h3>
-                                        <div class="date-job"><i class="fas fa-check-circle"></i> @if ($request->user->cotractor_type == 'legal_entity') Digital-агенство @else Фрилансер @endif </div>
+                                        <h3 class="title-job"><a href="{{ route('site.contractors.show', $request->user->slug) }}">{{ $request->user->getCommonTitle() }}</a> @if ($request->invited) <small class="text-primary"><i class="far fa-check-circle"></i> {{ __('Приглашённый') }}</small>@endif  @if ($tender->contractor_id == $request->user_id) <i class="fas fa-check-double text-success"></i> @endif</h3>
+                                        <div class="date-job"><i class="fas fa-check-circle"></i> @if ($request->user->cotractor_type == 'legal_entity') {{ __('Digital-агенство') }} @else {{ __('Фрилансер') }} @endif </div>
                                     </div>
                                 </div>
                                 <div class="job-info-mobile d-xl-none">
                                     <ul>
                                         @if ($request->period_from && $request->period_to)
-                                            <li><strong>Сроки: </strong>{{ $request->period_from }} - {{ $request->period_to }}
+                                            <li><strong>{{ __('Сроки:') }} </strong>{{ $request->period_from }} - {{ $request->period_to }}
                                             </li>
                                         @endif
                                         @if ($request->budget_from && $request->budget_to)
-                                            <li><strong>Бюджет: </strong>{{ $request->budget_from }} - {{ $request->budget_to }}</li>
+                                            <li><strong>{{ __('Бюджет:') }} </strong>{{ $request->budget_from }} - {{ $request->budget_to }}</li>
                                         @endif
                                     </ul>
                                     <div class="job-func d-md-none">
@@ -72,8 +72,8 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="d-none d-xl-table-cell text-center" style="width: 100%">@if ($request->period_from && $request->period_to){{ $request->period_from }} - {{ $request->period_to }} дней@endif</td>
-                            <td class="d-none d-xl-table-cell text-center">@if ($request->budget_from && $request->budget_to)от {{ $request->budget_from }} сум до {{ $request->budget_to }} сум@endif</td>
+                            <td class="d-none d-xl-table-cell text-center" style="width: 100%">@if ($request->period_from && $request->period_to){{ $request->period_from }} - {{ $request->period_to }} {{ __('дней') }}@endif</td>
+                            <td class="d-none d-xl-table-cell text-center">@if ($request->budget_from && $request->budget_to)от {{ $request->budget_from }} {{ __('сум до') }} {{ $request->budget_to }} {{ __('сум') }}@endif</td>
                             <td class="d-none d-md-table-cell text-right">
                                 <div class="d-flex">
                                     <form action="{{ route('site.account.chats') }}" method="post">

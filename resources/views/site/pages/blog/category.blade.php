@@ -17,11 +17,11 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="section-heading">
-                            <h1 class="title-page">Блог</h1>
+                            <h1 class="title-page">{{ __('Блог') }}</h1>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('site.blog.index') }}">Блог</a></li>
+                                    <li class="breadcrumb-item"><a href="/">{{ __('Главная') }}</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('site.blog.index') }}">{{ __('Блог') }}</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">{{ $category->getTitle() }}</li>
                                 </ol>
                             </nav>
@@ -45,7 +45,7 @@
                                         <div class="card-info-img"><a href="{{ route('site.blog.main', $post->getAncestorsSlugs()) }}"><img
                                                     src="{{ $post->getImage() }}"
                                                     alt="{{ $post->ru_title }}"></a></div>
-                                        <div class="card-info-body"><span class="meta">Опубликован {{ $post->created_at }}</span>
+                                        <div class="card-info-body"><span class="meta">{{ __('Опубликован') }} {{ $post->created_at }}</span>
                                             <h3 class="card-info-title"><a href="{{ route('site.blog.main', $post->getAncestorsSlugs()) }}">{{ $post->ru_title }}</a></h3>
                                             <div class="card-info-text">{!! $post->ru_short_content !!}
                                             </div>
@@ -61,7 +61,7 @@
                         <div class="sidebar-right-group">
                             <div class="box-sidebar">
                                 <div class="header-box d-flex justify-content-between flex-wrap">
-                                    <h3 class="title-box">Категории</h3>
+                                    <h3 class="title-box">{{ __('Категории') }}</h3>
                                 </div>
                                 <div class="body-box">
                                     <ul class="list-check-filter-job">
