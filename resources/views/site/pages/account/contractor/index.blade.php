@@ -163,8 +163,8 @@
 
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="aboutMySelf">@if($user->contractor_type == 'agency') {{ __('О
-                                компании') }} @elseif($user->contractor_type == 'freelancer') {{ __('О себе @endif</label>
+                            <label for="aboutMySelf">@if($user->contractor_type == 'agency') {{ __('О компании') }}
+                            @elseif($user->contractor_type == 'freelancer') {{ __('О себе') }} @endif</label>
                             <textarea name="about_myself" id="aboutMySelf">{{ $user->about_myself }}</textarea>
                         </div>
                     </div>
