@@ -1,0 +1,510 @@
+/**
+* Template Name: Bikin - v2.2.1
+* Template URL: https://bootstrapmade.com/bikin-free-simple-landing-page-template/
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  font-family: "Montserrat", sans-serif;
+  color: #444444;
+}
+
+a {
+  color: #3b4ef8;
+}
+
+a:hover {
+  color: #6c7afa;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+@media only screen and (min-width: 1200px) {
+  .container {
+    max-width: 1170px;
+  }
+}
+
+
+
+/*--------------------------------------------------------------
+# Sections General
+--------------------------------------------------------------*/
+section {
+  margin: 20px 0;
+}
+
+.section-title {
+  margin: 20px 0;
+  text-align: center;
+}
+@media (min-width: 900px) {
+  .section-title {
+    padding: 0% 20%;
+  }
+}
+
+.section-title h2 {
+  font-size: 30px;
+  font-weight: 600;
+  color: #000;
+}
+
+.section-title p {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+
+/*--------------------------------------------------------------
+# Disable aos animation delay on mobile devices
+--------------------------------------------------------------*/
+
+#services-carousel {
+  width: 85%;
+  height: 160px;
+  margin: 0 auto;
+  position: relative;
+}
+
+#services-carousel .service-popular-item {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: inherit;
+}
+
+.service-popular-item .service-item-image {
+  right: 0;
+  width: 65%;
+  height: 100%;
+  position: absolute;
+}
+.service-popular-item .service-item-image img {
+  max-width: 100%;
+  z-index: 1;
+}
+
+.service-item-text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  text-align: left;
+  padding-left: 6%;
+  align-items: center;
+}
+.service-item-text div {
+  z-index: 2;
+}
+.service-item-text h3 {
+  font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 6px;
+}
+.service-item-text p {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+
+.owl-nav > div {
+  top: 0;
+  position: absolute;
+  height: 100%;
+  width: 10%;
+}
+
+.owl-nav .nav-btn {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.owl-nav .owl-prev {
+  left: 0px;
+  background: linear-gradient(
+    -90deg,
+    hsla(0, 0%, 100%, 0),
+    hsla(0, 0%, 100%, 0.5) 34.81%,
+    hsla(0, 0%, 100%, 0.75) 60.77%,
+    hsla(0, 0%, 100%, 0.9) 83.43%,
+    #fff
+  );
+}
+.owl-nav .prev-slide {
+  width: 32px;
+  height: 32px;
+  z-index: 9999;
+  background-color: #808080;
+  mask: url(./css/arrow-back-circle-outline.svg) no-repeat;
+  -webkit-mask: url(./arrow-back-circle-outline.svg) no-repeat;
+}
+
+.owl-nav .owl-next {
+  right: 0px;
+  background: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0),
+    hsla(0, 0%, 100%, 0.5) 34.81%,
+    hsla(0, 0%, 100%, 0.75) 60.77%,
+    hsla(0, 0%, 100%, 0.9) 83.43%,
+    #fff
+  );
+}
+.owl-nav .next-slide {
+  width: 32px;
+  height: 32px;
+  z-index: 9999;
+  background-color: #808080;
+  mask: url(./arrow-forward-circle-outline.svg) no-repeat;
+  -webkit-mask: url(./arrow-forward-circle-outline.svg) no-repeat;
+}
+
+
+
+/*--------------------------------------------------------------
+# Features
+--------------------------------------------------------------*/
+.features {
+  background: #f7f9fa;
+}
+
+.features .content {
+  margin: 5% 0;
+}
+.features .content:last-child {
+  margin-bottom: 10%;
+}
+@media (max-width: 600px) {
+  .features .content {
+    margin: 10% 0;
+  }
+  .features .content:last-child {
+    margin-bottom: 0%;
+  }
+}
+
+.content .content-img {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
+
+.right-part {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5%;
+  color: #000;
+}
+.content .right-part h3 {
+  font-weight: 600;
+  font-size: 26px;
+}
+.content .right-part p {
+  font-weight: 500;
+  font-size: 20px;
+  margin: 20px 0;
+}
+.content .right-part a {
+  border-bottom: 2px solid #3b4ef8;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.content .right-part ul {
+  list-style: none;
+  padding: 0;
+}
+@media (min-width: 1000px) {
+  .content .right-part ul {
+    columns: 2;
+  }
+}
+.content .right-part ul li {
+  display: grid;
+  margin-bottom: 10px;
+  grid-column-gap: 2%;
+  grid-template-rows: 100%;
+  grid-template-columns: 9% 89%;
+}
+.content .right-part ul li span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.content .right-part ul i {
+  font-size: 20px;
+  color: #808080;
+}
+
+
+
+/*--------------------------------------------------------------
+# Services
+--------------------------------------------------------------*/
+.why-we-section {
+  position: relative;
+}
+
+.why-we-section .whywe-box {
+  padding: 20px 10px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.why-we-section .whywe-image {
+  margin-bottom: 5px;
+}
+.why-we-section .whywe-image img {
+  max-width: 80%;
+}
+
+.why-we-section .whywe-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin-bottom: 5px;
+}
+.why-we-section .whywe-title h4 {
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+}
+.why-we-section .whywe-description {
+  font-weight: 400;
+  font-size: 13px;
+  color: #000;
+}
+
+
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+.download-section {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+}
+
+.download-text-part {
+  display: flex;
+  height: 50vh;
+  padding: 0 4%;
+  align-items: center;
+}
+.download-text-part h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f394c;
+  text-transform: uppercase;
+}
+.download-text-part h2 {
+  color: #1c698c;
+  margin: 10px 0 0 0;
+  font-size: 20px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: repeat(3, 33.33%);
+}
+@media (max-width: 900px) {
+  .buttons {
+    display: grid;
+    grid-template-rows: repeat(3, 33.33%);
+    grid-template-columns: 100%;
+  }
+}
+.btn-started {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  border-radius: 3px;
+  transition: 0.5s;
+  margin-top: 25px;
+  color: #fff;
+  background: #49b5e7;
+  text-transform: uppercase;
+}
+
+
+
+.download-image-part .download-image {
+  display: flex;
+  height: 50vh;
+  align-items: center;
+  justify-content: center;
+}
+.download-image-part .download-image img {
+  max-width: 100%;
+  max-height: 70vh;
+  bottom: 0;
+  position: absolute;
+}
+@media (max-width: 991px) {
+  .download-image-part .download-image img {
+    max-height: 50vh;
+  }
+}
+
+/* 
+@media (max-width: 991px) {
+  #hero {
+    height: 100vh;
+    text-align: center;
+  }
+  #hero .hero-img img {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  #hero h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  #hero h2 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  #hero .hero-img img {
+    width: 80%;
+  }
+} */
+
+
+
+
+
+
+
+
+/*--------------------------------------------------------------
+Владимир сказал не нужно
+--------------------------------------------------------------*/
+.steps {
+  padding-top: 20px;
+  background-color: red;
+}
+
+.steps .row {
+  overflow: hidden;
+}
+
+.steps .content-item {
+  padding: 40px;
+  /* border-left: 1px solid #eee;
+  border-bottom: 1px solid #eee; */
+  margin: -1px;
+}
+
+.we-do-item {
+  margin: 15px 0;
+  display: grid;
+  grid-template-rows: 50px;
+  grid-template-columns: 30% 70%;
+}
+
+.we-do-item .what-item-image {
+  position: relative;
+  /* background: cornflowerblue; */
+}
+.we-do-item .what-item-image img {
+  max-width: 50%;
+  height: 50px;
+  right: 0;
+  position: absolute;
+  /* background: chocolate; */
+}
+
+.we-do-item .what-item-text {
+  display: flex;
+  text-align: left;
+  padding-left: 10px;
+  align-items: center;
+  /* background: chartreuse; */
+}
+.we-do-item .what-item-text h4 {
+  font-size: 16px;
+}
+
+.steps .content-item span {
+  display: block;
+  font-size: 24px;
+  font-weight: 400;
+  color: #3b4ef8;
+}
+
+.steps .content-item h4 {
+  font-size: 28px;
+  font-weight: 400;
+  padding: 0;
+  margin: 20px 0;
+  color: #2d405f;
+}
+
+.steps .content-item p {
+  color: #aaaaaa;
+  font-size: 15px;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .steps .content-item {
+    padding: 40px 0;
+  }
+}
+
+.add_catalog_button {
+  position: relative;
+  width: 161px;
+  height: 43px;
+  border-radius: 5px;
+  background: #2b6ec7;
+}
+.add_catalog_button p {
+  padding-left: 32px;
+  padding-top: 13px;
+  font-size: 13px;
+  color: #fff;
+}
+.add_catalog_button span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 43px;
+  height: 100%;
+  border-radius: 5px;
+  background: #5085f9;
+}
+.add_catalog_button span ion-icon {
+  padding-left: 14px;
+  padding-top: 14px;
+  color: #fff;
+}

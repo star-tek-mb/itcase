@@ -101,11 +101,11 @@ class TenderController extends Controller
             return redirect(route('site.tenders.category', strtolower($params)), 301);
         }
         if (substr_count($params, 'tenders') > 1) {
-            $paramsArray = array_slice(explode('/', $params)); // remove locale
+            $paramsArray = explode('/', $params);
             $uniqueParams = array_unique($paramsArray);
             return redirect(route('site.tenders.category', implode('/', $uniqueParams)), 301);
         }
-        $paramsArray = array_slice(explode('/', $params), 1); // remove locale
+        $paramsArray = explode('/', $params);
         $tenders = collect();
         $currentCategory = null;
         if (count($paramsArray) === 1) {

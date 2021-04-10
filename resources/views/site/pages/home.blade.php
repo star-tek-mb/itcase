@@ -12,6 +12,17 @@
     @include('site.layouts.partials.headers.default')
 @endsection
 
+@section('css')
+
+  <!-- Vendor CSS Files -->
+  <link href="/asset/bootstrap.min.css" rel="stylesheet">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/assets/owl.carousel.min.css'>
+  <link rel='stylesheet' href='https://themes.audemedia.com/html/goodgrowth/css/owl.theme.default.min.css'>
+
+  <!-- Template Main CSS File -->
+  <link href="/ext/style.css" rel="stylesheet">
+@endsection
+
 @section('content')
 
     <section class="section-banner" style="background-image: url({{ asset('front/images/banner-1.jpg') }})">
@@ -203,7 +214,429 @@
                     задания</a></div>
         </div>
     </section>
-    <section class="section-video" style="background-image: url(/front/images/video-bg.jpg)">
+    <section>
+
+    <div class="section-title">
+      <h2>Популярные услуги</h2>
+    </div>
+
+    <div id="services-carousel" class="owl-carousel">
+
+      <div class="service-popular-item" style="background-color: #fef3ed;">
+        <div class="service-item-image">
+          <img class="service-img" src="/ext/assets/img/courier.bd096ee86d28a4d13c31eb3844d93d5b.svg" alt="">
+        </div>
+        <div class="service-item-text">
+          <div>
+            <h3>Курьерские услуги</h3>
+            <p>от $500</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-popular-item" style="background-color: #ebeaf4;">
+        <div class="service-item-image">
+          <img class="service-img" src="/ext/assets/img/finishing-work.a79ed8c2ec62a29a09b74c2edfc11a83.svg" alt="">
+        </div>
+        <div class="service-item-text">
+          <div>
+            <h3>Отделочные<br>работы</h3>
+            <p>от $300</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-popular-item" style="background-color: #ffdccc;">
+        <div class="service-item-image">
+          <img class="service-img" src="/ext/assets/img/maintenance-cleaning.6cb20fd6f8c1ef831a854a525631540a.svg" alt="">
+        </div>
+        <div class="service-item-text">
+          <div>
+            <h3>Поддерживающая<br>уборка</h3>
+            <p>от $100</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-popular-item" style="background-color: #f2e7e7;">
+        <div class="service-item-image">
+          <img class="service-img" src="/ext/assets/img/relocation.9cba7babc52f8611e6a066cabd50a792.svg" alt="">
+        </div>
+        <div class="service-item-text">
+          <div>
+            <h3>Помощь<br>с переездом</h3>
+            <p>от $100</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-popular-item" style="background-color: #f1e0d5;">
+        <div class="service-item-image">
+          <img class="service-img" src="/ext/assets/img/university.92fd872cf6bd1f7f042fde9928a09584.svg" alt="">
+        </div>
+        <div class="service-item-text">
+          <div>
+            <h3>Помощь студентам</h3>
+            <p>от $700</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-popular-item" style="background-color: #e2e1f4;">
+        <div class="service-item-image">
+          <img class="service-img" src="/ext/assets/img/manicure.9854b58ee4a21c515fc5cc16cd3283cd.svg" alt="">
+        </div>
+        <div class="service-item-text">
+          <div>
+            <h3>Ногтевой сервис</h3>
+            <p>от $200</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-popular-item" style="background-color: #f2e7e7;">
+        <div class="service-item-image">
+          <img class="service-img" src="/ext/assets/img/hairdressing.6396daf347ce8146e5c9b17c7ddc7bbe.svg" alt="">
+        </div>
+        <div class="service-item-text">
+          <div>
+            <h3>Парикмахерские<br>услуги</h3>
+            <p>от $500</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <section class="why-we-section">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch">
+          <div class="whywe-box">
+            <div class="whywe-image"><img src="/ext/assets/img/reviews_176__2x.6d92889ba1ad3429abe5d19ea761df99.png"
+                alt=""></div>
+            <div class="whywe-title">
+              <h4>Удобная и безопасная</h4>
+            </div>
+            <p class="whywe-description">При оплате через <span>Сделку без
+                риска</span> YouDo вернет деньги, если что-то пойдет не так.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch">
+          <div class="whywe-box">
+            <div class="whywe-image"><img src="/ext/assets/img/executor_176__2x.dff8691232ed078e3ee17b29ce289c9f.png"
+                alt="">
+            </div>
+            <div class="whywe-title">
+              <h4>Надежные Исполнители</h4>
+            </div>
+            <p class="whywe-description">«<span>Проверенные
+                исполнители</span>» подтвердили свои документы на YouDo.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch">
+          <div class="whywe-box">
+            <div class="whywe-image"><img src="/ext/assets/img/forbusiness_176__2x.b479b2e263c2c21202c8c8aa0d727300.png"
+                alt="">
+            </div>
+            <div class="whywe-title">
+              <h4>Достоверные отзывы</h4>
+            </div>
+            <p class="whywe-description">Более <span>1 000 000 отзывов</span>
+              от заказчиков помогут выбрать подходящего исполнителя.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch">
+          <div class="whywe-box">
+            <div class="whywe-image"><img src="/ext/assets/img/sbr_176__2x.c29abb104eb5996d32f7c07d101a74d8.png" alt="">
+            </div>
+            <div class="whywe-title">
+              <h4>YouDo для бизнеса</h4>
+            </div>
+            <p class="whywe-description">Безналичная оплата <span>бизнес-заданий</span> с предоставлением закрывающих
+              документов.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="features">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>С YouDo вы экономите на услугах до 70%.
+          Как это возможно?</h2>
+      </div>
+
+      <div class="row content">
+        <div class="col-md-5 content-img">
+          <img src="/ext/assets/img/hiw-1-be91158a87ea183e3cd3e3dcc56471a5.png" class="img-fluid" alt="">
+        </div>
+        <div class="col-md-7 right-part">
+          <div>
+            <h3><span>1.</span> Создайте задание</h3>
+            <p>Опишите своими словами задачу, которую требуется выполнить</p>
+            <a href="#">Создать задания</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row content">
+        <div class="col-md-5 content-img order-1 order-md-2">
+          <img src="/ext/assets/img/hiw-2-aa57365db5ca978385ac301a2ef6a5e8.png" class="img-fluid" alt="">
+        </div>
+        <div class="col-md-7 right-part order-2 order-md-1">
+          <div>
+            <h3><span>2.</span> Исполнители предложат вам свои услуги и цены</h3>
+            <p>Уже через пару минут вы начнете получать предложения от исполнителей, готовых
+              выполнить ваше задание.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row content">
+        <div class="col-md-5 content-img">
+          <img src="/ext/assets/img/hiw-3-afd296132a597387954d591bdc9952b2.png" class="img-fluid" alt="">
+        </div>
+        <div class="col-md-7 right-part">
+          <div>
+            <h3><span>3.</span> Выберите лучшее предложение</h3>
+            <p>Вы сможете выбрать подходящего исполнителя, по разным критериям:</p>
+            <ul>
+              <li><span><i class="fas fa-dollar-sign"></i></span> Стоимость услуг</li>
+              <li><span><i class="fas fa-star"></i></span> Рейтинг</li>
+              <li><span><i class="fas fa-thumbs-up"></i></span> Отзывы заказчиков</li>
+              <li><span><i class="fas fa-user-alt"></i></span> Примеры работ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="download-section">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-6 col-lg-6 download-text-part">
+          <div>
+            <h1>Персональный помощник в вашем кармане</h1>
+            <h2>Скачайте наше приложение и пользуйтесь YouDo, где бы вы ни находились.</h2>
+            <div class="buttons">
+              <div><a href="#about" class="btn-started">Get Started</a></div>
+              <div><a href="#about" class="btn-started">Get Started</a></div>
+              <div><a href="#about" class="btn-started">Get Started</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6 download-image-part">
+            <div class="download-image">
+              <img src="/ext/assets/img/download_hand-13ced686918d5e0b8a92914b8cc87aaf.png" alt="">
+            </div>
+        </div>
+
+        <!-- <div class="col-lg-6 left-hero-text">
+          <div style="background-color: turquoise;">
+            <h1>Персональный помощник в вашем кармане</h1>
+            <h2>Скачайте наше приложение и пользуйтесь YouDo, где бы вы ни находились.</h2>
+            <div class="buttons">
+              <div><a href="#about" class="btn-get-started scrollto">Get Started</a></div>
+              <div><a href="#about" class="btn-get-started scrollto">Get Started</a></div>
+              <div><a href="#about" class="btn-get-started scrollto">Get Started</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-img">
+          <img src="/ext/assets/img/download_hand-13ced686918d5e0b8a92914b8cc87aaf.png" class="img-fluid" alt="">
+        </div> -->
+
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+  <!-- ВЛАДИМИР СКАЗАЛ НЕ НУЖНО -->
+  <section id="steps" class="steps" style="margin-bottom: 0px;">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Более 1 500 000 исполнителей</h2>
+        <p>готовы помочь вам в решении самых разнообразных задач</p>
+      </div>
+
+      <div class="row no-gutters what-we-do">
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/delivery-man.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Курьерские услуги</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/renovation.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Ремонт и строительство</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/transportation.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Грузоперевозки</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/mop.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Уборка и помощь по хозяйств</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/computer.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Компьютерная помощь</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/camera.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Фото, видео и аудио</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/transportation.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Разработка ПО</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/mop.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Установка и ремонт техники</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/computer.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Мероприятия и промоакции</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/camera.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Дизайн</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/transportation.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Виртуальный помощник</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/mop.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Ремонт цифровой техники</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/computer.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Красота и здоровье</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/camera.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Юридическая и бухгалтерская помощь</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/car-repair.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Ремонт транспорта</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 we-do-item">
+          <div class="what-item-image">
+            <img src="/ext/assets/img/mop.svg" alt="">
+          </div>
+          <div class="what-item-text">
+            <h4>Репетиторы и обучение</h4>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+  <!-- ВЛАДИМИР СКАЗАЛ НЕ НУЖНО -->
+
+    <section class="section-video" style="background-image: url(/front/images/video-bg.jpg); margin-top: 0px;">
         <div class="container">
             <div class="video-container">
                 <div class="section-heading">
@@ -344,4 +777,14 @@
     </script>
 
     </section>
+@endsection
+
+@section('js')
+  <!-- Vendor JS Files -->
+  <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/owl.carousel.min.js'></script>
+
+  <!-- Template Main JS File -->
+  <script src="/ext/main.js"></script>
 @endsection
