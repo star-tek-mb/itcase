@@ -232,7 +232,7 @@
             <div class="service-item-text">
             <div>
                 <h3>Курьерские услуги</h3>
-                <p>от $500</p>
+                <p>от 5000 сум</p>
             </div>
             </div>
         </div>
@@ -244,19 +244,7 @@
             <div class="service-item-text">
             <div>
                 <h3>Отделочные<br>работы</h3>
-                <p>от $300</p>
-            </div>
-            </div>
-        </div>
-
-        <div class="service-popular-item" style="background-color: #ffdccc;">
-            <div class="service-item-image">
-            <img class="service-img" src="/ext/assets/img/maintenance-cleaning.6cb20fd6f8c1ef831a854a525631540a.svg" alt="">
-            </div>
-            <div class="service-item-text">
-            <div>
-                <h3>Поддерживающая<br>уборка</h3>
-                <p>от $100</p>
+                <p>от 150 000 сум</p>
             </div>
             </div>
         </div>
@@ -268,7 +256,7 @@
             <div class="service-item-text">
             <div>
                 <h3>Помощь<br>с переездом</h3>
-                <p>от $100</p>
+                <p>от 100 000 сум</p>
             </div>
             </div>
         </div>
@@ -280,7 +268,7 @@
             <div class="service-item-text">
             <div>
                 <h3>Помощь студентам</h3>
-                <p>от $700</p>
+                <p>от 100 000 сум</p>
             </div>
             </div>
         </div>
@@ -292,7 +280,7 @@
             <div class="service-item-text">
             <div>
                 <h3>Ногтевой сервис</h3>
-                <p>от $200</p>
+                <p>от 50 000 сум</p>
             </div>
             </div>
         </div>
@@ -304,7 +292,7 @@
             <div class="service-item-text">
             <div>
                 <h3>Парикмахерские<br>услуги</h3>
-                <p>от $500</p>
+                <p>от 25 000 сум</p>
             </div>
             </div>
         </div>
