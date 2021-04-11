@@ -102,66 +102,42 @@
                                     </div>
                                     <!-- category checkbox -->
                                     <div class="body-box">
-                                        <div class="accordion" id="needsAccordion" role="tablist"
-                                             aria-multiselectable="false">
-                                            @foreach($needs as $need)
+                                        <div class="accordion"
+                                                id="categoriesAccordion" role="tablist"
+                                                aria-multiselectable="false">
+                                            @foreach($parentCategories as $parent)
                                                 <div class="card">
-                                                    <div class="card-header d-flex justify-content-between" role="tab"
-                                                         id="heading{{ $need->id }}">
-                                                        <span>{{ $need->ru_title }}</span>
-                                                        <a href="#collapse{{ $need->id }}" data-toggle="collapse"
-                                                           data-parent="#needsAccordion" aria-expanded="true"
-                                                           aria-controls="collapse{{ $need->id }}"
-                                                           style="font-size:8px">
-                                                            <button class="btn btn-outline-success"><i
-                                                                        class="fas fa-caret-down"></i></button>
+                                                    <div class="card-header d-flex justify-content-between"
+                                                            id="headingCategory{{ $parent->id }}">
+                                                        <a href="{{ route('site.tenders.category', $parent->ru_slug) }}">{{ $parent->title }}</a>
+                                                        <a href="#collapseCategory{{ $parent->id }}"
+                                                            data-toggle="collapse"
+                                                            data-parent="#categoriesAccordion"
+                                                            aria-expanded="true"
+                                                            aria-controls="collapseCategory{{ $parent->id }}"
+                                                            style="font-size:8px">
+                                                            <button class="btn btn-outline-success">
+                                                                <i class="fas fa-caret-down"></i>
+                                                            </button>
                                                         </a>
                                                     </div>
-                                                    <div class="collapse" id="collapse{{ $need->id }}" role="tabpanel"
-                                                         aria-labelledby="heading{{ $need->id }}"
-                                                         data-parent="#needsAccordion">
+                                                    <div class="collapse"
+                                                            id="collapseCategory{{ $parent->id }}"
+                                                            role="tabpanel"
+                                                            aria-labelledby="headingCategory{{ $parent->id }}"
+                                                            data-parent="#categoriesAccordion">
                                                         <div class="card-body">
-                                                            <div class="accordion"
-                                                                 id="categoriesAccordion{{ $need->id }}" role="tablist"
-                                                                 aria-multiselectable="false">
-                                                                @foreach($need->menuItems as $item)
-                                                                    <div class="card">
-                                                                        <div class="card-header d-flex justify-content-between"
-                                                                             id="headingCategory{{ $item->id }}">
-                                                                            <a href="{{ route('site.tenders.category', $item->ru_slug) }}">{{ $item->ru_title }}</a>
-                                                                            <a href="#collapseCategory{{ $item->id }}"
-                                                                               data-toggle="collapse"
-                                                                               data-parent="#categoriesAccordion{{ $need->id }}"
-                                                                               aria-expanded="true"
-                                                                               aria-controls="collapseCategory{{ $item->id }}"
-                                                                               style="font-size:8px">
-                                                                                <button class="btn btn-outline-success">
-                                                                                    <i class="fas fa-caret-down"></i>
-                                                                                </button>
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="collapse"
-                                                                             id="collapseCategory{{ $item->id }}"
-                                                                             role="tabpanel"
-                                                                             aria-labelledby="headingCategory{{ $item->id }}"
-                                                                             data-parent="#categoriesAccordion{{ $need->id }}">
-                                                                            <div class="card-body">
-                                                                                <ul class="list-group list-group-flush">
-                                                                                @foreach($item->categories as $category)
-                                                                                    <!--<a href="{{ route('site.tenders.category', $category->getAncestorsSlugs()) }}" class="list-group-item list-group-item-action">{{ $category->getTitle() }}</a>__DIR__-->
-                                                                                        <li class="list-group-item list-group-item-action">
-                                                                                            <input type="checkbox"
-                                                                                                   class="ajax-filter"
-                                                                                                   value=" {{ $category->id }}">
-                                                                                            {{ $category->getTitle() }}
-                                                                                        </li>
-                                                                                    @endforeach
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                            <ul class="list-group list-group-flush">
+                                                            @foreach($parent->categories as $category)
+                                                                <!--<a href="{{ route('site.tenders.category', $category->getAncestorsSlugs()) }}" class="list-group-item list-group-item-action">{{ $category->getTitle() }}</a>__DIR__-->
+                                                                    <li class="list-group-item list-group-item-action">
+                                                                        <input type="checkbox"
+                                                                                class="ajax-filter"
+                                                                                value=" {{ $category->id }}">
+                                                                        {{ $category->title }}
+                                                                    </li>
                                                                 @endforeach
-                                                            </div>
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>

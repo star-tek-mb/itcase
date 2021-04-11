@@ -75,40 +75,35 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                         <ul class="nav nav-tabs mt-3" id="needsTabs" role="tablist">
-                            @foreach($needs as $key => $need)
+                            @foreach($parentCategories as $key => $parent)
                                 <li class="nav-item">
-                                    <a href="#tab-content-{{ $need->id }}"
+                                    <a href="#tab-content-{{ $parent->id }}"
                                        class="nav-link @if ($key == 0) active @endif"
                                        @if ($key == 0) aria-selected="true" @else aria-selected="false"
-                                       @endif data-toggle="tab" role="tab" aria-controls="tab-content-{{ $need->id }}"
-                                       id="tab-{{ $need->id }}">{{ $need->ru_title }}</a>
+                                       @endif data-toggle="tab" role="tab" aria-controls="tab-content-{{ $parent->id }}"
+                                       id="tab-{{ $parent->id }}">{{ $parent->title }}</a>
                                 </li>
                             @endforeach
                         </ul>
                         <div class="tab-content mt-3" id="needsTabsContent">
-                            @foreach($needs as $key => $need)
+                            @foreach($parentCategories as $key => $parent)
                                 <div class="tab-pane fade @if($key == 0) show active @endif"
-                                     id="tab-content-{{ $need->id }}" role="tabpanel"
-                                     aria-labelledby="tab-{{ $need->id }}">
+                                     id="tab-content-{{ $parent->id }}" role="tabpanel"
+                                     aria-labelledby="tab-{{ $parent->id }}">
                                     <div class="row">
-                                        @foreach($need->menuItems as $item)
-                                            <div class="col-sm-12 col-md-3">
-                                                <h5>{{ $item->ru_title }}</h5>
-                                                <ul class="list-group list-group-flush">
-                                                    @foreach($item->categories as $category)
-                                                        <li class="list-group-item">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" name="categories[]"
-                                                                       id="category-{{ $category->id }}"
-                                                                       class="custom-control-input" value="{{ $category->id }}">
-                                                                <label for="category-{{ $category->id }}"
-                                                                       class="custom-control-label">{{ $category->getTitle() }}</label>
-                                                            </div>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        @endforeach
+                                        <ul class="list-group list-group-flush">
+                                            @foreach($parent->categories as $category)
+                                                <li class="list-group-item">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" name="categories[]"
+                                                                id="category-{{ $category->id }}"
+                                                                class="custom-control-input" value="{{ $category->id }}">
+                                                        <label for="category-{{ $category->id }}"
+                                                                class="custom-control-label">{{ $category->title }}</label>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        </ul>
                                     </div>
                                 </div>
                             @endforeach

@@ -59,7 +59,6 @@ class HomeController extends Controller
         $tenders = $this->tenders->allOrderedByCreatedAt($withoutContractors = true)->take(3);
         $posts = $this->posts->allOrderByDesc()->take(3);
         $comments = Comments::latest()->limit(3)->whereNull('for_set')->get()->reverse();
-        ;
         return view('site.pages.home', compact('parentCategories', 'tenders', 'posts', 'comments'));
     }
 }

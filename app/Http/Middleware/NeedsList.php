@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Models\NeedType;
+use App\Models\HandbookCategory;
 use Illuminate\Support\Facades\View;
 
 class NeedsList
@@ -17,8 +17,8 @@ class NeedsList
      */
     public function handle($request, Closure $next)
     {
-        $needs = NeedType::orderBy('position', 'asc')->get();
-        View::share('needs', $needs);
+        $parentCategories = HandbookCategory::where('parent_id', null)->orderBy('position', 'asc')->get();
+        View::share('parentCategories', $parentCategories);
         return $next($request);
     }
 }
