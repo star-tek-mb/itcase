@@ -82,7 +82,7 @@
                                 <a href="{{ route('site.catalog.main', $category->getAncestorsSlugs()) }}" class="category-single__title"><h3>{{ $category->getTitle() }}<span class="count">({{ $category->getAllCompaniesCount() }})</span></h3></a>
                                 <div class="text">
                                     @foreach ($category->categories()->limit(5)->get() as $child)
-                                        <a href="{{ route('site.catalog.main', $child->getAncestorsSlugs()) }}" class="category-single__child">{!! $child->ru_title !!},</a>
+                                        @if (!$loop->first), @endif<a href="{{ route('site.catalog.main', $child->getAncestorsSlugs()) }}" class="category-single__child">{!! $child->ru_title !!}</a>
                                     @endforeach
                                 </div>
                             </div>
