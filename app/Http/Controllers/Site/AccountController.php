@@ -138,6 +138,7 @@ class AccountController extends Controller
             'newPasswordRepeat' => 'nullable|min:6',
             'currentPassword' => 'nullable|password|required_with:newPassword',
             'resume' => 'sometimes|mimes:jpeg,pdf,jpg',
+            'city' => 'required'
         ])->validate();
         $this->userRepository->update($user->id, $request);
         if (!$user->hasVerifiedPhone()) {
@@ -225,6 +226,7 @@ class AccountController extends Controller
             'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
             'newPasswordRepeat' => 'nullable|min:6',
             'currentPassword' => 'nullable|password|required_with:newPassword',
+            'city' => 'required',
         ])->validate();
         $this->userRepository->update($user->id, $request);
         if (!$user->hasVerifiedPhone()) {
