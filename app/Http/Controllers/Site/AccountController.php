@@ -14,7 +14,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use Illuminate\Support\Facades\URL;
 
 class AccountController extends Controller
 {
@@ -268,7 +267,6 @@ class AccountController extends Controller
 
     public function telegramCallback(Request $request)
     {
-        URL::defaults(['locale' => config('app.locale')]);
         if ($this->checkTelegramAuthorization($request->all())) {
             $telegramId = $request->get('id');
             $user = $this->userRepository->getUserByTelegramId((int) $telegramId);

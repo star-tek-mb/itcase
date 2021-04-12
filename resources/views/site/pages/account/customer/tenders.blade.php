@@ -53,7 +53,7 @@
                         </td>
                         <td class="d-none d-xl-table-cell text-center active">
                             @if ($tender->status !== 'done' && !$tender->isDeleted())
-                            @if ($tender->checkDeadline()){{ __(' Открыт') }} @else @if ($tender->owner_id && $tender->opened) {{ __('В разработке') }} @else
+                            @if ($tender->checkDeadline()){{ __('Открыт') }} @else @if ($tender->owner_id && $tender->opened) {{ __('В разработке') }} @else
                             {{ __('Приём заявок закрыт') }} @endif
                             @endif @elseif ($tender->isDeleted()) {{ __('Удален') }} @else {{ __('Выполнен!') }}
                             @endif
