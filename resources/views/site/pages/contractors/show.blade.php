@@ -340,7 +340,8 @@
 
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/{{ config('app.locale') }}.js"></script>
+<script>flatpickr.localize(flatpickr.l10ns.{{ config('app.locale') }});</script>
 <script src="{{ asset('js/ckeditor.js') }}"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

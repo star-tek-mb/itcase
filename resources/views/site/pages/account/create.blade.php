@@ -360,7 +360,8 @@
                 });
             </script>
             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/{{ config('app.locale') }}.js"></script>
+            <script>flatpickr.localize(flatpickr.l10ns.{{ config('app.locale') }});</script>
             <script src="{{ asset('js/ckeditor.js') }}"></script>
             @if (!request()->hasCookie('tenderId'))
                 <script>

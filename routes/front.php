@@ -82,7 +82,6 @@ Route::middleware('needsList')->name('site.')->namespace('Site')->group(function
         Route::post('/account/chats', 'ChatsController@createChat')->name('account.chats.create');
         Route::get('/account/comment', 'CommentController@index')->name('account.comment');
         Route::post('/account/comment', 'CommentController@createCommentAll')->name('account.comment.create');
-        Route::get('/account/purse', 'PurseController@index')->name('account.purse');
     });
 
     // Tenders routes
