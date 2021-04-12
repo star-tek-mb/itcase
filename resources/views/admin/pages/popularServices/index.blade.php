@@ -7,7 +7,7 @@
 @section('title') Популярные услуги @endsection
 
 @section('content')
-    @include('admin.components.breadcrumb', ['lastTitle' => 'Катеогрии справочника'])
+    @include('admin.components.breadcrumb', ['lastTitle' => 'Популярные услуги'])
     <div class="block">
         <div class="block-header block-header-default">
             <h3 class="block-title">Популярные <small>услуги</small></h3>
