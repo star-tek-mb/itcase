@@ -13,24 +13,25 @@
                 <div class="navigation" id="navigation">
                     <ul class="main-menu">
                         <li class="active"><a href="/">{{ __(('Главная')) }}</a></li>
-                        @foreach($needs as $need)
-                            <li><a href="#">{{ $need->ru_title }} <i class="fas fa-caret-down"></i></a>
-                                <ul class="sub-menu">
-                                    @foreach($need->menuItems as $item)
-                                        <li><a href="{{ route('site.catalog.main', $item->ru_slug) }}">{{ $item->ru_title }} <i class="fas fa-caret-right"></i></a>
-                                            <ul class="sub-menu">
-                                                @foreach($item->categories as $category)
-                                                    <li>
-                                                        <a href="{{ route('site.catalog.main', $category->ru_slug) }}">{{ $category->getTitle() }}</a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @endforeach
-
+                        <li class="header-menu-item"><a href="{{ route('site.tenders.index') }}">{{ __('Конкурсы') }} <i
+                                    class="fas fa-caret-down"></i></a>
+                            <ul class="sub-menu">
+                                @foreach($parentCategories as $parent)
+                                    <li class="menu-item dropdown-submenu">
+                                        <a href="{{ route('site.tenders.category', $parent->ru_slug) }}"
+                                            class="d-flex justify-content-between align-items-center">{{ $parent->title }}
+                                            <i class="fas fa-caret-right ml-2 mr-3"></i></a>
+                                        <ul class="sub-menu">
+                                            @foreach($parent->categories as $category)
+                                                <li>
+                                                    <a href="{{ route('site.tenders.category', $category->getAncestorsSlugs()) }}">{{ $category->title }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
