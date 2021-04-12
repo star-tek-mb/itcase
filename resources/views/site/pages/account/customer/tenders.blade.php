@@ -37,9 +37,12 @@
                             </div>
                             <div class="job-info d-xl-none"><a href="{{ route('site.account.tenders.candidates', $tender->slug) }}" class="number-application">{{ $tender->requests()->count() }} {{ __('заявок') }}</a> <span class="active">
                                 @if ($tender->status !== 'done' && !$tender->isDeleted())
-                                @if ($tender->contractor_id) {{ __('В разработке') }} @elseif ($tender->checkDeadline()) {{ __('Открыт') }}
-                                @else {{ __('Приём заявок закрыт') }} @endif
-                                @endif @elseif ($tender->isDeleted()) {{ __('Удален') }} @else {{ __('Выполнен!') }}
+                                    @if ($tender->contractor_id) {{ __('В разработке') }}
+                                    @elseif ($tender->checkDeadline()) {{ __('Открыт') }}
+                                    @else {{ __('Приём заявок закрыт') }}
+                                    @endif
+                                @elseif ($tender->isDeleted()) {{ __('Удален') }}
+                                @else {{ __('Выполнен!') }}
                                 @endif
                             </span></div>
                             <div class="job-func d-flex d-md-none">
@@ -57,9 +60,12 @@
                         </td>
                         <td class="d-none d-xl-table-cell text-center active">
                             @if ($tender->status !== 'done' && !$tender->isDeleted())
-                            @if ($tender->contractor_id) {{ __('В разработке') }} @elseif ($tender->checkDeadline()) {{ __('Открыт') }}
-                            @else {{ __('Приём заявок закрыт') }} @endif
-                            @endif @elseif ($tender->isDeleted()) {{ __('Удален') }} @else {{ __('Выполнен!') }}
+                                @if ($tender->contractor_id) {{ __('В разработке') }}
+                                @elseif ($tender->checkDeadline()) {{ __('Открыт') }}
+                                @else {{ __('Приём заявок закрыт') }}
+                                @endif
+                            @elseif ($tender->isDeleted()) {{ __('Удален') }}
+                            @else {{ __('Выполнен!') }}
                             @endif
                         </td>
                         <td class="d-none d-md-table-cell text-right">
