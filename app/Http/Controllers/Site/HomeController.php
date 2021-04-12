@@ -8,6 +8,7 @@ use App\Repositories\TenderRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comments;
+use App\Models\PopularServices;
 
 class HomeController extends Controller
 {
@@ -55,10 +56,11 @@ class HomeController extends Controller
         if (array_key_exists('query', parse_url($request->fullUrl()))) {
             return redirect(route('site.catalog.index'), 301);
         }
+        $populars = PopularServices::take(4)->get();
         $parentCategories = $this->categories->all();
         $tenders = $this->tenders->allOrderedByCreatedAt($withoutContractors = true)->take(3);
         $posts = $this->posts->allOrderByDesc()->take(3);
         $comments = Comments::latest()->limit(3)->whereNull('for_set')->get()->reverse();
-        return view('site.pages.home', compact('parentCategories', 'tenders', 'posts', 'comments'));
+        return view('site.pages.home', compact('parentCategories', 'tenders', 'posts', 'comments', 'populars'));
     }
 }

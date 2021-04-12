@@ -53,6 +53,12 @@
         </ul>
     </li>
     <li>
+        <a href="{{ route('admin.popular.index') }}">
+            <i class="si si-fire"></i>
+            <span class="sidebar-mini-hide">Популярные услуги</span>
+        </a>
+    </li>
+    <li>
         <a href="{{ route('admin.faq.index') }}">
             <i class="si si-question"></i>
             <span class="sidebar-mini-hide">FAQ</span>

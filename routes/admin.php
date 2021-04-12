@@ -71,6 +71,10 @@ Route::middleware('checkIsAdmin')->prefix('admin')->name('admin.')->namespace('A
 
     // FAQ routes
     Route::resource('/faq', 'FaqController');
+
+    // Popular services
+    Route::resource('popular', 'PopularServicesController');
+    Route::get('/popular/{id}/removeImage', 'PopularServicesController@removeImage')->name('popular.remove.image');
 });
 
 Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {

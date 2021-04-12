@@ -306,56 +306,19 @@
         <section class="why-we-section">
         <div class="container">
         <div class="row">
-
-            <div class="col-md-6 col-lg-3 d-flex align-items-stretch">
-            <div class="whywe-box">
-                <div class="whywe-image"><img src="/ext/assets/img/reviews_176__2x.6d92889ba1ad3429abe5d19ea761df99.png"
-                    alt=""></div>
-                <div class="whywe-title">
-                <h4>Удобная и безопасная</h4>
+            @foreach ($populars as $popular) 
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch">
+                <div class="whywe-box">
+                    <a href="{{$popular->url}}">
+                        <div class="whywe-image"><img src="{{$popular->getImg()}}" alt="{{$popular->getTitleAttribute()}}"></div>
+                        <div class="whywe-title">
+                        <h4>{{$popular->getTitleAttribute()}}</h4>
+                        </div>
+                        <p class="whywe-description">{!! $popular->getContentAttribute() !!}</p>
+                    </a>
                 </div>
-                <p class="whywe-description">При оплате через <span>Сделку без
-                    риска</span> ITCASE вернет деньги, если что-то пойдет не так.</p>
-            </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 d-flex align-items-stretch">
-            <div class="whywe-box">
-                <div class="whywe-image"><img src="/ext/assets/img/executor_176__2x.dff8691232ed078e3ee17b29ce289c9f.png"
-                    alt="">
                 </div>
-                <div class="whywe-title">
-                <h4>Надежные Исполнители</h4>
-                </div>
-                <p class="whywe-description">«<span>Проверенные
-                    исполнители</span>» подтвердили свои документы на ITCASE.</p>
-            </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 d-flex align-items-stretch">
-            <div class="whywe-box">
-                <div class="whywe-image"><img src="/ext/assets/img/forbusiness_176__2x.b479b2e263c2c21202c8c8aa0d727300.png"
-                    alt="">
-                </div>
-                <div class="whywe-title">
-                <h4>Достоверные отзывы</h4>
-                </div>
-                <p class="whywe-description">Более <span>1 000 000 отзывов</span>
-                от заказчиков помогут выбрать подходящего исполнителя.</p>
-            </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 d-flex align-items-stretch">
-            <div class="whywe-box">
-                <div class="whywe-image"><img src="/ext/assets/img/sbr_176__2x.c29abb104eb5996d32f7c07d101a74d8.png" alt="">
-                </div>
-                <div class="whywe-title">
-                <h4>YouDo для бизнеса</h4>
-                </div>
-                <p class="whywe-description">Безналичная оплата <span>бизнес-заданий</span> с предоставлением закрывающих
-                документов.</p>
-            </div>
-            </div>
+            @endforeach
 
         </div>
         </div>
