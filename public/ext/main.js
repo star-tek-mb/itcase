@@ -22,7 +22,7 @@ jQuery(document).ready(function ($) {
         items: 2
       },
       1170: {
-        items: 3.5
+        items: 4
       }
     }
   });

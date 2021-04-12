@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Validator;
 use Socialite;
 use Auth;
 use Exception;
-use Illuminate\Support\Facades\URL;
 
 class LoginController extends Controller
 {
@@ -110,7 +109,6 @@ class LoginController extends Controller
      */
     public function handleGoogleCallback()
     {
-        URL::defaults(['locale' => config('app.locale')]);
         try {
             $user = Socialite::driver('google')->stateless()->user();
             $finduser = User::where('google_id', $user->id)->first();

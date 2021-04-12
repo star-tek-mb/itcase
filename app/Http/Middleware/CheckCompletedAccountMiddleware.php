@@ -20,11 +20,11 @@ class CheckCompletedAccountMiddleware
             if ($user) {
                 if ($user->checkCompletedAccount()) {
                     if ($user->hasRole('contractor') && $user->categories()->count() == 0 && !$request->is('*/account*')) {
-                        return response()->json(['message' => ['Выберите услуги которые вы предоставляете']]);
+                        return response()->json(['message' => 'Выберите услуги которые вы предоставляете'], 401);
                     }
                     return $next($request);
                 } else {
-                    return response()->json(['message' => ['Для начала заполните данные']]);
+                    return response()->json(['message' => 'Для начала заполните данные'], 401);
                 }
             }
             return response()->json(['message' => ['Войдите в аккаунт']]);

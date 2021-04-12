@@ -132,7 +132,11 @@ class AccountController extends Controller
             'about_myself' => 'required|string|max:5000',
             'company_name' => Rule::requiredIf($user->contractor_type == 'legal_entity'),
             'phone_number' => 'required',
-            'city' => 'required'
+            'city' => 'required',
+            'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
+            'newPasswordRepeat' => 'nullable|min:6',
+            'currentPassword' => 'nullable|password|required_with:newPassword',
+            'resume' => 'sometimes|mimes:jpeg,pdf,jpg',
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 500);
@@ -227,7 +231,11 @@ class AccountController extends Controller
             'email' => 'required|email|max:255',
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'city' => 'required'
+            'city' => 'required',
+            'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
+            'newPasswordRepeat' => 'nullable|min:6',
+            'currentPassword' => 'nullable|password|required_with:newPassword',
+            'resume' => 'sometimes|mimes:jpeg,pdf,jpg',
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 500);

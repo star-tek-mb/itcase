@@ -82,7 +82,7 @@
                                 <a href="{{ route('site.catalog.main', $category->getAncestorsSlugs()) }}" class="category-single__title"><h3>{{ $category->getTitle() }}<span class="count">({{ $category->getAllCompaniesCount() }})</span></h3></a>
                                 <div class="text">
                                     @foreach ($category->categories()->limit(5)->get() as $child)
-                                        <a href="{{ route('site.catalog.main', $child->getAncestorsSlugs()) }}" class="category-single__child">{!! $child->ru_title !!},</a>
+                                        @if (!$loop->first), @endif<a href="{{ route('site.catalog.main', $child->getAncestorsSlugs()) }}" class="category-single__child">{!! $child->ru_title !!}</a>
                                     @endforeach
                                 </div>
                             </div>
@@ -214,7 +214,6 @@
                     задания</a></div>
         </div>
     </section>
-    <section>
 
 
     <section class="carousel-section">
@@ -225,85 +224,85 @@
 
         <div id="services-carousel" class="owl-carousel">
 
-        <div class="service-popular-item" style="background-color: #fef3ed;">
-            <div class="service-item-image">
-            <img class="service-img" src="/ext/assets/img/courier.bd096ee86d28a4d13c31eb3844d93d5b.svg" alt="">
+            <div class="service-popular-item" style="background-color: #fef3ed;">
+                <div class="service-item-image">
+                <img class="service-img" src="/ext/assets/img/courier.bd096ee86d28a4d13c31eb3844d93d5b.svg" alt="">
+                </div>
+                <div class="service-item-text">
+                <div>
+                    <h3>Курьерские услуги</h3>
+                    <p>от 5000 сум</p>
+                </div>
+                </div>
             </div>
-            <div class="service-item-text">
-            <div>
-                <h3>Курьерские услуги</h3>
-                <p>от 5000 сум</p>
+
+            <div class="service-popular-item" style="background-color: #ebeaf4;">
+                <div class="service-item-image">
+                <img class="service-img" src="/ext/assets/img/finishing-work.a79ed8c2ec62a29a09b74c2edfc11a83.svg" alt="">
+                </div>
+                <div class="service-item-text">
+                <div>
+                    <h3>Отделочные<br>работы</h3>
+                    <p>от 150 000 сум</p>
+                </div>
+                </div>
             </div>
+
+            <div class="service-popular-item" style="background-color: #f2e7e7;">
+                <div class="service-item-image">
+                <img class="service-img" src="/ext/assets/img/relocation.9cba7babc52f8611e6a066cabd50a792.svg" alt="">
+                </div>
+                <div class="service-item-text">
+                <div>
+                    <h3>Помощь<br>с переездом</h3>
+                    <p>от 100 000 сум</p>
+                </div>
+                </div>
             </div>
+
+            <div class="service-popular-item" style="background-color: #f1e0d5;">
+                <div class="service-item-image">
+                <img class="service-img" src="/ext/assets/img/university.92fd872cf6bd1f7f042fde9928a09584.svg" alt="">
+                </div>
+                <div class="service-item-text">
+                <div>
+                    <h3>Помощь студентам</h3>
+                    <p>от 100 000 сум</p>
+                </div>
+                </div>
+            </div>
+
+            <div class="service-popular-item" style="background-color: #e2e1f4;">
+                <div class="service-item-image">
+                <img class="service-img" src="/ext/assets/img/manicure.9854b58ee4a21c515fc5cc16cd3283cd.svg" alt="">
+                </div>
+                <div class="service-item-text">
+                <div>
+                    <h3>Ногтевой сервис</h3>
+                    <p>от 50 000 сум</p>
+                </div>
+                </div>
+            </div>
+
+            <div class="service-popular-item" style="background-color: #f2e7e7;">
+                <div class="service-item-image">
+                <img class="service-img" src="/ext/assets/img/hairdressing.6396daf347ce8146e5c9b17c7ddc7bbe.svg" alt="">
+                </div>
+                <div class="service-item-text">
+                <div>
+                    <h3>Парикмахерские<br>услуги</h3>
+                    <p>от 25 000 сум</p>
+                </div>
+                </div>
+            </div>
+
         </div>
 
-        <div class="service-popular-item" style="background-color: #ebeaf4;">
-            <div class="service-item-image">
-            <img class="service-img" src="/ext/assets/img/finishing-work.a79ed8c2ec62a29a09b74c2edfc11a83.svg" alt="">
-            </div>
-            <div class="service-item-text">
-            <div>
-                <h3>Отделочные<br>работы</h3>
-                <p>от 150 000 сум</p>
-            </div>
-            </div>
-        </div>
-
-        <div class="service-popular-item" style="background-color: #f2e7e7;">
-            <div class="service-item-image">
-            <img class="service-img" src="/ext/assets/img/relocation.9cba7babc52f8611e6a066cabd50a792.svg" alt="">
-            </div>
-            <div class="service-item-text">
-            <div>
-                <h3>Помощь<br>с переездом</h3>
-                <p>от 100 000 сум</p>
-            </div>
-            </div>
-        </div>
-
-        <div class="service-popular-item" style="background-color: #f1e0d5;">
-            <div class="service-item-image">
-            <img class="service-img" src="/ext/assets/img/university.92fd872cf6bd1f7f042fde9928a09584.svg" alt="">
-            </div>
-            <div class="service-item-text">
-            <div>
-                <h3>Помощь студентам</h3>
-                <p>от 100 000 сум</p>
-            </div>
-            </div>
-        </div>
-
-        <div class="service-popular-item" style="background-color: #e2e1f4;">
-            <div class="service-item-image">
-            <img class="service-img" src="/ext/assets/img/manicure.9854b58ee4a21c515fc5cc16cd3283cd.svg" alt="">
-            </div>
-            <div class="service-item-text">
-            <div>
-                <h3>Ногтевой сервис</h3>
-                <p>от 50 000 сум</p>
-            </div>
-            </div>
-        </div>
-
-        <div class="service-popular-item" style="background-color: #f2e7e7;">
-            <div class="service-item-image">
-            <img class="service-img" src="/ext/assets/img/hairdressing.6396daf347ce8146e5c9b17c7ddc7bbe.svg" alt="">
-            </div>
-            <div class="service-item-text">
-            <div>
-                <h3>Парикмахерские<br>услуги</h3>
-                <p>от 25 000 сум</p>
-            </div>
-            </div>
-        </div>
-
-        </div>
-
-        </section>
+    </section>
 
 
 
-        <section class="why-we-section">
+    <section class="why-we-section">
         <div class="container">
         <div class="row">
             @foreach ($populars as $popular) 
@@ -322,11 +321,11 @@
 
         </div>
         </div>
-        </section>
+    </section>
 
 
 
-        <section class="features">
+    <section class="features">
         <div class="container">
 
         <div class="section-title">
@@ -379,10 +378,10 @@
         </div>
 
         </div>
-        </section>
+    </section>
 
 
-        <section class="download-section">
+    <section class="download-section">
         <div class="container">
         <div class="row">
 
@@ -408,7 +407,7 @@
 
         </div>
         </div>
-        </section>
+    </section>
 
     <section class="section-video" style="background-image: url(/front/images/video-bg.jpg); margin-top: 0px;">
         <div class="container">
@@ -550,7 +549,6 @@
     }
     </script>
 
-    </section>
 @endsection
 
 @section('js')

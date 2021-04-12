@@ -14,7 +14,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use Illuminate\Support\Facades\URL;
 
 class AccountController extends Controller
 {
@@ -139,6 +138,7 @@ class AccountController extends Controller
             'newPasswordRepeat' => 'nullable|min:6',
             'currentPassword' => 'nullable|password|required_with:newPassword',
             'resume' => 'sometimes|mimes:jpeg,pdf,jpg',
+            'city' => 'required'
         ])->validate();
         $this->userRepository->update($user->id, $request);
         if (!$user->hasVerifiedPhone()) {
@@ -226,6 +226,7 @@ class AccountController extends Controller
             'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
             'newPasswordRepeat' => 'nullable|min:6',
             'currentPassword' => 'nullable|password|required_with:newPassword',
+            'city' => 'required',
         ])->validate();
         $this->userRepository->update($user->id, $request);
         if (!$user->hasVerifiedPhone()) {
@@ -268,7 +269,6 @@ class AccountController extends Controller
 
     public function telegramCallback(Request $request)
     {
-        URL::defaults(['locale' => config('app.locale')]);
         if ($this->checkTelegramAuthorization($request->all())) {
             $telegramId = $request->get('id');
             $user = $this->userRepository->getUserByTelegramId((int) $telegramId);

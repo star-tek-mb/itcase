@@ -16,7 +16,7 @@ class CheckPhone
         $user = auth()->user();
         if ($user && $user->getPhoneForVerification() && !$user->hasVerifiedPhone()) {
             if (substr($request->path(), 0, 3) === "api") {
-                return response()->json(['message' => ['Подтвердите номер телефона']]);
+                return response()->json(['message' => 'Подтвердите номер телефона'], 401);
             } else {
                 return redirect(route('phone.verification.notice'));
             }
