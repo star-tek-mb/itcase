@@ -10,7 +10,6 @@ use mysql_xdevapi\Table;
 
 class HandbookCategoryRepository implements HandbookCategoryRepositoryInterface
 {
-
     /**
      * Get's a handbook category by it'id
      *
@@ -37,26 +36,26 @@ class HandbookCategoryRepository implements HandbookCategoryRepositoryInterface
     {
         switch ($language) {
             case 1:
-                return HandbookCategory::select('id', 'uz_title as title')->where('parent_id', null)->get();
+                return HandbookCategory::select('id', 'uz_title as lang')->where('parent_id', null)->get();
             case 2:
-                return HandbookCategory::select('id', 'ru_title as title')->where('parent_id', null)->get();
+                return HandbookCategory::select('id', 'ru_title as lang')->where('parent_id', null)->get();
             case 3:
-                return HandbookCategory::select('id', 'en_title as title')->where('parent_id', null)->get();
+                return HandbookCategory::select('id', 'en_title as lang')->where('parent_id', null)->get();
             default:
-                return HandbookCategory::select('id', 'ru_title as title')->where('parent_id', null)->get();
+                return HandbookCategory::select('id', 'ru_title as lang')->where('parent_id', null)->get();
         }
     }
     public function subCategoryForTender($language, $id)
     {
         switch ($language) {
             case 1:
-                return HandbookCategory::select('id', 'uz_title as title')->where('parent_id', $id)->get();
+                return HandbookCategory::select('id', 'uz_title as lang')->where('parent_id', $id)->get();
             case 2:
-                return HandbookCategory::select('id', 'ru_title as title')->where('parent_id', $id)->get();
+                return HandbookCategory::select('id', 'ru_title as lang')->where('parent_id', $id)->get();
             case 3:
-                return HandbookCategory::select('id', 'en_title as title')->where('parent_id', $id)->get();
+                return HandbookCategory::select('id', 'en_title as lang')->where('parent_id', $id)->get();
             default:
-                return HandbookCategory::select('id', 'ru_title as title')->where('parent_id', $id)->get();
+                return HandbookCategory::select('id', 'ru_title as lang')->where('parent_id', $id)->get();
         }
     }
 

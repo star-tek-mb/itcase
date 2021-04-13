@@ -109,10 +109,10 @@ class TenderController extends Controller
         foreach ($categoryAll->all() as $category){
             $subCtgr =[];
             foreach ( $this->categoryRepository->subCategoryForTender(2, $category->id)->all() as $sub){
-                array_push($subCtgr,array($sub->title,$sub->id));
+                array_push($subCtgr,array($sub->lang,$sub->id));
             }
             array_push($data,[
-                array($category->title,$category->id),
+                array($category->lang,$category->id),
                 array($subCtgr)
             ]);
         }
