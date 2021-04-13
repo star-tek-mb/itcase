@@ -386,11 +386,6 @@ class TenderController extends Controller
 
     public function maps()
     {
-        $tenders = $this->tenderRepository->allOrderedByCreatedAt(false, true);
-        $currentCategory = null;
-        $tendersCount = $tenders->count();
-        $tenders = PaginateCollection::paginateCollection($tenders, 5);
-
-        return view('site.pages.tenders.maps', compact('tenders', 'currentCategory', 'tendersCount'));
+        return view('site.pages.tenders.maps');
     }
 }

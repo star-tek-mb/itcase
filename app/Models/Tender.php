@@ -90,6 +90,11 @@ class Tender extends Model
         );
     }
 
+    public function categoryIcon()
+    {
+        return $this->categories()->first()['image'];
+    }
+
     /**
      * Owner of the tender
      *
