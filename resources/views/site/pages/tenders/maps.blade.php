@@ -227,7 +227,7 @@ function init () {
         searchControlProvider: 'yandex#search'
     });
     var customBalloonContentLayout = ymaps.templateLayoutFactory.createClass([
-        '<div style="min-width: 400px;">',
+        '<div style="min-width: 400px; max-height: 600px; overflow-y: auto;">',
         '{% for geoObject in properties.geoObjects %}',
             '<div class="row mb-2">',
                 '<div class="col-3">@{{ geoObject.properties.balloonContentHeader|raw }}</div>',
