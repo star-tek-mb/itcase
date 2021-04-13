@@ -222,7 +222,7 @@ class AccountController extends Controller
         $user = auth()->user();
         $user->authorizeRole('customer');
         $validator = Validator::make($request->all(), [
-            'image' => 'required|image',
+//            'image' => 'required|image',
             'company_name' => [Rule::requiredIf($user->customer_type == 'legal_entity')],
             'about_myself' => 'required|string|max:5000',
             'foundation_year' => 'nullable|integer',
