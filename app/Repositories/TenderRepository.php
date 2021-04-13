@@ -89,7 +89,7 @@ class TenderRepository implements TenderRepositoryInterface
         foreach ($category as  $categoryId) {
             $tender->categories()->attach($categoryId);
         }
-        return $tender;
+        return $tender->id;
     }
 
     /**
