@@ -78,7 +78,7 @@ class TenderRepository implements TenderRepositoryInterface
 
         $tender->saveFiles($data->file('files'));
 
-        if(gettype($data->get('categories')) != integer)
+        if(gettype($data->get('categories')) != 'integer')
         {
             $category = $data->get('categories')[0];
         }else{
