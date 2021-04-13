@@ -7,7 +7,7 @@ use App\Models\Tender;
 use App\Models\TenderRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
-
+use Illuminate\Support\Facades\Log;
 
 class TenderRepository implements TenderRepositoryInterface
 {
@@ -64,6 +64,7 @@ class TenderRepository implements TenderRepositoryInterface
             $tenderData['client_phone_number'] = $user->phone_number || '';
             $tenderData['client_type'] = $user->customer_type;
             $tenderData['owner_id'] = $user->id;
+            Log::info("THIS IS USER >" . $tenderData['owner_id']);
         } else {
             $tenderData['client_name'] = '';
             $tenderData['client_type'] = '';
