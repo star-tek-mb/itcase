@@ -553,8 +553,6 @@
 
 @section('js')
   <!-- Vendor JS Files -->
-  <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/owl.carousel.min.js'></script>
 
   <!-- Template Main JS File -->
