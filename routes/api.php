@@ -38,6 +38,7 @@ Route::namespace('Api')->group(function () {
 
     // Tenders routes
     Route::get('/tenders', 'TenderController@index');
+    Route::post('/tenders/maps-filter', 'TenderController@mapsFilter');
     Route::post('/tenders/search', 'TenderController@searchTender');
     Route::get('/tenders/category/{id}', 'TenderController@category');
     Route::get('/tenders/{id}', 'TenderController@tender');

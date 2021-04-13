@@ -38,8 +38,34 @@ class TenderRepository implements TenderRepositoryInterface
     public function TenderSearch($search)
     {
         $query = Tender::whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason');
-        return $query->whereNotNull('owner_id')->where('title', 'like', '%'.$search->search.'%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
+        return $query->where('title', 'like', '%'.$search->search.'%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
     }
+
+    public function tenderText(string $terms, array $categories)
+    {
+        $result = Tender::whereHas('categories', function ($query) use ($categories) {
+                $query->whereIn('tender_category.category_id', $categories);
+            })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
+            ->where('title', 'like', '%'.$terms.'%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
+        return $result;
+    }
+
+    public function tenderMap(array $center, float $radius, array $categories)
+    {
+        // 6371 - radius of earth in km
+        $result = Tender::whereHas('categories', function ($query) use ($categories) {
+                $query->whereIn('tender_category.category_id', $categories);
+            })->selectRaw('tenders.*')
+            ->selectRaw('(6371 * acos(cos(radians(?)) * cos(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', 1)))) '
+                    . '* cos(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', -1))) - radians(?)) + sin(radians(?)) '
+                    . '* sin(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', 1)))))) AS distance',
+                    [$center[0], $center[1], $center[0]])
+            ->havingRaw('distance < ?', [$radius])
+            ->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
+            ->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
+        return $result;
+    }
+
     public function allOrderedByCreatedAtAdmin($withoutContractors = false)
     {
         $query = Tender::whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason');
