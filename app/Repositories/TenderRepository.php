@@ -77,7 +77,14 @@ class TenderRepository implements TenderRepositoryInterface
         $tender = Tender::create($tenderData);
 
         $tender->saveFiles($data->file('files'));
-        foreach ($data->get('categories') as $categoryId) {
+
+        if(gettype($data->get('categories')) != integer)
+        {
+            $category = $data->get('categories')[0];
+        }else{
+            $category = $data->get('categories');
+        }
+        foreach ($category as $categoryId) {
             $tender->categories()->attach($categoryId);
         }
         return $tender;
