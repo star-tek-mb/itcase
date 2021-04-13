@@ -7,6 +7,7 @@ use App\Models\Tender;
 use App\Models\TenderRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 class TenderRepository implements TenderRepositoryInterface
 {
@@ -77,7 +78,7 @@ class TenderRepository implements TenderRepositoryInterface
         $tender = Tender::create($tenderData);
 
         $tender->saveFiles($data->file('files'));
-
+        Log::info($data->get('categories'));
         if(gettype($data->get('categories')) != 'integer')
         {
             $category = $data->get('categories')[0];
