@@ -79,7 +79,14 @@ class TenderRepository implements TenderRepositoryInterface
 
         $tender->saveFiles($data->file('files'));
         Log::info($data->get('categories') . "  " . gettype($data->get('categories')));
-        foreach ($data->get('categories') as $categoryId) {
+        if (gettype($data->get('categories'))=='string'){
+            $category = json_decode($data->get('categories'));
+            Log::info($category . "  " . gettype($category));
+        }
+        else {
+            $category = $data->get('categories');
+        }
+        foreach ($category as  $categoryId) {
             $tender->categories()->attach($categoryId);
         }
         return $tender;
