@@ -96,6 +96,28 @@ class TenderController extends Controller
             'tendersCount' => $tendersCount
         ]);
     }
+    public  function categoryCreateTender(Request $request){
+        if ($request->has('language')){
+           $language = $request->language;  // 1 is uzbek , 2 is russian , 3 is english, 0 is default language which is russian
+        }
+        else
+        {
+            $language = 0;
+        }
+        $categoryAll = $this->categoryRepository->categoryForTender($language);
+        $data = [];
+        foreach ($categoryAll->all() as $category){
+            $subCtgr =[];
+            foreach ( $this->categoryRepository->subCategoryForTender($language, $category->id)->all() as $sub){
+                array_push($subCtgr,array($sub->title,$sub->id));
+            }
+            array_push($data,[
+                array($category->title,$category->id),
+                array($subCtgr)
+            ]);
+        }
+        return response()->json(['category' => $data], 200);
+    }
 
     public function category($category_id)
     {

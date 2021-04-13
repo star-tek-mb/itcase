@@ -48,6 +48,9 @@ Route::namespace('Api')->group(function () {
     Route::post('/tenders/{id}/update', 'TenderController@update');
     Route::post('/tenders/{tenderId}/accept/{requestId}', 'TenderController@acceptTenderRequest');
 
+    //Categories For Tender Create
+    Route::get('/tenders/create/category','TenderController@categoryCreateTender');
+
     // Contractors routes
     Route::get('/contractors', 'ContractorsController@index');
     Route::get('/contractors/category/{id}', 'ContractorsController@category');
