@@ -58,14 +58,12 @@ class TenderRepository implements TenderRepositoryInterface
     {
         $tenderData = $data->all();
         $user = auth()->user();
-        Log::info("THIS IS USER >" . $user);
         if ($user) {
             $tenderData['client_name'] = $user->name;
             $tenderData['client_email'] = $user->email;
             $tenderData['client_phone_number'] = $user->phone_number || '';
             $tenderData['client_type'] = $user->customer_type;
             $tenderData['owner_id'] = $user->id;
-            Log::info("THIS IS USER >" . $tenderData['owner_id']);
         } else {
             $tenderData['client_name'] = '';
             $tenderData['client_type'] = '';
