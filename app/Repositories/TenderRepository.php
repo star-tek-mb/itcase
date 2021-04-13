@@ -76,6 +76,8 @@ class TenderRepository implements TenderRepositoryInterface
         $tenderData['work_start_at'] = Carbon::createFromFormat('d.m.Y H:i', $data->get('work_start_at'));
         $tenderData['work_end_at'] = Carbon::createFromFormat('d.m.Y H:i', $data->get('work_end_at'));
         $tender = Tender::create($tenderData);
+        $tender->save();
+        Log::info($tender);
 //        Log::info($data->get('categories') . "  " . gettype($data->get('categories')));
         $tender->saveFiles($data->file('files'));
         if (gettype($data->get('categories'))=='string'){
