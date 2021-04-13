@@ -7,7 +7,7 @@ use App\Models\Tender;
 use App\Models\TenderRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
+
 
 class TenderRepository implements TenderRepositoryInterface
 {
