@@ -113,7 +113,7 @@ class TenderController extends Controller
             }
             array_push($data,[
                 array($category->lang,$category->id),
-                array($subCtgr)
+                  $subCtgr
             ]);
         }
         return response()->json(['category' => $data], 200);
