@@ -176,7 +176,7 @@ class TenderController extends Controller
         Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
         return response()->json([
             'success' => "Тендер $tender->title создан и отправлен на модерацию!"
-        ]);
+        ],200);
     }
 
     public function makeRequest(Request $request)
@@ -193,7 +193,7 @@ class TenderController extends Controller
         $tenderTitle = $tenderRequest->tender->title;
         return response()->json([
             'success' =>  "Вы подали заявку на участие в конкурсе \"$tenderTitle\""
-        ]);
+        ],200);
     }
 
     public function cancelRequest(Request $request)
