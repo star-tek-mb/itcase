@@ -10,6 +10,15 @@
     @include('site.layouts.partials.headers.default')
 @endsection
 
+@section('css')
+<style>
+#map {
+    width: 100%;
+    height: 400px;
+}
+</style>
+@endsection
+
 @section('content')
     <div class="primary-page">
         <div class="container">
@@ -208,9 +217,7 @@
                             <div class="tab-content mt-3" id="needsTabsContent">
                                 <div class="tab-pane fade active show" id="tab-content-1" role="tabpanel"
                                      aria-labelledby="tab-1">
-                                    <div class="meta-job">
-                                        <span class="phone"><i class="fa fa-map-marker"></i>Ташкент, Чиланзар, ул. Гагарина, д. 45 </span>
-                                    </div>
+                                    <div id="map"></div>
 
                                     <h3 class="mt-4 mb-0">Что требуется сделать</h3>
                                     {!! $tender->description !!}
@@ -385,4 +392,23 @@
                 </div>
             </div>
         </div>
+@endsection
+
+@section('js')
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9b7e0e79-b7ed-43b7-87c6-671049c7c8f3" type="text/javascript"></script>
+<script>
+var locationMap = null;
+var placemark = null;
+function init() {
+    locationMap = new ymaps.Map("map", {
+        center: [{{ $tender->geo_location }}],
+        zoom: 18
+    });
+    placemark = new ymaps.Placemark([{{ $tender->geo_location }}]);
+    locationMap.geoObjects.add(placemark);
+}
+document.addEventListener("DOMContentLoaded", function () {
+    ymaps.ready(init);
+});
+</script>
 @endsection
