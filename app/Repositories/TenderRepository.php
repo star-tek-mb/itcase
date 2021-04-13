@@ -81,7 +81,7 @@ class TenderRepository implements TenderRepositoryInterface
         $tender->saveFiles($data->file('files'));
         if (gettype($data->get('categories'))=='string'){
             $category = explode(' ', $data->get('categories'));
-            Log::info($category);
+
         }
         else {
             $category = $data->get('categories');
