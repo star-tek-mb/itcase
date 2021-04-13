@@ -80,7 +80,7 @@ class TenderRepository implements TenderRepositoryInterface
         $tender->saveFiles($data->file('files'));
         Log::info($data->get('categories') . "  " . gettype($data->get('categories')));
         if (gettype($data->get('categories'))=='string'){
-            $category = json_decode($data->get('categories'));
+            $category = json_decode($data->get('categories'), true);
             Log::info($category . "  " . gettype($category));
         }
         else {
