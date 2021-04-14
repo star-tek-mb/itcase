@@ -246,7 +246,6 @@ function init () {
     objectManager = new ymaps.ObjectManager({
         clusterize: true,
         gridSize: 32,
-        clusterDisableClickZoom: true,
         geoObjectBalloonContentLayout: customSingleBalloonContentLayout,
         clusterBalloonContentLayout: customBalloonContentLayout
     });
