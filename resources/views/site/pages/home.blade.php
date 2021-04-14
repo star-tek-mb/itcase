@@ -438,7 +438,7 @@
                         <div class="card-info">
 
                             <div class="card-info-body">
-                                <h3 class="card-info-title">{{ $comment->who_set }}</h3>
+                                <h3 class="card-info-title">{{ $comment->author->name }}</h3>
                                 <hr>
                                 <div class="card-info-text">{!! $comment->comment !!}
                                 </div>

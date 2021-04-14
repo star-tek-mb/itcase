@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Comments;
+use App\Models\Comment;
 use Validator;
 use Redirect;
 use Response;
@@ -34,33 +34,27 @@ class CommentController extends Controller
     public function createCommentAll(Request $request)
     {
         $user = auth()->user();
-        $validationMessages = [
-        'comment' => 'Поле является обязательным',
-    ];
         $validatedData = Validator::make($request->all(), [
-      'comment' => 'required',
+            'comment' => 'required',
+        ])->validate();
 
-  ], $validationMessages)->validate();
-
-
-
-        $save_comment = new Comments;
-        $save_comment->who_set = $user->name;
-        $save_comment->comment = $request->comment;
-        $save_comment->save();
+        $comment = Comment::create([
+            'who_set' => $user->id,
+            'comment' => $request->comment
+        ]);
         return redirect()->route('site.account.comment')->with('account.success', 'Комментарий успешно добавлен');
     }
 
     public function createCommentContractor(Request $request)
     {
         $user = auth()->user();
-        $save_comment = new Comments;
-        $save_comment->who_set = $user->name;
-        $save_comment->comment = $request->comment;
-        $save_comment->for_set  = $request->for_comment_id;
-        $save_comment->assessment  = $request->rating;
-        $save_comment->theme = $request->theme;
-        $save_comment->save();
+        $comment = Comment::create([
+            'who_set' => $user->id,
+            'for_set' => $request->for_comment_id,
+            'assessment' => $request->rating,
+            'theme' => $request->theme,
+            'comment' => $request->comment
+        ]);
         return back()->with('success', 'Ваша оценка сохранена!');
     }
 }

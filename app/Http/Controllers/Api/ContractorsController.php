@@ -74,7 +74,7 @@ class ContractorsController extends Controller
         $contractorsCount = $contractors->count();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
         foreach ($contractors as $contractor) {
-            $comments = $this->users->getCommentBySlug($contractor->slug);
+            $comments = $this->users->getComments($contractor->id);
             $mean = (int) collect($comments)->avg('assessment');
             $contractor->comments = $comments;
             $contractor->mean = $mean;
@@ -92,7 +92,7 @@ class ContractorsController extends Controller
         $contractorsCount = $contractors->count();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
         foreach ($contractors as $contractor) {
-            $comments = $this->users->getCommentBySlug($contractor->slug);
+            $comments = $this->users->getComments($contractor->id);
             $mean = (int) collect($comments)->avg('assessment');
             $contractor->comments = $comments;
             $contractor->mean = $mean;
@@ -117,7 +117,7 @@ class ContractorsController extends Controller
             $contractorsCount = $contractors->count();
             $contractors = PaginateCollection::paginateCollection($contractors, 5);
             foreach ($contractors as $contractor) {
-                $comments = $this->users->getCommentBySlug($contractor->slug);
+                $comments = $this->users->getComments($contractor->id);
                 $mean = (int) collect($comments)->avg('assessment');
                 $contractor->comments = $comments;
                 $contractor->mean = $mean;
@@ -149,7 +149,7 @@ class ContractorsController extends Controller
             ], 404);
         }
         $portfolio = $this->users->getPortfolioBySlug($contractor->slug);
-        $comments = $this->users->getCommentBySlug($contractor->slug);
+        $comments = $this->users->getComments($contractor->id);
         $mean = (int) collect($comments)->avg('assessment');
 
         return response()->json([

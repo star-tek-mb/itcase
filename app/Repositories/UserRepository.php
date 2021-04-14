@@ -6,7 +6,7 @@ namespace App\Repositories;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\FormMultipleUpload;
-use App\Models\Comments;
+use App\Models\Comment;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
@@ -172,17 +172,10 @@ class UserRepository implements UserRepositoryInterface
         });
     }
 
-    public function getComment(string $slug)
+    public function getComments(int $user_id)
     {
-        $allComments = Comments::where('for_set', $slug)->whereNotNull('comment')->get();
+        $allComments = Comment::where('for_set', $user_id)->whereNotNull('comment')->get();
         return $allComments;
-    }
-
-    public function getCommentBySlug(string $slug)
-    {
-        return $this->getComment($slug)->all(function ($user) use ($slug) {
-            return $user->slug === $slug;
-        });
     }
 
     /**

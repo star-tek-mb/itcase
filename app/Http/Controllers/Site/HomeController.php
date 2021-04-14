@@ -7,7 +7,7 @@ use App\Repositories\HandbookCategoryRepositoryInterface;
 use App\Repositories\TenderRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Comments;
+use App\Models\Comment;
 use App\Models\PopularServices;
 
 class HomeController extends Controller
@@ -60,7 +60,7 @@ class HomeController extends Controller
         $parentCategories = $this->categories->all();
         $tenders = $this->tenders->allOrderedByCreatedAt($withoutContractors = true)->take(3);
         $posts = $this->posts->allOrderByDesc()->take(3);
-        $comments = Comments::latest()->limit(3)->whereNull('for_set')->get()->reverse();
+        $comments = Comment::latest()->limit(3)->whereNull('for_set')->get()->reverse();
         return view('site.pages.home', compact('parentCategories', 'tenders', 'posts', 'comments', 'populars'));
     }
 }
