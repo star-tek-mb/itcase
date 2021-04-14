@@ -58,6 +58,7 @@ class TenderRepository implements TenderRepositoryInterface
     {
         $tenderData = $data->all();
         $user = auth()->user();
+        Log::info($user->id);
         if (gettype($user) != null) {
             $tenderData['client_name'] = $user->first_name . " " . $user->last_name ;
             $tenderData['client_email'] = $user->email;
