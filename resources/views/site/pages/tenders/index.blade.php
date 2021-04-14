@@ -98,9 +98,8 @@
                                 </div>
                                 <!-- category checkbox -->
                                 <div class="body-box mb-4">
-                                    <ul class="nav nav-stacked" id="categoriesAccordion">
+                                    <ul class="nav nav-stacked" id="categoriesAccordion" style="display: block;">
                                     @foreach ($parentCategories as $parent)
-                                    
                                         <li class="panel" style="position: relative;">
                                             <a data-toggle="collapse" data-parent="#categoriesAccordion" class="caret collapsed" href="#accordion{{ $parent->id }}"></a>
                                             <div class="ml-4 form-check" style="display: inline-block;">
