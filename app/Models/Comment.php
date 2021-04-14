@@ -17,11 +17,11 @@ class Comment extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id', 'for_set');
+        return $this->belongsTo(User::class, 'for_set', 'id');
     }
 
     public function author()
     {
-        return $this->belongsTo(User::class, 'id', 'who_set');
+        return $this->belongsTo(User::class, 'who_set', 'id');
     }
 }
