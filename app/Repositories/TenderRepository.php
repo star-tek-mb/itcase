@@ -57,10 +57,10 @@ class TenderRepository implements TenderRepositoryInterface
     public function create($data)
     {
         $tenderData = $data->all();
-        $user = auth()->user();
+        $user = Auth::guard('sanctum')->user;
         Log::info($user);
         Log::info('THIS IS ' . gettype($user));
-        if (gettype($user) != null) {
+        if (gettype($user) != NULL) {
             $tenderData['client_name'] = $user->first_name . " " . $user->last_name ;
             $tenderData['client_email'] = $user->email;
             $tenderData['client_phone_number'] = $user->phone_number || '';
