@@ -173,7 +173,7 @@ class TenderController extends Controller
         ], $validationMessages)->validate();
         $tender_id = $this->tenderRepository->create($request);
         $tender = $this->tenderRepository->get($tender_id);
-        Log::info($tender->owner->getCommonTitle());
+        Log::info($tender->owner->id);
         Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
         return response()->json([
             'success' => "Тендер $tender->title создан и отправлен на модерацию!"
