@@ -36,18 +36,18 @@
         },
         methods: {
             fetchMessages() {
-                axios.get(`/api/messages?chat_id=${this.chatId}`).then(response => {
+                axios.get(`/site/messages?chat_id=${this.chatId}`).then(response => {
                     this.messages = response.data;
                 });
             },
             sendMessage() {
-                axios.post('/api/messages', { 'chatId': this.chatId, 'message': this.newMessage }).then(response => {
+                axios.post('/site/messages', { 'chatId': this.chatId, 'message': this.newMessage }).then(response => {
                     this.messages.push(response.data);
                     this.newMessage = '';
                 });
             },
             fetchUnreadMessages() {
-                axios.get(`/api/messages?chat_id=${this.chatId}&unread_only`).then(response => {
+                axios.get(`/site/messages?chat_id=${this.chatId}&unread_only`).then(response => {
                     this.messages = this.messages.concat(response.data);
                 });
             },
