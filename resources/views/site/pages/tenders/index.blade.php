@@ -77,7 +77,7 @@
                                     <i class=" fa fa-list"></i> Поиск по тексту
                                 </li>
                                 <li>  
-                                    <a href="{{ route('site.maps.index') }}">
+                                    <a href="{{ route('site.tenders.map') }}">
                                         <i class=" fa fa-map-marker"></i> Поиск по карте
                                     </a>
                                 </li>
