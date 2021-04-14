@@ -6,11 +6,6 @@
  * Time: 16:42
  */
 
-Route::prefix('site')->group(function () {
-    Route::post('/messages', 'Site\ChatsController@sendMessage');
-    Route::get('/messages', 'Site\ChatsController@fetchMessages');
-});
-
 Route::middleware('needsList')->name('site.')->namespace('Site')->group(function () {
     // Blog route
     Route::get('/blog', 'BlogController@index')->name('blog.index');
