@@ -171,8 +171,8 @@ class TenderController extends Controller
             'budget' => 'required',
             'deadline' => 'required|date'
         ], $validationMessages)->validate();
-        $tender = $this->tenderRepository->create($request);
-        Log::info(gettype($tender) .  "TYPE IS ");
+        $tender_id = $this->tenderRepository->create($request);
+        $tender = $this->tenderRepository->get($tender_id);
         Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
         return response()->json([
             'success' => "Тендер $tender->title создан и отправлен на модерацию!"
