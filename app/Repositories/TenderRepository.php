@@ -6,6 +6,7 @@ namespace App\Repositories;
 use App\Models\Tender;
 use App\Models\TenderRequest;
 use Carbon\Carbon;
+use http\Client\Curl\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 
@@ -57,15 +58,15 @@ class TenderRepository implements TenderRepositoryInterface
     public function create($data)
     {
         $tenderData = $data->all();
-        $user = Auth::guard('sanctum')->user;
-        Log::info($user);
-        Log::info('THIS IS ' . gettype($user));
-        if (gettype($user) != NULL) {
-            $tenderData['client_name'] = $user->first_name . " " . $user->last_name ;
-            $tenderData['client_email'] = $user->email;
-            $tenderData['client_phone_number'] = $user->phone_number || '';
-            $tenderData['client_type'] = $user->customer_type;
-            $tenderData['owner_id'] = $user->id;
+        if (isset($tenderData['owner_id'])) {
+            $user = User::find($tenderData['owner_id']);
+            if ($user != null) {
+                $tenderData['client_name'] = $user->first_name . " " . $user->last_name;
+                $tenderData['client_email'] = $user->email;
+                $tenderData['client_phone_number'] = $user->phone_number || '';
+                $tenderData['client_type'] = $user->customer_type;
+                $tenderData['owner_id'] = $user->id;
+            }
         } else {
             $tenderData['client_name'] = '';
             $tenderData['client_type'] = '';
