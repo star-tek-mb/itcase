@@ -97,6 +97,19 @@ class TenderController extends Controller
         ]);
     }
 
+    public function textFilter(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'terms' => 'required|string',
+            'categories' => 'required|array'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+        $result = $this->tenderRepository->tenderText($request->terms, $request->categories);
+        return response()->json($result);
+    }
+
     public function mapsFilter(Request $request)
     {
         $validator = Validator::make($request->all(), [

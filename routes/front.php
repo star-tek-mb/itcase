@@ -51,11 +51,7 @@ Route::middleware('needsList')->name('site.')->namespace('Site')->group(function
     Route::get('/tenders', 'TenderController@index')->name('tenders.index');
     Route::post('/tenders/search', 'TenderController@searchTender')->name('tenders.index.search');
     Route::get('/tenders/{params}', 'TenderController@category')->where('params', '.+')->name('tenders.category');
-
-    Route::prefix('/tender/maps')->name('maps.')->group(function () {
-        Route::get('/', [TenderController::class,'maps'])->name('index');
-        Route::post('filter', [TenderController::class,'ajaxFilter'])->name('filter') ;
-    });
+    Route::get('/', 'TenderController@map')->name('tenders.map');
 
     Route::get('/', 'HomeController@index')->name('catalog.index');
     Route::get('/contractors', 'ContractorsController@index')->name('contractors.index');

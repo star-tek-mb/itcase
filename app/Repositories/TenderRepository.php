@@ -46,7 +46,7 @@ class TenderRepository implements TenderRepositoryInterface
         $result = Tender::whereHas('categories', function ($query) use ($categories) {
                 $query->whereIn('tender_category.category_id', $categories);
             })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
-            ->where('title', 'like', '%'.$terms.'%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
+            ->where('title', 'like', '%'.$terms.'%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->paginate();
         return $result;
     }
 

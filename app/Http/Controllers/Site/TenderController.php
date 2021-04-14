@@ -318,7 +318,7 @@ class TenderController extends Controller
         return redirect()->back();
     }
 
-    public function maps()
+    public function map()
     {
         return view('site.pages.tenders.maps');
     }
