@@ -6,7 +6,7 @@ namespace App\Repositories;
 use App\Models\Tender;
 use App\Models\TenderRequest;
 use Carbon\Carbon;
-use http\Client\Curl\User;
+use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 
