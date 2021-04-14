@@ -17,7 +17,10 @@ Route::prefix('{locale}')->where(['locale' => '(' . implode('|', config('app.ena
 
 include __DIR__ . '/admin.php';
 
-Route::post('/ajax-search', 'HomeController@search');
+Route::prefix('site')->group(function () {
+    Route::post('/messages', 'Site\ChatsController@sendMessage');
+    Route::get('/messages', 'Site\ChatsController@fetchMessages');
+});
 Route::post('/endpoint/octo', 'OctoController');
 Route::view('/thanks', 'site.pages.thanks');
 Route::get('/auth/google', 'Auth\LoginController@redirectToGoogle');

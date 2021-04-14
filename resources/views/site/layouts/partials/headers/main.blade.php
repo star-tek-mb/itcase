@@ -11,8 +11,7 @@
                                                                                            alt="VID"><img
                             class="qdesk-logo-black" src="{{ asset('front/images/logo-black.png') }}" alt="VID"></a></div>
                 <div class="navigation" id="navigation">
-                    <ul class="main-menu">
-                        <li class="active"><a href="/">{{ __(('Главная')) }}</a></li>
+                    <ul class="ml-4 main-menu">
                         <li class="header-menu-item"><a href="{{ route('site.tenders.index') }}">{{ __('Конкурсы') }} <i
                                     class="fas fa-caret-down"></i></a>
                             <ul class="sub-menu">

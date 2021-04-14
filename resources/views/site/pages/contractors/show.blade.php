@@ -219,12 +219,12 @@
                             <div class="review-item-heading">
                               <div class="row align-items-md-center">
                                 <div class="col-lg-8">
-                                  <h3 class="review-title">{{ $comment->who_set }}</h3>
+                                  <h3 class="review-title">{{ $comment->author->name }}</h3>
                                   <div class="meta-text"><span class="date-post">Опубликован: {{ $comment->created_at }}</span></div>
                                 </div>
                                 <div class="col-lg-4 text-md-right">
                                   <div class="star-rating">
-                                    @for($i=0; $i<$comment->assessment; $i++)
+                                    @for ($i = 0; $i < $comment->assessment; $i++)
                                       <i class="fas fa-star"></i>
                                     @endfor
                                   </div>

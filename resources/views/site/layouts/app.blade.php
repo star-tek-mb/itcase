@@ -236,24 +236,5 @@
 
 
 </script>
-<script>
-    $('.form-control').bind("change keyup input click", function () {
-        if ($(this).val().length >= 2) {
-
-            $.ajax({
-                method: 'POST',
-                url: "/live-search",
-                data: {search:$(this).val(), _token: '{{csrf_token()}}'},
-                success: function(data) {
-                  //  $('.form-control').parents('.form-group').html(data).fadeIn();
-                    $('#livesearch').attr('style','border: 1px solid rgb(165, 172, 178); background: lightgrey;');
-                    $('#livesearch').html(data).fadeIn();
-                    console.log(data);
-                }
-            });
-
-        }
-    });
-</script>
 @yield('js')
 </html>

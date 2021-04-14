@@ -209,9 +209,9 @@ class HandbookCategory extends Model
     {
         $categories = $this->descendants;
         $companies = collect();
-        $companies = $companies->merge($this->users->load('categories'));
+        $companies = $companies->merge($this->users);
         foreach ($categories as $category) {
-            $companies = $companies->merge($category->users->load('categories'));
+            $companies = $companies->merge($category->users);
         }
         $companies = $companies->unique(function ($item) {
             return $item->id;

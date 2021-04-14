@@ -19,6 +19,36 @@
 @section('header')
     @include('site.layouts.partials.headers.default')
 @endsection
+@section('css')
+    <style>
+        #map {
+            width: 730px;
+            height: 730px;
+            padding: 0;
+            margin: 0;
+        }
+
+        #location {
+            width: 300px;
+            height: 300px;
+            padding: 0;
+            margin: 0;
+        }
+        .caret::before {
+            content: "\25B6";
+        }
+        .collapsed.caret {
+            transform: rotate(0deg);
+        }
+        .caret {
+            color: black;
+            display: inline-block;
+            transform: rotate(90deg);
+            position: absolute;
+            top: 0;
+        }
+    </style>
+@endsection
 
 @section('content')
     <div class="primary-page">
@@ -34,35 +64,21 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('site.catalog.index') }}">Главная</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Конкурсы</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Задания</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="search-form d-flex justify-content-end pr-0 align-items-center">
-                            <form action="{{ route('site.tenders.index.search') }}" method="post">
-                                @csrf
-                                <div class="form-group d-flex">
-                                    <input class="form-control mr-md-4" name="search" type="text"
-                                           placeholder="Поиск здесь...">
-                                    <div id="livesearch"></div>
-                                    <button class="btn-clear position-relative" type="submit"><i
-                                                class=" fa fa-search"></i></button>
-                                </div>
-                            </form>
 
                             <ul class="d-flex ul-nav align-items-center ">
-
                                 <li>
-                                    <a href="{{ route('site.tenders.index') }}" title="Список">
-                                        <i class=" fa fa-list"></i>
-                                    </a>
+                                    <i class=" fa fa-list"></i> Поиск по тексту
                                 </li>
-
-                                <li>
-                                    <a href="{{ route('site.maps.index') }}" title="Показать на карте">
-                                        <i class=" fa fa-map-marker"></i>
+                                <li>  
+                                    <a href="{{ route('site.tenders.map') }}">
+                                        <i class=" fa fa-map-marker"></i> Поиск по карте
                                     </a>
                                 </li>
                             </ul>
@@ -71,81 +87,57 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
-                        <form id="filter" action="{{ route('site.maps.filter') }}" method="post">
-                            @csrf
-                            <div class="toggle-sidebar-left d-lg-none">Фильтр</div>
-                            <div class="sidebar-left">
-                                <button class="btn-close-sidebar-left btn-clear">
-                                    <i class="fa fa-times-circle"></i>
-                                </button>
-                                <div class="box-sidebar">
-                                    <div class="header-box d-flex justify-content-between flex-wrap">
-                                        <span class="title-box">Фильтр</span>
-                                        <input type="reset" value="Очистить">
-                                    </div>
-                                    <!-- category checkbox -->
-                                    <div class="body-box">
-                                        <div class="accordion"
-                                                id="categoriesAccordion" role="tablist"
-                                                aria-multiselectable="false">
-                                            @foreach($parentCategories as $parent)
-                                                <div class="card">
-                                                    <div class="card-header d-flex justify-content-between"
-                                                            id="headingCategory{{ $parent->id }}">
-                                                        <a href="{{ route('site.tenders.category', $parent->ru_slug) }}">{{ $parent->title }}</a>
-                                                        <a href="#collapseCategory{{ $parent->id }}"
-                                                            data-toggle="collapse"
-                                                            data-parent="#categoriesAccordion"
-                                                            aria-expanded="true"
-                                                            aria-controls="collapseCategory{{ $parent->id }}"
-                                                            style="font-size:8px">
-                                                            <button class="btn btn-outline-success">
-                                                                <i class="fas fa-caret-down"></i>
-                                                            </button>
-                                                        </a>
-                                                    </div>
-                                                    <div class="collapse"
-                                                            id="collapseCategory{{ $parent->id }}"
-                                                            role="tabpanel"
-                                                            aria-labelledby="headingCategory{{ $parent->id }}"
-                                                            data-parent="#categoriesAccordion">
-                                                        <div class="card-body">
-                                                            <ul class="list-group list-group-flush">
-                                                            @foreach($parent->categories as $category)
-                                                                <!--<a href="{{ route('site.tenders.category', $category->getAncestorsSlugs()) }}" class="list-group-item list-group-item-action">{{ $category->getTitle() }}</a>__DIR__-->
-                                                                    <li class="list-group-item list-group-item-action">
-                                                                        <input type="checkbox"
-                                                                                class="ajax-filter"
-                                                                                name="category[]"
-                                                                                value=" {{ $category->id }}">
-                                                                        {{ $category->title }}
-                                                                    </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-
-                                    <!-- other checkbox -->
-                                    <div class="body-box">
-
-                                        <label>
-                                            Стоимости заданий от
-                                            <input type="text" class="ajax-filter" name="min_price"> сум
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" class="ajax-filter" name="remote">
-                                            Удаленная работа
-                                        </label>
-                                    </div>
-                                    <div id="ajaxFilter" class="btn btn-outline-success">Фильтр</div>
-
+                        <div class="toggle-sidebar-left d-lg-none">Фильтр</div>
+                        <div class="sidebar-left">
+                            <button class="btn-close-sidebar-left btn-clear">
+                                <i class="fa fa-times-circle"></i>
+                            </button>
+                            <div class="box-sidebar">
+                                <div class="header-box d-flex justify-content-between flex-wrap">
+                                    <span class="title-box">Фильтр</span>
                                 </div>
+                                <!-- category checkbox -->
+                                <div class="body-box mb-4">
+                                    <ul class="nav nav-stacked" id="categoriesAccordion" style="display: block;">
+                                    @foreach ($parentCategories as $parent)
+                                        <li class="panel" style="position: relative;">
+                                            <a data-toggle="collapse" data-parent="#categoriesAccordion" class="caret collapsed" href="#accordion{{ $parent->id }}"></a>
+                                            <div class="ml-4 form-check" style="display: inline-block;">
+                                                <input checked type="checkbox" id="cat{{ $parent->id }}" class="form-check-input" name="categories[]" value="{{ $parent->id }}">
+                                                <label class="form-check-label" for="cat{{ $parent->id }}">{{ $parent->title }}</label>
+                                                <ul id="accordion{{ $parent->id }}" class="collapse panel-collapse in">
+                                                    @foreach ($parent->categories as $category)
+                                                    <li class="form-check">
+                                                        <input checked type="checkbox" id="cat{{ $category->id }}" class="form-check-input" name="categories[]" id="tall" value="{{ $category->id }}">
+                                                        <label class="form-check-label" for="cat{{ $category->id }}">{{ $category->title }}</label>
+                                                    </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                    </ul>
+                                </div>
+
+                                <!-- other checkbox -->
+                                <div class="body-box">
+                                    <div class="form-group">
+                                        <label for="distance">Содержит ключевые слова</label>
+                                        <input type="text" id="terms" class="form-control" name="terms" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price">Минимальная цена задания, сум</label>
+                                        <input type="text" id="price" class="form-control" name="price" value="0">
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="remote" id="remote">
+                                        <label class="form-check-label">Удаленная работа</label>
+                                    </div>
+                                </div>
+                                <div class="mt-2 btn bg-primary text-white">Фильтр</div>
+
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="col-lg-8">
                         <div id="result" class="content-main-right list-jobs">
@@ -365,37 +357,74 @@
 @endsection
 
 @section('js')
-    <script>
+<script>
+$('input[type="checkbox"]').change(function(e) {
+  var checked = $(this).prop("checked"),
+      container = $(this).parent(),
+      siblings = container.siblings();
+  container.find('input[type="checkbox"]').prop({
+    indeterminate: false,
+    checked: checked
+  });
+  function checkSiblings(el) {
+    var parent = el.parent().parent(),
+        all = true;
+    el.siblings().each(function() {
+      let returnValue = all = ($(this).children('input[type="checkbox"]').prop("checked") === checked);
+      return returnValue;
+    });
+    if (all && checked) {
+      parent.children('input[type="checkbox"]').prop({
+        indeterminate: false,
+        checked: checked
+      });
+      checkSiblings(parent);
+    } else if (all && !checked) {
+      parent.children('input[type="checkbox"]').prop("checked", checked);
+      parent.children('input[type="checkbox"]').prop("indeterminate", (parent.find('input[type="checkbox"]:checked').length > 0));
+      checkSiblings(parent);
+    } else {
+      el.parents("li div").children('input[type="checkbox"]').prop({
+        indeterminate: true,
+        checked: false
+      });
 
-        $('#ajaxFilter').click(function (e) {
-            var frm = $('#filter');
-            var formData = frm.serialize();
+    }
+  }
+  checkSiblings(container);
+});
+</script>
+<script>
 
-            $.ajax({
-                type: frm.attr('method'),
-                url: frm.attr('action'),
-                data: formData,
-                success: function (data) {
-                    $('#result').html(data);
-                    $('body').on('click', '.pagination a',function(e){
-                        event.preventDefault();
-                        var page = $(this).attr('href').split('page=')[1];
-                        $.ajax({
-                            type: $('#filter').attr('method'),
-                            url: $('#filter').attr('action')+"?page="+page,
-                            data: $('#filter').serialize(),
-                            success:function(data)
-                            {
-                                $('#result').html(data);
-                                console.log(data);
-                            }
-                        });
+    $('#ajaxFilter').click(function (e) {
+        var frm = $('#filter');
+        var formData = frm.serialize();
+
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: formData,
+            success: function (data) {
+                $('#result').html(data);
+                $('body').on('click', '.pagination a',function(e){
+                    event.preventDefault();
+                    var page = $(this).attr('href').split('page=')[1];
+                    $.ajax({
+                        type: $('#filter').attr('method'),
+                        url: $('#filter').attr('action')+"?page="+page,
+                        data: $('#filter').serialize(),
+                        success:function(data)
+                        {
+                            $('#result').html(data);
+                            console.log(data);
+                        }
                     });
-                    }
-            });
-
+                });
+                }
         });
-    </script>
+
+    });
+</script>
 @endsection
 
 

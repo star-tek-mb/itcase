@@ -40,6 +40,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            'guardswitcher:sanctum',
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:60,1',
             'bindings',
@@ -69,6 +70,7 @@ class Kernel extends HttpKernel
         'account.completed' => Middleware\CheckCompletedAccountMiddleware::class,
         'phone.verified' => \App\Http\Middleware\CheckPhone::class,
         'setlocale' => \App\Http\Middleware\SetLocale::class,
+        'guardswitcher' => \App\Http\Middleware\GuardSwitcher::class
     ];
 
     /**

@@ -1,21 +1,9 @@
 @extends('site.layouts.app')
 
 @section('title')
-    @if ($currentCategory)
-        {{ $currentCategory->tender_meta_title_prefix }} @if(empty($currentCategory->meta_title)) {{ $currentCategory->getTitle() }} @else {{ $currentCategory->meta_title }} @endif в Ташкенте|Узбекистане
-    @else
-        Конкурсы
-    @endif
+    Конкурсы
 @endsection
 
-@section('meta')
-    @if ($currentCategory)
-        <meta name="title"
-              content="{{ $currentCategory->tender_meta_title_prefix }} @if(empty($currentCategory->meta_title)) {{ $currentCategory->getTitle() }} @else {{ $currentCategory->meta_title }} @endif в Ташкенте|Узбекистане">
-        <meta name="description"
-              content="@if (empty($currentCategory->meta_description)) {{ strip_tags($currentCategory->ru_description) }} @else {{ $currentCategory->meta_description }} @endif">
-    @endif
-@endsection
 @section('header')
     @include('site.layouts.partials.headers.default')
 @endsection
@@ -34,6 +22,19 @@
             padding: 0;
             margin: 0;
         }
+        .caret::before {
+            content: "\25B6";
+        }
+        .collapsed.caret {
+            transform: rotate(0deg);
+        }
+        .caret {
+            color: black;
+            display: inline-block;
+            transform: rotate(90deg);
+            position: absolute;
+            top: 0;
+        }
     </style>
 @endsection
 
@@ -44,43 +45,26 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="section-heading">
-                            <h1 class="title-page">Каталог конкурсов @if ($currentCategory)
-                                    {{ $currentCategory->getTitle() }}
-                                @endif </h1>
+                            <h1 class="title-page">Поиск заданий по карте</h1>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('site.catalog.index') }}">Главная</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Конкурсы</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Задания</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="search-form d-flex justify-content-end pr-0 align-items-center">
-                            <form action="{{ route('site.tenders.index.search') }}" method="post">
-                                @csrf
-                                <div class="form-group d-flex">
-                                    <input class="form-control mr-md-4" name="search" type="text"
-                                           placeholder="Поиск здесь...">
-                                    <div id="livesearch"></div>
-                                    <button class="btn-clear position-relative" type="submit"><i
-                                                class=" fa fa-search"></i></button>
-                                </div>
-                            </form>
-
                             <ul class="d-flex ul-nav align-items-center ">
-
                                 <li>
-                                    <a href="{{ route('site.tenders.index') }}" title="Список">
-                                        <i class=" fa fa-list"></i>
+                                    <a href="{{ route('site.tenders.index') }}">
+                                        <i class=" fa fa-list"></i> Поиск по тексту
                                     </a>
                                 </li>
-
-                                <li>
-                                    <a href="{{ route('site.maps.index') }}" title="Показать на карте">
-                                        <i class=" fa fa-map-marker"></i>
-                                    </a>
+                                <li>  
+                                    <i class=" fa fa-map-marker"></i> Поиск по карте
                                 </li>
                             </ul>
                         </div>
@@ -88,234 +72,204 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
-                        <form id="filter" action="{{ route('site.maps.filter') }}" method="post">
-                            @csrf
-                            <div class="toggle-sidebar-left d-lg-none">Фильтр</div>
-                            <div class="sidebar-left">
-                                <button class="btn-close-sidebar-left btn-clear">
-                                    <i class="fa fa-times-circle"></i>
-                                </button>
-                                <div class="box-sidebar">
-                                    <div class="header-box d-flex justify-content-between flex-wrap">
-                                        <span class="title-box">Фильтр</span>
-                                        <input type="reset" value="Очистить">
-                                    </div>
-                                    <!-- category checkbox -->
-                                    <div class="body-box">
-                                        <div class="accordion"
-                                                id="categoriesAccordion" role="tablist"
-                                                aria-multiselectable="false">
-                                            @foreach($parentCategories as $parent)
-                                                <div class="card">
-                                                    <div class="card-header d-flex justify-content-between"
-                                                            id="headingCategory{{ $parent->id }}">
-                                                        <a href="{{ route('site.tenders.category', $parent->ru_slug) }}">{{ $parent->title }}</a>
-                                                        <a href="#collapseCategory{{ $parent->id }}"
-                                                            data-toggle="collapse"
-                                                            data-parent="#categoriesAccordion"
-                                                            aria-expanded="true"
-                                                            aria-controls="collapseCategory{{ $parent->id }}"
-                                                            style="font-size:8px">
-                                                            <button class="btn btn-outline-success">
-                                                                <i class="fas fa-caret-down"></i>
-                                                            </button>
-                                                        </a>
-                                                    </div>
-                                                    <div class="collapse"
-                                                            id="collapseCategory{{ $parent->id }}"
-                                                            role="tabpanel"
-                                                            aria-labelledby="headingCategory{{ $parent->id }}"
-                                                            data-parent="#categoriesAccordion">
-                                                        <div class="card-body">
-                                                            <ul class="list-group list-group-flush">
-                                                            @foreach($parent->categories as $category)
-                                                                <!--<a href="{{ route('site.tenders.category', $category->getAncestorsSlugs()) }}" class="list-group-item list-group-item-action">{{ $category->getTitle() }}</a>__DIR__-->
-                                                                    <li class="list-group-item list-group-item-action">
-                                                                        <input type="checkbox"
-                                                                                class="ajax-filter"
-                                                                                value=" {{ $category->id }}">
-                                                                        {{ $category->title }}
-                                                                    </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
+                        <div class="toggle-sidebar-left d-lg-none">Фильтр</div>
+                        <div class="sidebar-left">
+                            <button class="btn-close-sidebar-left btn-clear">
+                                <i class="fa fa-times-circle"></i>
+                            </button>
+                            <div class="box-sidebar">
+                                <div class="header-box d-flex justify-content-between flex-wrap">
+                                    <span class="title-box">Фильтр</span>
+                                </div>
+                                <!-- category checkbox -->
+                                <div class="body-box mb-4">
+                                    <ul class="nav nav-stacked" id="categoriesAccordion" style="display: block;">
+                                    @foreach ($parentCategories as $parent)
+                                    
+                                        <li class="panel" style="position: relative;">
+                                            <a data-toggle="collapse" data-parent="#categoriesAccordion" class="caret collapsed" href="#accordion{{ $parent->id }}"></a>
+                                            <div class="ml-4 form-check" style="display: inline-block;">
+                                                <input onchange="mapFiltersChanged()" checked type="checkbox" id="cat{{ $parent->id }}" class="form-check-input" name="categories[]" value="{{ $parent->id }}">
+                                                <label class="form-check-label" for="cat{{ $parent->id }}">{{ $parent->title }}</label>
+                                                <ul id="accordion{{ $parent->id }}" class="collapse panel-collapse in">
+                                                    @foreach ($parent->categories as $category)
+                                                    <li class="form-check">
+                                                        <input onchange="mapFiltersChanged()" checked type="checkbox" id="cat{{ $category->id }}" class="form-check-input" name="categories[]" id="tall" value="{{ $category->id }}">
+                                                        <label class="form-check-label" for="cat{{ $category->id }}">{{ $category->title }}</label>
+                                                    </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                    </ul>
+                                </div>
+
+                                <!-- other checkbox -->
+                                <div class="body-box">
+                                    <div class="form-group">
+                                        <label for="distance">Поиск заданий на расстоянии, км</label>
+                                        <input type="text" id="distance" class="form-control" name="distance" value="30">
                                     </div>
 
-                                    <!-- other checkbox -->
-                                    <div class="body-box">
-                                        <label>
-                                            Поиск заданий на расстоянии <input type="text" class="ajax-filter"
-                                                                               name="distance">км
-                                        </label>
-                                        <label>
-                                            <input hidden class="ajax-filter" name="location">
-                                            <input hidden class="ajax-filter" name="map_filter" value="41.31064707835609, 69.2795380845336">
-                                            Укажите местоположение
-                                        </label>
-                                        <div id="location"></div>
-
-                                        <label>
-                                            Стоимости заданий от<input type="text" class="ajax-filter" name="min_price">
-                                            сум
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" class="ajax-filter" name="remote">
-                                            Удаленная работа
-                                        </label>
+                                    <div class="form-group">
+                                        <label for="price">Минимальная цена задания, сум</label>
+                                        <input type="text" id="price" class="form-control" name="price" value="0">
                                     </div>
-                                    <div id="ajaxFilter" class="btn btn-outline-success">Фильтр</div>
-
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="remote" id="remote">
+                                        <label class="form-check-label">Удаленная работа</label>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="col-lg-8">
                         <div id="result" class="content-main-right list-jobs">
-                            <div class="header-list-job d-flex flex-wrap justify-content-between align-items-center">
-                                <h4>{{ $tendersCount }} Конкурсов найдено</h4>
-                                @if (!\Request::is('tenders'))
-                                    <a class="btn btn-outline-success" href="{{ route('site.maps.index') }}">Все
-                                        результаты</a>
-                                @endif
-                            </div>
                             <div id="map"></div>
-
                         </div>
                     </div>
                 </div>
-                @if ($currentCategory !== null && $currentCategory->ru_description)
-                    <div class="row">
-                        <div class="col-lg">
-                            <div id="leftcolumn">
-                                <div class="sidebar-left">
-                                    <div class="box-sidebar" style="margin-top: 40px;">
-                                        <div class="header-box d-flex justify-content-between flex-wrap">
-                                            <h3 class="title-box">Описание</h3>
-                                        </div>
-                                        <div class="body-box">
-                                            <p>{!! $currentCategory->ru_description !!}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endif
             </div>
         </div>
     </div>
 
 @endsection
 @section('js')
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9b7e0e79-b7ed-43b7-87c6-671049c7c8f3"
-            type="text/javascript"></script>
+<script>
+$('input[type="checkbox"]').change(function(e) {
+  var checked = $(this).prop("checked"),
+      container = $(this).parent(),
+      siblings = container.siblings();
+  container.find('input[type="checkbox"]').prop({
+    indeterminate: false,
+    checked: checked
+  });
+  function checkSiblings(el) {
+    var parent = el.parent().parent(),
+        all = true;
+    el.siblings().each(function() {
+      let returnValue = all = ($(this).children('input[type="checkbox"]').prop("checked") === checked);
+      return returnValue;
+    });
+    if (all && checked) {
+      parent.children('input[type="checkbox"]').prop({
+        indeterminate: false,
+        checked: checked
+      });
+      checkSiblings(parent);
+    } else if (all && !checked) {
+      parent.children('input[type="checkbox"]').prop("checked", checked);
+      parent.children('input[type="checkbox"]').prop("indeterminate", (parent.find('input[type="checkbox"]:checked').length > 0));
+      checkSiblings(parent);
+    } else {
+      el.parents("li div").children('input[type="checkbox"]').prop({
+        indeterminate: true,
+        checked: false
+      });
 
-    <script>
-        ymaps.ready(init);
+    }
+  }
+  checkSiblings(container);
+});
+</script>
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9b7e0e79-b7ed-43b7-87c6-671049c7c8f3" type="text/javascript"></script>
+<script>
+ymaps.ready(init);
+var myMap;
+var objectManager;
+var myCircle;
+var customSingleBalloonContentLayout;
 
-        function init() {
-            var myMap = new ymaps.Map("map", {
-                    center: [ 41.31064707835609, 69.2795380845336],
-                    zoom: 12
-                }, {
-                    searchControlProvider: 'yandex#search'
-                }),
-                objects = ymaps.geoQuery({
-                    "type": "FeatureCollection",
-                    "features": [
-                            @foreach($tenders as $tender)
-                        {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [ {{ $tender->geo_location }} ]
-                            },
-                            "properties": {
-                                "balloonContent": "<a href='{{ route('site.tenders.category', $tender->slug) }}'>{{ $tender->title }}</a> {{ ($tender->opened==0 || $tender->contractor) ? "(Приём заявок окончен)" :"(Открыт)" }}",
-                                "hintContent": "{{ $tender->title }} {{ ($tender->opened==0 || $tender->contractor) ? "(Приём заявок окончен)" :"(Открыт)" }}"
-                            }
-                        },
-
-                        @endforeach
-                    ]
-                }).addToMap(myMap)
+$('#distance').on('input', function(el) {
+    myCircle.geometry.setRadius($(el.target).val() * 1000);
+    mapFiltersChanged();
+});
+function mapFiltersChanged(e) {
+    var checkedCategories = $('input[name="categories[]"]:checkbox:checked').map(function() {
+        return this.value;
+    }).get();
+    $.ajax({
+        type: "POST",
+        url: "/api/tenders/maps-filter",
+        data: {
+            center_lng: myCircle.geometry.getCoordinates()[0],
+            center_lat: myCircle.geometry.getCoordinates()[1],
+            radius: myCircle.geometry.getRadius() / 1000,
+            categories: checkedCategories
         }
-        $('#ajaxFilter').click(function (e) {
-            var frm = $('#filter');
-            var formData = frm.serialize();
-
-            $.ajax({
-                type: frm.attr('method'),
-                url: frm.attr('action'),
-                data: formData,
-                success: function (data) {
-                    $('#result').html(data);
-
+    }).done(function(data) {
+        objectManager.removeAll();
+        for (var tender of data) {
+            var lng = parseFloat(tender.geo_location.split(',')[0]);
+            var lat = parseFloat(tender.geo_location.split(',')[1]);
+            objectManager.add({
+                type: 'Feature',
+                id: tender.id,
+                geometry: {
+                    type: 'Point',
+                    coordinates: [lng, lat]
+                },
+                properties: {
+                    balloonContentHeader: '<img style="width: 64px; height: auto;" src="/uploads/handbook_categories_images/' + tender.icon + '">',
+                    balloonContentBody: '<a href="/tenders/' + tender.slug + '">' + tender.title + '</a><br><br>' + tender.description
                 }
             });
+        }
+    });
+}
 
-        });
+function init () {
+    myMap = new ymaps.Map('map', {
+        center: [41.37430329377309, 69.31025753144529],
+        zoom: 10
+    }, {
+        searchControlProvider: 'yandex#search'
+    });
+    var customBalloonContentLayout = ymaps.templateLayoutFactory.createClass([
+        '<div style="min-width: 400px; max-height: 600px; overflow-y: auto;">',
+        '{% for geoObject in properties.geoObjects %}',
+            '<div class="row mb-2">',
+                '<div class="col-3">@{{ geoObject.properties.balloonContentHeader|raw }}</div>',
+                '<div class="col-9" style="max-height: 200px;">@{{ geoObject.properties.balloonContentBody|raw }}</a></div>',
+            '</div>',
+        '{% endfor %}',
+        '</div>',
+    ].join(''));
+    var customSingleBalloonContentLayout = ymaps.templateLayoutFactory.createClass([
+        '<div class="row" style="min-width: 400px;">',
+            '<div class="col-3">@{{ properties.balloonContentHeader|raw }}</div>',
+            '<div class="col-9" style="max-height: 200px;">@{{ properties.balloonContentBody|raw }}</a></div>',
+        '</div>',
+    ].join(''));
 
+    objectManager = new ymaps.ObjectManager({
+        clusterize: true,
+        gridSize: 32,
+        geoObjectBalloonContentLayout: customSingleBalloonContentLayout,
+        clusterBalloonContentLayout: customBalloonContentLayout
+    });
 
-        ymaps.ready(function () {
-            var map;
-            ymaps.geolocation.get({
-                provider: 'browser',
-                mapStateAutoApply: true
-            }).then(function (res) {
-                var mapContainer = $('#location'),
-                    bounds = res.geoObjects.get(0).properties.get('boundedBy'),
-                    // Рассчитываем видимую область для текущей положения пользователя.
-                    mapState = ymaps.util.bounds.getCenterAndZoom(
-                        bounds,
-                        [mapContainer.width(), mapContainer.height()]
-                    );
-                createMap(mapState);
-            }, function (e) {
-                // Если местоположение невозможно получить, то просто создаем карту.
-                createMap({
-                    center: [41.2825125, 69.1392828],
-                    zoom: 10
-                });
-            });
+    objectManager.objects.options.set('preset', 'islands#greenDotIcon');
+    objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
+    myMap.geoObjects.add(objectManager);
 
-            function createMap(state) {
-                map = new ymaps.Map('location', state);
-                map.events.add('click', function (e) {
-                    if (!map.balloon.isOpen()) {
-                        var coords = e.get('coords');
-                        $('input[name=location]').val(coords);
-                        console.log(coords);
-                        myPlacemark = new ymaps.Placemark(coords, {
-                            //hintContent: 'Собственный значок метки',
-                         //   balloonContent: 'Это красивая метка'
-                        }, {
-                            // Опции.
-                            // Необходимо указать данный тип макета.
-                            iconLayout: 'default#image',
-                            // Своё изображение иконки метки.
-                            iconImageHref: '/front/images/location.gif',
-                            // Размеры метки.
-                            iconImageSize: [30, 42],
-                            // Смещение левого верхнего угла иконки относительно
-                            // её "ножки" (точки привязки).
-                            iconImageOffset: [-5, -38]
-                        });
-                        map.geoObjects
-                            .removeAll()
-                            .add(myPlacemark);
+    myCircle = new ymaps.Circle([
+        myMap.getCenter(),
+        30000
+    ], {
+        hintContent: "Можно передвинуть центр круга"
+    }, {
+        draggable: true,
+        fillColor: "#007dff7d",
+        strokeColor: "#2676cb",
+        strokeOpacity: 0.8,
+        strokeWidth: 5
+    });
+    myCircle.events.add('dragend', mapFiltersChanged);
+    myMap.geoObjects.add(myCircle);
 
-                    }
-                    else {
-                        map.balloon.close();
-                    }
-                });
-            }
-        });
-
-    </script>
+    mapFiltersChanged();
+}
+</script>
 @endsection

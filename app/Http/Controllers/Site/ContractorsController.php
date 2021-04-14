@@ -147,7 +147,7 @@ class ContractorsController extends Controller
     {
         $contractor = $this->users->getContractorBySlug($slug);
         $portfolio = $this->users->getPortfolioBySlug($slug);
-        $comments = $this->users->getCommentBySlug($slug);
+        $comments = $this->users->getComments($contractor->id);
         $has_comment=false;
         $mean = 0;
         foreach ($comments as $comment_sum) {

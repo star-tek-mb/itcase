@@ -119,6 +119,39 @@ class TenderController extends Controller
         return response()->json(['category' => $data], 200);
     }
 
+    public function textFilter(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+//            'terms' => 'required|string',
+            'categories' => 'required|array'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+        if($request->has('terms')) {
+            $result = $this->tenderRepository->tenderText($request->terms, $request->categories);
+        }
+        else {
+            $result = $this->tenderRepository->tenderTextWithoutTerms($request->categories);
+        }
+        return response()->json($result);
+    }
+
+    public function mapsFilter(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'center_lat' => 'required',
+            'center_lng' => 'required',
+            'radius' => 'required',
+            'categories' => 'required|array'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+        $result = $this->tenderRepository->tenderMap([$request->center_lat, $request->center_lng], $request->radius, $request->categories);
+        return response()->json($result);
+    }
+
     public function category($category_id)
     {
         $currentCategory = $this->categoryRepository->get($category_id);
@@ -152,28 +185,22 @@ class TenderController extends Controller
 
     public function store(Request $request)
     {
-        $validationMessages = [
-            'required' => 'Это поле обязательно к заполнению',
-            'max' => 'Количество символов должно быть не больше :max',
-            'integer' => 'Укажите целочисленное значение',
-            'date' => 'Неверный формат даты',
-            'string' => 'Укажите стороковое значение',
-            'email' => 'Неверный формат электронной почты'
-        ];
         if (auth()->user()) {
             auth()->user()->authorizeRole('customer');
         }
-        Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'categories' => 'required',
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:5000',
             'files' => 'nullable',
             'budget' => 'required',
             'deadline' => 'required|date'
-        ], $validationMessages)->validate();
-        $tender_id = $this->tenderRepository->create($request);
-        $tender = $this->tenderRepository->get($tender_id);
-        Log::info($tender->owner->id);
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+        $tender = $this->tenderRepository->create($request);
+
         Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
         return response()->json([
             'success' => "Тендер $tender->title создан и отправлен на модерацию!"
