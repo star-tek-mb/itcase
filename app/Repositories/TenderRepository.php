@@ -58,6 +58,7 @@ class TenderRepository implements TenderRepositoryInterface
     public function create($data)
     {
         $tenderData = $data->all();
+        Log::info($tenderData);
         if (isset($tenderData['owner_id'])) {
             $user = User::find($tenderData['owner_id']);
             if ($user != null) {
