@@ -92,7 +92,11 @@ class Tender extends Model
 
     public function categoryIcon()
     {
-        return $this->categories()->first()['image'];
+        $icon = $this->categories()->first()->parentCategory;
+        if ($icon)
+        return $icon->image;
+
+        return  $this->categories()->first()->image;
     }
 
     /**
