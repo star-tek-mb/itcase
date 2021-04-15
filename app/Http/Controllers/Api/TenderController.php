@@ -129,7 +129,7 @@ class TenderController extends Controller
             return response()->json(['errors' => $validator->errors()], 400);
         }
         if($request->has('terms')) {
-            $result = $this->tenderRepository->tenderText($request->terms, $request->categories);
+            $result = $this->tenderRepository->tenderTextWithTerms($request->terms, $request->categories);
         }
         else {
             $result = $this->tenderRepository->tenderTextWithoutTerms($request->categories);
