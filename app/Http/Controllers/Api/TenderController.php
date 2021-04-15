@@ -190,10 +190,10 @@ class TenderController extends Controller
         if ($validator->fails()){
             return  response()->json(['errors'=>$validator->errors()],400);
         }
-        $tenderRequested = TenderRequest::where('tender_id',$request->tender_id)->map(function (TenderRequest $tenderRequest){
+        $tenderRequested = TenderRequest::where('tender_id',$request->tender_id)->get()->map(function (TenderRequest $tenderRequest){
             $tenderRequest->user_info = $tenderRequest->user;
             return $tenderRequest;
-        })->get();
+        });
 
         return response()->json([
             'request'=> $tenderRequested,
