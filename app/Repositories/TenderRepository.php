@@ -24,7 +24,7 @@ class TenderRepository implements TenderRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function allOrderedByCreatedAt($withoutContractors = false, $map = false)
+    public function allOrderedByCreatedAt($withoutContractors = false, $map=false)
     {
         $query = Tender::whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason');
         if ($withoutContractors) {
@@ -40,24 +40,21 @@ class TenderRepository implements TenderRepositoryInterface
     public function TenderSearch($search)
     {
         $query = Tender::whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason');
-        return $query->where('title', 'like', '%' . $search->search . '%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
+        return $query->where('title', 'like', '%'.$search->search.'%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
     }
 
     public function tenderTextWithTerms(string $terms, array $categories)
     {
         $result = Tender::whereHas('categories', function ($query) use ($categories) {
-            $query->join('handbook_categories', 'tender_category.category_id', '=', 'handbook_categories.id')
-                ->whereIn('handbook_categories.parent_id', $categories);
-        })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
-            ->where('title', 'like', '%' . $terms . '%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->paginate();
+                $query->whereIn('handbook_categories.parent_id', $categories);
+            })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
+            ->where('title', 'like', '%'.$terms.'%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->paginate();
         return $result;
     }
 
-    public function tenderTextWithoutTerms(array $categories)
-    {
+    public  function  tenderTextWithoutTerms(array $categories){
         $result = Tender::whereHas('categories', function ($query) use ($categories) {
-            $query->join('handbook_categories', 'tender_category.category_id', '=', 'handbook_categories.id')
-                ->whereIn('handbook_categories.parent_id', $categories);
+            $query->whereIn('handbook_categories.parent_id', $categories);
         })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
             ->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->paginate();
         return $result;
@@ -68,12 +65,12 @@ class TenderRepository implements TenderRepositoryInterface
         // 6371 - radius of earth in km
         // tenders.geo_location [lng, lat]
         $result = Tender::whereHas('categories', function ($query) use ($categories) {
-            $query->whereIn('tender_category.category_id', $categories);
-        })->selectRaw('tenders.*')
+                $query->whereIn('tender_category.category_id', $categories);
+            })->selectRaw('tenders.*')
             ->selectRaw('(6371 * acos(cos(radians(?)) * cos(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', -1)))) '
-                . '* cos(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', 1))) - radians(?)) + sin(radians(?)) '
-                . '* sin(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', -1)))))) AS distance',
-                [$center[0], $center[1], $center[0]])
+                    . '* cos(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', 1))) - radians(?)) + sin(radians(?)) '
+                    . '* sin(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', -1)))))) AS distance',
+                    [$center[0], $center[1], $center[0]])
             ->havingRaw('distance < ?', [$radius])
             ->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
             ->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get()
@@ -115,8 +112,8 @@ class TenderRepository implements TenderRepositoryInterface
             $tenderData['client_type'] = '';
             $tenderData['client_phone_number'] = '';
         }
-        if (Arr::get($tenderData, 'remote') == 'on') {
-            $tenderData['type'] = 'remote';
+        if (Arr::get($tenderData, 'remote')=='on') {
+            $tenderData['type']='remote';
         }
         $tenderData['deadline'] = Carbon::createFromFormat('d.m.Y', $data->get('deadline'))->setHour(23)->setMinutes(59)->setSecond(59)->format('Y-m-d H:i:s');
         $tenderData['work_start_at'] = Carbon::createFromFormat('d.m.Y H:i', $data->get('work_start_at'));
@@ -127,13 +124,14 @@ class TenderRepository implements TenderRepositoryInterface
         Log::info("AFTER SAVED " . $tender->owner->id);
 //        Log::info($data->get('categories') . "  " . gettype($data->get('categories')));
         $tender->saveFiles($data->file('files'));
-        if (gettype($data->get('categories')) == 'string') {
+        if (gettype($data->get('categories'))=='string'){
             $category = explode(' ', $data->get('categories'));
 
-        } else {
+        }
+        else {
             $category = $data->get('categories');
         }
-        foreach ($category as $categoryId) {
+        foreach ($category as  $categoryId) {
             $tender->categories()->attach($categoryId);
         }
         return $tender->id;
@@ -147,8 +145,8 @@ class TenderRepository implements TenderRepositoryInterface
         $tender = $this->get($id);
         $tenderData = $data->all();
         $tenderData['deadline'] = Carbon::createFromFormat('d.m.Y', $data->get('deadline'))->setHour(23)->setMinutes(59)->setSecond(59)->format('Y-m-d H:i:s');
-        if (Arr::get($tenderData, 'remote') == 'on') {
-            $tenderData['type'] = 'remote';
+        if (Arr::get($tenderData, 'remote')=='on') {
+            $tenderData['type']='remote';
         }
         $tender->update($tenderData);
         $tender->saveFiles($data->file('files'));
@@ -217,7 +215,7 @@ class TenderRepository implements TenderRepositoryInterface
         $tender->contractor_id = $request->user_id;
         $tender->opened = false;
         $tender->save();
-        $request->user->victories_count += 1;
+        $request->user->victories_count+=1;
         $request->user->save();
         return $request;
     }
