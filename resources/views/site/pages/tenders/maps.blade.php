@@ -193,22 +193,22 @@ function mapFiltersChanged(e) {
         type: "POST",
         url: "/api/tenders/maps-filter",
         data: {
-            center_lng: myCircle.geometry.getCoordinates()[0],
-            center_lat: myCircle.geometry.getCoordinates()[1],
+            center_lat: myCircle.geometry.getCoordinates()[0],
+            center_lng: myCircle.geometry.getCoordinates()[1],
             radius: myCircle.geometry.getRadius() / 1000,
             categories: checkedCategories
         }
     }).done(function(data) {
         objectManager.removeAll();
         for (var tender of data) {
-            var lng = parseFloat(tender.geo_location.split(',')[0]);
-            var lat = parseFloat(tender.geo_location.split(',')[1]);
+            var lat = parseFloat(tender.geo_location.split(',')[0]);
+            var lng = parseFloat(tender.geo_location.split(',')[1]);
             objectManager.add({
                 type: 'Feature',
                 id: tender.id,
                 geometry: {
                     type: 'Point',
-                    coordinates: [lng, lat]
+                    coordinates: [lat, lng]
                 },
                 properties: {
                     balloonContentHeader: '<img style="width: 64px; height: auto;" src="/uploads/handbook_categories_images/' + tender.icon + '">',
