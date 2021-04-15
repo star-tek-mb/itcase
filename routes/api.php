@@ -55,7 +55,7 @@ Route::namespace('Api')->group(function () {
     Route::get('/tenders/category/{id}', 'TenderController@category');
 
     //Categories For Tender Create
-    Route::get('/tenders/create/category','TenderController@categoryCreateTender');
+    Route::get('/tenders/create/category', 'TenderController@categoryCreateTender');
 
     // Contractors routes
     Route::get('/contractors', 'ContractorsController@index');
@@ -66,7 +66,7 @@ Route::namespace('Api')->group(function () {
     Route::post('/contractors/search', 'ContractorsController@contractorSearch');
 
     // Phone verify routes
-    Route::middleware('throttle:6,1', function() {
+    Route::middleware('throttle:6,1', function () {
         Route::post('/phone/verify', 'AuthController@verify');
         Route::post('/phone/resend', 'AuthController@resend');
     });

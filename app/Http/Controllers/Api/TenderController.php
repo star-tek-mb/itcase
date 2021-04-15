@@ -122,7 +122,7 @@ class TenderController extends Controller
     public function textFilter(Request $request)
     {
         $validator = Validator::make($request->all(), [
-//            'terms' => 'required|string',
+
             'categories' => 'required|array'
         ]);
         if ($validator->fails()) {
