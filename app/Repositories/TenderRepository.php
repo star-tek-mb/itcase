@@ -60,7 +60,7 @@ class TenderRepository implements TenderRepositoryInterface
         return $result;
     }
 
-    public function tenderMap(array $center, float $radius, array $categories)
+    public function tenderMap(array $center, float $radius, array $categories)  
     {
         // 6371 - radius of earth in km
         // tenders.geo_location [lng, lat]
