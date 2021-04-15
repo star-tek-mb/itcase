@@ -184,7 +184,7 @@ class TenderController extends Controller
         }
     }
     public  function showOffered(Request $request){
-        $validator = Validator::make($request->all,[
+        $validator = Validator::make($request->all(),[
             'tender_id'=>'required',
         ]);
         if ($validator->fails()){
