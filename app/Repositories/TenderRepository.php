@@ -65,7 +65,7 @@ class TenderRepository implements TenderRepositoryInterface
         // 6371 - radius of earth in km
         // tenders.geo_location [lng, lat]
         $result = Tender::whereHas('categories', function ($query) use ($categories) {
-                $query->whereIn('tender_category.category_id', $categories);
+                $query->whereIn('tender_category.category_id', $categories)->orWhereIn('handbook_categories.parent_id', $categories);
             })->selectRaw('tenders.*')
             ->selectRaw('(6371 * acos(cos(radians(?)) * cos(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', -1)))) '
                     . '* cos(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', 1))) - radians(?)) + sin(radians(?)) '

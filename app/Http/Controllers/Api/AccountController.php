@@ -83,7 +83,7 @@ class AccountController extends Controller
             return response()->json([
                 'accountPage' => $accountPage,
                 'user' => $user,
-                'role' => 'customer'
+                'role' => 'customer',
             ]);
         } else {
             abort(403);
