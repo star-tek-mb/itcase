@@ -191,13 +191,17 @@ class TenderController extends Controller
             return  response()->json(['errors'=>$validator->errors()],400);
         }
         $tenderRequested = TenderRequest::where('tender_id',$request->tender_id)->get()->map(function (TenderRequest $tenderRequest){
-            $tenderRequest->user_info = $tenderRequest->user;
+            $tenderRequest->user_info = [
+                'first_name'=>$tenderRequest->user->first_name,
+                'email' => $tenderRequest->user->email,
+                'image' => $tenderRequest->user->image,
+                ];
             return $tenderRequest;
         });
 
         return response()->json([
-            'request'=> $tenderRequested,
-           ]);
+            'requested'=> $tenderRequested,
+           ],200);
     }
     public function  showRequested(Request $request){
         return response()->json(auth()->user()->requests);
