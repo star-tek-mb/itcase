@@ -192,7 +192,9 @@ class TenderController extends Controller
         }
         $tenderRequested = TenderRequest::where('tender_id',$request->tender_id)->get();
 
-        return response()->json($tenderRequested);
+        return response()->json([
+            'request'=> $tenderRequested,
+            'user_info'=>$tenderRequested->user]);
     }
     public function  showRequested(Request $request){
         return response()->json(auth()->user()->requests);
