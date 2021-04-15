@@ -134,7 +134,7 @@ class TenderController extends Controller
         else {
             $result = $this->tenderRepository->tenderTextWithoutTerms($request->categories);
         }
-        return response()->json($result);
+        return response()->json(['tenders' => $result]);
     }
 
     public function mapsFilter(Request $request)
