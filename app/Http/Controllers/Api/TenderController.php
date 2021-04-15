@@ -183,7 +183,8 @@ class TenderController extends Controller
         }
     }
     public  function showOffers($request){
-        return auth()->user();
+        Log::info(auth()->user());
+        return response()->json(["user" => auth()->user()]);
     }
     public function store(Request $request)
     {
