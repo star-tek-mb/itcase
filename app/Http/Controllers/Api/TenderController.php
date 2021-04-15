@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Helpers\PaginateCollection;
+use App\Models\TenderRequest;
 use App\Notifications\InviteRequest;
 use App\Notifications\NewRequest;
 use App\Notifications\RequestAction;
@@ -182,9 +183,19 @@ class TenderController extends Controller
             ], 404);
         }
     }
-    public  function showOffers(Request $request){
-        Log::info(auth()->user());
-        return response()->json(["user" => auth()->user()->requests]);
+    public  function showOffered(Request $request){
+        $validator = Validator::make($request->all,[
+            'tender_id'=>'required',
+        ]);
+        if ($validator->fails()){
+            return  response()->json(['errors'=>$validator->errors()],400);
+        }
+        $tenderRequested = TenderRequest::where('tender_id',$request->tender_id)->get();
+
+        return response()->json($tenderRequested);
+    }
+    public function  showRequested(Request $request){
+        return response()->json(auth()->user()->requests);
     }
     public function store(Request $request)
     {
