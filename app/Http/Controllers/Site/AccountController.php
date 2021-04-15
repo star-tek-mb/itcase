@@ -113,14 +113,6 @@ class AccountController extends Controller
         if ($userType == 'contractor') {
             return redirect()->route('phone.verification.notice')->with('account.success', 'Ваш аккаунт создан! Подтвердите номер телефона и заполните свои профессиональные данные, что бы вас могли найти в каталоге');
         }
-        if ($request->hasCookie('tenderId')) {
-            $tenderId = $request->cookie('tenderId');
-            $this->tenderRepository->setOwnerToTender($tenderId, auth()->user()->id);
-            \Cookie::forget('tenderId');
-            $tender = $this->tenderRepository->get($tenderId);
-            \Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
-            return redirect()->route('phone.verification.notice')->with('account.success', 'Ваш аккаунт создан, а тендер отправлен на модерацию, вы можете посмотреть его в разделе "Мои тендеры".');
-        }
         return redirect()->route('phone.verification.notice');
     }
 
