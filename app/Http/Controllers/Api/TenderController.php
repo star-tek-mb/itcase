@@ -196,6 +196,7 @@ class TenderController extends Controller
                 'email' => $tenderRequest->user->email,
                 'image' => $tenderRequest->user->image,
                 ];
+            $tenderRequest->user =  [];
             return $tenderRequest;
         });
 
