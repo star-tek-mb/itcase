@@ -33,9 +33,6 @@ p {
   margin: 0;
 }
 
-
-
-
 /*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
@@ -61,12 +58,12 @@ p {
   margin-top: 10px;
 }
 
-
 /*--------------------------------------------------------------
-# Disable aos animation delay on mobile devices
+# FIRST
 --------------------------------------------------------------*/
 .carousel-section {
   background: #fff;
+  margin: 25px 0;
 }
 #services-carousel {
   width: 85%;
@@ -85,14 +82,16 @@ p {
 }
 
 .service-popular-item .service-item-image {
-  right: 0;
-  width: 65%;
+  z-index: 1;
+  width: 100%;
   height: 100%;
   position: absolute;
 }
 .service-popular-item .service-item-image img {
-  max-width: 100%;
-  z-index: 1;
+  right: 0;
+  width: 70%;
+  height: 100%;
+  position: absolute;
 }
 
 .service-item-text {
@@ -115,7 +114,6 @@ p {
   font-size: 14px;
   font-weight: 500;
 }
-
 
 .owl-nav > div {
   top: 0;
@@ -171,100 +169,85 @@ p {
   -webkit-mask: url(./arrow-forward-circle-outline.svg) no-repeat;
 }
 
-
 /*--------------------------------------------------------------
-# Services
+# SECOND
 --------------------------------------------------------------*/
-.why-we-section {
-  background: #fff;
+
+.offer-carousel {
+  width: 85%;
+  min-height: 50vh;
+  margin: 0 auto;
   position: relative;
 }
 
-.why-we-section .whywe-box {
-  padding: 20px 10px;
-  position: relative;
-  overflow: hidden;
+.owl-carousel .owl-dots .owl-dot.active span {
+  width: 30px;
+  height: 15px;
+  border-radius: 15px;
+  background: #000099;
+  -webkit-transform: translate3d(0px, -35%, 0px) scale(0.7);
+  transform: translate3d(0px, -35%, 0px) scale(0.7);
+}
+
+.owl-carousel .owl-dots {
+  width: 100%;
   text-align: center;
+  display: inline-block;
+}
+.owl-carousel .owl-dots .owl-dot {
+  display: inline-block;
+}
+.owl-carousel .owl-dots .owl-dot span {
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  background: #808080;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  -webkit-transform: translate3d(0px, 0%, 0px) scale(0.3);
+  transform: translate3d(0px, 0%, 0px) scale(0.3);
+  -webkit-transition: all 250ms ease-out 0s;
+  transition: all 250ms ease-out 0s;
 }
 
-.why-we-section .whywe-image {
-  margin-bottom: 5px;
+.content {
+  min-height: 45vh;
+  padding: 10px 0;
 }
-.why-we-section .whywe-image img {
-  max-width: 80%;
-}
-
-.why-we-section .whywe-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  margin-bottom: 5px;
-}
-.why-we-section .whywe-title h4 {
-  font-weight: 700;
-  font-size: 18px;
-  color: #000;
-}
-.why-we-section .whywe-description {
-  font-weight: 400;
-  font-size: 13px;
-  color: #000;
-}
-
-
-
-/*--------------------------------------------------------------
-# Features
---------------------------------------------------------------*/
-.features {
-  background: #f7f9fa;
-}
-
-.features .content {
-  margin: 5% 0;
-}
-.features .content:last-child {
-  margin-bottom: 10%;
-}
-@media (max-width: 600px) {
-  .features .content {
-    margin: 10% 0;
-  }
-  .features .content:last-child {
-    margin-bottom: 0%;
-  }
-}
-
 .content .content-img {
+  height: 45vh;
   display: flex;
   align-self: center;
   justify-content: center;
+}
+.content .content-img img {
+  max-width: 85%;
 }
 
 .right-part {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 5%;
+  padding: 0 10%;
   color: #000;
 }
 .content .right-part h3 {
   font-weight: 600;
-  font-size: 26px;
+  font-size: 22px;
 }
 .content .right-part p {
   font-weight: 500;
-  font-size: 20px;
-  margin: 20px 0;
+  font-size: 16px;
+  margin: 10px 0;
 }
 .content .right-part a {
   border-bottom: 2px solid #3b4ef8;
   font-weight: 500;
-  font-size: 18px;
 }
 
 .content .right-part ul {
+  font-weight: 500;
   list-style: none;
   padding: 0;
 }
@@ -276,20 +259,34 @@ p {
 .content .right-part ul li {
   display: grid;
   margin-bottom: 10px;
-  grid-column-gap: 2%;
+  grid-column-gap: 3%;
   grid-template-rows: 100%;
-  grid-template-columns: 9% 89%;
+  grid-template-columns: 9% 88%;
+}
+.content .right-part ul li:nth-child(4) {
+  margin-bottom: 0;
 }
 .content .right-part ul li span {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.content .right-part ul i {
-  font-size: 20px;
-  color: #808080;
-}
 
+.open_page_btn {
+  margin-top: 20px;
+  position: relative;
+}
+.btn-content {
+  font-weight: 400;
+  font-size: 15px;
+  padding: 3px 15px;
+  border-radius: 5px;
+  color: #fff;
+	background-image: linear-gradient(to right, #002080, #0033cc);
+}
+.right-part:last-child .btn-content {
+  font-size: 13px;
+}
 
 /*--------------------------------------------------------------
 # Hero Section
@@ -297,6 +294,7 @@ p {
 .download-section {
   width: 100%;
   height: 100%;
+  margin-top: 10vh;
   background: #fff;
 }
 
@@ -343,8 +341,6 @@ p {
   text-transform: uppercase;
 }
 
-
-
 .download-image-part .download-image {
   display: flex;
   height: 50vh;
@@ -361,4 +357,44 @@ p {
   .download-image-part .download-image img {
     max-height: 50vh;
   }
+}
+
+/*--------------------------------------------------------------
+# Services
+--------------------------------------------------------------*/
+.why-we-section {
+  background: #fff;
+  position: relative;
+}
+
+.why-we-section .whywe-box {
+  padding: 20px 10px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.why-we-section .whywe-image {
+  margin-bottom: 5px;
+}
+.why-we-section .whywe-image img {
+  max-width: 80%;
+}
+
+.why-we-section .whywe-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin-bottom: 5px;
+}
+.why-we-section .whywe-title h4 {
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+}
+.why-we-section .whywe-description {
+  font-weight: 400;
+  font-size: 13px;
+  color: #000;
 }
