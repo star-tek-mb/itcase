@@ -194,7 +194,6 @@ class TenderController extends Controller
             $tenderRequest->user_info = [
                 'first_name'=>$tenderRequest->user->first_name,
                 'last_name'=>$tenderRequest->user->last_name,
-                'email' => $tenderRequest->user->email,
                 'image' => $tenderRequest->user->image,
                 ];
             unset($tenderRequest->user);
