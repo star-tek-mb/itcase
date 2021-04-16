@@ -238,7 +238,8 @@ class TenderController extends Controller
             'budget_to' => 'required|max:255',
             'period_to' => 'required|max:255',
             'period_from' => 'required|max:255',
-            'comment' => 'nullable|string|max:255'
+            'comment' => 'nullable|string|max:255',
+            'tender_id' => 'required',
         ]);
         $tenderRequest = $this->tenderRepository->createRequest($request);
         $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
