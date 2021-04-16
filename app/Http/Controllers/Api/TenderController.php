@@ -245,11 +245,16 @@ class TenderController extends Controller
             'tender_id' => 'required',
         ]);
         $tenderRequest = $this->tenderRepository->createRequest($request);
-        $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
-        $tenderTitle = $tenderRequest->tender->title;
-        return response()->json([
-            'success' =>  "Вы подали заявку на участие в конкурсе \"$tenderTitle\""
-        ],200);
+        if ($tenderRequest != null) {
+            $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
+            $tenderTitle = $tenderRequest->tender->title;
+            return response()->json([
+                'success' => "Вы подали заявку на участие в задание \"$tenderTitle\""
+            ], 200);
+        }
+        return  response()->json([
+            'errors' => "Вы уже подали заявку на участие в задание "
+        ], 400);
     }
 
     public function cancelRequest(Request $request)
