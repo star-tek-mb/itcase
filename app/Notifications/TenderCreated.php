@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-
+use Illuminate\Support\Facades\Log;
 class TenderCreated extends Notification
 {
     use Queueable;
@@ -23,6 +23,7 @@ class TenderCreated extends Notification
      */
     public function __construct(\App\Models\Tender $tender)
     {
+        Log::info($tender);
         $this->tender = $tender;
     }
 
@@ -45,6 +46,7 @@ class TenderCreated extends Notification
      */
     public function toArray($notifiable)
     {
+
         return [
             'tender' => $this->tender,
             'customerName' => $this->tender->owner->getCommonTitle()

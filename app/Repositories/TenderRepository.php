@@ -6,7 +6,10 @@ namespace App\Repositories;
 use App\Models\Tender;
 use App\Models\TenderRequest;
 use Carbon\Carbon;
+use App\Models\User;
+use http\Exception;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 class TenderRepository implements TenderRepositoryInterface
 {
@@ -22,7 +25,7 @@ class TenderRepository implements TenderRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function allOrderedByCreatedAt($withoutContractors = false, $map=false)
+    public function allOrderedByCreatedAt($withoutContractors = false, $map = false)
     {
         $query = Tender::whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason');
         if ($withoutContractors) {
@@ -38,35 +41,45 @@ class TenderRepository implements TenderRepositoryInterface
     public function TenderSearch($search)
     {
         $query = Tender::whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason');
-        return $query->where('title', 'like', '%'.$search->search.'%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
+        return $query->where('title', 'like', '%' . $search->search . '%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
     }
 
     public function tenderText(string $terms, array $categories)
     {
         $result = Tender::whereHas('categories', function ($query) use ($categories) {
-                $query->whereIn('tender_category.category_id', $categories);
-            })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
-            ->where('title', 'like', '%'.$terms.'%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->paginate();
+            $query->whereIn('handbook_categories.parent_id', $categories);
+        })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')->when($terms, function ($query, $terms){
+            return $query->where('title', 'like', '%' . $terms . '%');
+        })->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->paginate();
         return $result;
     }
+
+//    public function tenderTextWithoutTerms(array $categories)
+//    {
+//        $result = Tender::whereHas('categories', function ($query) use ($categories) {
+//            $query->whereIn('handbook_categories.parent_id', $categories);
+//        })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
+//            ->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->paginate();
+//        return $result;
+//    }
 
     public function tenderMap(array $center, float $radius, array $categories)
     {
         // 6371 - radius of earth in km
         // tenders.geo_location [lat, lng]
         $result = Tender::whereHas('categories', function ($query) use ($categories) {
-                $query->whereIn('tender_category.category_id', $categories);
-            })->selectRaw('tenders.*')
+            $query->whereIn('tender_category.category_id', $categories)->orWhereIn('handbook_categories.parent_id', $categories);
+        })->selectRaw('tenders.*')
             ->selectRaw('(6371 * acos(cos(radians(?)) * cos(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', 1)))) '
-                    . '* cos(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', -1))) - radians(?)) + sin(radians(?)) '
-                    . '* sin(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', 1)))))) AS distance',
-                    [$center[0], $center[1], $center[0]])
+                . '* cos(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', -1))) - radians(?)) + sin(radians(?)) '
+                . '* sin(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', 1)))))) AS distance',
+                [$center[0], $center[1], $center[0]])
             ->havingRaw('distance < ?', [$radius])
             ->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
             ->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get()
             ->map(function (Tender $tender) {
                 $tender->icon = $tender->categoryIcon();
-                return $tender; // TODO: measure speed
+                return $tender;
             });
         return $result;
     }
@@ -87,27 +100,40 @@ class TenderRepository implements TenderRepositoryInterface
     public function create($data)
     {
         $tenderData = $data->all();
-        $user = auth()->user();
-        if ($user) {
-            $tenderData['client_name'] = $user->name;
-            $tenderData['client_email'] = $user->email;
-            $tenderData['client_phone_number'] = $user->phone_number || '';
-            $tenderData['client_type'] = $user->customer_type;
-            $tenderData['owner_id'] = $user->id;
+
+        if (isset($tenderData['owner_id'])) {
+            $user = User::find($tenderData['owner_id']);
+            if ($user != null) {
+                $tenderData['client_name'] = $user->first_name . " " . $user->last_name;
+                $tenderData['client_email'] = $user->email;
+                $tenderData['client_phone_number'] = $user->phone_number || '';
+                $tenderData['client_type'] = $user->customer_type;
+                $tenderData['owner_id'] = $user->id;
+            }
         } else {
             $tenderData['client_name'] = '';
             $tenderData['client_type'] = '';
             $tenderData['client_phone_number'] = '';
         }
-        if (Arr::get($tenderData, 'remote')=='on') {
-            $tenderData['type']='remote';
+        if (Arr::get($tenderData, 'remote') == 'on') {
+            $tenderData['type'] = 'remote';
         }
         $tenderData['deadline'] = Carbon::createFromFormat('d.m.Y', $data->get('deadline'))->setHour(23)->setMinutes(59)->setSecond(59)->format('Y-m-d H:i:s');
         $tenderData['work_start_at'] = Carbon::createFromFormat('d.m.Y H:i', $data->get('work_start_at'));
         $tenderData['work_end_at'] = Carbon::createFromFormat('d.m.Y H:i', $data->get('work_end_at'));
+
         $tender = Tender::create($tenderData);
+
+
+
         $tender->saveFiles($data->file('files'));
-        foreach ($data->get('categories') as $categoryId) {
+        if (gettype($data->get('categories')) == 'string') {
+            $category = explode(' ', $data->get('categories'));
+
+        } else {
+            $category = $data->get('categories');
+        }
+        foreach ($category as $categoryId) {
             $tender->categories()->attach($categoryId);
         }
         return $tender;
@@ -121,8 +147,8 @@ class TenderRepository implements TenderRepositoryInterface
         $tender = $this->get($id);
         $tenderData = $data->all();
         $tenderData['deadline'] = Carbon::createFromFormat('d.m.Y', $data->get('deadline'))->setHour(23)->setMinutes(59)->setSecond(59)->format('Y-m-d H:i:s');
-        if (Arr::get($tenderData, 'remote')=='on') {
-            $tenderData['type']='remote';
+        if (Arr::get($tenderData, 'remote') == 'on') {
+            $tenderData['type'] = 'remote';
         }
         $tender->update($tenderData);
         $tender->saveFiles($data->file('files'));
@@ -164,7 +190,11 @@ class TenderRepository implements TenderRepositoryInterface
      */
     public function createRequest($data)
     {
-        return TenderRequest::create($data->all());
+        if (TenderRequest::where('tender_id', $data->tender_id)->where('user_id', $data->user_id)->get()->first() == null) {
+            return TenderRequest::create($data->all());
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -191,7 +221,7 @@ class TenderRepository implements TenderRepositoryInterface
         $tender->contractor_id = $request->user_id;
         $tender->opened = false;
         $tender->save();
-        $request->user->victories_count+=1;
+        $request->user->victories_count += 1;
         $request->user->save();
         return $request;
     }

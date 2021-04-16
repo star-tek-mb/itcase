@@ -6,10 +6,10 @@ namespace App\Repositories;
 use App\Models\HandbookCategory;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use mysql_xdevapi\Table;
 
 class HandbookCategoryRepository implements HandbookCategoryRepositoryInterface
 {
-
     /**
      * Get's a handbook category by it'id
      *
@@ -29,6 +29,34 @@ class HandbookCategoryRepository implements HandbookCategoryRepositoryInterface
     public function all()
     {
         return HandbookCategory::where('parent_id', null)->orderBy('position', 'asc')->get();
+    }
+
+
+    public function categoryForTender($language)
+    {
+        switch ($language) {
+            case 1:
+                return HandbookCategory::select('id', 'uz_title as lang')->where('parent_id', null)->get();
+            case 2:
+                return HandbookCategory::select('id', 'ru_title as lang')->where('parent_id', null)->get();
+            case 3:
+                return HandbookCategory::select('id', 'en_title as lang')->where('parent_id', null)->get();
+            default:
+                return HandbookCategory::select('id', 'ru_title as lang')->where('parent_id', null)->get();
+        }
+    }
+    public function subCategoryForTender($language, $id)
+    {
+        switch ($language) {
+            case 1:
+                return HandbookCategory::select('id', 'uz_title as lang')->where('parent_id', $id)->get();
+            case 2:
+                return HandbookCategory::select('id', 'ru_title as lang')->where('parent_id', $id)->get();
+            case 3:
+                return HandbookCategory::select('id', 'en_title as lang')->where('parent_id', $id)->get();
+            default:
+                return HandbookCategory::select('id', 'ru_title as lang')->where('parent_id', $id)->get();
+        }
     }
 
     /**
