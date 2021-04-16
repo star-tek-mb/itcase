@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
+
 class TenderController extends Controller
 {
 
@@ -97,24 +98,24 @@ class TenderController extends Controller
             'tendersCount' => $tendersCount
         ]);
     }
-    public  function categoryCreateTender(Request $request){
-        if ($request->has('language')){
-           $language = $request->language;  // 1 is uzbek , 2 is russian , 3 is english, 0 is default language which is russian
-        }
-        else
-        {
+
+    public function categoryCreateTender(Request $request)
+    {
+        if ($request->has('language')) {
+            $language = $request->language;  // 1 is uzbek , 2 is russian , 3 is english, 0 is default language which is russian
+        } else {
             $language = 0;
         }
         $categoryAll = $this->categoryRepository->categoryForTender(2);
         $data = [];
-        foreach ($categoryAll->all() as $category){
-            $subCtgr =[];
-            foreach ( $this->categoryRepository->subCategoryForTender(2, $category->id)->all() as $sub){
-                array_push($subCtgr,array($sub->lang,$sub->id));
+        foreach ($categoryAll->all() as $category) {
+            $subCtgr = [];
+            foreach ($this->categoryRepository->subCategoryForTender(2, $category->id)->all() as $sub) {
+                array_push($subCtgr, array($sub->lang, $sub->id));
             }
-            array_push($data,[
-                array($category->lang,$category->id),
-                  $subCtgr
+            array_push($data, [
+                array($category->lang, $category->id),
+                $subCtgr
             ]);
         }
         return response()->json(['category' => $data], 200);
@@ -129,12 +130,11 @@ class TenderController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
-        if($request->has('terms')) {
-            $result = $this->tenderRepository->tenderTextWithTerms($request->terms, $request->categories);
-        }
-        else {
-            $result = $this->tenderRepository->tenderTextWithoutTerms($request->categories);
-        }
+
+
+        $result = $this->tenderRepository->tenderText($request->terms, $request->categories);
+
+
         return response()->json(['tenders' => $result]);
     }
 
@@ -162,8 +162,8 @@ class TenderController extends Controller
             $tenders = PaginateCollection::paginateCollection($tenders, 5);
             return response()->json([
                 'tenders' => $tenders,
-                'currentCategory'=>$currentCategory,
-                'tendersCount'=>$tendersCount
+                'currentCategory' => $currentCategory,
+                'tendersCount' => $tendersCount
             ]);
         } else {
             return response()->json([
@@ -183,30 +183,37 @@ class TenderController extends Controller
             ], 404);
         }
     }
-    public  function showOffered(Request $request){
-        $validator = Validator::make($request->all(),[
-            'tender_id'=>'required',
+
+    public function showOffered(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'tender_id' => 'required',
         ]);
-        if ($validator->fails()){
-            return  response()->json(['errors'=>$validator->errors()],400);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
         }
-        $tenderRequested = TenderRequest::where('tender_id',$request->tender_id)->get()->map(function (TenderRequest $tenderRequest){
+        $tenderRequested = TenderRequest::where('tender_id', $request->tender_id)->get()->map(function (TenderRequest $tenderRequest) {
             $tenderRequest->user_info = [
-                'first_name'=>$tenderRequest->user->first_name,
-                'last_name'=>$tenderRequest->user->last_name,
+                'first_name' => $tenderRequest->user->first_name,
+                'last_name' => $tenderRequest->user->last_name,
+                'last_online_at' => $tenderRequest->user->last_online_at,
                 'image' => $tenderRequest->user->image,
-                ];
+
+            ];
             unset($tenderRequest->user);
             return $tenderRequest;
         });
 
         return response()->json([
-            'requested'=> $tenderRequested,
-           ],200);
+            'requested' => $tenderRequested,
+        ], 200);
     }
-    public function  showRequested(Request $request){
-        return response()->json([auth()->user()->requests],200);
+
+    public function showRequested(Request $request)
+    {
+        return response()->json([auth()->user()->requests], 200);
     }
+
     public function store(Request $request)
     {
         if (auth()->user()) {
@@ -232,7 +239,7 @@ class TenderController extends Controller
 
         return response()->json([
             'success' => "Тендер $tender->title создан и отправлен на модерацию!"
-        ],200);
+        ], 200);
     }
 
     public function makeRequest(Request $request)
@@ -253,7 +260,7 @@ class TenderController extends Controller
                 'success' => "Вы подали заявку на участие в задание \"$tenderTitle\""
             ], 200);
         }
-        return  response()->json([
+        return response()->json([
             'errors' => "Вы уже подали заявку на участие в задание "
         ], 400);
     }
@@ -282,11 +289,11 @@ class TenderController extends Controller
         }
         if ($request->has('redirect_to')) {
             return response()->json([
-                'success' =>  'Заявка отклонена.'
+                'success' => 'Заявка отклонена.'
             ]);
         }
         return response()->json([
-            'success' =>  'Ваша заявка отменена'
+            'success' => 'Ваша заявка отменена'
         ]);
     }
 
@@ -310,7 +317,7 @@ class TenderController extends Controller
         ], $validationMessages)->validate();
         $this->tenderRepository->update($id, $request);
         return response()->json([
-            'success' =>  'Конкрус отредактитрован!'
+            'success' => 'Конкрус отредактитрован!'
         ]);
     }
 
@@ -318,7 +325,7 @@ class TenderController extends Controller
     {
         $this->tenderRepository->delete($id, $request->delete_reason);
         return response()->json([
-            'success' =>  'Конкурс удалён'
+            'success' => 'Конкурс удалён'
         ]);
     }
 
@@ -338,7 +345,8 @@ class TenderController extends Controller
             $adminUsers = $this->userRepository->getAdmins();
             try {
                 Notification::send($adminUsers, new RequestAction('accepted', $request));
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+            }
             return response()->json([
                 'success' => 'Исполнитель на этот конкурс назначен! Администратор сайта с вами свяжется и вы получите инструкции, необходимые для того, чтобы исполнитель приступил к работе.'
             ]);

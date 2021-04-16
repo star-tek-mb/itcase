@@ -32,7 +32,8 @@ Route::namespace('Api')->group(function () {
         Route::get('/account/tenders', 'AccountController@tenders');
         Route::get('/account/portfolio', 'FileController@index');
         Route::post('/account/portfolio/save', 'FileController@save');
-        Route::get('/account/chats', 'ChatsController@index');
+        Route::get('/account/chats/{chat_id}', 'ChatsController@index');
+        Route::get('/account/all_chats', "ChatsController@allChats");
         Route::post('/account/chats', 'ChatsController@createChat');
         Route::get('/account/comment', 'CommentController@index');
         Route::post('/account/comment', 'CommentController@createCommentAll');
@@ -81,4 +82,5 @@ Route::namespace('Api')->group(function () {
         Route::get('/blog/{params}', 'BlogController@blog')->where('params', '.+');
         Route::post('/messages', 'ChatsController@sendMessage');
         Route::get('/messages', 'ChatsController@fetchMessages');
+        Route::get('/messages/{chat_id}', 'ChatsController@updateChat');
     });

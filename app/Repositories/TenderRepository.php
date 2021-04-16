@@ -44,23 +44,24 @@ class TenderRepository implements TenderRepositoryInterface
         return $query->where('title', 'like', '%' . $search->search . '%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
     }
 
-    public function tenderTextWithTerms(string $terms, array $categories)
+    public function tenderText(string $terms, array $categories)
     {
         $result = Tender::whereHas('categories', function ($query) use ($categories) {
             $query->whereIn('handbook_categories.parent_id', $categories);
-        })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
-            ->where('title', 'like', '%' . $terms . '%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->paginate();
+        })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')->when($terms, function ($query, $terms){
+            return $query->where('title', 'like', '%' . $terms . '%');
+        })->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->paginate();
         return $result;
     }
 
-    public function tenderTextWithoutTerms(array $categories)
-    {
-        $result = Tender::whereHas('categories', function ($query) use ($categories) {
-            $query->whereIn('handbook_categories.parent_id', $categories);
-        })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
-            ->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->paginate();
-        return $result;
-    }
+//    public function tenderTextWithoutTerms(array $categories)
+//    {
+//        $result = Tender::whereHas('categories', function ($query) use ($categories) {
+//            $query->whereIn('handbook_categories.parent_id', $categories);
+//        })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
+//            ->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->paginate();
+//        return $result;
+//    }
 
     public function tenderMap(array $center, float $radius, array $categories)
     {
@@ -78,7 +79,7 @@ class TenderRepository implements TenderRepositoryInterface
             ->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get()
             ->map(function (Tender $tender) {
                 $tender->icon = $tender->categoryIcon();
-                return $tender; // TODO: measure speed
+                return $tender;
             });
         return $result;
     }
