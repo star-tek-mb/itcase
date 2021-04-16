@@ -42,14 +42,14 @@ class ChatsController extends Controller
         ], 400);
     }
 
-    public function allChats(Request $request)
+    public function allChats()
     {
         $user = auth()->user();
         $result = $user->chats->all();
         $response = [];
         foreach ($result as $res) {
             $other_user = $res->getAnotherUser();
-            $last_message = $res->message();
+            $last_message = $res->messages();
             array_push($response, [
                 'chat_id' => $res->id,
                 'user' => [
