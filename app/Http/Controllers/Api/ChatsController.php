@@ -89,7 +89,7 @@ class ChatsController extends Controller
 
     public function createChat(Request $request)
     {
-        $withUserId = $request->get('with_user_id');
+            $withUserId = $request->get('with_user_id');
         $currentUser = auth()->user();
         foreach ($currentUser->chats as $chat) {
             if ($chat->getAnotherUser()->id == $withUserId) {

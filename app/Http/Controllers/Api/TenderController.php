@@ -193,6 +193,7 @@ class TenderController extends Controller
         $tenderRequested = TenderRequest::where('tender_id',$request->tender_id)->get()->map(function (TenderRequest $tenderRequest){
             $tenderRequest->user_info = [
                 'first_name'=>$tenderRequest->user->first_name,
+                'last_name'=>$tenderRequest->user->last_name,
                 'email' => $tenderRequest->user->email,
                 'image' => $tenderRequest->user->image,
                 ];
@@ -205,7 +206,7 @@ class TenderController extends Controller
            ],200);
     }
     public function  showRequested(Request $request){
-        return response()->json(auth()->user()->requests);
+        return response()->json([auth()->user()->requests],200);
     }
     public function store(Request $request)
     {
