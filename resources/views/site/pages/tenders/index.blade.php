@@ -105,12 +105,12 @@
                                             <li class="panel" style="position: relative;">
                                                 <a data-toggle="collapse" data-parent="#categoriesAccordion" class="caret collapsed" href="#accordion{{ $parent->id }}"></a>
                                                 <div class="ml-4 form-check" style="display: inline-block;">
-                                                    <input @if (in_array($parent->id, request()->categories) || !request()->categories) checked @endif type="checkbox" id="cat{{ $parent->id }}" class="form-check-input" name="categories[]" value="{{ $parent->id }}">
+                                                    <input @if (in_array($parent->id, request()->categories ?? []) || !request()->categories) checked @endif type="checkbox" id="cat{{ $parent->id }}" class="form-check-input" name="categories[]" value="{{ $parent->id }}">
                                                     <label class="form-check-label" for="cat{{ $parent->id }}">{{ $parent->title }}</label>
                                                     <ul id="accordion{{ $parent->id }}" class="collapse panel-collapse in">
                                                         @foreach ($parent->categories as $category)
                                                         <li class="form-check">
-                                                            <input @if (in_array($category->id, request()->categories) || !request()->categories) checked @endif type="checkbox" id="cat{{ $category->id }}" class="form-check-input" name="categories[]" id="tall" value="{{ $category->id }}">
+                                                            <input @if (in_array($category->id, request()->categories ?? []) || !request()->categories) checked @endif type="checkbox" id="cat{{ $category->id }}" class="form-check-input" name="categories[]" id="tall" value="{{ $category->id }}">
                                                             <label class="form-check-label" for="cat{{ $category->id }}">{{ $category->title }}</label>
                                                         </li>
                                                         @endforeach
