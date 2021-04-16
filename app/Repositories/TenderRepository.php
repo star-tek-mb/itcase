@@ -99,7 +99,7 @@ class TenderRepository implements TenderRepositoryInterface
     public function create($data)
     {
         $tenderData = $data->all();
-        Log::info($tenderData);
+
         if (isset($tenderData['owner_id'])) {
             $user = User::find($tenderData['owner_id']);
             if ($user != null) {
@@ -120,11 +120,11 @@ class TenderRepository implements TenderRepositoryInterface
         $tenderData['deadline'] = Carbon::createFromFormat('d.m.Y', $data->get('deadline'))->setHour(23)->setMinutes(59)->setSecond(59)->format('Y-m-d H:i:s');
         $tenderData['work_start_at'] = Carbon::createFromFormat('d.m.Y H:i', $data->get('work_start_at'));
         $tenderData['work_end_at'] = Carbon::createFromFormat('d.m.Y H:i', $data->get('work_end_at'));
-        Log::info("THIS IS USER" . $tenderData['owner_id']);
+
         $tender = Tender::create($tenderData);
-        $tender->save();
-        Log::info("AFTER SAVED " . $tender->owner->id);
-//        Log::info($data->get('categories') . "  " . gettype($data->get('categories')));
+
+
+
         $tender->saveFiles($data->file('files'));
         if (gettype($data->get('categories')) == 'string') {
             $category = explode(' ', $data->get('categories'));
@@ -135,7 +135,7 @@ class TenderRepository implements TenderRepositoryInterface
         foreach ($category as $categoryId) {
             $tender->categories()->attach($categoryId);
         }
-        return $tender->id;
+        return $tender;
     }
 
     /**

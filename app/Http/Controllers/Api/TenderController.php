@@ -227,7 +227,8 @@ class TenderController extends Controller
 
         try {
             Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
 
         return response()->json([
             'success' => "Тендер $tender->title создан и отправлен на модерацию!"
