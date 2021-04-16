@@ -67,9 +67,10 @@ Route::namespace('Api')->group(function () {
     Route::post('/contractors/comment', 'CommentController@createCommentContractor');
     Route::post('/contractors/search', 'ContractorsController@contractorSearch');
 
+    Route::post('/phone/verify', 'AuthController@verify');
     // Phone verify routes
     Route::middleware('throttle:6,1', function () {
-        Route::post('/phone/verify', 'AuthController@verify');
+
         Route::post('/phone/resend', 'AuthController@resend');
     });
 
