@@ -44,7 +44,7 @@ Route::middleware('needsList')->name('site.')->namespace('Site')->group(function
         Route::patch('/tenders/email-subscription/{tender}', 'TenderController@emailSubscription')->name('tenders.email-subscription');
     });
     Route::get('/tenders', 'TenderController@index')->name('tenders.index');
-    Route::post('/tenders/search', 'TenderController@searchTender')->name('tenders.index.search');
+    Route::post('/tenders/search', 'TenderController@searchTender')->name('tenders.search');
     Route::get('/tenders/map', 'TenderController@map')->name('tenders.map');
     Route::get('/tenders/{params}', 'TenderController@category')->where('params', '.+')->name('tenders.category');
 

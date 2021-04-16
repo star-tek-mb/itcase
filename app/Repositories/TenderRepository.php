@@ -44,13 +44,19 @@ class TenderRepository implements TenderRepositoryInterface
         return $query->where('title', 'like', '%' . $search->search . '%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
     }
 
-    public function tenderText(string $terms, array $categories)
+    public function tenderText($terms, $categories, $minPrice = null, $remote = null)
     {
         $result = Tender::whereHas('categories', function ($query) use ($categories) {
-            $query->whereIn('handbook_categories.parent_id', $categories);
-        })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')->when($terms, function ($query, $terms){
+            $query->whereIn('tender_category.category_id', $categories)->orWhereIn('handbook_categories.parent_id', $categories);
+        })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
+        ->when($terms, function ($query, $terms) {
             return $query->where('title', 'like', '%' . $terms . '%');
-        })->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->paginate();
+        })->when($minPrice, function ($query, $minPrice) {
+            return $query->where('budget', '>=', $minPrice);
+        })->when($remote, function ($query, $remote) {
+            return $query->where('type', '=', 'remote');
+        })
+        ->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->paginate();
         return $result;
     }
 
@@ -63,7 +69,7 @@ class TenderRepository implements TenderRepositoryInterface
 //        return $result;
 //    }
 
-    public function tenderMap(array $center, float $radius, array $categories)
+    public function tenderMap($center, $radius, $categories, $minPrice = null, $remote = null)
     {
         // 6371 - radius of earth in km
         // tenders.geo_location [lat, lng]
@@ -76,7 +82,11 @@ class TenderRepository implements TenderRepositoryInterface
                 [$center[0], $center[1], $center[0]])
             ->havingRaw('distance < ?', [$radius])
             ->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
-            ->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get()
+            ->when($minPrice, function ($query, $minPrice) {
+                return $query->where('budget', '>=', $minPrice);
+            })->when($remote, function ($query, $remote) {
+                return $query->where('type', '=', 'remote');
+            })->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get()
             ->map(function (Tender $tender) {
                 $tender->icon = $tender->categoryIcon();
                 return $tender;
