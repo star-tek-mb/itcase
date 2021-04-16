@@ -59,7 +59,7 @@ class ChatsController extends Controller
                     'last_online_at' => $other_user->last_online_at,
                     'image' => $other_user->image,
                 ],
-                'unread' => $last_message->where('read', 0)->count(),
+                'unread' => $last_message->where('read', 0)->where('user_id', '!=', $user->id)->count(),
                 'last_message' => $last_message->get()
             ]);
         }
@@ -107,6 +107,34 @@ class ChatsController extends Controller
             'created_at' => $message->created_at,
         ], 200);
     }
+    //FOR NOTIFICATION
+    public function notificationLastMessages()
+    {
+        $user = auth()->user();
+        $id = $user->id;
+        $chats = $user->chats()->map(function (Chat $chat) use ($id) {
+            return $chat->messages()->where('user_id', '!=', $id)->where('read', '=', 0)->orderBy('id', 'DESC')->first();
+        })->get()->all();
+        return response()->json($chats, 200);
+    }
+
+    public  function messagesIsRead(Request $request){
+        $validator = Validator::make($request->all(), [
+            'messages_id' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+        $messages_id = $request->messages_id;
+
+       $response = Message::whereIn('id', $messages_id)->map(function (Message $message){
+            return [
+                'id'=>$message->id,
+                'read'=>$message->read,
+            ];
+        })->get()->all();
+        return response()->json($response, 200);
+    }
 
     public function updateChat(int $chat_id)
     {
@@ -119,28 +147,20 @@ class ChatsController extends Controller
         return response()->json($message, 200);
     }
 
-    public function fetchMessages(Request $request)
+    public function fetchMessages(Request $request, int $chat_id)
     {
-        $validator = Validator::make($request->all(), [
-            'chat_id' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
-        $chat = Chat::find($request->get('chat_id'));
-        $otherUser = $chat->getAnotherUser();
-        if ($request->has('enter_chat')) {
+
+        $chat = Chat::find($chat_id);
+        if ($chat) {
+            $otherUser = $chat->getAnotherUser();
+
             $messages = $chat->messages()->where('read', false)->where('user_id', $otherUser->id)->with('user')->get();
             foreach ($messages as $message) {
                 $message->read = true;
                 $message->save();
             }
             return response()->json([], 200);
-        }
-        if ($request->has('seen_last')) {
-            $message = $chat->messages()->orderBy('id', 'DESC')->first();
-            $message->read = true;
-            return response()->json([], 200);
+
         }
         return response()->json([], 400);
 //        $messages = $chat->messages()->with('user')->get();

@@ -81,6 +81,8 @@ Route::namespace('Api')->group(function () {
         Route::get('/blog', 'BlogController@index');
         Route::get('/blog/{params}', 'BlogController@blog')->where('params', '.+');
         Route::post('/messages', 'ChatsController@sendMessage');
-        Route::get('/messages', 'ChatsController@fetchMessages');
+        Route::get('/messages/read/{chat_id}', 'ChatsController@fetchMessages');
         Route::get('/messages/{chat_id}', 'ChatsController@updateChat');
+        Route::get('/messages/notificationLastMessages', 'ChatsController@notificationLastMessages'); // for notificaiton
+        Route::post('/messages/read/messagesIsRead', 'ChatsController@messagesIsRead');
     });
