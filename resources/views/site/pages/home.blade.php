@@ -309,7 +309,9 @@
 
         <div class="row content">
             <div class="col-md-6 content-img">
+            <div>
             <img src="/ext/assets/img/Слой 2.png" class="img-fluid" alt="">
+</div>
             </div>
             <div class="col-md-6 right-part">
             <div>
@@ -322,7 +324,9 @@
 
         <div class="row content">
             <div class="col-md-6 content-img">
+            <div>
             <img src="/ext/assets/img/Слой 1.png" class="img-fluid" alt="">
+</div>
             </div>
             <div class="col-md-6 right-part">
             <div>
@@ -336,7 +340,9 @@
 
         <div class="row content">
             <div class="col-md-6 content-img">
+                <div>
             <img src="/ext/assets/img/Слой 4.png" alt="">
+            </div>
             </div>
             <div class="col-md-6 right-part">
             <div>
