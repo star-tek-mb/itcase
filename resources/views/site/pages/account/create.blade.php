@@ -67,7 +67,7 @@
                                         <div class="upload">
                                             <div class="desc">Минимальные пропорции: 120х120 пикселей</div>
                                             <div class="btn-upload">
-                                                <input type="file" name="image" id="image" required class="@error('image') is-invalid @enderror">
+                                                <input onchange="loadFile(event)" type="file" name="image" id="image" required class="@error('image') is-invalid @enderror">
                                                 <span class="btn btn-light-green">Выбрать изображение</span>
                                                 @error('image')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -200,7 +200,7 @@
                                     <div class="upload">
                                         <div class="desc">Минимальные пропорции: 120х120 пикселей</div>
                                         <div class="btn-upload">
-                                            <input type="file" name="image" id="image" required class="@error('image') is-invalid @enderror">
+                                            <input onchange="loadFile(event)" type="file" name="image" id="image" required class="@error('image') is-invalid @enderror">
                                             <span class="btn btn-light-green">Выбрать изображение</span>
                                             @error('image')
                                             <span class="text-danger">{{ $message }}</span>
@@ -358,6 +358,13 @@
                         $('#payment-iframe').remove();
                     }
                 });
+                var loadFile = function(event) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('img', $(event.target).parent().parent().parent()).attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(event.target.files[0]);
+                };
             </script>
             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
             <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/{{ config('app.locale') }}.js"></script>

@@ -15,7 +15,7 @@ use App\Repositories\MenuRepositoryInterface;
 use App\Repositories\NeedTypeRepositoryInterface;
 use App\Repositories\TenderRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Arr;
@@ -176,14 +176,6 @@ class TenderController extends Controller
 
     public function store(Request $request)
     {
-        $validationMessages = [
-            'required' => 'Это поле обязательно к заполнению',
-            'max' => 'Количество символов должно быть не больше :max',
-            'integer' => 'Укажите целочисленное значение',
-            'date' => 'Неверный формат даты',
-            'string' => 'Укажите стороковое значение',
-            'email' => 'Неверный формат электронной почты'
-        ];
         if (auth()->user()) {
             auth()->user()->authorizeRole('customer');
         }
@@ -195,22 +187,12 @@ class TenderController extends Controller
             'budget' => 'required',
             'deadline' => 'required|date',
             'geo_location' => 'nullable'
-        ], $validationMessages)->validate();
+        ])->validate();
         $tender = $this->tenderRepository->create($request);
 
-        if (!Auth::check()) {
-            if (session()->has('contractors')) {
-                $contractors = session('contractors');
-                foreach ($contractors as $contractor) {
-                    $request = $tender->requests()->create(['user_id' => $contractor['id'], 'invited' => true]);
-                    User::find($contractor['id'])->notify(new InviteRequest($request));
-                }
-                session()->forget('contractors');
-                session()->save();
-            }
-            return redirect()->route('register')->withCookie(cookie('tenderId', "$tender->id"))->with('success', 'Ваш тендер сохранён и будет отправлен на модерацию только после регистрации');
-        }
-        Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
+        try {
+            Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
+        } catch (\Exception $e) {}
         return redirect()->route('site.account.tenders')->with('success', "Тендер $tender->title создан и отправлен на модерацию!");
     }
 
@@ -301,7 +283,9 @@ class TenderController extends Controller
                 $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
             }
             $adminUsers = $this->userRepository->getAdmins();
-            Notification::send($adminUsers, new RequestAction('accepted', $request));
+            try {
+                Notification::send($adminUsers, new RequestAction('accepted', $request));
+            } catch (\Exception $e) {}
             return redirect()->route('site.account.chats.create');
         // return redirect($redirectTo)->with('account.success', 'Исполнитель на этот конкурс назначен! Администратор сайта с вами свяжется и вы получите инструкции, необходимые для того, чтобы исполнитель приступил к работе.');
         } else {

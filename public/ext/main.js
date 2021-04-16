@@ -1,3 +1,6 @@
+$.fn.andSelf = function() {
+  return this.addBack.apply(this, arguments);
+}
 jQuery(document).ready(function ($) {
   "use strict";
   $('#services-carousel').owlCarousel({
@@ -23,6 +26,34 @@ jQuery(document).ready(function ($) {
       },
       1170: {
         items: 4
+      }
+    }
+  });
+});
+
+
+
+jQuery(document).ready(function ($) {
+  "use strict";
+  $('.offer-carousel').owlCarousel({
+    loop: true,
+    center: true,
+    items: 1,
+    margin: 20,
+    dots: true,
+    nav: false,
+    autoplay: true,
+    smartSpeed: 450,
+    autoplayTimeout: 8500,
+    responsive: {
+      0: {
+        items: 1
+      },
+      768: {
+        items: 1
+      },
+      1170: {
+        items: 1
       }
     }
   });

@@ -13,13 +13,8 @@ class TendersBudgetStringField extends Migration
      */
     public function up()
     {
-        $t = DB::table('tenders')->get();
-        foreach ($t as $user) {
-            DB::table('tenders')
-                ->where('id', $user->id)->update(['budget' => intval($user->budget)]);
-        }
         Schema::table('tenders', function (Blueprint $table) {
-            $table->bigInteger('budget')->change();
+            $table->string('budget')->change();
         });
     }
 
@@ -31,7 +26,7 @@ class TendersBudgetStringField extends Migration
     public function down()
     {
         Schema::table('tenders', function (Blueprint $table) {
-            $table->string('budget')->change();
+            $table->bigInteger('budget')->change();
         });
     }
 }

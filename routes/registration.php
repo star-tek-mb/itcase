@@ -32,9 +32,9 @@ Route::middleware('needsList')->group(function () {
     Route::get('/email/verify', 'Auth\VerificationController@show')->name('verification.notice');
     Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
 
-    Route::middleware('auth', function() {
+    Route::middleware('auth')->group(function() {
         Route::get('/phone/verify', 'Auth\PhoneVerificationController@show')->name('phone.verification.notice');
-        Route::middleware('throttle:6,1', function() {
+        Route::middleware('throttle:6,1')->group(function() {
             Route::post('/phone/resend', 'Auth\PhoneVerificationController@resend')->name('phone.verification.resend');
             Route::post('/phone/verify', 'Auth\PhoneVerificationController@verify')->name('phone.verification.verify');
         });

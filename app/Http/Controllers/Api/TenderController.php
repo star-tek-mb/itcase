@@ -225,7 +225,10 @@ class TenderController extends Controller
         }
         $tender = $this->tenderRepository->create($request);
 
-        Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
+        try {
+            Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
+        } catch (\Exception $e) {}
+
         return response()->json([
             'success' => "Тендер $tender->title создан и отправлен на модерацию!"
         ],200);
@@ -327,7 +330,9 @@ class TenderController extends Controller
                 $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
             }
             $adminUsers = $this->userRepository->getAdmins();
-            Notification::send($adminUsers, new RequestAction('accepted', $request));
+            try {
+                Notification::send($adminUsers, new RequestAction('accepted', $request));
+            } catch (\Exception $e) {}
             return response()->json([
                 'success' => 'Исполнитель на этот конкурс назначен! Администратор сайта с вами свяжется и вы получите инструкции, необходимые для того, чтобы исполнитель приступил к работе.'
             ]);

@@ -69,15 +69,16 @@ Route::namespace('Api')->group(function () {
 
     Route::post('/phone/verify', 'AuthController@verify');
     // Phone verify routes
+
     Route::middleware('throttle:6,1', function () {
 
-        Route::post('/phone/resend', 'AuthController@resend');
-    });
+            Route::post('/phone/resend', 'AuthController@resend');
+        });
 
-    Route::get('/catalog', 'HomeController@index');
-    Route::post('/search', 'CatalogController@search');
-    Route::get('/blog', 'BlogController@index');
-    Route::get('/blog/{params}', 'BlogController@blog')->where('params', '.+');
-    Route::post('/messages', 'ChatsController@sendMessage');
-    Route::get('/messages', 'ChatsController@fetchMessages');
-});
+        Route::get('/catalog', 'HomeController@index');
+        Route::post('/search', 'CatalogController@search');
+        Route::get('/blog', 'BlogController@index');
+        Route::get('/blog/{params}', 'BlogController@blog')->where('params', '.+');
+        Route::post('/messages', 'ChatsController@sendMessage');
+        Route::get('/messages', 'ChatsController@fetchMessages');
+    });

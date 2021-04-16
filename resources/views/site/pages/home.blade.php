@@ -15,7 +15,6 @@
 @section('css')
 
   <!-- Vendor CSS Files -->
-  <link href="/asset/bootstrap.min.css" rel="stylesheet">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/assets/owl.carousel.min.css'>
   <link rel='stylesheet' href='https://themes.audemedia.com/html/goodgrowth/css/owl.theme.default.min.css'>
 
@@ -300,7 +299,171 @@
 
     </section>
 
+    <section class="carousel-section">
 
+        <div class="section-title">
+        <h2>Популярные услуги</h2>
+        </div>
+
+        <div id="offer-carousel" class="owl-carousel offer-carousel">
+
+        <div class="row content">
+            <div class="col-md-6 content-img">
+            <img src="/ext/assets/img/Слой 2.png" class="img-fluid" alt="">
+            </div>
+            <div class="col-md-6 right-part">
+            <div>
+                <h3>Создайте задание</h3>
+                <p>Опишите своими словами задачу, которую требуется выполнить.</p>
+                <div class="open_page_btn"><a href="#about" class="btn-content">Создать задание</a></div>
+            </div>
+            </div>
+        </div>
+
+        <div class="row content">
+            <div class="col-md-6 content-img">
+            <img src="/ext/assets/img/Слой 1.png" class="img-fluid" alt="">
+            </div>
+            <div class="col-md-6 right-part">
+            <div>
+                <h3>Исполнители предложат вам свои услуги и цены</h3>
+                <p>Уже через пару минут вы начнете получать предложения от исполнителей, готовых
+                выполнить ваше задание.</p>
+                <div class="open_page_btn"><a href="#about" class="btn-content">Исполнители</a></div>
+            </div>
+            </div>
+        </div>
+
+        <div class="row content">
+            <div class="col-md-6 content-img">
+            <img src="/ext/assets/img/Слой 4.png" alt="">
+            </div>
+            <div class="col-md-6 right-part">
+            <div>
+                <h3>Выберите лучшее предложение</h3>
+                <p>Вы сможете выбрать подходящего исполнителя, по разным критериям:</p>
+                <ul>
+                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Стоимость услуг</li>
+                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Рейтинг</li>
+                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Отзывы заказчиков</li>
+                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Примеры работ</li>
+                </ul>
+                <div class="open_page_btn"><a href="#about" class="btn-content">Разместить задание прямо сейчас</a></div>
+            </div>
+            </div>
+        </div>
+
+        </div>
+
+    </section>
+
+    <section class="carousel-section">
+
+        <div id="offer-carousel2" class="owl-carousel offer-carousel">
+        
+        <div class="row content">
+            <div class="col-md-6 content-img">
+            <img src="/ext/assets/img/Слой 1.png" class="img-fluid" alt="">
+            </div>
+            <div class="col-md-6 right-part">
+            <div>
+                <h3>Исполнители предложат вам свои услуги и цены</h3>
+                <p>Уже через пару минут вы начнете получать предложения от исполнителей, готовых
+                выполнить ваше задание.</p>
+                <div class="open_page_btn"><a href="#about" class="btn-content">Исполнители</a></div>
+            </div>
+            </div>
+        </div>
+
+        <div class="row content">
+            <div class="col-md-6 content-img">
+            <img src="/ext/assets/img/Слой 2.png" class="img-fluid" alt="">
+            </div>
+            <div class="col-md-6 right-part">
+            <div>
+                <h3>Создайте задание</h3>
+                <p>Опишите своими словами задачу, которую требуется выполнить.</p>
+                <div class="open_page_btn"><a href="#about" class="btn-content">Создать задание</a></div>
+            </div>
+            </div>
+        </div> 
+
+        <div class="row content">
+            <div class="col-md-6 content-img">
+            <img src="/ext/assets/img/Слой 4.png" alt="">
+            </div>
+            <div class="col-md-6 right-part">
+            <div>
+                <h3>Выберите лучшее предложение</h3>
+                <p>Вы сможете выбрать подходящего исполнителя, по разным критериям:</p>
+                <ul>
+                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Стоимость услуг</li>
+                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Рейтинг</li>
+                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Отзывы заказчиков</li>
+                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Примеры работ</li>
+                </ul>
+                <div class="open_page_btn"><a href="#about" class="btn-content">Разместить задание прямо сейчас</a></div>
+            </div>
+            </div>
+        </div>
+
+        </div>
+
+    </section>
+
+    <section class="carousel-section">
+
+        <div id="offer-carousel3" class="owl-carousel offer-carousel">
+
+        <div class="row content">
+            <div class="col-md-6 content-img">
+            <img src="/ext/assets/img/Слой 4.png" alt="">
+            </div>
+            <div class="col-md-6 right-part">
+            <div>
+                <h3>Выберите лучшее предложение</h3>
+                <p>Вы сможете выбрать подходящего исполнителя, по разным критериям:</p>
+                <ul>
+                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Стоимость услуг</li>
+                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Рейтинг</li>
+                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Отзывы заказчиков</li>
+                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Примеры работ</li>
+                </ul>
+                <div class="open_page_btn"><a href="#about" class="btn-content">Разместить задание прямо сейчас</a></div>
+            </div>
+            </div>
+        </div>
+
+        <div class="row content">
+            <div class="col-md-6 content-img">
+            <img src="/ext/assets/img/Слой 2.png" class="img-fluid" alt="">
+            </div>
+            <div class="col-md-6 right-part">
+            <div>
+                <h3>Создайте задание</h3>
+                <p>Опишите своими словами задачу, которую требуется выполнить.</p>
+                <div class="open_page_btn"><a href="#about" class="btn-content">Создать задание</a></div>
+            </div>
+            </div>
+        </div>
+
+        <div class="row content">
+            <div class="col-md-6 content-img">
+            <img src="/ext/assets/img/Слой 1.png" class="img-fluid" alt="">
+            </div>
+            <div class="col-md-6 right-part">
+            <div>
+                <h3>Исполнители предложат вам свои услуги и цены</h3>
+                <p>Уже через пару минут вы начнете получать предложения от исполнителей, готовых
+                выполнить ваше задание.</p>
+                <div class="open_page_btn"><a href="#about" class="btn-content">Исполнители</a></div>
+            </div>
+            </div>
+        </div>
+
+        </div>
+
+    </section>
 
     <section class="why-we-section">
         <div class="container">
