@@ -136,7 +136,7 @@ class ChatsController extends Controller
                 return $response;
             });
         });
-        return response()->json($chats, 200);
+        return response()->json($chats[0], 200);
     }
 
     // checking message was read or not
