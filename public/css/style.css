@@ -1,14 +1,14 @@
 .category-single a.category-single__title {
-    color: #383838;
+    color: #fff;
 }
 
 .category-single a.category-single__child {
-    color: #9f9f9f;
-}
-
-.category-single:hover a.category-single__title, .category-single:hover a.category-single__child {
     color: #fff;
 }
+
+/* .category-single:hover a.category-single__title, .category-single:hover a.category-single__child {
+    color: #fff;
+} */
 
 .section-video {
     margin-bottom: 70px;
