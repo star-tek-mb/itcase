@@ -78,11 +78,13 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="category-single"><span class="category-single-icon"><img src="{{ $category->getImage() }}" alt=""></span>
                             <div class="category-signle-content">
+                                <div>
                                 <a href="{{ route('site.catalog.main', $category->getAncestorsSlugs()) }}" class="category-single__title"><h3>{{ $category->getTitle() }}<span class="count">({{ $category->getAllCompaniesCount() }})</span></h3></a>
                                 <div class="text">
                                     @foreach ($category->categories()->limit(5)->get() as $child)
                                         @if (!$loop->first), @endif<a href="{{ route('site.catalog.main', $child->getAncestorsSlugs()) }}" class="category-single__child">{!! $child->ru_title !!}</a>
                                     @endforeach
+                                </div>
                                 </div>
                             </div>
                         </div>
