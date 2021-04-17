@@ -14,6 +14,7 @@ use App\Repositories\NeedTypeRepositoryInterface;
 use App\Repositories\TenderRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
 use App\User;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -235,11 +236,14 @@ class TenderController extends Controller
         try {
             Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
         } catch (\Exception $e) {
+
+        }finally {
+            return response()->json([
+                'success' => "Тендер $tender->title создан и отправлен на модерацию!"
+            ], 200);
         }
 
-        return response()->json([
-            'success' => "Тендер $tender->title создан и отправлен на модерацию!"
-        ], 200);
+
     }
 
     public function makeRequest(Request $request)
@@ -254,15 +258,20 @@ class TenderController extends Controller
         ]);
         $tenderRequest = $this->tenderRepository->createRequest($request);
         if ($tenderRequest != null) {
-            $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
-            $tenderTitle = $tenderRequest->tender->title;
+            try {
+                $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
+                $tenderTitle = $tenderRequest->tender->title;
+            }
+            catch (Exception $e){
+
+            }
             return response()->json([
                 'success' => "Вы подали заявку на участие в задание \"$tenderTitle\""
             ], 200);
         }
         return response()->json([
             'errors' => "Вы уже подали заявку на участие в задание "
-        ], 400);
+        ], 404);
     }
 
     public function cancelRequest(Request $request)

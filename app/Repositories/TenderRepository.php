@@ -91,7 +91,6 @@ class TenderRepository implements TenderRepositoryInterface
             $query = $query->whereNull('contractor_id');
         }
         return $query->whereNotNull('owner_id')->orderBy('created_at', 'desc')->get();
-        //orderBy('created_at', 'desc') orderByRaw('-contractor_id asc')
     }
 
     /**
