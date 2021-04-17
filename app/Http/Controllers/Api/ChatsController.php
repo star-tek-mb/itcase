@@ -64,9 +64,8 @@ class ChatsController extends Controller
                 'last_message' => $last_message->orderBy('id', 'DESC')->first(),
             ]);
         }
-        return response()->json([
-            $response,
-        ], 200);
+        return response()->json(
+            $response, 200);
     }
 
 //    public function index(Request $request)
