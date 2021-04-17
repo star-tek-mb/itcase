@@ -257,10 +257,11 @@ class TenderController extends Controller
             'tender_id' => 'required',
         ]);
         $tenderRequest = $this->tenderRepository->createRequest($request);
+        $tenderTitle = $tenderRequest->tender->title;
         if ($tenderRequest != null) {
             try {
                 $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
-                $tenderTitle = $tenderRequest->tender->title;
+
             }
             catch (Exception $e){
 
