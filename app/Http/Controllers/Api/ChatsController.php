@@ -117,7 +117,7 @@ class ChatsController extends Controller
         })->get()->all();
         return response()->json($chats, 200);
     }
-
+    // checking message was read or not
     public  function messagesIsRead(Request $request){
         $validator = Validator::make($request->all(), [
             'messages_id' => 'required',
@@ -140,10 +140,7 @@ class ChatsController extends Controller
     {
         $chat = Chat::find($chat_id);
         $user = auth()->user();
-        $message = $chat->messages()->where('id', '>', 'message_id')->orderBy('id', 'DESC')->
-        reject(function (Message $message) use ($user) {
-            return $message->user_id != $user->id;
-        })->get();
+        $message = $chat->messages()->where('id', '>', 'message_id')->where('user_id', '!=', $user->id)->orderBy('id', 'DESC')->get();
         return response()->json($message, 200);
     }
 
