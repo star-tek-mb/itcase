@@ -114,9 +114,9 @@ class ChatsController extends Controller
     {
         $user = auth()->user();
         $id = $user->id;
-        $chats = $user->chats()->map(function (Chat $chat) use ($id) {
+        $chats = $user->chats()->get()->map(function (Chat $chat) use ($id) {
             return $chat->messages()->where('user_id', '!=', $id)->where('read', '=', 0)->orderBy('id', 'DESC')->first();
-        })->get()->all();
+        });
         return response()->json($chats, 200);
     }
     // checking message was read or not
