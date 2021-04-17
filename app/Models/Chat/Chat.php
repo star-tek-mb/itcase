@@ -36,6 +36,8 @@ class Chat extends Model
         return $this->participants()->where('user_id', '!=', $currentUser->id)->first();
     }
 
+
+
     public function getLastMessageText()
     {
         $message = $this->messages()->orderByDesc('created_at')->first();
