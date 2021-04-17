@@ -264,10 +264,12 @@ class TenderController extends Controller
             }
             catch (Exception $e){
 
+            } finally {
+                return response()->json([
+                    'success' => "Вы подали заявку на участие в задание \"$tenderTitle\""
+                ], 200);
             }
-            return response()->json([
-                'success' => "Вы подали заявку на участие в задание \"$tenderTitle\""
-            ], 200);
+
         }
         return response()->json([
             'errors' => "Вы уже подали заявку на участие в задание "
