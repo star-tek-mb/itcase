@@ -117,18 +117,20 @@ class ChatsController extends Controller
         $id = $user->id;
         $chats = $user->chats()->get()->map(function (Chat $chat) use ($id) {
             $message = $chat->messages()->where('user_id', '!=', $id)->where('read', '=', 0)->orderBy('id', 'DESC')->first();
-            return [
-                'chat_id' => $message['chat_id'],
-                'user' => [
-                    'id' => $message->user->id,
-                    'first_name' => $message->user->first_name,
-                    'last_name' => $message->user->last_name,
-                    'last_online_at' => $message->user->last_online_at,
-                    'image' => $message->user->image,
-                ],
-                    'last_message'=> $message,
-                'unread' =>0,
+            if($message) {
+                return [
+                    'chat_id' => $message->chat_id,
+                    'user' => [
+                        'id' => $message->user->id,
+                        'first_name' => $message->user->first_name,
+                        'last_name' => $message->user->last_name,
+                        'last_online_at' => $message->user->last_online_at,
+                        'image' => $message->user->image,
+                    ],
+                    'last_message' => $message,
+                    'unread' => 0,
                 ];
+            }
         });
         return response()->json($chats, 200);
     }
