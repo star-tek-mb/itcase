@@ -119,7 +119,7 @@ class ChatsController extends Controller
         $chats = $user->chats;
         foreach ($chats as $chat){
             $message = $chat->messages()->orderBy('id', 'DESC')->first();
-            if($message->user_id != $user->id && $message->read == 0){
+            if($message->user_id != $id && $message->read == 0){
                 $user = $message->user;
                 array_push($response, [
                     'chat_id' => $message->chat_id,
