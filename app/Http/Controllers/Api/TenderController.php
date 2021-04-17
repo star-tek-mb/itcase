@@ -14,6 +14,7 @@ use App\Repositories\NeedTypeRepositoryInterface;
 use App\Repositories\TenderRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
 use App\User;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -230,11 +231,14 @@ class TenderController extends Controller
         try {
             Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
         } catch (\Exception $e) {
+
+        }finally {
+            return response()->json([
+                'success' => "Тендер $tender->title создан и отправлен на модерацию!"
+            ], 200);
         }
 
-        return response()->json([
-            'success' => "Тендер $tender->title создан и отправлен на модерацию!"
-        ], 200);
+
     }
 
     public function makeRequest(Request $request)
@@ -248,16 +252,24 @@ class TenderController extends Controller
             'tender_id' => 'required',
         ]);
         $tenderRequest = $this->tenderRepository->createRequest($request);
+        $tenderTitle = $tenderRequest->tender->title;
         if ($tenderRequest != null) {
-            $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
-            $tenderTitle = $tenderRequest->tender->title;
-            return response()->json([
-                'success' => "Вы подали заявку на участие в задание \"$tenderTitle\""
-            ], 200);
+            try {
+                $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
+
+            }
+            catch (Exception $e){
+
+            } finally {
+                return response()->json([
+                    'success' => "Вы подали заявку на участие в задание \"$tenderTitle\""
+                ], 200);
+            }
+
         }
         return response()->json([
             'errors' => "Вы уже подали заявку на участие в задание "
-        ], 400);
+        ], 404);
     }
 
     public function cancelRequest(Request $request)
@@ -330,7 +342,7 @@ class TenderController extends Controller
         if ($request = $this->tenderRepository->acceptRequest($tenderId, $requestId)) {
             $request->user->notify(new RequestAction('accepted', $request));
             $requests = $request->tender->requests;
-
+            try {
             foreach ($requests as $otherRequest) {
                 if ($otherRequest->user_id == $request->user_id) {
                     continue;
@@ -338,17 +350,18 @@ class TenderController extends Controller
                 $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
             }
             $adminUsers = $this->userRepository->getAdmins();
-            try {
+
                 Notification::send($adminUsers, new RequestAction('accepted', $request));
-            } catch (\Exception $e) {
+            } catch (\Swift_TransportException $e) {
+
             }
             return response()->json([
                 'success' => 'Исполнитель на этот конкурс назначен! Администратор сайта с вами свяжется и вы получите инструкции, необходимые для того, чтобы исполнитель приступил к работе.'
-            ]);
+            ],200);
         } else {
             return response()->json([
                 'success' => 'Невозможно назначить исполнителя на этот конкурс'
-            ]);
+            ],401);
         }
     }
 }

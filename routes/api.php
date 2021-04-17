@@ -32,8 +32,7 @@ Route::namespace('Api')->group(function () {
         Route::get('/account/tenders', 'AccountController@tenders');
         Route::get('/account/portfolio', 'FileController@index');
         Route::post('/account/portfolio/save', 'FileController@save');
-        Route::get('/account/chats/{chat_id}', 'ChatsController@index');
-        Route::get('/account/all_chats', "ChatsController@allChats");
+
         Route::post('/account/chats', 'ChatsController@createChat');
         Route::get('/account/comment', 'CommentController@index');
         Route::post('/account/comment', 'CommentController@createCommentAll');
@@ -73,14 +72,19 @@ Route::namespace('Api')->group(function () {
 
     Route::middleware('throttle:6,1', function () {
 
-            Route::post('/phone/resend', 'AuthController@resend');
-        });
-
-        Route::get('/catalog', 'HomeController@index');
-        Route::post('/search', 'CatalogController@search');
-        Route::get('/blog', 'BlogController@index');
-        Route::get('/blog/{params}', 'BlogController@blog')->where('params', '.+');
-        Route::post('/messages', 'ChatsController@sendMessage');
-        Route::get('/messages', 'ChatsController@fetchMessages');
-        Route::get('/messages/{chat_id}', 'ChatsController@updateChat');
+        Route::post('/phone/resend', 'AuthController@resend');
     });
+
+    Route::get('/catalog', 'HomeController@index');
+    Route::post('/search', 'CatalogController@search');
+    Route::get('/blog', 'BlogController@index');
+    Route::get('/blog/{params}', 'BlogController@blog')->where('params', '.+');
+    Route::post('/messages', 'ChatsController@sendMessage');
+    Route::get('/messages/read/{chat_id}', 'ChatsController@fetchMessages');
+    Route::get('/messages/{chat_id}/{message_id}', 'ChatsController@updateChat');
+    Route::get('/messages/notificationLastMessages', 'ChatsController@notificationLastMessages'); // for notificaiton
+    Route::post('/messages/read/messagesIsRead', 'ChatsController@messagesIsRead');
+    Route::put('/messages/read/messagesIsRead', 'ChatsController@messagesIsRead');
+    Route::get('/account/chats/{chat_id}', 'ChatsController@index');
+    Route::get('/account/all_chats', "ChatsController@allChats");
+});
