@@ -115,22 +115,22 @@ class ChatsController extends Controller
     {
         $user = auth()->user();
         $id = $user->id;
-        $chats = $user->chats()->get()->map(function (Chat $chat) use ($id) {
-            $message = $chat->messages()->where('user_id', '!=', $id)->where('read', '=', 0)->orderBy('id', 'DESC')->first();
-            if($message) {
-                return [
-                    'chat_id' => $message->chat_id,
-                    'user' => [
-                        'id' => $message->user->id,
-                        'first_name' => $message->user->first_name,
-                        'last_name' => $message->user->last_name,
-                        'last_online_at' => $message->user->last_online_at,
-                        'image' => $message->user->image,
-                    ],
-                    'last_message' => $message,
-                    'unread' => 0,
+        $chats = $user->chats()->get()->reject(function (Chat  $chat) use ($id){
+            return $chat->messages->user->id != $id && $chat->messages->read == 0;
+        })->map(function (Chat $chat) use ($id) {
+            $other_user = $chat->getAnotherUser();
+            return [
+                'chat_id' => $chat->id,
+                'user' => [
+                    'id' => $other_user->id,
+                    'first_name' => $other_user->first_name,
+                    'last_name' => $other_user->last_name,
+                    'last_online_at' => $other_user->last_online_at,
+                    'image' => $other_user->image,
+                ],
+                'last_message'=>$chat->messages()->where('user_id', '!=', $id)->where('read', '=', 0)->orderBy('id', 'DESC')->first(),
+                'unread' =>0,
                 ];
-            }
         });
         return response()->json($chats, 200);
     }
