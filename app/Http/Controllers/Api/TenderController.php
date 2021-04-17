@@ -347,7 +347,7 @@ class TenderController extends Controller
         if ($request = $this->tenderRepository->acceptRequest($tenderId, $requestId)) {
             $request->user->notify(new RequestAction('accepted', $request));
             $requests = $request->tender->requests;
-
+            try {
             foreach ($requests as $otherRequest) {
                 if ($otherRequest->user_id == $request->user_id) {
                     continue;
@@ -355,9 +355,10 @@ class TenderController extends Controller
                 $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
             }
             $adminUsers = $this->userRepository->getAdmins();
-            try {
+
                 Notification::send($adminUsers, new RequestAction('accepted', $request));
             } catch (\Exception $e) {
+
             }
             return response()->json([
                 'success' => 'Исполнитель на этот конкурс назначен! Администратор сайта с вами свяжется и вы получите инструкции, необходимые для того, чтобы исполнитель приступил к работе.'
