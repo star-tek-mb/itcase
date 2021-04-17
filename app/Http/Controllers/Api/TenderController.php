@@ -125,17 +125,12 @@ class TenderController extends Controller
     public function textFilter(Request $request)
     {
         $validator = Validator::make($request->all(), [
-
             'categories' => 'required|array'
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
-
-
-        $result = $this->tenderRepository->tenderText($request->terms, $request->categories);
-
-
+        $result = $this->tenderRepository->tenderText($request->terms, $request->categories, $request->minPrice, $request->remote);
         return response()->json(['tenders' => $result]);
     }
 

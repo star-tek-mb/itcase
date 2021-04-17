@@ -87,56 +87,58 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="toggle-sidebar-left d-lg-none">Фильтр</div>
-                        <div class="sidebar-left">
-                            <button class="btn-close-sidebar-left btn-clear">
-                                <i class="fa fa-times-circle"></i>
-                            </button>
-                            <div class="box-sidebar">
-                                <div class="header-box d-flex justify-content-between flex-wrap">
-                                    <span class="title-box">Фильтр</span>
-                                </div>
-                                <!-- category checkbox -->
-                                <div class="body-box mb-4">
-                                    <ul class="nav nav-stacked" id="categoriesAccordion" style="display: block;">
-                                    @foreach ($parentCategories as $parent)
-                                        <li class="panel" style="position: relative;">
-                                            <a data-toggle="collapse" data-parent="#categoriesAccordion" class="caret collapsed" href="#accordion{{ $parent->id }}"></a>
-                                            <div class="ml-4 form-check" style="display: inline-block;">
-                                                <input checked type="checkbox" id="cat{{ $parent->id }}" class="form-check-input" name="categories[]" value="{{ $parent->id }}">
-                                                <label class="form-check-label" for="cat{{ $parent->id }}">{{ $parent->title }}</label>
-                                                <ul id="accordion{{ $parent->id }}" class="collapse panel-collapse in">
-                                                    @foreach ($parent->categories as $category)
-                                                    <li class="form-check">
-                                                        <input checked type="checkbox" id="cat{{ $category->id }}" class="form-check-input" name="categories[]" id="tall" value="{{ $category->id }}">
-                                                        <label class="form-check-label" for="cat{{ $category->id }}">{{ $category->title }}</label>
-                                                    </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                    </ul>
-                                </div>
+                        <form id="filter" action="{{ route('site.tenders.search') }}" method="post">
+                            @csrf
+                            <div class="toggle-sidebar-left d-lg-none">Фильтр</div>
+                            <div class="sidebar-left">
+                                <button class="btn-close-sidebar-left btn-clear">
+                                    <i class="fa fa-times-circle"></i>
+                                </button>
+                                <div class="box-sidebar">
+                                    <div class="header-box d-flex justify-content-between flex-wrap">
+                                        <span class="title-box">Фильтр</span>
+                                    </div>
+                                    <!-- category checkbox -->
+                                    <div class="body-box mb-4">
+                                        <ul class="nav nav-stacked" id="categoriesAccordion" style="display: block;">
+                                        @foreach ($parentCategories as $parent)
+                                            <li class="panel" style="position: relative;">
+                                                <a data-toggle="collapse" data-parent="#categoriesAccordion" class="caret collapsed" href="#accordion{{ $parent->id }}"></a>
+                                                <div class="ml-4 form-check" style="display: inline-block;">
+                                                    <input @if (in_array($parent->id, request()->categories ?? []) || !request()->categories) checked @endif type="checkbox" id="cat{{ $parent->id }}" class="form-check-input" name="categories[]" value="{{ $parent->id }}">
+                                                    <label class="form-check-label" for="cat{{ $parent->id }}">{{ $parent->title }}</label>
+                                                    <ul id="accordion{{ $parent->id }}" class="collapse panel-collapse in">
+                                                        @foreach ($parent->categories as $category)
+                                                        <li class="form-check">
+                                                            <input @if (in_array($category->id, request()->categories ?? []) || !request()->categories) checked @endif type="checkbox" id="cat{{ $category->id }}" class="form-check-input" name="categories[]" id="tall" value="{{ $category->id }}">
+                                                            <label class="form-check-label" for="cat{{ $category->id }}">{{ $category->title }}</label>
+                                                        </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                        </ul>
+                                    </div>
 
-                                <!-- other checkbox -->
-                                <div class="body-box">
-                                    <div class="form-group">
-                                        <label for="distance">Содержит ключевые слова</label>
-                                        <input type="text" id="terms" class="form-control" name="terms" value="">
+                                    <!-- other checkbox -->
+                                    <div class="body-box">
+                                        <div class="form-group">
+                                            <label for="distance">Содержит ключевые слова</label>
+                                            <input type="text" id="terms" class="form-control" name="terms" value="{{ request()->terms }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="price">Минимальная цена задания, сум</label>
+                                            <input type="text" id="price" class="form-control" name="minPrice" value="{{ request()->minPrice }}">
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" name="remote" id="remote" @if (request()->remote) checked @endif>
+                                            <label class="form-check-label">Удаленная работа</label>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="price">Минимальная цена задания, сум</label>
-                                        <input type="text" id="price" class="form-control" name="price" value="0">
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="remote" id="remote">
-                                        <label class="form-check-label">Удаленная работа</label>
-                                    </div>
+                                    <button type="submit" class="mt-2 btn bg-primary text-white">Фильтр</button>
                                 </div>
-                                <div class="mt-2 btn bg-primary text-white">Фильтр</div>
-
-                            </div>
+                            </form>
                         </div>
                     </div>
                     <div class="col-lg-8">

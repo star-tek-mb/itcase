@@ -2,7 +2,7 @@
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => config('app.url')])
-            VID.UZ
+            ITCASE.com
         @endcomponent
     @endslot
 
@@ -21,7 +21,7 @@
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
-            © {{ date('Y') }} VID.UZ. Все права защищены.
+            © {{ date('Y') }} ITCASE.com. Все права защищены.
         @endcomponent
     @endslot
 @endcomponent

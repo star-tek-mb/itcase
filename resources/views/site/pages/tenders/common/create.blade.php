@@ -161,7 +161,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="budget">Ориентировочный бюджет, сум</label>
-                                    <input type="text" name="budget" id="budget" onkeypress='validate(event)' class="form-control @error('budget') is-invalid @enderror" placeholder="Укажите ориентировочный бюджет..." value="{{ old('budget') }}">
+                                    <input type="number" name="budget" id="budget" onkeypress='validate(event)' class="form-control @error('budget') is-invalid @enderror" placeholder="Укажите ориентировочный бюджет..." value="{{ old('budget') }}">
                                     @error('budget')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

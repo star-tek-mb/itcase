@@ -309,7 +309,9 @@
 
         <div class="row content">
             <div class="col-md-6 content-img">
+            <div>
             <img src="/ext/assets/img/Слой 2.png" class="img-fluid" alt="">
+</div>
             </div>
             <div class="col-md-6 right-part">
             <div>
@@ -322,7 +324,9 @@
 
         <div class="row content">
             <div class="col-md-6 content-img">
+            <div>
             <img src="/ext/assets/img/Слой 1.png" class="img-fluid" alt="">
+</div>
             </div>
             <div class="col-md-6 right-part">
             <div>
@@ -336,7 +340,9 @@
 
         <div class="row content">
             <div class="col-md-6 content-img">
+                <div>
             <img src="/ext/assets/img/Слой 4.png" alt="">
+            </div>
             </div>
             <div class="col-md-6 right-part">
             <div>
@@ -357,113 +363,6 @@
 
     </section>
 
-    <section class="carousel-section">
-
-        <div id="offer-carousel2" class="owl-carousel offer-carousel">
-        
-        <div class="row content">
-            <div class="col-md-6 content-img">
-            <img src="/ext/assets/img/Слой 1.png" class="img-fluid" alt="">
-            </div>
-            <div class="col-md-6 right-part">
-            <div>
-                <h3>Исполнители предложат вам свои услуги и цены</h3>
-                <p>Уже через пару минут вы начнете получать предложения от исполнителей, готовых
-                выполнить ваше задание.</p>
-                <div class="open_page_btn"><a href="#about" class="btn-content">Исполнители</a></div>
-            </div>
-            </div>
-        </div>
-
-        <div class="row content">
-            <div class="col-md-6 content-img">
-            <img src="/ext/assets/img/Слой 2.png" class="img-fluid" alt="">
-            </div>
-            <div class="col-md-6 right-part">
-            <div>
-                <h3>Создайте задание</h3>
-                <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                <div class="open_page_btn"><a href="#about" class="btn-content">Создать задание</a></div>
-            </div>
-            </div>
-        </div> 
-
-        <div class="row content">
-            <div class="col-md-6 content-img">
-            <img src="/ext/assets/img/Слой 4.png" alt="">
-            </div>
-            <div class="col-md-6 right-part">
-            <div>
-                <h3>Выберите лучшее предложение</h3>
-                <p>Вы сможете выбрать подходящего исполнителя, по разным критериям:</p>
-                <ul>
-                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Стоимость услуг</li>
-                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Рейтинг</li>
-                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Отзывы заказчиков</li>
-                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Примеры работ</li>
-                </ul>
-                <div class="open_page_btn"><a href="#about" class="btn-content">Разместить задание прямо сейчас</a></div>
-            </div>
-            </div>
-        </div>
-
-        </div>
-
-    </section>
-
-    <section class="carousel-section">
-
-        <div id="offer-carousel3" class="owl-carousel offer-carousel">
-
-        <div class="row content">
-            <div class="col-md-6 content-img">
-            <img src="/ext/assets/img/Слой 4.png" alt="">
-            </div>
-            <div class="col-md-6 right-part">
-            <div>
-                <h3>Выберите лучшее предложение</h3>
-                <p>Вы сможете выбрать подходящего исполнителя, по разным критериям:</p>
-                <ul>
-                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Стоимость услуг</li>
-                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Рейтинг</li>
-                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Отзывы заказчиков</li>
-                <li><span><img src="/ext/assets/img/checked.png" alt=""></span> Примеры работ</li>
-                </ul>
-                <div class="open_page_btn"><a href="#about" class="btn-content">Разместить задание прямо сейчас</a></div>
-            </div>
-            </div>
-        </div>
-
-        <div class="row content">
-            <div class="col-md-6 content-img">
-            <img src="/ext/assets/img/Слой 2.png" class="img-fluid" alt="">
-            </div>
-            <div class="col-md-6 right-part">
-            <div>
-                <h3>Создайте задание</h3>
-                <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                <div class="open_page_btn"><a href="#about" class="btn-content">Создать задание</a></div>
-            </div>
-            </div>
-        </div>
-
-        <div class="row content">
-            <div class="col-md-6 content-img">
-            <img src="/ext/assets/img/Слой 1.png" class="img-fluid" alt="">
-            </div>
-            <div class="col-md-6 right-part">
-            <div>
-                <h3>Исполнители предложат вам свои услуги и цены</h3>
-                <p>Уже через пару минут вы начнете получать предложения от исполнителей, готовых
-                выполнить ваше задание.</p>
-                <div class="open_page_btn"><a href="#about" class="btn-content">Исполнители</a></div>
-            </div>
-            </div>
-        </div>
-
-        </div>
-
-    </section>
 
     <section class="why-we-section">
         <div class="container">
@@ -486,62 +385,6 @@
         </div>
     </section>
 
-
-
-    <section class="features">
-        <div class="container">
-
-        <div class="section-title">
-            <h2>С ITCASE вы экономите на услугах до 70%.
-            Как это возможно?</h2>
-        </div>
-
-        <div class="row content">
-            <div class="col-md-5 content-img">
-            <img src="/ext/assets/img/hiw-1-be91158a87ea183e3cd3e3dcc56471a5.png" class="img-fluid" alt="">
-            </div>
-            <div class="col-md-7 right-part">
-            <div>
-                <h3><span>1.</span> Создайте задание</h3>
-                <p>Опишите своими словами задачу, которую требуется выполнить</p>
-                <a href="#">Создать задания</a>
-            </div>
-            </div>
-        </div>
-
-        <div class="row content">
-            <div class="col-md-5 content-img order-1 order-md-2">
-            <img src="/ext/assets/img/hiw-2-aa57365db5ca978385ac301a2ef6a5e8.png" class="img-fluid" alt="">
-            </div>
-            <div class="col-md-7 right-part order-2 order-md-1">
-            <div>
-                <h3><span>2.</span> Исполнители предложат вам свои услуги и цены</h3>
-                <p>Уже через пару минут вы начнете получать предложения от исполнителей, готовых
-                выполнить ваше задание.</p>
-            </div>
-            </div>
-        </div>
-
-        <div class="row content">
-            <div class="col-md-5 content-img">
-            <img src="/ext/assets/img/hiw-3-afd296132a597387954d591bdc9952b2.png" class="img-fluid" alt="">
-            </div>
-            <div class="col-md-7 right-part">
-            <div>
-                <h3><span>3.</span> Выберите лучшее предложение</h3>
-                <p>Вы сможете выбрать подходящего исполнителя, по разным критериям:</p>
-                <ul>
-                <li><span><i class="fas fa-dollar-sign"></i></span> Стоимость услуг</li>
-                <li><span><i class="fas fa-star"></i></span> Рейтинг</li>
-                <li><span><i class="fas fa-thumbs-up"></i></span> Отзывы заказчиков</li>
-                <li><span><i class="fas fa-user-alt"></i></span> Примеры работ</li>
-                </ul>
-            </div>
-            </div>
-        </div>
-
-        </div>
-    </section>
 
 
     <section class="download-section">
@@ -572,7 +415,7 @@
         </div>
     </section>
 
-    <section class="section-video" style="background-image: url(/front/images/video-bg.jpg); margin-top: 0px;">
+    <section class="section-video" style="background-image: url(/front/images/fon_bottomm.jpg); margin-top: 0px;">
         <div class="container">
             <div class="video-container">
                 <div class="section-heading">

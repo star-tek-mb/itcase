@@ -147,7 +147,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="budget">{{ __('Ориентировочный бюджет') }}</label>
-                            <input type="text" name="budget" id="budget" class="form-control @error('budget') is-invalid @enderror" placeholder="Укажите ориентировочный бюджет в сумах..." value="{{ $tender->budget }}">
+                            <input type="number" name="budget" id="budget" class="form-control @error('budget') is-invalid @enderror" placeholder="Укажите ориентировочный бюджет в сумах..." value="{{ $tender->budget }}">
                             @error('budget')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
