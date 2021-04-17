@@ -117,7 +117,7 @@ class ChatsController extends Controller
         $id = $user->id;
         $chats = $user->chats()->get()->map(function (Chat  $chat) use ($id) {
             return $chat->messages()->get()->reject(function (Message $message) use ($id){
-                return $message->user->id != $id && $message->read == 0;
+                return $message->user->id == $id && $message->read != 0;
             })->map(function (Message $message) {
                 $user = $message->user;
                 $response = [
