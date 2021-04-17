@@ -109,18 +109,33 @@ class ChatsController extends Controller
             'created_at' => $message->created_at,
         ], 200);
     }
+
     //FOR NOTIFICATION
     public function notificationLastMessages()
     {
         $user = auth()->user();
         $id = $user->id;
         $chats = $user->chats()->get()->map(function (Chat $chat) use ($id) {
-            return $chat->messages()->where('user_id', '!=', $id)->where('read', '=', 0)->orderBy('id', 'DESC')->first();
+            $other_user = $chat->getAnotherUser();
+            return [
+                'chat_id' => $chat->id,
+                'user' => [
+                    'id' => $other_user->id,
+                    'first_name' => $other_user->first_name,
+                    'last_name' => $other_user->last_name,
+                    'last_online_at' => $other_user->last_online_at,
+                    'image' => $other_user->image,
+                ],
+                'last_message'=>$chat->messages()->where('user_id', '!=', $id)->where('read', '=', 0)->orderBy('id', 'DESC')->first(),
+                'unread' =>0,
+                ];
         });
         return response()->json($chats, 200);
     }
+
     // checking message was read or not
-    public  function messagesIsRead(Request $request){
+    public function messagesIsRead(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'messages_id' => 'required',
         ]);
@@ -129,10 +144,10 @@ class ChatsController extends Controller
         }
         $messages_id = $request->messages_id;
 
-       $response = Message::whereIn('id', $messages_id)->get()->map(function (Message $message){
+        $response = Message::whereIn('id', $messages_id)->get()->map(function (Message $message) {
             return [
-                'id'=>$message->id,
-                'read'=>$message->read,
+                'id' => $message->id,
+                'read' => $message->read,
             ];
         });
         return response()->json($response, 200);
@@ -142,7 +157,7 @@ class ChatsController extends Controller
     {
         $chat = Chat::find($chat_id);
         $user = auth()->user();
-        $message = $chat->messages()->where('id', '>', $message_id)->where('user_id', '!=', $user->id)->where('read','=',0)->orderBy('id', 'DESC')->get();
+        $message = $chat->messages()->where('id', '>', $message_id)->where('user_id', '!=', $user->id)->where('read', '=', 0)->orderBy('id', 'DESC')->get();
         return response()->json($message, 200);
     }
 
