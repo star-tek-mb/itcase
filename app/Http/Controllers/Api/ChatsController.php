@@ -138,11 +138,11 @@ class ChatsController extends Controller
         return response()->json($response, 200);
     }
 
-    public function updateChat(int $chat_id)
+    public function updateChat(int $chat_id, int $message_id)
     {
         $chat = Chat::find($chat_id);
         $user = auth()->user();
-        $message = $chat->messages()->where('id', '>', 'message_id')->where('user_id', '!=', $user->id)->orderBy('id', 'DESC')->get();
+        $message = $chat->messages()->where('id', '>', $message_id)->where('user_id', '!=', $user->id)->where('read','=',0)->orderBy('id', 'DESC')->get();
         return response()->json($message, 200);
     }
 
