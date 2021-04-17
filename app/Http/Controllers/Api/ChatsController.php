@@ -66,7 +66,7 @@ class ChatsController extends Controller
         }
         return response()->json([
             $response,
-        ], 200);;
+        ], 200);
     }
 
 //    public function index(Request $request)
@@ -129,7 +129,7 @@ class ChatsController extends Controller
             return response()->json(['errors' => $validator->errors()], 400);
         }
         $messages_id = $request->messages_id;
-d
+
        $response = Message::whereIn('id', $messages_id)->map(function (Message $message){
             return [
                 'id'=>$message->id,
