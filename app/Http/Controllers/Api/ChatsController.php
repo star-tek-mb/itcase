@@ -61,10 +61,12 @@ class ChatsController extends Controller
                     'image' => $other_user->image,
                 ],
                 'unread' => $last_message->where('read', 0)->where('user_id', '!=', $user->id)->count(),
-                'last_message' => $last_message->orderBy('id', 'DESC')->first()
+                'last_message' => $last_message->orderBy('id', 'DESC')->first(),
             ]);
         }
-        return $response;
+        return response()->json([
+            $response,
+        ], 200);;
     }
 
 //    public function index(Request $request)
