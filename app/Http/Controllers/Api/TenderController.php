@@ -357,7 +357,7 @@ class TenderController extends Controller
             $adminUsers = $this->userRepository->getAdmins();
 
                 Notification::send($adminUsers, new RequestAction('accepted', $request));
-            } catch (\Exception $e) {
+            } catch (\Swift_TransportException $e) {
 
             }
             return response()->json([
