@@ -84,6 +84,7 @@ Route::namespace('Api')->group(function () {
     Route::get('/messages/{chat_id}/{message_id}', 'ChatsController@updateChat');
     Route::get('/messages/notificationLastMessages', 'ChatsController@notificationLastMessages'); // for notificaiton
     Route::post('/messages/read/messagesIsRead', 'ChatsController@messagesIsRead');
+    Route::put('/messages/read/messagesIsRead', 'ChatsController@messagesIsRead');
     Route::get('/account/chats/{chat_id}', 'ChatsController@index');
     Route::get('/account/all_chats', "ChatsController@allChats");
 });

@@ -115,11 +115,11 @@ class ChatsController extends Controller
     {
         $user = auth()->user();
         $id = $user->id;
-        $response =[];
+        $response = [];
         $chats = $user->chats;
-        foreach ($chats as $chat){
+        foreach ($chats as $chat) {
             $message = $chat->messages()->orderBy('id', 'DESC')->first();
-            if($message->user_id != $id && $message->read == 0){
+            if ($message->user_id != $id && $message->read == 0) {
                 $user = $message->user;
                 array_push($response, [
                     'chat_id' => $message->chat_id,
@@ -130,8 +130,8 @@ class ChatsController extends Controller
                         'last_online_at' => $user->last_online_at,
                         'image' => $user->image,
                     ],
-                    'last_message'=>$message,
-                    'unread' =>0,
+                    'last_message' => $message,
+                    'unread' => 0,
                 ]);
                 unset($message->user);
             }
@@ -170,8 +170,17 @@ class ChatsController extends Controller
             return response()->json(['errors' => $validator->errors()], 400);
         }
         $messages_id = $request->messages_id;
+        $messages = Message::whereIn('id', $messages_id)->get();
 
-        $response = Message::whereIn('id', $messages_id)->get()->map(function (Message $message) {
+        if ($request->isMethod('put')) {
+            foreach ($messages as $message) {
+                $message->read = 1;
+                $message->save();
+            }
+            return response()->json([], 200);
+        }
+
+        $response = $messages->map(function (Message $message) {
             return [
                 'id' => $message->id,
                 'read' => $message->read,
@@ -181,11 +190,16 @@ class ChatsController extends Controller
     }
 
     public function updateChat(int $chat_id, int $message_id)
+{
+    $chat = Chat::find($chat_id);
+    $user = auth()->user();
+    $message = $chat->messages()->where('id', '>', $message_id)->where('user_id', '!=', $user->id)->where('read', '=', 0)->orderBy('id', 'DESC')->get();
+    return response()->json($message, 200);
+}
+    // Read  choosen messages
+    public function readMessages(Request $request)
     {
-        $chat = Chat::find($chat_id);
-        $user = auth()->user();
-        $message = $chat->messages()->where('id', '>', $message_id)->where('user_id', '!=', $user->id)->where('read', '=', 0)->orderBy('id', 'DESC')->get();
-        return response()->json($message, 200);
+
     }
 
     public function fetchMessages(Request $request, int $chat_id)
