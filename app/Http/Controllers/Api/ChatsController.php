@@ -129,12 +129,12 @@ class ChatsController extends Controller
         }
         $messages_id = $request->messages_id;
 
-       $response = Message::whereIn('id', $messages_id)->map(function (Message $message){
+       $response = Message::whereIn('id', $messages_id)->get()->map(function (Message $message){
             return [
                 'id'=>$message->id,
                 'read'=>$message->read,
             ];
-        })->get()->all();
+        });
         return response()->json($response, 200);
     }
 
