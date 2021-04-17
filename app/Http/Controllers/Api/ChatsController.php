@@ -61,7 +61,7 @@ class ChatsController extends Controller
                     'image' => $other_user->image,
                 ],
                 'unread' => $last_message->where('read', 0)->where('user_id', '!=', $user->id)->count(),
-                'last_message' => $last_message->get()
+                'last_message' => $last_message->orderBy('id', 'DESC')->first()
             ]);
         }
         return $response;
@@ -127,7 +127,7 @@ class ChatsController extends Controller
             return response()->json(['errors' => $validator->errors()], 400);
         }
         $messages_id = $request->messages_id;
-
+d
        $response = Message::whereIn('id', $messages_id)->map(function (Message $message){
             return [
                 'id'=>$message->id,
