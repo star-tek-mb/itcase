@@ -118,7 +118,7 @@ class ChatsController extends Controller
         $chats = $user->chats()->get()->map(function (Chat $chat) use ($id) {
             $message = $chat->messages()->where('user_id', '!=', $id)->where('read', '=', 0)->orderBy('id', 'DESC')->first();
             return [
-                'chat_id' => $message->chat_id,
+                'chat_id' => $message['chat_id'],
                 'user' => [
                     'id' => $message->user->id,
                     'first_name' => $message->user->first_name,
