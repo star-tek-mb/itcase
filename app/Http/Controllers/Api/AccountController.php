@@ -65,9 +65,10 @@ class AccountController extends Controller
      *
      * @return Factory|View
      */
-    public function getAccount(int $user_id)
+    public function getAccount(String $user_id)
     {
-        $user = $this->userRepository->get($user_id);
+        $id = (int) $user_id;
+        $user = $this->userRepository->get($id);
 
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';
