@@ -74,15 +74,7 @@ class AccountController extends Controller
         }else {
             $owner_id = auth()->user()->id;
             $user = $this->userRepository->get($user_id);
-            $permission =  Tender::orWhere(
-                function ($query) use($owner_id, $user_id){
-                $query->where('contractor_id' , '=', $user_id)->where('owner_id', '=' , $owner_id);
-            }
-            )->orWhere(
-                    function ($query) use($owner_id, $user_id){
-                        $query->where('contractor_id' , '=', $owner_id)->where('owner_id', '=' , $user_id);
-                    }
-                )->first() != null;
+            $permission =  $this->tenderRepository->checkPermission($owner_id, $user_id);
         }
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';

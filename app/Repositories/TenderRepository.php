@@ -37,7 +37,18 @@ class TenderRepository implements TenderRepositoryInterface
 
         return $query->whereNotNull('owner_id')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
     }
+    public function checkPermission($owner_id , $user_id){
 
+        return Tender::orWhere(
+                function ($query) use($owner_id, $user_id){
+                    $query->where('contractor_id' , '=', $user_id)->where('owner_id', '=' , $owner_id);
+                }
+            )->orWhere(
+                function ($query) use($owner_id, $user_id){
+                    $query->where('contractor_id' , '=', $owner_id)->where('owner_id', '=' , $user_id);
+                }
+            )->first() != null;
+    }
     public function TenderSearch($search)
     {
         $query = Tender::whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason');
