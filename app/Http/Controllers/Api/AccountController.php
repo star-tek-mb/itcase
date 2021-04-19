@@ -67,17 +67,21 @@ class AccountController extends Controller
      */
     public function index(String $user_id)
     {
+       ;
         if($user_id == 0){
             $user = auth()->user();
+            $permission = true;
         }else {
             $user = $this->userRepository->get($user_id);
+            $permission =  Tender::where('contractor_id' , '=', 110)->where('owner_id', '=' , 65)->first() != null;
         }
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';
             return response()->json([
                 'accountPage' => $accountPage,
                 'user' => $user,
-                'role' => 'contractor'
+                'role' => 'contractor',
+                'permission'=>$permission,
             ]);
         } elseif ($user->hasRole('customer')) {
             if ($user->customer_type == 'legal_entity') {
@@ -89,6 +93,7 @@ class AccountController extends Controller
                 'accountPage' => $accountPage,
                 'user' => $user,
                 'role' => 'customer',
+                'permission'=>$permission,
             ]);
         } else {
             abort(403);
