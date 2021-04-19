@@ -65,7 +65,7 @@ class AccountController extends Controller
      *
      * @return Factory|View
      */
-    public function index(int $user_id)
+    public function getAccount(int $user_id)
     {
         $user = $this->userRepository->get($user_id);
 
