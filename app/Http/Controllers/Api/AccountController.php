@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
 
 class AccountController extends Controller
 {
@@ -250,6 +251,7 @@ class AccountController extends Controller
 
     public function tenders(int $user_id)
     {
+        Log::info("USER ID " . $user_id);
         $user = User::find($user_id);
         if ($user) {
             return response()->json([
