@@ -65,9 +65,9 @@ class AccountController extends Controller
      *
      * @return Factory|View
      */
-    public function index(String $user_id)
+    public function index(int $user_id)
     {
-       ;
+
         if($user_id == 0){
             $user = auth()->user();
             $permission = true;
