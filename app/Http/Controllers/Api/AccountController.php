@@ -65,9 +65,10 @@ class AccountController extends Controller
      *
      * @return Factory|View
      */
-    public function index()
+    public function index(int $user_id)
     {
-        $user = auth()->user()->load('categories');
+        $user = $this->userRepository->get($user_id);
+
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';
             return response()->json([
@@ -251,6 +252,7 @@ class AccountController extends Controller
 
     public function tenders(int $user_id)
     {
+
         $user = $this->userRepository->get($user_id);
         if ($user) {
             return response()->json([
