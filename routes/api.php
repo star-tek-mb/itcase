@@ -29,7 +29,7 @@ Route::namespace('Api')->group(function () {
     Route::post('/account/professional', 'AccountController@saveProfessional');
     Route::post('/account/customer/profile/save', 'AccountController@saveCustomerProfile');
     Route::middleware('phone.verified')->group(function () {
-        Route::get('/account/tenders', 'AccountController@tenders');
+        Route::get('/account/tenders/{user_id}', 'AccountController@tenders');
         Route::get('/account/portfolio', 'FileController@index');
         Route::post('/account/portfolio/save', 'FileController@save');
 
@@ -42,6 +42,7 @@ Route::namespace('Api')->group(function () {
     Route::middleware('phone.verified')->group(function () {
         Route::get('/tenders/{id}', 'TenderController@tender');
         Route::post('/tenders/create', 'TenderController@store');
+        Route::get('/tenders/user','TenderController@tendersOfUser' );
         Route::post('/tenders/makeRequest', 'TenderController@makeRequest');
         Route::post('/tenders/cancelRequest', 'TenderController@cancelRequest');
         Route::delete('/tenders/{id}/delete', 'TenderController@delete');

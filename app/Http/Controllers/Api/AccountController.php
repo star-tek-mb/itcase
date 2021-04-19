@@ -248,14 +248,14 @@ class AccountController extends Controller
             'message' =>  'Ваш профиль обновлён']);
     }
 
-    public function tenders()
+    public function tenders(int $user_id)
     {
-        $user = auth()->user();
+        $user = User::find($user_id);
         if ($user->hasRole('customer')) {
             return response()->json([
                 'tenders' => $user->ownedTenders()->orderBy('created_at', 'desc')->get()
             ]);
-        } elseif ($user->hasRole('contractor')) {
+            } elseif ($user->hasRole('contractor')) {
             return response()->json([
                 'tenders' => $user->requests()->orderBy('created_at', 'desc')->get()
             ]);
