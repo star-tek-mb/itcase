@@ -251,16 +251,21 @@ class AccountController extends Controller
     public function tenders(int $user_id)
     {
         $user = User::find($user_id);
-        if ($user->hasRole('customer')) {
+        if ($user) {
             return response()->json([
                 'tenders' => $user->ownedTenders()->orderBy('created_at', 'desc')->get()
-            ]);
-            } elseif ($user->hasRole('contractor')) {
-            return response()->json([
-                'tenders' => $user->requests()->orderBy('created_at', 'desc')->get()
             ]);
         } else {
             abort(404);
         }
     }
+
+    public  function requests(int $user_id){
+        $user = User::find($user_id);
+
+        return response()->json([
+            'tenders' => $user->requests()->orderBy('created_at', 'desc')->get()
+        ]);
+    }
+
 }
