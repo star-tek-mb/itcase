@@ -175,7 +175,7 @@ class TenderController extends Controller
             return response()->json($tender);
         } else {
             return response()->json([
-                'message' => 'Ресурс не найден'
+                'message' => 'Ресурс не найден',
             ], 404);
         }
     }
@@ -252,8 +252,9 @@ class TenderController extends Controller
             'tender_id' => 'required',
         ]);
         $tenderRequest = $this->tenderRepository->createRequest($request);
-        $tenderTitle = $tenderRequest->tender->title;
+
         if ($tenderRequest != null) {
+            $tenderTitle = $tenderRequest->tender->title;
             try {
                 $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
 

@@ -197,7 +197,7 @@ class TenderRepository implements TenderRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function createRequest($data)
+        public function createRequest($data)
     {
         if (TenderRequest::where('tender_id', $data->tender_id)->where('user_id', $data->user_id)->get()->first() == null) {
             return TenderRequest::create($data->all());

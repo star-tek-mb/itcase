@@ -96,7 +96,7 @@ class AccountController extends Controller
         $paymentUrl = $octo->requestPayment($user);
         return response()->json(compact('user', 'paymentUrl'));
     }
-
+    
     public function store(Request $request)
     {
         $userType = $request->get('user_role');
@@ -146,6 +146,7 @@ class AccountController extends Controller
             'message' => 'Ваши личные данные обновлены'
         ]);
     }
+
 
     public function professional()
     {
