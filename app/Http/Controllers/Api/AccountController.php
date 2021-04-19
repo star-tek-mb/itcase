@@ -252,7 +252,7 @@ class AccountController extends Controller
     public function tenders(int $user_id)
     {
         Log::info("USER ID " . $user_id);
-        $user = User::find($user_id);
+        $user = User::where('id','=',$user_id)->first();
         if ($user) {
             return response()->json([
                 'tenders' => $user->ownedTenders()->orderBy('created_at', 'desc')->get()
