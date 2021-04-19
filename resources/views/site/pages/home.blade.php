@@ -85,7 +85,7 @@
                                 <div>
                                 <a href="{{ route('site.catalog.main', $category->getAncestorsSlugs()) }}" class="category-single__title">
                                     <h3>{{ $category->getTitle() }}</h3>
-                                    <div class="count_block"><span class="count">({{ $category->getAllCompaniesCount() }})</span>Заданий</div>
+                                    <div class="count_block"><span class="count">{{ $category->getAllCompaniesCount() }}</span>Заданий</div>
                                 </a>
                                 <div class="text">
                                     @foreach ($category->categories()->limit(5)->get() as $child)

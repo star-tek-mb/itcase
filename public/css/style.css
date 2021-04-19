@@ -297,7 +297,6 @@ a.user-dropdown-item:active {
 @media only screen and (max-width: 991px) {
     .header-left {
         width: 100%;
-        background: black;
     }
 
     .header-right-mobile {
