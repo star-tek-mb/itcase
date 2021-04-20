@@ -175,7 +175,7 @@ a:focus {
   background-color: transparent;
 }
 .home .header-site a {
-  color: #fff;
+  color: #000;
 }
 .home .header-site .btn-toggle {
   color: #fff;
@@ -203,6 +203,7 @@ a:focus {
   justify-content: space-between;
   min-height: 60px;
   position: relative;
+  background: #fff;
 }
 @media only screen and (min-width: 992px) {
   .header-left {
@@ -258,6 +259,7 @@ a:focus {
   list-style: none;
   padding: 0;
   margin: 0;
+  color: #000;
 }
 .header-right ul li {
   font-weight: 600;
@@ -273,6 +275,16 @@ a:focus {
   .header-right ul li + li {
     margin-left: 30px;
   }
+}
+.header-right ul .registration_li a:first-child {
+  color: #00366D;
+  margin-right: 10px;
+}
+.header-right ul .registration_li a:last-child {
+  color: #FF6B01;
+}
+.header-right ul li span {
+  margin-right: 5px;
 }
 .user-profile {
   list-style: none;
