@@ -185,6 +185,8 @@ $('#distance').on('input', function(el) {
     myCircle.geometry.setRadius($(el.target).val() * 1000);
     mapFiltersChanged();
 });
+$('#minPrice').change(function(el) { mapFiltersChanged(); });
+$('#remote').change(function(el) { mapFiltersChanged(); });
 function mapFiltersChanged(e) {
     var checkedCategories = $('input[name="categories[]"]:checkbox:checked').map(function() {
         return this.value;
