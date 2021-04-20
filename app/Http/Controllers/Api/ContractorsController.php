@@ -163,7 +163,9 @@ class ContractorsController extends Controller
     public function addContractor(int $contractorId, int $tenderId)
     {
         $request = $this->tenders->addContractor($tenderId, $contractorId);
-        $this->users->get($contractorId)->notify(new InviteRequest($request));
+        try {
+            $this->users->get($contractorId)->notify(new InviteRequest($request));
+        } catch (\Exception $e) {}
         return response()->json([
             'success'=>'Исполнитель добавлен в конкурс!',
         ]);

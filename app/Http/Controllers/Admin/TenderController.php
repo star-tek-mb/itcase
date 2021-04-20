@@ -132,7 +132,9 @@ class TenderController extends Controller
     public function publishTender(int $tenderId)
     {
         $tender = $this->tenderRepository->publishTender($tenderId);
-        $tender->owner->notify(new TenderPublished($tender, true));
+        try {
+            $tender->owner->notify(new TenderPublished($tender, true));
+        } catch (\Exception $e) {}
         return back()->with('success', 'Конкурс опубликован!');
     }
 }

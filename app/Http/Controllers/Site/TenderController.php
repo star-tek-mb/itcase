@@ -206,7 +206,9 @@ class TenderController extends Controller
             'comment' => 'nullable|string|max:255'
         ]);
         $tenderRequest = $this->tenderRepository->createRequest($request);
-        $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
+        try {
+            $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
+        } catch (\Exception $e) {}
         $tenderTitle = $tenderRequest->tender->title;
         return back()->with('success', "Вы подали заявку на участие в конкурсе \"$tenderTitle\"");
     }
@@ -273,14 +275,18 @@ class TenderController extends Controller
     {
         $redirectTo = $request->get('redirect_to');
         if ($request = $this->tenderRepository->acceptRequest($tenderId, $requestId)) {
-            $request->user->notify(new RequestAction('accepted', $request));
+            try {
+                $request->user->notify(new RequestAction('accepted', $request));
+            } catch (\Exception $e) {}
             $requests = $request->tender->requests;
 
             foreach ($requests as $otherRequest) {
                 if ($otherRequest->user_id == $request->user_id) {
                     continue;
                 }
-                $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
+                try {
+                    $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
+                } catch (\Exception $e) {}
             }
             $adminUsers = $this->userRepository->getAdmins();
             try {

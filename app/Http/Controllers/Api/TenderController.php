@@ -257,10 +257,7 @@ class TenderController extends Controller
             $tenderTitle = $tenderRequest->tender->title;
             try {
                 $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
-
-            }
-            catch (Exception $e){
-
+            } catch (\Exception $e) {
             } finally {
                 return response()->json([
                     'success' => "Вы подали заявку на участие в задание \"$tenderTitle\""
@@ -280,7 +277,9 @@ class TenderController extends Controller
         $tenderRequest = $this->tenderRepository->cancelRequest($requestId);
         $tender = $this->tenderRepository->get($tenderRequest->tender_id);
         if ($rejected) {
-            $tenderRequest->user->notify(new RequestAction('rejected', $tenderRequest, $tender));
+            try {
+                $tenderRequest->user->notify(new RequestAction('rejected', $tenderRequest, $tender));
+            } catch (\Exception $e) {}
             foreach (auth()->user()->chats as $chat) {
                 if ($chat->getAnotherUser()->id === $tenderRequest->user_id) {
                     $chat->delete();
