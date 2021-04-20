@@ -67,7 +67,7 @@ class TenderRepository implements TenderRepositoryInterface
         })->when($remote, function ($query, $remote) {
             return $query->where('type', '=', 'remote');
         })
-        ->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->paginate();
+        ->orderBy('created_at', 'desc')->paginate();
         return $result;
     }
 
@@ -92,12 +92,12 @@ class TenderRepository implements TenderRepositoryInterface
                 . '* sin(radians(TRIM(SUBSTRING_INDEX(tenders.geo_location, \',\', 1)))))) AS distance',
                 [$center[0], $center[1], $center[0]])
             ->havingRaw('distance < ?', [$radius])
-            ->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
+            ->whereNotNull('owner_id')->whereNull('contractor_id')->where('published', true)->whereNull('delete_reason')
             ->when($minPrice, function ($query, $minPrice) {
                 return $query->where('budget', '>=', $minPrice);
             })->when($remote, function ($query, $remote) {
                 return $query->where('type', '=', 'remote');
-            })->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get()
+            })->orderBy('created_at', 'desc')->get()
             ->map(function (Tender $tender) {
                 $tender->icon = $tender->categoryIcon();
                 return $tender;

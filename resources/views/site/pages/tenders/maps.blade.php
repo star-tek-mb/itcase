@@ -198,7 +198,7 @@ function mapFiltersChanged(e) {
             radius: myCircle.geometry.getRadius() / 1000,
             categories: checkedCategories,
             minPrice: $('#minPrice').val(),
-            remote: $('#remote').prop("checked")
+            remote: $('#remote').prop("checked") ? true : null
         }
     }).done(function(data) {
         objectManager.removeAll();
