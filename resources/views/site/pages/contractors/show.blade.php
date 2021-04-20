@@ -291,7 +291,7 @@
                                 <ul>
                                     <li> ID: {{$contractor->id}}</li>
                                   @if($mean!=0)
-                                  <li>Рейтинг: ({{ round($mean, 1) }}) 
+                                  <li>Рейтинг: ({{ number_format($mean, 1, '.', '') }}) 
                                     @for($i=0; $i<$mean; $i++)
                                       <i class="fas fa-star" style="font-size:15px; color:#ffb13c"></i>
                                     @endfor
