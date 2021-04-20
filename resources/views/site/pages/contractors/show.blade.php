@@ -243,7 +243,7 @@
                         <form action="{{ route('site.contractors.comment.contractor') }}" method="post">
                           @csrf
 
-                        <input type="hidden" name="for_comment_id" value="{{ $contractor->slug}}">
+                        <input type="hidden" name="for_comment_id" value="{{ $contractor->id }}">
                         <a class="btn btn-light-green" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Оставить отзыв</a>
                         <div class="collapse" id="collapseExample">
                           <div class="reviews">
