@@ -210,7 +210,7 @@ class TenderController extends Controller
             $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
         } catch (\Exception $e) {}
         $tenderTitle = $tenderRequest->tender->title;
-        return back()->with('success', "Вы подали заявку на участие в конкурсе \"$tenderTitle\"");
+        return back()->with('success', "Вы подали заявку на участие в конкурсе \"$tenderTitle\" или прием заявок окончен.");
     }
 
     public function cancelRequest(Request $request)
