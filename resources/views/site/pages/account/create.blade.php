@@ -185,7 +185,7 @@
                                         </label>
                                     </div>
                                     <br>
-                                    <button type="submit" disabled class="btn btn-light-green">Профессиональные данные <i class="fas fa-arrow-right"></i></button>
+                                    <button type="submit" @if (is_null($user->account_paid_at)) disabled @endif class="btn btn-light-green">Профессиональные данные <i class="fas fa-arrow-right"></i></button>
                                 </form>
                             </div>
                         @endif
@@ -322,10 +322,10 @@
                                     </label>
                                 </div>
                                 <br>
-                                <button type="submit" disabled class="btn btn-light-green"><i class="fas fa-save"></i> Сохранить</button>
+                                <button type="submit" @if (is_null($user->account_paid_at)) disabled @endif class="btn btn-light-green"><i class="fas fa-save"></i> Сохранить</button>
                             </form>
                         </div>
-                        <button id="payment-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#payment-modal">{{ __('Оплатить аккаунт') }}</button>
+                        <button id="payment-button" @if (!is_null($user->account_paid_at)) disabled @endif type="button" class="btn btn-primary" data-toggle="modal" data-target="#payment-modal">{{ __('Оплатить аккаунт') }}</button>
                     </div>
                 </div>
             </div>
@@ -356,7 +356,7 @@
                         $('#payment-modal').modal('hide');
                         $('#payment-button').prop("disabled", true);
                         $('#payment-iframe').remove();
-                        $('input[type="submit"]').prop("disabled", false);
+                        $('button[type="submit"]').prop("disabled", false);
                     }
                 });
                 var loadFile = function(event) {
