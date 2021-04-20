@@ -101,9 +101,14 @@ class AccountController extends Controller
         }
     }
 
-    public function create(OctoService $octo)
+    public function create(Request $request,OctoService $octo)
     {
         $user = auth()->user();
+        $user->dynamic = false;
+        if($request->has('dynamicUrl')){
+            $user->dynamic = true;
+        }
+
         $paymentUrl = $octo->requestPayment($user);
         return response()->json(compact('user', 'paymentUrl'));
     }
