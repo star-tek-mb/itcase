@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
 
 class AccountController extends Controller
 {
@@ -64,15 +65,24 @@ class AccountController extends Controller
      *
      * @return Factory|View
      */
-    public function index()
+    public function index(int $user_id)
     {
-        $user = auth()->user()->load('categories');
+
+        if($user_id == 0){
+            $user = auth()->user();
+            $permission = true;
+        }else {
+            $owner_id = auth()->user()->id;
+            $user = $this->userRepository->get($user_id);
+            $permission =  $this->tenderRepository->checkPermission($owner_id, $user_id);
+        }
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';
             return response()->json([
                 'accountPage' => $accountPage,
                 'user' => $user,
-                'role' => 'contractor'
+                'role' => 'contractor',
+                'permission'=>$permission,
             ]);
         } elseif ($user->hasRole('customer')) {
             if ($user->customer_type == 'legal_entity') {
@@ -84,19 +94,25 @@ class AccountController extends Controller
                 'accountPage' => $accountPage,
                 'user' => $user,
                 'role' => 'customer',
+                'permission'=>$permission,
             ]);
         } else {
             abort(403);
         }
     }
 
-    public function create(OctoService $octo)
+    public function create(Request $request,OctoService $octo)
     {
         $user = auth()->user();
+        $user->dynamic = false;
+        if($request->has('dynamicUrl')){
+            $user->dynamic = true;
+        }
+
         $paymentUrl = $octo->requestPayment($user);
         return response()->json(compact('user', 'paymentUrl'));
     }
-
+    
     public function store(Request $request)
     {
         $userType = $request->get('user_role');
@@ -146,6 +162,7 @@ class AccountController extends Controller
             'message' => 'Ваши личные данные обновлены'
         ]);
     }
+
 
     public function professional()
     {
@@ -247,19 +264,25 @@ class AccountController extends Controller
             'message' =>  'Ваш профиль обновлён']);
     }
 
-    public function tenders()
+    public function tenders(int $user_id)
     {
-        $user = auth()->user();
-        if ($user->hasRole('customer')) {
+
+        $user = $this->userRepository->get($user_id);
+        if ($user) {
             return response()->json([
                 'tenders' => $user->ownedTenders()->orderBy('created_at', 'desc')->get()
-            ]);
-        } elseif ($user->hasRole('contractor')) {
-            return response()->json([
-                'tenders' => $user->requests()->orderBy('created_at', 'desc')->get()
             ]);
         } else {
             abort(404);
         }
     }
+
+    public  function requests(int $user_id){
+        $user = $this->userRepository->get($user_id);
+
+        return response()->json([
+            'tenders' => $user->requests()->orderBy('created_at', 'desc')->get()
+        ]);
+    }
+
 }

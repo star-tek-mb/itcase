@@ -20,16 +20,16 @@ Route::namespace('Api')->group(function () {
     Route::post('/register', 'AuthController@register');
 
     // Account routes
-    Route::get('/account', 'AccountController@index');
+    Route::get('/account/seeAccount/{user_id}', 'AccountController@index');
     Route::get('/account/notifications/markAsRead', 'AccountController@markNotificationsAsRead');
     Route::get('/account/create', 'AccountController@create');
-    Route::post('/account/create', 'AccountController@store');
+        Route::post('/account/create', 'AccountController@store');
     Route::post('/account/contractor/profile/save', 'AccountController@savePersonalContractor');
     Route::get('/account/professional', 'AccountController@professional');
     Route::post('/account/professional', 'AccountController@saveProfessional');
     Route::post('/account/customer/profile/save', 'AccountController@saveCustomerProfile');
     Route::middleware('phone.verified')->group(function () {
-        Route::get('/account/tenders', 'AccountController@tenders');
+        Route::get('/account/tenders/{user_id}', 'AccountController@tenders');
         Route::get('/account/portfolio', 'FileController@index');
         Route::post('/account/portfolio/save', 'FileController@save');
 
@@ -42,6 +42,7 @@ Route::namespace('Api')->group(function () {
     Route::middleware('phone.verified')->group(function () {
         Route::get('/tenders/{id}', 'TenderController@tender');
         Route::post('/tenders/create', 'TenderController@store');
+        Route::get('/tenders/user','TenderController@tendersOfUser' );
         Route::post('/tenders/makeRequest', 'TenderController@makeRequest');
         Route::post('/tenders/cancelRequest', 'TenderController@cancelRequest');
         Route::delete('/tenders/{id}/delete', 'TenderController@delete');
@@ -68,11 +69,12 @@ Route::namespace('Api')->group(function () {
     Route::post('/contractors/search', 'ContractorsController@contractorSearch');
 
     Route::post('/phone/verify', 'AuthController@verify');
+    Route::post('/phone/resend', 'AuthController@resend');
     // Phone verify routes
 
     Route::middleware('throttle:6,1', function () {
 
-        Route::post('/phone/resend', 'AuthController@resend');
+
     });
 
     Route::get('/catalog', 'HomeController@index');
@@ -86,5 +88,5 @@ Route::namespace('Api')->group(function () {
     Route::post('/messages/read/messagesIsRead', 'ChatsController@messagesIsRead');
     Route::put('/messages/read/messagesIsRead', 'ChatsController@messagesIsRead');
     Route::get('/account/chats/{chat_id}', 'ChatsController@index');
-    Route::get('/account/all_chats', "ChatsController@allChats");
+    Route::get('/messages/all_chats', "ChatsController@allChats");
 });
