@@ -291,11 +291,11 @@
                                 <ul>
                                     <li> ID: {{$contractor->id}}</li>
                                   @if($mean!=0)
-                                  <li>Рейтинг:
+                                  <li>Рейтинг: ({{ $mean }}) 
                                     @for($i=0; $i<$mean; $i++)
                                       <i class="fas fa-star" style="font-size:15px; color:#ffb13c"></i>
                                     @endfor
-
+                                    ({{ $comments->count() }} отзывов)
                                   </li>
                                     @endif
                                   <li>Победы: {{$contractor->victories_count}}</li>
