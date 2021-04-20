@@ -145,7 +145,7 @@ class TenderController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
-        $result = $this->tenderRepository->tenderMap([$request->center_lng, $request->center_lat], $request->radius, $request->categories);
+        $result = $this->tenderRepository->tenderMap([$request->center_lat, $request->center_lng], $request->radius, $request->categories, $request->minPrice, $request->remote);
         return response()->json($result);
     }
 

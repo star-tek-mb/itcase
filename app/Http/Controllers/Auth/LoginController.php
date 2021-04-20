@@ -60,7 +60,7 @@ class LoginController extends Controller
     {
         if (is_numeric($request->get('username'))) {
             return [
-                'phone' => $request->get('username'),
+                'phone_number' => $request->get('username'),
                 'password' => $request->get('password')
             ];
         } elseif (filter_var($request->get('username'), FILTER_VALIDATE_EMAIL)) {

@@ -114,7 +114,7 @@
 
                                     <div class="form-group">
                                         <label for="price">Минимальная цена задания, сум</label>
-                                        <input type="text" id="price" class="form-control" name="price" value="0">
+                                        <input type="text" id="minPrice" class="form-control" name="minPrice" value="0">
                                     </div>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="remote" id="remote">
@@ -196,7 +196,9 @@ function mapFiltersChanged(e) {
             center_lat: myCircle.geometry.getCoordinates()[0],
             center_lng: myCircle.geometry.getCoordinates()[1],
             radius: myCircle.geometry.getRadius() / 1000,
-            categories: checkedCategories
+            categories: checkedCategories,
+            minPrice: $('#minPrice').val(),
+            remote: $('#remote').prop("checked")
         }
     }).done(function(data) {
         objectManager.removeAll();

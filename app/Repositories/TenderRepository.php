@@ -109,32 +109,19 @@ class TenderRepository implements TenderRepositoryInterface
     public function create($data)
     {
         $tenderData = $data->all();
-
-        if (isset($tenderData['owner_id'])) {
-            $user = User::find($tenderData['owner_id']);
-            if ($user != null) {
-                $tenderData['client_name'] = $user->first_name . " " . $user->last_name;
-                $tenderData['client_email'] = $user->email;
-                $tenderData['client_phone_number'] = $user->phone_number || '';
-                $tenderData['client_type'] = $user->customer_type;
-                $tenderData['owner_id'] = $user->id;
-            }
-        } else {
-            $tenderData['client_name'] = '';
-            $tenderData['client_type'] = '';
-            $tenderData['client_phone_number'] = '';
-        }
+        $user = auth()->user();
+        $tenderData['client_name'] = $user->first_name . " " . $user->last_name;
+        $tenderData['client_email'] = $user->email;
+        $tenderData['client_phone_number'] = $user->phone_number || '';
+        $tenderData['client_type'] = $user->customer_type;
+        $tenderData['owner_id'] = $user->id;
         if (Arr::get($tenderData, 'remote') == 'on') {
             $tenderData['type'] = 'remote';
         }
         $tenderData['deadline'] = Carbon::createFromFormat('d.m.Y', $data->get('deadline'))->setHour(23)->setMinutes(59)->setSecond(59)->format('Y-m-d H:i:s');
         $tenderData['work_start_at'] = Carbon::createFromFormat('d.m.Y H:i', $data->get('work_start_at'));
         $tenderData['work_end_at'] = Carbon::createFromFormat('d.m.Y H:i', $data->get('work_end_at'));
-
         $tender = Tender::create($tenderData);
-
-
-
         $tender->saveFiles($data->file('files'));
         if (gettype($data->get('categories')) == 'string') {
             $category = explode(' ', $data->get('categories'));
