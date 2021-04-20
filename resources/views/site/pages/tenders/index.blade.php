@@ -162,7 +162,7 @@
                                                     <div class="text">
                                                         <h3 class="title-job"><a
                                                                     href="{{ route('site.tenders.category', $tender->slug) }}">{{ $tender->title }}</a><span
-                                                                    class="ml-2 tags"><a>@if ($tender->opened==0 || $tender->contractor || $tender->checkDeadline())
+                                                                    class="ml-2 tags"><a>@if ($tender->opened==0 || $tender->contractor || !$tender->checkDeadline())
                                                                         Приём заявок окончен @else
                                                                         Открыт @endif</a></span></h3>
                                                         <div class="date-job">
