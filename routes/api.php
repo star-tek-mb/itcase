@@ -32,7 +32,7 @@ Route::namespace('Api')->group(function () {
 
         //new add routes for account about tenders
         Route::get('/account/tenders/{user_id}', 'AccountController@tenders');
-        Route::get('/account/myTenders//finishedTenders' , 'AccountController@finishedTenders');
+        Route::get('/account/myTenders/finishedTenders' , 'AccountController@finishedTenders');
         Route::get('/account/myTenders/onModerationTenders' , 'AccountController@onModerationTenders');
 
 
