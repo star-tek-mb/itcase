@@ -322,7 +322,7 @@ class AccountController extends Controller
                 return $tenderRequests->tender->contractor_id != $user_id;
             return  true;
         })->map(function ($tenderRequests){
-            return $tenderRequests;
+            return $tenderRequests->tender;
         });
         $tendersCount = $response->count();
         $response =   PaginateCollection::paginateCollection($response, 5);
