@@ -319,13 +319,11 @@ class AccountController extends Controller
         $user = $this->userRepository->get($user_id);
 
         return response()->json([
-              'tenders' => $user->requests()->orderBy('created_at', 'desc')->get()->map(function ($tenderRequests) use($user_id){
-                  return $tenderRequests->tenders()->get()->reject(function ($tender) use ($user_id){
-                      if($tender)
-                          return $tender->contractor_id != $user_id;
-                      return  true;
-                  });
-              })
+            'tenders' => $user->requests()->orderBy('created_at', 'desc')->get()->map(function ($tenderRequests) use($user_id){
+                if ($tenderRequests->tender)
+                    return $tenderRequests->tender->contractor_id != $user_id;
+                return  true;
+            })
         ]);
     }
 
@@ -335,11 +333,9 @@ class AccountController extends Controller
 
         return response()->json([
             'tenders' => $user->requests()->orderBy('created_at', 'desc')->get()->map(function ($tenderRequests) use($user_id){
-                return $tenderRequests->tenders()->get()->reject(function ($tender) use ($user_id){
-                    if($tender)
-                        return $tender->contractor_id == $user_id;
-                    return  true;
-                });
+                if ($tenderRequests->tender)
+                    return $tenderRequests->tender->contractor_id == $user_id;
+                return  true;
             })
         ]);
     }
