@@ -113,7 +113,7 @@ class AccountController extends Controller
         $paymentUrl = $octo->requestPayment($user);
         return response()->json(compact('user', 'paymentUrl'));
     }
-    
+
     public function store(Request $request)
     {
         $userType = $request->get('user_role');
@@ -184,7 +184,7 @@ class AccountController extends Controller
     {
         $user = auth()->user();
         $user->authorizeRole('contractor');
-        
+
         $categories = collect();
         foreach ($request->get('categories') as $requestCategory) {
             if (isset($requestCategory['id'])) {
@@ -273,7 +273,7 @@ class AccountController extends Controller
             $date = date_create_from_format('Y-m-d', $tender->deadline);
             return time() > $date->getTimestamp();
         });
-        $tendersCount = $tenders->count();
+        $tendersCount = $tenders->ownedTenders->count();
         $response = PaginateCollection::paginateCollection($tenders, 5);
         if ($user) {
             return response()->json([
@@ -306,7 +306,7 @@ class AccountController extends Controller
         $user = auth()->user();
         if($user){
             return response()->json([
-                'tenders' => $user->ownedTenders()->where('published', false)->orderBy('created_at', 'desc')->get()
+                'tenders' => $user->ownedTenders()->where('published', false)->orderBy('created_at', 'desc')->paginate(5)
             ]);
         }
         else {
