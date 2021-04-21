@@ -45,7 +45,7 @@ Route::namespace('Api')->group(function () {
 
         // routes for requests contractor send request to consumer
         Route::get('/account/myRequest/requestsAccepted', 'AccountController@requestsAccepted');
-        Route::post('/account/myRequest/requestsSend', 'AccountController@requestsSend');
+        Route::get('/account/myRequest/requestsSend', 'AccountController@requestsSend');
     });
 
     // Tenders routes
@@ -66,7 +66,7 @@ Route::namespace('Api')->group(function () {
     Route::get('/tenders', 'TenderController@index');
 
     //Added only opened tenders
-    Route::get('/tenders/opened' , 'TenderController@openedTenders');
+    Route::get('/tenders/show/opened' , 'TenderController@openedTenders');
 
 
     Route::post('/tenders/maps-filter', 'TenderController@mapsFilter');

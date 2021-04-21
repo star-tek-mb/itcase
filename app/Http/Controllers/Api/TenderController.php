@@ -87,7 +87,8 @@ class TenderController extends Controller
         ]);
     }
 
-    public  function openedTenders(){
+    public  function openedTenders()
+    {
         $tenders  = $this->tenderRepository->onlyOpened();
         $currentCategory = null;
         $tenders = PaginateCollection::paginateCollection($tenders, 5);
