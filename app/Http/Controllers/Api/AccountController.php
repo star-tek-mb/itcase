@@ -273,7 +273,7 @@ class AccountController extends Controller
             $date = date_create_from_format('Y-m-d', $tender->deadline);
             return time() > $date->getTimestamp();
         });
-        $tendersCount = $tenders->ownedTenders->count();
+        $tendersCount = $user->ownedTenders->count();
         $response = PaginateCollection::paginateCollection($tenders, 5);
         if ($user) {
             return response()->json([
