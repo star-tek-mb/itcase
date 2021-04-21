@@ -105,8 +105,7 @@ a:focus {
   box-shadow: none;
 }
 .btn-light-green {
-  background-color: #ff6b01;
-  border-color: #ff6b01;
+  background: linear-gradient(90deg, #00366D 0%, #2E3F9D 100%);
   color: #fff;
 }
 .btn-light-green:hover {
@@ -178,7 +177,7 @@ a:focus {
   color: #000;
 }
 .home .header-site .btn-toggle {
-  color: #fff;
+  color: #000;
 }
 .qdesk-logo .qdesk-logo-white {
   display: none;
@@ -483,7 +482,14 @@ a:focus {
 }
 
 .header-menu-item a span {
-  background-color: aqua
+  border-radius: 6px;
+  padding: 1px 5px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #00366D 0%, #2E3F9D 100%);
+}
+
+.enter_new_order a {
+  color: #FF6B01;
 }
 
 .sub-menu {
