@@ -12,7 +12,7 @@ class Tender extends Model
 
     protected $fillable = [
         'client_type', 'client_name', 'client_email', 'client_phone_number', 'client_company_name', 'client_site_url',
-        'title', 'description', 'budget', 'deadline',
+        'title', 'description', 'budget', 'deadline', 'status',
         'target_audience', 'links', 'additional_info', 'other_info', 'what_for', 'type',
         'slug', 'opened', 'work_start_at', 'work_end_at',
         'need_id', 'owner_id', 'contractor_id', 'geo_location', 'place', 'delete_reason'
