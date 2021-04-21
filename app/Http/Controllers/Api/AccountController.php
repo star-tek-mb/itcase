@@ -330,17 +330,21 @@ class AccountController extends Controller
     }
 
     public  function  requestsSend(){
-        $user_id = auth()->user()->id;
-        $user = $this->userRepository->get($user_id);
+        $user = auth()->user();
+        $user_id = $user->id;
 
+        $response = $user->requests()->orderBy('created_at', 'desc')->get()->reject(function ($tenderRequests) use($user_id){
+            if ($tenderRequests->tender)
+                return $tenderRequests->tender->contractor_id == $user_id;
+            return  true;
+        })->map(function ($tenderRequests){
+            return $tenderRequests;
+        });
+        $response =   PaginateCollection::paginateCollection($response, 5);
+        $tendersCount = $user->requests->count();
         return response()->json([
-            'tenders' => $user->requests()->orderBy('created_at', 'desc')->get()->reject(function ($tenderRequests) use($user_id){
-                if ($tenderRequests->tender)
-                    return $tenderRequests->tender->contractor_id == $user_id;
-                return  true;
-            })->map(function ($tenderRequests){
-                return $tenderRequests;
-            })
+            'tenders' =>  $response,
+            'tendersCount' => $tendersCount
         ]);
     }
 
