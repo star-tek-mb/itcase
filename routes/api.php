@@ -30,10 +30,10 @@ Route::namespace('Api')->group(function () {
     Route::post('/account/customer/profile/save', 'AccountController@saveCustomerProfile');
     Route::middleware('phone.verified')->group(function () {
 
-        //new add routes for account
+        //new add routes for account about tenders
         Route::get('/account/tenders/{user_id}', 'AccountController@tenders');
-        Route::get('/account/finishedTenders' , 'AccountController@finishedTenders');
-        Route::get('/account/onModerationTenders' , 'AccountController@onModerationTenders');
+        Route::get('/account/myTenders//finishedTenders' , 'AccountController@finishedTenders');
+        Route::get('/account/myTenders/onModerationTenders' , 'AccountController@onModerationTenders');
 
 
         Route::get('/account/portfolio', 'FileController@index');
@@ -43,9 +43,9 @@ Route::namespace('Api')->group(function () {
         Route::get('/account/comment', 'CommentController@index');
         Route::post('/account/comment', 'CommentController@createCommentAll');
 
-        // routes for requests
-        Route::get('/account/requestsAccepted', 'AccountController@requestsAccepted');
-        Route::post('/account/requestsSend', 'AccountController@requestsSend');
+        // routes for requests contractor send request to consumer
+        Route::get('/account/myRequest/requestsAccepted', 'AccountController@requestsAccepted');
+        Route::post('/account/myRequest/requestsSend', 'AccountController@requestsSend');
     });
 
     // Tenders routes
@@ -61,6 +61,7 @@ Route::namespace('Api')->group(function () {
         Route::post('/tenders/showOffered', 'TenderController@showOffered');
         Route::post('/tenders/showRequested', 'TenderController@showRequested');
     });
+
     //New added
     Route::get('/tenders', 'TenderController@index');
 
