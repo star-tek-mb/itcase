@@ -317,15 +317,18 @@ class AccountController extends Controller
     public  function requestsAccepted(){
         $user_id = auth()->user()->id;
         $user = $this->userRepository->get($user_id);
-
+        $response = $user->requests()->orderBy('created_at', 'desc')->get()->reject(function ($tenderRequests) use($user_id){
+            if ($tenderRequests->tender)
+                return $tenderRequests->tender->contractor_id != $user_id;
+            return  true;
+        })->map(function ($tenderRequests){
+            return $tenderRequests;
+        });
+        $tendersCount = $response->count();
+        $response =   PaginateCollection::paginateCollection($response, 5);
         return response()->json([
-            'tenders' => $user->requests()->orderBy('created_at', 'desc')->get()->reject(function ($tenderRequests) use($user_id){
-                if ($tenderRequests->tender)
-                    return $tenderRequests->tender->contractor_id != $user_id;
-                return  true;
-            })->map(function ($tenderRequests){
-                return $tenderRequests;
-            })
+            'tenders' => $response,
+            'tendersCount' => $tendersCount
         ]);
     }
 
@@ -341,10 +344,10 @@ class AccountController extends Controller
             return $tenderRequests;
         });
         $response =   PaginateCollection::paginateCollection($response, 5);
-        $tendersCount = $user->requests->count();
+
         return response()->json([
             'tenders' =>  $response,
-            'tendersCount' => $tendersCount
+
         ]);
     }
 
