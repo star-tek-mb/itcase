@@ -52,10 +52,118 @@
                                 @endforeach
                             </ul>
                         </li>
+<!---->
+                        <li class="header-right-mobile d-lg-none">
+                        <ul>
+                    @guest
+                        <li><a href="{{ route('site.tenders.common.create') }}"><i class="fas fa-plus-circle"></i>
+                               {{ __('Добавить заказ') }}</a></li>
+                    @else
+                        @if (auth()->user()->hasRole('customer'))
+                            <li><a href="{{ route('site.tenders.common.create') }}"><i class="fas fa-plus-circle"></i>
+                            {{ __('Добавить заказ') }}</a></li>@endif
+                        <li>
+                            <div class="notification-item">
+                                <a role="button" id="page-header-notifications" class="notification-button"
+                                   data-toggle="dropdown" class="" aria-haspopup="true">
+                                    <i class="far fa-bell"></i>
+                                    @if (auth()->user()->unreadNotifications->count() > 0)<span
+                                        class="numeric">{{ auth()->user()->unreadNotifications->count() }}</span> @endif
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right notifications-dropdown"
+                                     aria-labelledby="page-header-notifications">
+                                    <h5 class="h6 text-center py-10 mb-0 border-bottom text-uppercase">{{ __('Оповещения') }}</h5>
+                                    <ul>
+                                        @foreach(auth()->user()->unreadNotifications as $notification)
+                                            <li class="ml-0">
+                                                @if ($notification->type == 'App\Notifications\NewRequest')
+                                                    <a href="{{ route('site.account.tenders.candidates', $notification->data['tenderSlug']) }}">
+                                                        <div class="icon">
+                                                            <small><i class="fas fa-info text-primary"></i></small>
+                                                        </div>
+                                                        <div class="notification-item-body">
+                                                            <p class="mb-0">{{ __('Новая заявка на участие в конкурсе') }} <span
+                                                                    class="font-weight-bold">{{ $notification->data['tenderName'] }}</span>
+                                                                от исполнителя <span
+                                                                    class="font-weight-bold">{{ $notification->data['contractorName'] }}</span>
+                                                            </p>
+                                                            <small
+                                                                class="text-muted font-italic">{{ $notification->created_at->diffForHumans() }}</small>
+                                                        </div>
+                                                    </a>
+                                                @endif
+                                                @if ($notification->type == 'App\Notifications\InviteRequest')
+                                                    <a href="{{ route('site.tenders.category', $notification->data['tenderSlug']) }}">
+                                                        <div class="icon">
+                                                            <small><i class="fas fa-info text-primary"></i></small>
+                                                        </div>
+                                                        <div class="notification-item-body">
+                                                            <p class="mb-0">{{ __('Заказчик') }} <span
+                                                                    class="font-weight-bold">{{ $notification->data['customerName'] }}</span>
+                                                                {{ __('приглашает вас принять участие в конкурсе') }} <span
+                                                                    class="font-weight-bold">{{ $notification->data['tenderName'] }}</span>
+                                                                {{ __('и добавил вас в список участников') }}</p>
+                                                            <small
+                                                                class="text-muted font-italic">{{ $notification->created_at->diffForHumans() }}</small>
+                                                        </div>
+                                                    </a>
+                                                @endif
+                                                @if ($notification->type == 'App\Notifications\RequestAction')
+                                                    <a href="{{ route('site.tenders.category', $notification->data['tenderSlug']) }}">
+                                                        <div class="icon">
+                                                            @if ($notification->data['type'] === 'rejected')
+                                                                <small><i class="fas fa-times text-danger"></i></small>
+                                                            @elseif ($notification->data['type'] === 'accepted')
+                                                                <small><i class="fas fa-check text-success"></i></small>
+                                                            @endif
+                                                        </div>
+                                                        <div class="notification-item-body">
+                                                            @if ($notification->data['type'] === 'rejected')
+                                                                <p class="mb-0">Заказчик <span
+                                                                        class="font-weight-bold">{{ $notification->data['customerName'] }}</span>
+                                                                    {{ __('отклонил вашу заявку на участие в конкурсе') }} <span
+                                                                        class="font-weight-bold">{{ $notification->data['tenderName'] }}</span>
+                                                                </p>
+                                                            @elseif ($notification->data['type'] === 'accepted')
+                                                                <p class="mb-0">{{ __('Заказчик') }}<span
+                                                                        class="font-weight-bold">{{ $notification->data['customerName'] }}</span>
+                                                                    {{ __('выбрал Вас в качестве исполнителя на конкурс') }} <span
+                                                                        class="font-weight-bold">{{ $notification->data['tenderName'] }}</span>
+                                                                </p>
+                                                            @endif
+                                                            <small
+                                                                class="text-muted font-italic">{{ $notification->created_at->diffForHumans() }}</small>
+                                                        </div>
+                                                    </a>
+                                                @endif
+                                                @if ($notification->type == 'App\Notifications\TenderPublished')
+                                                    <a href="{{ route('site.tenders.category', $notification->data['tender']['slug']) }}">
+                                                        <div class="icon">
+                                                            <small><i class="fas fa-info text-primary"></i></small>
+                                                        </div>
+                                                        <div class="notification-item-body">
+                                                            <p class="mb-0">
+                                                                {{ __('Ваш конкурс') }} <span class="font-weight-bold">{{ $notification->data['tender']['title'] }}</span> {{ __('опубликован!') }}
+                                                            </p>
+                                                            <small class="text-muted font-italic">{{ $notification->created_at->diffForHumans() }}</small>
+                                                        </div>
+                                                    </a>
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    @endguest
+                </ul>
+                </li>
+<!---->
+
                     </ul>
                 </div>
             </div>
-            <div class="header-right-mobile d-lg-none">
+            <!-- <div class="header-right-mobile d-lg-none">
                 <ul>
                     @guest
                         <li><a href="{{ route('site.tenders.common.create') }}"><i class="fas fa-plus-circle"></i>
@@ -159,9 +267,24 @@
                         </li>
                     @endguest
                 </ul>
-            </div>
+            </div> -->
             <div class="header-right">
                 <ul>
+
+                <ul class="main-menu" style="display: inline-block;">
+                            <li class="header-menu-item">
+                                <a href="#" class="d-flex justify-content-between align-items-center"><span>{{ __('Язык') }}</span><i class="fas fa-caret-down ml-2 mr-3"></i></a>
+                                <ul class="sub-menu" style="left: -100%;">
+                                    @foreach(config('app.enabled_locales') as $locale)
+                                        <li class="menu-item" style="display: block; margin-left: 15px;">
+                                            <a href="{{ route(request()->route()->getName(), array_merge(['locale' => $locale], request()->route()->parameters())) }}" class="d-flex justify-content-between align-items-center">
+                                            {{ __($locale) }}
+                                        </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        </ul>
 
                     @guest
                         <li><a href="{{ route('site.tenders.common.create') }}">
@@ -184,7 +307,8 @@
 <path d="M16.8357 17.495C17.2672 17.495 17.6169 17.1452 17.6169 16.7137C17.6169 16.2823 17.2672 15.9325 16.8357 15.9325C16.4042 15.9325 16.0544 16.2823 16.0544 16.7137C16.0544 17.1452 16.4042 17.495 16.8357 17.495Z" fill="#FF6B01"/>
 </svg>
 </span>
- {{ __('Регистрация') }}</a></li>
+ {{ __('Регистрация') }}</a>
+ </li>
                     @else
                         @if (auth()->user()->hasRole('customer'))
                             <li><a href="{{ route('site.tenders.common.create') }}"><i class="fas fa-plus-circle"></i>
@@ -282,11 +406,11 @@
                                 </div>
                             </div>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="https://t.me/gde_podeshevle"><i class="fab fa-telegram" style="font-size:25px"></i></a>
                             <a href="https://www.instagram.com/vid.market/"><i class="fab fa-instagram pl-3"
                                                                                style="font-size:25px"></i></a>
-                        </li>
+                        </li> -->
                         @auth
                             @if (auth()->user()->hasRole('customer'))
                         <li> ({{auth()->user()->ownedTenders()->count()}})</li>
@@ -321,9 +445,9 @@
                             </div>
                         </li>
                     @endguest
-                        <ul class="main-menu" style="display: inline-block;">
+                        <!-- <ul class="main-menu" style="display: inline-block;">
                             <li class="header-menu-item">
-                                <a href="#" class="d-flex justify-content-between align-items-center">{{ __('Язык') }}<i class="fas fa-caret-down ml-2 mr-3"></i></a>
+                                <a href="#" class="d-flex justify-content-between align-items-center"><span>{{ __('Язык') }}</span><i class="fas fa-caret-down ml-2 mr-3"></i></a>
                                 <ul class="sub-menu" style="left: -100%;">
                                     @foreach(config('app.enabled_locales') as $locale)
                                         <li class="menu-item" style="display: block; margin-left: 15px;">
@@ -334,7 +458,7 @@
                                     @endforeach
                                 </ul>
                             </li>
-                        </ul>
+                        </ul> -->
 
                 </ul>
             </div>
