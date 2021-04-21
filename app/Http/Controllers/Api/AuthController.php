@@ -71,7 +71,7 @@ class AuthController extends Controller
         if ($request->user()->verifyPhoneCode($request->code)) {
             $request->user()->markPhoneAsVerified();
         } else {
-            \response()->json();
+
             return response()->json(null, 403);
         }
         return response()->json(null, 200);
