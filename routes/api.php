@@ -29,13 +29,23 @@ Route::namespace('Api')->group(function () {
     Route::post('/account/professional', 'AccountController@saveProfessional');
     Route::post('/account/customer/profile/save', 'AccountController@saveCustomerProfile');
     Route::middleware('phone.verified')->group(function () {
+
+        //new add routes for account about tenders
         Route::get('/account/tenders/{user_id}', 'AccountController@tenders');
+        Route::get('/account/myTenders/finishedTenders' , 'AccountController@finishedTenders');
+        Route::get('/account/myTenders/onModerationTenders' , 'AccountController@onModerationTenders');
+
+
         Route::get('/account/portfolio', 'FileController@index');
         Route::post('/account/portfolio/save', 'FileController@save');
 
         Route::post('/account/chats', 'ChatsController@createChat');
         Route::get('/account/comment', 'CommentController@index');
         Route::post('/account/comment', 'CommentController@createCommentAll');
+
+        // routes for requests contractor send request to consumer
+        Route::get('/account/myRequest/requestsAccepted', 'AccountController@requestsAccepted');
+        Route::get('/account/myRequest/requestsSend', 'AccountController@requestsSend');
     });
 
     // Tenders routes
@@ -51,7 +61,14 @@ Route::namespace('Api')->group(function () {
         Route::post('/tenders/showOffered', 'TenderController@showOffered');
         Route::post('/tenders/showRequested', 'TenderController@showRequested');
     });
+
+    //New added
     Route::get('/tenders', 'TenderController@index');
+
+    //Added only opened tenders
+    Route::get('/tenders/show/opened' , 'TenderController@openedTenders');
+
+
     Route::post('/tenders/maps-filter', 'TenderController@mapsFilter');
     Route::post('/tenders/text-filter', 'TenderController@textFilter');
     Route::post('/tenders/search', 'TenderController@searchTender');
@@ -68,19 +85,17 @@ Route::namespace('Api')->group(function () {
     Route::post('/contractors/comment', 'CommentController@createCommentContractor');
     Route::post('/contractors/search', 'ContractorsController@contractorSearch');
 
+    // Phone verify routes
     Route::post('/phone/verify', 'AuthController@verify');
     Route::post('/phone/resend', 'AuthController@resend');
-    // Phone verify routes
-
-    Route::middleware('throttle:6,1', function () {
 
 
-    });
 
     Route::get('/catalog', 'HomeController@index');
     Route::post('/search', 'CatalogController@search');
     Route::get('/blog', 'BlogController@index');
     Route::get('/blog/{params}', 'BlogController@blog')->where('params', '.+');
+
     Route::post('/messages', 'ChatsController@sendMessage');
     Route::get('/messages/read/{chat_id}', 'ChatsController@fetchMessages');
     Route::get('/messages/{chat_id}/{message_id}', 'ChatsController@updateChat');
