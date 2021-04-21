@@ -42,7 +42,7 @@ class TenderRepository implements TenderRepositoryInterface
         return Tender::whereNotNull('owner_id')->where('opened',1)->where('published', true)->whereNull('delete_reason')->get()->reject(
             function ($tender){
                 $date = date_create_from_format('Y-m-d', $tender->deadline);
-                return time() < $date->getTimestamp();
+                return time() > $date->getTimestamp();
             }
         );
     }
