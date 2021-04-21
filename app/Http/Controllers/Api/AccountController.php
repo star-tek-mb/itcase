@@ -323,6 +323,8 @@ class AccountController extends Controller
                 if ($tenderRequests->tender)
                     return $tenderRequests->tender->contractor_id != $user_id;
                 return  true;
+            })->map(function ($tenderRequests){
+                return $tenderRequests;
             })
         ]);
     }
@@ -336,6 +338,8 @@ class AccountController extends Controller
                 if ($tenderRequests->tender)
                     return $tenderRequests->tender->contractor_id == $user_id;
                 return  true;
+            })->map(function ($tenderRequests){
+                return $tenderRequests;
             })
         ]);
     }
