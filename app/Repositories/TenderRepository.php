@@ -37,6 +37,16 @@ class TenderRepository implements TenderRepositoryInterface
 
         return $query->whereNotNull('owner_id')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
     }
+
+    public  function  onlyOpened(){
+        return Tender::whereNotNull('owner_id')->where('opened',1)->where('published', true)->whereNull('delete_reason')->get()->reject(
+            function ($tender){
+                $date = date_create_from_format('Y-m-d', $tender->deadline);
+                return time() < $date->getTimestamp();
+            }
+        );
+    }
+
     public function checkPermission($owner_id , $user_id){
 
         return Tender::orWhere(

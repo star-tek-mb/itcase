@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Helpers\PaginateCollection;
 
 class AccountController extends Controller
 {
@@ -268,20 +269,70 @@ class AccountController extends Controller
     {
 
         $user = $this->userRepository->get($user_id);
+        $tenders = $user->ownedTenders()->where('published', true)->where('opened', 1)->orderBy('created_at', 'desc')->get()->reject(function ($tender){
+            $date = date_create_from_format('Y-m-d', $tender->deadline);
+            return time() > $date->getTimestamp();
+        });
+        $tendersCount = $tenders->count();
+        $response = PaginateCollection::paginateCollection($tenders, 5);
         if ($user) {
             return response()->json([
-                'tenders' => $user->ownedTenders()->orderBy('created_at', 'desc')->get()
+                'tenders' => $response,
+                'tendersCount' => $tendersCount
             ]);
         } else {
             abort(404);
         }
     }
+    public function finishedTenders(){
+        $user = auth()->user();
+        $tenders = $user->ownedTenders()->where('published', true)->orderBy('created_at', 'desc')->get()->reject(function ($tender){
+            $date = date_create_from_format('Y-m-d', $tender->deadline);
+            return time() < $date->getTimestamp() && $tender->opened == 1;
+        });
+        $tendersCount = $tenders->count();
+        $response = PaginateCollection::paginateCollection($tenders, 5);
+        if($user){
+            return response()->json([
+                'tenders' => $response,
+                'tendersCount' => $tendersCount
+            ]);
+        }
+        else {
+            abort(404);
+        }
+    }
+    public  function onModerationTenders(){
+        $user = auth()->user();
+        if($user){
+            return response()->json([
+                'tenders' => $user->ownedTenders()->where('published', false)->orderBy('created_at', 'desc')->get()
+            ]);
+        }
+        else {
+            abort(404);
+        }
+    }
 
-    public  function requests(int $user_id){
+    public  function requestsAccepted(){
+        $user_id = auth()->user()->id;
         $user = $this->userRepository->get($user_id);
 
         return response()->json([
-            'tenders' => $user->requests()->orderBy('created_at', 'desc')->get()
+            'tenders' => $user->requests()->orderBy('created_at', 'desc')->get()->reject(function ($tenderRequests) use ($user_id){
+                return $tenderRequests->tender->contractor_id != $user_id;
+            })
+        ]);
+    }
+
+    public  function  requestsSend(){
+        $user_id = auth()->user()->id;
+        $user = $this->userRepository->get($user_id);
+
+        return response()->json([
+            'tenders' => $user->requests()->orderBy('created_at', 'desc')->get()->reject(function ($tenderRequests) use ($user_id){
+                return $tenderRequests->tender->contractor_id == $user_id;
+            })
         ]);
     }
 

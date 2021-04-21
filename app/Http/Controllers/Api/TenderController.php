@@ -87,6 +87,18 @@ class TenderController extends Controller
         ]);
     }
 
+    public  function openedTenders(){
+        $tenders  = $this->tenderRepository->onlyOpened();
+        $currentCategory = null;
+        $tenders = PaginateCollection::paginateCollection($tenders, 5);
+        $tendersCount = $tenders->count();
+        return response()->json([
+            'tenders' => $tenders,
+            'currentCategory' => $currentCategory,
+            'tendersCount' => $tendersCount
+        ]);
+    }
+
     public function searchTender(Request $request)
     {
         $tenders = $this->tenderRepository->TenderSearch($request);
