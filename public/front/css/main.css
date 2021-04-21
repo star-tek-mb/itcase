@@ -481,6 +481,11 @@ a:focus {
 .main-menu > li.active > a {
   color: #ff6b01;
 }
+
+.header-menu-item a span {
+  background-color: aqua
+}
+
 .sub-menu {
   position: absolute;
   left: 0;
