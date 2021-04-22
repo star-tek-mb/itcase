@@ -7,7 +7,7 @@
                     <button class="btn-toggle" type="button" data-toggle="offcanvas"><i class="fas fa-bars"></i>
                     </button>
                 </div>
-                <div class="header-logo"><a class="qdesk-logo" href="{{ route('site.catalog.index') }}" title="VID"><img class="qdesk-logo-white" src="{{ asset('front/images/VID-black.png') }}" alt="VID"><img class="qdesk-logo-black" src="{{ asset('front/images/VID-black.png') }}" alt="VID"></a>
+                <div class="header-logo"><a class="qdesk-logo" href="{{ route('site.catalog.index') }}" title="VID"><img class="qdesk-logo-white" style="max-width: 85%;" src="{{ asset('front/images/logoitcase31.png') }}" alt="VID"><img class="qdesk-logo-black" src="{{ asset('front/images/logoitcase31.png') }}" alt="VID"></a>
                 </div>
                 <div class="navigation" id="navigation">
                     <ul class="ml-4 main-menu">
@@ -52,9 +52,11 @@
                             </ul>
                         </li>
                         <li class="enter_new_order"><a href="{{ route('site.tenders.common.create') }}">
-                            {{ __('Добавить заказ') }}</a><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8.57145 4.28572H5.7143V1.42856C5.7143 1.03406 5.39451 0.714264 5 0.714264C4.6055 0.714264 4.2857 1.03406 4.2857 1.42856V4.28572H1.42859C1.03409 4.28572 0.714294 4.60551 0.714294 5.00001C0.714294 5.39452 1.03409 5.71427 1.42859 5.71427H4.28575V8.57142C4.28575 8.96593 4.60554 9.28572 5.00004 9.28572C5.39455 9.28572 5.7143 8.96588 5.7143 8.57142V5.71427H8.57145C8.96596 5.71427 9.28575 5.39447 9.28575 4.99997C9.28575 4.60547 8.96591 4.28572 8.57145 4.28572Z" fill="#FF6B01"/>
+                            {{ __('Добавить заказ') }} <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.4285 0H3.57141C1.59994 0.00234375 0.00234375 1.59994 0 3.57141V16.4285C0.00234375 18.4 1.59994 19.9976 3.57141 20H16.4285C18.4 19.9976 19.9976 18.4 20 16.4285V3.57141C19.9976 1.59994 18.4 0.00234375 16.4285 0ZM18.5714 16.4285C18.5714 17.612 17.612 18.5714 16.4285 18.5714H3.57141C2.38794 18.5714 1.42856 17.612 1.42856 16.4285V3.57141C1.42856 2.38794 2.38794 1.42856 3.57141 1.42856H16.4285C17.612 1.42856 18.5714 2.38794 18.5714 3.57141V16.4285Z" fill="#FF6B01"/>
+<path d="M13.5715 9.28572H10.7143V6.42856C10.7143 6.03406 10.3945 5.71426 10 5.71426C9.6055 5.71426 9.2857 6.03406 9.2857 6.42856V9.28572H6.42859C6.03409 9.28572 5.71429 9.60551 5.71429 10C5.71429 10.3945 6.03409 10.7143 6.42859 10.7143H9.28575V13.5714C9.28575 13.9659 9.60554 14.2857 10 14.2857C10.3945 14.2857 10.7143 13.9659 10.7143 13.5714V10.7143H13.5715C13.966 10.7143 14.2858 10.3945 14.2858 9.99997C14.2858 9.60547 13.9659 9.28572 13.5715 9.28572Z" fill="#FF6B01"/>
 </svg>
+</a>
 
                         </li>
                     </ul>
@@ -171,7 +173,7 @@
 
                     <ul class="main-menu" style="display: inline-block;">
                         <li class="header-menu-item">
-                            <a href="#" class="d-flex justify-content-between align-items-center"><span>{{ __('ru') }} <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <a href="#" class="d-flex justify-content-between align-items-center"><span>{{ config('app.locale') }} <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M5.3902 5.83709L9.84025 1.29221C9.94325 1.1871 10 1.04677 10 0.897152C10 0.74753 9.94325 0.607207 9.84025 0.50209L9.51261 0.167391C9.29911 -0.0503999 8.95212 -0.0503999 8.73895 0.167391L5.00207 3.98384L1.26105 0.163156C1.15804 0.0580382 1.02072 -5.8482e-07 0.874302 -5.94356e-07C0.727717 -6.03903e-07 0.590401 0.0580382 0.487312 0.163156L0.159754 0.497854C0.0567474 0.603055 -2.18057e-08 0.743295 -2.61951e-08 0.892917C-3.05845e-08 1.04254 0.0567474 1.18286 0.159754 1.28798L4.61386 5.83709C4.7172 5.94246 4.85516 6.00033 5.00183 6C5.14906 6.00033 5.28695 5.94246 5.3902 5.83709Z" fill="white"/>
 </svg>
 </span></a>

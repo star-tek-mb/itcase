@@ -173,9 +173,9 @@ a:focus {
   z-index: 10;
   background-color: transparent;
 }
-.home .header-site a {
+/* .home .header-site a {
   color: #000;
-}
+} */
 .home .header-site .btn-toggle {
   color: #000;
 }
@@ -203,6 +203,11 @@ a:focus {
   min-height: 60px;
   position: relative;
   background: #fff;
+}
+@media only screen and (min-width: 992px) {
+  .header-wrap {
+    padding: 0 50px;
+  }
 }
 @media only screen and (min-width: 992px) {
   .header-left {
@@ -482,6 +487,7 @@ a:focus {
 }
 
 .header-menu-item a span {
+  color: #fff;
   border-radius: 6px;
   padding: 1px 5px;
   text-transform: uppercase;
@@ -489,7 +495,7 @@ a:focus {
 }
 
 .enter_new_order a {
-  color: #FF6B01;
+  color: #ff6b01 !important;
 }
 
 .sub-menu {
