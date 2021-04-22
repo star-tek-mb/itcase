@@ -86,8 +86,10 @@ Route::namespace('Api')->group(function () {
     Route::get('/contractors/addContractor/{contractorId}/to/{tenderId}', 'ContractorsController@addContractor');
     Route::get('/contractors/{id}', 'ContractorsController@contractor');
 
-    //comments
-    Route::get('/contractors/comment', 'CommentController@getCommentsOfUser');
+    //comments to get comment of particular user
+    Route::get('/contractors/comment/{id}', 'CommentController@getCommentsOfUser');
+
+
     Route::post('/contractors/comment', 'CommentController@createCommentContractor');
     Route::post('/contractors/search', 'ContractorsController@contractorSearch');
 
