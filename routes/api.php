@@ -48,7 +48,7 @@ Route::namespace('Api')->group(function () {
         Route::get('/account/myRequest/requestsSend', 'AccountController@requestsSend');
 
         // Account guest tenders
-        Route::get('/account/guest/tenders', 'AccountController@guestTenders');
+        Route::get('/account/guest/tenders/{user_id}', 'AccountController@guestTenders');
     });
 
     // Tenders routes

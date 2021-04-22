@@ -278,10 +278,10 @@ class AccountController extends Controller
         ]);
     }
 
-    public function tenders(int $user_id)
+    public function tenders()
     {
 
-        $user = $this->userRepository->get($user_id);
+        $user = auth()->user();
         $tenders = $user->ownedTenders()->where('published', true)->where('opened', 1)->whereDate('deadline', '>', Carbon::now())->orderBy('created_at', 'desc')->paginate(5);
         $tendersCount = $user->ownedTenders->count();
         if ($user) {
