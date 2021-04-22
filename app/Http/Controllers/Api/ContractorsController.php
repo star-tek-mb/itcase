@@ -119,13 +119,9 @@ class ContractorsController extends Controller
             foreach ($contractors as $contractor) {
                 $comments = $this->users->getComments($contractor->id);
                 $mean = (int) collect($comments)->avg('assessment');
-                $contractor->comments = $comments->map(function ($com){
-                    $author = $com->author;
-                    $com->who_set = $author->first_name . " " . $author->last_name;
-                    return $com;
-                });
                 $contractor->mean = $mean;
             }
+
             return response()->json([
                 'contractors'=>$contractors,
                 'contractorsCount'=>$contractorsCount
@@ -152,15 +148,16 @@ class ContractorsController extends Controller
                 'message' => 'Ресурс не найден'
             ], 404);
         }
-        $portfolio = $this->users->getPortfolioBySlug($contractor->slug);
-        $comments = $this->users->getComments($contractor->id);
-        $mean = (int) collect($comments)->avg('assessment');
+        $contractor->portfolio = $this->users->getPortfolioBySlug($contractor->slug);
+        $contractor->comments = $this->users->getComments($contractor->id)->get()->map(function ($com){
+            $author = $com->author;
+            $com->who_set = $author->first_name . " " . $author->last_name;
+            return $com;
+        });
+
 
         return response()->json([
             'contractor'=>$contractor,
-            'portfolio'=>$portfolio,
-            'comments'=>$comments,
-            'mean'=>$mean
         ]);
     }
 

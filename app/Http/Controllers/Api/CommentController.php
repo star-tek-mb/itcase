@@ -37,16 +37,7 @@ class CommentController extends Controller
             abort(403);
         }
     }
-    public function getCommentsOfUser(int $user_id){
-        $comments = Comment::where('for_set', '=', $user_id)->get()->map(function ($com){
-            $author = $com->author;
-            $com->who_set = $author->first_name . " " . $author->last_name;
-            return $com;
-        });
-        return response()->json([
-            'comments'=>$comments,
-        ]);
-    }
+
     public function createCommentAll(Request $request)
     {
         $user = auth()->user();
