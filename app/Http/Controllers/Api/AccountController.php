@@ -287,10 +287,10 @@ class AccountController extends Controller
             return $query->orWhereDate('deadline','<', Carbon::now())->orWhere('opened','=',0);
         })->orderBy('created_at', 'desc')->paginate(5);
         $tendersCount = $tenders->count();
-        $response = PaginateCollection::paginateCollection($tenders, 5);
+
         if($user){
             return response()->json([
-                'tenders' => $response,
+                'tenders' => $tenders,
                 'tendersCount' => $tendersCount
             ]);
         }
