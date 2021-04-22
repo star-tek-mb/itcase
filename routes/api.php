@@ -46,6 +46,9 @@ Route::namespace('Api')->group(function () {
         // routes for requests contractor send request to consumer
         Route::get('/account/myRequest/requestsAccepted', 'AccountController@requestsAccepted');
         Route::get('/account/myRequest/requestsSend', 'AccountController@requestsSend');
+
+        // Account guest tenders
+        Route::get('/account/guest/tenders', 'AccountController@guestTenders');
     });
 
     // Tenders routes

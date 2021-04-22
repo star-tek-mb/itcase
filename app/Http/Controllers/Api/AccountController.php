@@ -17,6 +17,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Helpers\PaginateCollection;
 use Carbon\Carbon;
+
 class AccountController extends Controller
 {
     /**
@@ -51,7 +52,8 @@ class AccountController extends Controller
         HandbookCategoryRepository $categoryRepository,
         TenderRepository $tenderRepository,
         NeedTypeRepository $needsRepository
-    ) {
+    )
+    {
         $this->middleware(['auth:sanctum', 'verified']);
         $this->middleware('account.completed')->except(['create', 'store']);
 
@@ -69,13 +71,13 @@ class AccountController extends Controller
     public function index(int $user_id)
     {
 
-        if($user_id == 0){
+        if ($user_id == 0) {
             $user = auth()->user();
             $permission = true;
-        }else {
+        } else {
             $owner_id = auth()->user()->id;
             $user = $this->userRepository->get($user_id);
-            $permission =  $this->tenderRepository->checkPermission($owner_id, $user_id);
+            $permission = $this->tenderRepository->checkPermission($owner_id, $user_id);
         }
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';
@@ -83,7 +85,7 @@ class AccountController extends Controller
                 'accountPage' => $accountPage,
                 'user' => $user,
                 'role' => 'contractor',
-                'permission'=>$permission,
+                'permission' => $permission,
             ]);
         } elseif ($user->hasRole('customer')) {
             if ($user->customer_type == 'legal_entity') {
@@ -95,18 +97,18 @@ class AccountController extends Controller
                 'accountPage' => $accountPage,
                 'user' => $user,
                 'role' => 'customer',
-                'permission'=>$permission,
+                'permission' => $permission,
             ]);
         } else {
             abort(403);
         }
     }
 
-    public function create(Request $request,OctoService $octo)
+    public function create(Request $request, OctoService $octo)
     {
         $user = auth()->user();
         $user->dynamic = false;
-        if($request->has('dynamicUrl')){
+        if ($request->has('dynamicUrl')) {
             $user->dynamic = true;
         }
 
@@ -210,15 +212,15 @@ class AccountController extends Controller
         }
         if ($selectedNeedsCount >= 3) {
             return response()->json([
-                'message' =>  'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены'
+                'message' => 'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены'
             ]);
         }
 
         foreach ($categories as $category) {
             if (!isset($category['price_from']) || !isset($category['price_to'])
-            || empty($category['price_from']) || empty($category['price_to'])) {
+                || empty($category['price_from']) || empty($category['price_to'])) {
                 return response()->json([
-                    'message' =>  'Укажите цены на каждую выбранную услугу']);
+                    'message' => 'Укажите цены на каждую выбранную услугу']);
             }
         }
         $user->categories()->detach();
@@ -232,7 +234,7 @@ class AccountController extends Controller
         }
 
         return response()->json([
-            'message' =>  'Ваши профессиональные данные обновлены']);
+            'message' => 'Ваши профессиональные данные обновлены']);
     }
 
     public function saveCustomerProfile(Request $request)
@@ -262,14 +264,25 @@ class AccountController extends Controller
         $this->userRepository->update($user->id, $request);
 
         return response()->json([
-            'message' =>  'Ваш профиль обновлён']);
+            'message' => 'Ваш профиль обновлён']);
+    }
+
+    public function guestTenders(int $user_id)
+    {
+        $user = $this->userRepository->get($user_id);
+        $tenders = $user->ownedTenders()->where('published', true)->orderBy('created_at', 'desc')->paginate(5);
+        $tendersCount = $user->ownedTenders->count();
+        return response()->json([
+            'tenders' => $tenders,
+            'tendersCount' => $tendersCount
+        ]);
     }
 
     public function tenders(int $user_id)
     {
 
         $user = $this->userRepository->get($user_id);
-        $tenders = $user->ownedTenders()->where('published', true)->where('opened', 1)->whereDate('deadline','>', Carbon::now())->orderBy('created_at', 'desc')->paginate(5);
+        $tenders = $user->ownedTenders()->where('published', true)->where('opened', 1)->whereDate('deadline', '>', Carbon::now())->orderBy('created_at', 'desc')->paginate(5);
         $tendersCount = $user->ownedTenders->count();
         if ($user) {
             return response()->json([
@@ -280,40 +293,43 @@ class AccountController extends Controller
             abort(404);
         }
     }
-    public function finishedTenders(){
+
+    public function finishedTenders()
+    {
         $user = auth()->user();
 
-        $tenders = $user->ownedTenders()->where('published', true)->where(function ($query){
-            return $query->orWhereDate('deadline','<', Carbon::now())->orWhere('opened','=',0);
+        $tenders = $user->ownedTenders()->where('published', true)->where(function ($query) {
+            return $query->orWhereDate('deadline', '<', Carbon::now())->orWhere('opened', '=', 0);
         })->orderBy('created_at', 'desc')->paginate(5);
         $tendersCount = $tenders->count();
 
-        if($user){
+        if ($user) {
             return response()->json([
                 'tenders' => $tenders,
                 'tendersCount' => $tendersCount
             ]);
-        }
-        else {
-            abort(404);
-        }
-    }
-    public  function onModerationTenders(){
-        $user = auth()->user();
-        if($user){
-            return response()->json([
-                'tenders' => $user->ownedTenders()->where('published', false)->orderBy('created_at', 'desc')->paginate(5)
-            ]);
-        }
-        else {
+        } else {
             abort(404);
         }
     }
 
-    public  function requestsAccepted(){
+    public function onModerationTenders()
+    {
+        $user = auth()->user();
+        if ($user) {
+            return response()->json([
+                'tenders' => $user->ownedTenders()->where('published', false)->orderBy('created_at', 'desc')->paginate(5)
+            ]);
+        } else {
+            abort(404);
+        }
+    }
+
+    public function requestsAccepted()
+    {
         $user = auth()->user();
         $user_id = $user->id;
-        $response = $user->requests()->select('tenders.*')->join('tenders','tenders.id','=','tender_requests.tender_id')->where('contractor_id','=', $user_id)->paginate(5);
+        $response = $user->requests()->select('tenders.*')->join('tenders', 'tenders.id', '=', 'tender_requests.tender_id')->where('contractor_id', '=', $user_id)->paginate(5);
         $tendersCount = $response->count();
         return response()->json([
             'tenders' => $response,
@@ -325,13 +341,14 @@ class AccountController extends Controller
 //                return $tenderRequests->tender->contractor_id == $user_id;
 //            return  true;
 //        })
-    public  function  requestsSend(){
+    public function requestsSend()
+    {
         $user = auth()->user();
         $user_id = $user->id;
-        $response = $user->requests()->select('tenders.*')->join('tenders','tenders.id','=','tender_requests.tender_id')->where('contractor_id','!=',$user_id)->paginate(5);
+        $response = $user->requests()->select('tenders.*')->join('tenders', 'tenders.id', '=', 'tender_requests.tender_id')->where('contractor_id', '!=', $user_id)->paginate(5);
 
         return response()->json([
-            'tenders' =>  $response,
+            'tenders' => $response,
         ]);
     }
 }
