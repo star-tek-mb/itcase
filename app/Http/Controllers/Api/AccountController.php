@@ -16,7 +16,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Helpers\PaginateCollection;
-
+use Carbon\Carbon;
 class AccountController extends Controller
 {
     /**
@@ -269,15 +269,11 @@ class AccountController extends Controller
     {
 
         $user = $this->userRepository->get($user_id);
-        $tenders = $user->ownedTenders()->where('published', true)->where('opened', 1)->orderBy('created_at', 'desc')->get()->reject(function ($tender){
-            $date = date_create_from_format('Y-m-d', $tender->deadline);
-            return time() > $date->getTimestamp();
-        });
+        $tenders = $user->ownedTenders()->where('published', true)->where('opened', 1)->whereDate('deadline','>', Carbon::now())->orderBy('created_at', 'desc')->paginate(5);
         $tendersCount = $user->ownedTenders->count();
-        $response = PaginateCollection::paginateCollection($tenders, 5);
         if ($user) {
             return response()->json([
-                'tenders' => $response,
+                'tenders' => $tenders,
                 'tendersCount' => $tendersCount
             ]);
         } else {
@@ -286,10 +282,10 @@ class AccountController extends Controller
     }
     public function finishedTenders(){
         $user = auth()->user();
-        $tenders = $user->ownedTenders()->where('published', true)->orderBy('created_at', 'desc')->get()->reject(function ($tender){
-            $date = date_create_from_format('Y-m-d', $tender->deadline);
-            return time() < $date->getTimestamp() && $tender->opened == 1;
-        });
+
+        $tenders = $user->ownedTenders()->where('published', true)->where(function ($query){
+            return $query->orWhereDate('deadline','<', Carbon::now())->orWhere('opened','=',0);
+        })->orderBy('created_at', 'desc')->paginate(5);
         $tendersCount = $tenders->count();
         $response = PaginateCollection::paginateCollection($tenders, 5);
         if($user){
@@ -315,40 +311,27 @@ class AccountController extends Controller
     }
 
     public  function requestsAccepted(){
-        $user_id = auth()->user()->id;
-        $user = $this->userRepository->get($user_id);
-        $response = $user->requests()->orderBy('created_at', 'desc')->get()->reject(function ($tenderRequests) use($user_id){
-            if ($tenderRequests->tender)
-                return $tenderRequests->tender->contractor_id != $user_id;
-            return  true;
-        })->map(function ($tenderRequests){
-            return $tenderRequests->tender;
-        });
+        $user = auth()->user();
+        $user_id = $user->id;
+        $response = $user->requests()->select('tenders.*')->join('tenders','tenders.id','=','tender_requests.tender_id')->where('contractor_id','=', $user_id)->paginate(5);
         $tendersCount = $response->count();
-        $response =   PaginateCollection::paginateCollection($response, 5);
         return response()->json([
             'tenders' => $response,
             'tendersCount' => $tendersCount
         ]);
     }
-
+//->reject(function ($tenderRequests) use($user_id){
+//            if ($tenderRequests->tender)
+//                return $tenderRequests->tender->contractor_id == $user_id;
+//            return  true;
+//        })
     public  function  requestsSend(){
         $user = auth()->user();
         $user_id = $user->id;
-
-        $response = $user->requests()->orderBy('created_at', 'desc')->get()->reject(function ($tenderRequests) use($user_id){
-            if ($tenderRequests->tender)
-                return $tenderRequests->tender->contractor_id == $user_id;
-            return  true;
-        })->map(function ($tenderRequests){
-            return $tenderRequests;
-        });
-        $response =   PaginateCollection::paginateCollection($response, 5);
+        $response = $user->requests()->select('tenders.*')->join('tenders','tenders.id','=','tender_requests.tender_id')->where('contractor_id','!=',$user_id)->paginate(5);
 
         return response()->json([
             'tenders' =>  $response,
-
         ]);
     }
-
 }
