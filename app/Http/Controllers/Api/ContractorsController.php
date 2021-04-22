@@ -119,10 +119,10 @@ class ContractorsController extends Controller
             foreach ($contractors as $contractor) {
                 $comments = $this->users->getComments($contractor->id);
                 $mean = (int) collect($comments)->avg('assessment');
-                $contractor->comments = $comments->map(function ($comment){
-                    $author = $comment->author;
-                    $comment->who_set = $author->first_name . " " . $author->last_name;
-                    return $comment;
+                $contractor->comments = $comments->map(function ($com){
+                    $author = $com->author;
+                    $com->who_set = $author->first_name . " " . $author->last_name;
+                    return $com;
                 });
                 $contractor->mean = $mean;
             }
