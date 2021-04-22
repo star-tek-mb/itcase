@@ -23,7 +23,7 @@ Route::namespace('Api')->group(function () {
     Route::get('/account/seeAccount/{user_id}', 'AccountController@index');
     Route::get('/account/notifications/markAsRead', 'AccountController@markNotificationsAsRead');
     Route::get('/account/create', 'AccountController@create');
-        Route::post('/account/create', 'AccountController@store');
+    Route::post('/account/create', 'AccountController@store');
     Route::post('/account/contractor/profile/save', 'AccountController@savePersonalContractor');
     Route::get('/account/professional', 'AccountController@professional');
     Route::post('/account/professional', 'AccountController@saveProfessional');
