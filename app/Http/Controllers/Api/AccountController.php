@@ -271,7 +271,7 @@ class AccountController extends Controller
     {
         $user = $this->userRepository->get($user_id);
         $tenders = $user->ownedTenders()->where('published', true)->orderBy('created_at', 'desc')->paginate(5);
-        $tendersCount = $user->ownedTenders->count();
+        $tendersCount = $tenders->total();
         return response()->json([
             'tenders' => $tenders,
             'tendersCount' => $tendersCount
