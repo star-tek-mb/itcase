@@ -61,7 +61,6 @@ class CommentController extends Controller
             'who_set' => $user->id,
             'for_set' => $request->for_comment_id,
             'assessment' => $request->rating,
-            'theme' => $request->theme,
             'comment' => $request->comment
         ]);
         return response()->json([
