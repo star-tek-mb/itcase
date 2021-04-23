@@ -62,7 +62,7 @@ class AuthController extends Controller
 
     public function resend(Request $request)
     {
-        auth()->user()->sendPhoneVerificationMessage();
+        $request->user()->sendPhoneVerificationMessage();
         return response()->json(null);
     }
 
