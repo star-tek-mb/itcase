@@ -163,7 +163,7 @@ class HandbookCategoryRepository implements HandbookCategoryRepositoryInterface
      * array $categoryIds
      */
     public  function  getNumberOfCategories($categoryIds){
-        return HandbookCategory::whereIn('handbook_categories.id', $categoryIds)->count();
+        return HandbookCategory::whereIn('id', $categoryIds)->count();
     }
     /**
      * Set position for category
