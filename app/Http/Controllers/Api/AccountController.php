@@ -18,6 +18,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Helpers\PaginateCollection;
 use Carbon\Carbon;
+use App\Models\Role;
 
 class AccountController extends Controller
 {
