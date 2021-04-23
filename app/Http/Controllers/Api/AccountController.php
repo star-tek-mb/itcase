@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\HandbookCategory;
 use App\Notifications\TenderCreated;
 use App\Repositories\HandbookCategoryRepository;
 use App\Repositories\NeedTypeRepository;
@@ -185,10 +186,10 @@ class AccountController extends Controller
     public function saveProfessional(Request $request)
     {
         $user = auth()->user();
-        $user->authorizeRole('contractor');
-
+//        $user->authorizeRole('contractor');
+        $user->roles()->attach(Role::where('name', 'contractor')->first()->id);
         $categories = collect();
-        foreach ($request->get('categories') as $requestCategory) {
+            foreach ($request->get('categories') as $requestCategory) {
             if (isset($requestCategory['id'])) {
                 $categories->push($requestCategory);
             }
@@ -198,19 +199,21 @@ class AccountController extends Controller
                 'message' => 'Укажите услуги, которые вы предоставляете'
             ]);
         }
-        $needs = $this->needsRepository->all();
-        $selectedNeedsCount = 0;
         $categoryIds = $categories->pluck('id')->toArray();
-        foreach ($needs as $need) {
-            $menuItems = $need->menuItems;
-            foreach ($menuItems as $menuItem) {
-                if ($menuItem->categories()->whereIn('handbook_categories.id', $categoryIds)->count() > 0) {
-                    $selectedNeedsCount++;
-                    break;
-                }
-            }
-        }
-        if ($selectedNeedsCount >= 3) {
+//        $needs = $this->needsRepository->all();
+//        $selectedNeedsCount = 0;
+
+//        foreach ($needs as $need) {
+//            $menuItems = $need->menuItems;
+//            foreach ($menuItems as $menuItem) {
+//                if ($menuItem->categories()->whereIn('handbook_categories.id', $categoryIds)->count() > 0) {
+//                    $selectedNeedsCount++;
+//                    break;
+//                }
+//            }
+//        }
+
+        if ($this->categoryRepository->getNumberOfCategories($categoryIds)> 4) {
             return response()->json([
                 'message' => 'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены'
             ]);
@@ -223,6 +226,7 @@ class AccountController extends Controller
                     'message' => 'Укажите цены на каждую выбранную услугу']);
             }
         }
+
         $user->categories()->detach();
         foreach ($categories as $category) {
             $user->categories()->attach(

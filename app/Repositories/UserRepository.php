@@ -84,7 +84,7 @@ class UserRepository implements UserRepositoryInterface
         if ($data['phone_number'] != $user->phone_number) {
             $user->phone_confirmed_at = null;
         }
-        $user->update($data);
+            $user->update($data);
         $user->sendPhoneVerificationMessage();
         $user->generateSlug();
         $user->uploadImage($userData->file('image'));

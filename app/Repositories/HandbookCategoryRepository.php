@@ -158,7 +158,13 @@ class HandbookCategoryRepository implements HandbookCategoryRepositoryInterface
     {
         return HandbookCategory::all()->toTree();
     }
-
+    /**
+     *
+     * array $categoryIds
+     */
+    public  function  getNumberOfCategories($categoryIds){
+        return HandbookCategory::whereIn('handbook_categories.id', $categoryIds)->count();
+    }
     /**
      * Set position for category
      *
