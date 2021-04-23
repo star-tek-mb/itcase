@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\HandbookCategory;
 use App\Notifications\TenderCreated;
 use App\Repositories\HandbookCategoryRepository;
 use App\Repositories\NeedTypeRepository;
@@ -16,6 +17,8 @@ use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Helpers\PaginateCollection;
+use Carbon\Carbon;
+use App\Models\Role;
 
 class AccountController extends Controller
 {
@@ -51,7 +54,8 @@ class AccountController extends Controller
         HandbookCategoryRepository $categoryRepository,
         TenderRepository $tenderRepository,
         NeedTypeRepository $needsRepository
-    ) {
+    )
+    {
         $this->middleware(['auth:sanctum', 'verified']);
         $this->middleware('account.completed')->except(['create', 'store']);
 
@@ -69,13 +73,13 @@ class AccountController extends Controller
     public function index(int $user_id)
     {
 
-        if($user_id == 0){
+        if ($user_id == 0) {
             $user = auth()->user();
             $permission = true;
-        }else {
+        } else {
             $owner_id = auth()->user()->id;
             $user = $this->userRepository->get($user_id);
-            $permission =  $this->tenderRepository->checkPermission($owner_id, $user_id);
+            $permission = $this->tenderRepository->checkPermission($owner_id, $user_id);
         }
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';
@@ -83,7 +87,7 @@ class AccountController extends Controller
                 'accountPage' => $accountPage,
                 'user' => $user,
                 'role' => 'contractor',
-                'permission'=>$permission,
+                'permission' => $permission,
             ]);
         } elseif ($user->hasRole('customer')) {
             if ($user->customer_type == 'legal_entity') {
@@ -95,18 +99,18 @@ class AccountController extends Controller
                 'accountPage' => $accountPage,
                 'user' => $user,
                 'role' => 'customer',
-                'permission'=>$permission,
+                'permission' => $permission,
             ]);
         } else {
             abort(403);
         }
     }
 
-    public function create(Request $request,OctoService $octo)
+    public function create(Request $request, OctoService $octo)
     {
         $user = auth()->user();
         $user->dynamic = false;
-        if($request->has('dynamicUrl')){
+        if ($request->has('dynamicUrl')) {
             $user->dynamic = true;
         }
 
@@ -183,10 +187,10 @@ class AccountController extends Controller
     public function saveProfessional(Request $request)
     {
         $user = auth()->user();
-        $user->authorizeRole('contractor');
-
+//        $user->authorizeRole('contractor');
+        $user->roles()->attach(Role::where('name', 'contractor')->first()->id);
         $categories = collect();
-        foreach ($request->get('categories') as $requestCategory) {
+            foreach ($request->get('categories') as $requestCategory) {
             if (isset($requestCategory['id'])) {
                 $categories->push($requestCategory);
             }
@@ -196,31 +200,34 @@ class AccountController extends Controller
                 'message' => 'Укажите услуги, которые вы предоставляете'
             ]);
         }
-        $needs = $this->needsRepository->all();
-        $selectedNeedsCount = 0;
         $categoryIds = $categories->pluck('id')->toArray();
-        foreach ($needs as $need) {
-            $menuItems = $need->menuItems;
-            foreach ($menuItems as $menuItem) {
-                if ($menuItem->categories()->whereIn('handbook_categories.id', $categoryIds)->count() > 0) {
-                    $selectedNeedsCount++;
-                    break;
-                }
-            }
-        }
-        if ($selectedNeedsCount >= 3) {
+//        $needs = $this->needsRepository->all();
+//        $selectedNeedsCount = 0;
+
+//        foreach ($needs as $need) {
+//            $menuItems = $need->menuItems;
+//            foreach ($menuItems as $menuItem) {
+//                if ($menuItem->categories()->whereIn('handbook_categories.id', $categoryIds)->count() > 0) {
+//                    $selectedNeedsCount++;
+//                    break;
+//                }
+//            }
+//        }
+
+        if ($this->categoryRepository->getNumberOfCategories($categoryIds)> 4) {
             return response()->json([
-                'message' =>  'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены'
+                'message' => 'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены'
             ]);
         }
 
         foreach ($categories as $category) {
             if (!isset($category['price_from']) || !isset($category['price_to'])
-            || empty($category['price_from']) || empty($category['price_to'])) {
+                || empty($category['price_from']) || empty($category['price_to'])) {
                 return response()->json([
-                    'message' =>  'Укажите цены на каждую выбранную услугу']);
+                    'message' => 'Укажите цены на каждую выбранную услугу']);
             }
         }
+
         $user->categories()->detach();
         foreach ($categories as $category) {
             $user->categories()->attach(
@@ -232,7 +239,7 @@ class AccountController extends Controller
         }
 
         return response()->json([
-            'message' =>  'Ваши профессиональные данные обновлены']);
+            'message' => 'Ваши профессиональные данные обновлены']);
     }
 
     public function saveCustomerProfile(Request $request)
@@ -262,93 +269,91 @@ class AccountController extends Controller
         $this->userRepository->update($user->id, $request);
 
         return response()->json([
-            'message' =>  'Ваш профиль обновлён']);
+            'message' => 'Ваш профиль обновлён']);
     }
 
-    public function tenders(int $user_id)
+    public function guestTenders(int $user_id)
+    {
+        $user = $this->userRepository->get($user_id);
+        $tenders = $user->ownedTenders()->where('published', true)->orderBy('created_at', 'desc')->paginate(5);
+        $tendersCount = $tenders->total();
+        return response()->json([
+            'tenders' => $tenders,
+            'tendersCount' => $tendersCount
+        ]);
+    }
+
+    public function tenders()
     {
 
-        $user = $this->userRepository->get($user_id);
-        $tenders = $user->ownedTenders()->where('published', true)->where('opened', 1)->orderBy('created_at', 'desc')->get()->reject(function ($tender){
-            $date = date_create_from_format('Y-m-d', $tender->deadline);
-            return time() > $date->getTimestamp();
-        });
+        $user = auth()->user();
+        $tenders = $user->ownedTenders()->where('published', true)->where('opened', 1)->whereDate('deadline', '>', Carbon::now())->orderBy('created_at', 'desc')->paginate(5);
         $tendersCount = $user->ownedTenders->count();
-        $response = PaginateCollection::paginateCollection($tenders, 5);
         if ($user) {
             return response()->json([
-                'tenders' => $response,
+                'tenders' => $tenders,
                 'tendersCount' => $tendersCount
             ]);
         } else {
             abort(404);
         }
     }
-    public function finishedTenders(){
+
+    public function finishedTenders()
+    {
         $user = auth()->user();
-        $tenders = $user->ownedTenders()->where('published', true)->orderBy('created_at', 'desc')->get()->reject(function ($tender){
-            $date = date_create_from_format('Y-m-d', $tender->deadline);
-            return time() < $date->getTimestamp() && $tender->opened == 1;
-        });
+
+        $tenders = $user->ownedTenders()->where('published', true)->where(function ($query) {
+            return $query->orWhereDate('deadline', '<', Carbon::now())->orWhere('opened', '=', 0);
+        })->orderBy('created_at', 'desc')->paginate(5);
         $tendersCount = $tenders->count();
-        $response = PaginateCollection::paginateCollection($tenders, 5);
-        if($user){
+
+        if ($user) {
             return response()->json([
-                'tenders' => $response,
+                'tenders' => $tenders,
                 'tendersCount' => $tendersCount
             ]);
-        }
-        else {
-            abort(404);
-        }
-    }
-    public  function onModerationTenders(){
-        $user = auth()->user();
-        if($user){
-            return response()->json([
-                'tenders' => $user->ownedTenders()->where('published', false)->orderBy('created_at', 'desc')->paginate(5)
-            ]);
-        }
-        else {
+        } else {
             abort(404);
         }
     }
 
-    public  function requestsAccepted(){
-        $user_id = auth()->user()->id;
-        $user = $this->userRepository->get($user_id);
-        $response = $user->requests()->orderBy('created_at', 'desc')->get()->reject(function ($tenderRequests) use($user_id){
-            if ($tenderRequests->tender)
-                return $tenderRequests->tender->contractor_id != $user_id;
-            return  true;
-        })->map(function ($tenderRequests){
-            return $tenderRequests->tender;
-        });
+    public function onModerationTenders()
+    {
+        $user = auth()->user();
+        if ($user) {
+            return response()->json([
+                'tenders' => $user->ownedTenders()->where('published', false)->orderBy('created_at', 'desc')->paginate(5)
+            ]);
+        } else {
+            abort(404);
+        }
+    }
+
+    public function requestsAccepted()
+    {
+        $user = auth()->user();
+        $user_id = $user->id;
+        $response = $user->requests()->select('tenders.*')->join('tenders', 'tenders.id', '=', 'tender_requests.tender_id')->where('contractor_id', '=', $user_id)->paginate(5);
         $tendersCount = $response->count();
-        $response =   PaginateCollection::paginateCollection($response, 5);
         return response()->json([
             'tenders' => $response,
             'tendersCount' => $tendersCount
         ]);
     }
-
-    public  function  requestsSend(){
+//->reject(function ($tenderRequests) use($user_id){
+//            if ($tenderRequests->tender)
+//                return $tenderRequests->tender->contractor_id == $user_id;
+//            return  true;
+//        })
+    public function requestsSend()
+    {
         $user = auth()->user();
         $user_id = $user->id;
-
-        $response = $user->requests()->orderBy('created_at', 'desc')->get()->reject(function ($tenderRequests) use($user_id){
-            if ($tenderRequests->tender)
-                return $tenderRequests->tender->contractor_id == $user_id;
-            return  true;
-        })->map(function ($tenderRequests){
-            return $tenderRequests;
-        });
-        $response =   PaginateCollection::paginateCollection($response, 5);
+        $response = $user->requests()->select('tenders.*')->join('tenders', 'tenders.id', '=', 'tender_requests.tender_id')->where('contractor_id', '!=', $user_id)->paginate(5);
 
         return response()->json([
-            'tenders' =>  $response,
-
+            'tenders' => $response,
         ]);
     }
-
 }

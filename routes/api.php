@@ -23,7 +23,7 @@ Route::namespace('Api')->group(function () {
     Route::get('/account/seeAccount/{user_id}', 'AccountController@index');
     Route::get('/account/notifications/markAsRead', 'AccountController@markNotificationsAsRead');
     Route::get('/account/create', 'AccountController@create');
-        Route::post('/account/create', 'AccountController@store');
+    Route::post('/account/create', 'AccountController@store');
     Route::post('/account/contractor/profile/save', 'AccountController@savePersonalContractor');
     Route::get('/account/professional', 'AccountController@professional');
     Route::post('/account/professional', 'AccountController@saveProfessional');
@@ -31,7 +31,7 @@ Route::namespace('Api')->group(function () {
     Route::middleware('phone.verified')->group(function () {
 
         //new add routes for account about tenders
-        Route::get('/account/tenders/{user_id}', 'AccountController@tenders');
+        Route::get('/account/tenders', 'AccountController@tenders');
         Route::get('/account/myTenders/finishedTenders' , 'AccountController@finishedTenders');
         Route::get('/account/myTenders/onModerationTenders' , 'AccountController@onModerationTenders');
 
@@ -46,6 +46,9 @@ Route::namespace('Api')->group(function () {
         // routes for requests contractor send request to consumer
         Route::get('/account/myRequest/requestsAccepted', 'AccountController@requestsAccepted');
         Route::get('/account/myRequest/requestsSend', 'AccountController@requestsSend');
+
+        // Account guest tenders
+        Route::get('/account/guest/tenders/{user_id}', 'AccountController@guestTenders');
     });
 
     // Tenders routes
@@ -82,6 +85,11 @@ Route::namespace('Api')->group(function () {
     Route::get('/contractors/category/{id}', 'ContractorsController@category');
     Route::get('/contractors/addContractor/{contractorId}/to/{tenderId}', 'ContractorsController@addContractor');
     Route::get('/contractors/{id}', 'ContractorsController@contractor');
+
+    //comments to get comment of particular user
+    Route::get('/contractors/comment/{id}', 'CommentController@getCommentsOfUser');
+
+
     Route::post('/contractors/comment', 'CommentController@createCommentContractor');
     Route::post('/contractors/search', 'ContractorsController@contractorSearch');
 

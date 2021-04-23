@@ -91,7 +91,7 @@ class TenderController extends Controller
     {
         $tenders  = $this->tenderRepository->onlyOpened();
         $currentCategory = null;
-        $tenders = PaginateCollection::paginateCollection($tenders, 5);
+
         $tendersCount = $tenders->count();
         return response()->json([
             'tenders' => $tenders,
