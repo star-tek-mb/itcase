@@ -167,10 +167,7 @@ class AccountController extends Controller
         if ($categories->count() == 0) {
             return back()->with('account.error', 'Укажите услуги, которые вы предоставляете');
         }
-        $categoryIds = $categories->pluck('id')->toArray();
-        if ($this->categoryRepository->getNumberOfCategories($categoryIds)> 4) {
-            return back()->with('account.error', 'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены');
-        }
+        // TODO: removed check count
         foreach ($categories as $category) {
             if (!isset($category['price_from']) || !isset($category['price_to'])
             || empty($category['price_from']) || empty($category['price_to'])) {
