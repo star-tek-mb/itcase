@@ -167,19 +167,8 @@ class AccountController extends Controller
         if ($categories->count() == 0) {
             return back()->with('account.error', 'Укажите услуги, которые вы предоставляете');
         }
-        $needs = $this->needsRepository->all();
-        $selectedNeedsCount = 0;
         $categoryIds = $categories->pluck('id')->toArray();
-        foreach ($needs as $need) {
-            $menuItems = $need->menuItems;
-            foreach ($menuItems as $menuItem) {
-                if ($menuItem->categories()->whereIn('handbook_categories.id', $categoryIds)->count() > 0) {
-                    $selectedNeedsCount++;
-                    break;
-                }
-            }
-        }
-        if ($selectedNeedsCount >= 3) {
+        if ($this->categoryRepository->getNumberOfCategories($categoryIds)> 4) {
             return back()->with('account.error', 'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены');
         }
         foreach ($categories as $category) {
@@ -188,16 +177,15 @@ class AccountController extends Controller
                 return back()->with('account.error', 'Укажите цены на каждую выбранную услугу');
             }
         }
+
         $user->categories()->detach();
         foreach ($categories as $category) {
-            $user->categories()->attach(
-                $category['id'],
-                ['price_to' => $category['price_to'],
-                    'price_from' => $category['price_from'],
-                    'price_per_hour' => $category['price_per_hour']]
-            );
+            $user->categories()->attach($category['id'], [
+                'price_to' => $category['price_to'],
+                'price_from' => $category['price_from'],
+                'price_per_hour' => $category['price_per_hour']
+            ]);
         }
-
         return redirect()->route('site.account.contractor.professional')->with('account.success', 'Ваши профессиональные данные обновлены');
     }
 
