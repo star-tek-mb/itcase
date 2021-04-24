@@ -283,6 +283,19 @@ class AccountController extends Controller
         ]);
     }
 
+    public function  shortTenders(){
+        $user = auth()->user();
+        $tenders = $user->ownedTenders()->select('id','title')->where('published', true)->where('opened', 1)->whereDate('deadline', '>', Carbon::now())->orderBy('created_at', 'desc')->get();
+        if ($user) {
+            return response()->json([
+                'tenders' => $tenders,
+            ]);
+        } else {
+            abort(404);
+        }
+    }
+
+
     public function tenders()
     {
 

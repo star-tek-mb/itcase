@@ -34,7 +34,8 @@ Route::namespace('Api')->group(function () {
         Route::get('/account/tenders', 'AccountController@tenders');
         Route::get('/account/myTenders/finishedTenders' , 'AccountController@finishedTenders');
         Route::get('/account/myTenders/onModerationTenders' , 'AccountController@onModerationTenders');
-
+        //my tenders only short id and title for inviting contractor
+        Route::get('/account/myTenders/short','AccountController@shortTenders');
 
         Route::get('/account/portfolio', 'FileController@index');
         Route::post('/account/portfolio/save', 'FileController@save');
