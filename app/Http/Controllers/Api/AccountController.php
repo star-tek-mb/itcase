@@ -290,7 +290,7 @@ class AccountController extends Controller
             ->whereDate('deadline', '>', Carbon::now())
             ->orderBy('created_at', 'desc')
             ->get()->reject(function ($tender) use ($contractorID) {
-                return $tender->requests()->where('user_id', '!=', $contractorID)->count() > 0;
+                return $tender->requests()->where('user_id', '=', $contractorID)->count() > 0;
             })->map(function ($tender) {
                 return [
                     'id' => $tender->id,
