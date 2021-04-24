@@ -286,7 +286,7 @@ class AccountController extends Controller
     public function shortTenders(int $contractorID)
     {
         $user = auth()->user();
-        $tenders = User::find(64)->ownedTenders()->select('tenders.id', 'tenders.title')
+        $tenders = $user->ownedTenders()->select('tenders.id', 'tenders.title')
             ->join('tender_requests', 'tender_requests.tender_id', '=', 'tenders.id')
             ->where('tender_requests.user_id', '!=', $contractorID)
             ->where('published', true)->where('opened', 1)
