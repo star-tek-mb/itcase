@@ -286,10 +286,10 @@ class AccountController extends Controller
     public function shortTenders(int $contractorID)
     {
         $user = auth()->user();
-        $tenders =  $user->ownedTenders()->where('published', true)->where('opened', 1)
+        $tenders = $user->ownedTenders()->where('published', true)->where('opened', 1)
             ->whereDate('deadline', '>', Carbon::now())
             ->orderBy('created_at', 'desc')
-            ->get()->reduce(function ($tender) use ($contractorID) {
+            ->get()->reject(function ($tender) use ($contractorID) {
                 return $tender->requests()->where('user_id', '!=', $contractorID)->count() > 0;
             })->map(function ($tender) {
                 return [
