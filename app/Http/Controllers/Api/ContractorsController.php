@@ -109,7 +109,7 @@ class ContractorsController extends Controller
      * @param string $params
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
-    public function category(Request $request, $category_id)
+    public function category(Request $request,int $category_id)
     {
         $category = $this->categories->get($category_id);
         if ($category) {
@@ -140,7 +140,7 @@ class ContractorsController extends Controller
      * @param string $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function contractor($id)
+    public function contractor(int $id)
     {
         $contractor = $this->users->get($id)->load('categories');
         if (!$contractor || !$contractor->hasRole('contractor')) {
