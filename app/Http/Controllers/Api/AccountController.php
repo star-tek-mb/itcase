@@ -287,7 +287,7 @@ class AccountController extends Controller
     {
         $user = auth()->user();
         $tenders =  $user->ownedTenders()->where('published', true)->where('opened', 1)
-            ->whereDate('deadline', '>', Carbon\Carbon::now())
+            ->whereDate('deadline', '>', Carbon::now())
             ->orderBy('created_at', 'desc')
             ->get()->reduce(function ($tender) use ($contractorID) {
                 return $tender->requests()->where('user_id', '!=', $contractorID)->count() > 0;
