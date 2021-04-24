@@ -289,9 +289,9 @@ class AccountController extends Controller
         $tenders = $user->ownedTenders()->select('tenders.id', 'tenders.title')
             ->join('tender_requests', 'tender_requests.tender_id', '=', 'tenders.id')
             ->where('tender_requests.user_id', '!=', $contractorID)
-            ->where('published', true)->where('opened', 1)
-            ->whereDate('deadline', '>', Carbon::now())
-            ->orderBy('created_at', 'desc')->get();
+            ->where('tenders.published', true)->where('opened', 1)
+            ->whereDate('tenders.deadline', '>', Carbon::now())
+            ->orderBy('tenders.created_at', 'desc')->get();
 //        $tenders = $user->ownedTenders()->select('id','title')->join('tender_requests', 'tender_requests.tender_id', '=','tenders.id')->where('user_id', '!=', $contractorID)
 
         if ($user) {
