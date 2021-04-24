@@ -190,7 +190,7 @@ class AccountController extends Controller
 //        $user->authorizeRole('contractor');
         $user->roles()->attach(Role::where('name', 'contractor')->first()->id);
         $categories = collect();
-            foreach ($request->get('categories') as $requestCategory) {
+        foreach ($request->get('categories') as $requestCategory) {
             if (isset($requestCategory['id'])) {
                 $categories->push($requestCategory);
             }
@@ -214,7 +214,7 @@ class AccountController extends Controller
 //            }
 //        }
 
-        if ($this->categoryRepository->getNumberOfCategories($categoryIds)> 4) {
+        if ($this->categoryRepository->getNumberOfCategories($categoryIds) > 4) {
             return response()->json([
                 'message' => 'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены'
             ]);
@@ -283,9 +283,17 @@ class AccountController extends Controller
         ]);
     }
 
-    public function  shortTenders(){
+    public function shortTenders(int $contractorID)
+    {
         $user = auth()->user();
-        $tenders = $user->ownedTenders()->select('id','title')->where('published', true)->where('opened', 1)->whereDate('deadline', '>', Carbon::now())->orderBy('created_at', 'desc')->get();
+        $tenders = User::find(64)->ownedTenders()->select('tenders.id', 'tenders.title')
+            ->join('tender_requests', 'tender_requests.tender_id', '=', 'tenders.id')
+            ->where('tender_requests.user_id', '!=', $contractorID)
+            ->where('published', true)->where('opened', 1)
+            ->whereDate('deadline', '>', Carbon::now())
+            ->orderBy('created_at', 'desc')->get();
+//        $tenders = $user->ownedTenders()->select('id','title')->join('tender_requests', 'tender_requests.tender_id', '=','tenders.id')->where('user_id', '!=', $contractorID)
+
         if ($user) {
             return response()->json([
                 'tenders' => $tenders,

@@ -91,7 +91,6 @@ class TenderController extends Controller
     {
         $tenders  = $this->tenderRepository->onlyOpened();
         $currentCategory = null;
-
         $tendersCount = $tenders->count();
         return response()->json([
             'tenders' => $tenders,

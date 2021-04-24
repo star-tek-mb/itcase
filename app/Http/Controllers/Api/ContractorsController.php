@@ -178,4 +178,5 @@ class ContractorsController extends Controller
             'success'=>'Исполнитель добавлен в конкурс!',
         ]);
     }
+
 }
