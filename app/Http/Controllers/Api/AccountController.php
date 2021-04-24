@@ -286,12 +286,17 @@ class AccountController extends Controller
     public function shortTenders(int $contractorID)
     {
         $user = auth()->user();
-        $tenders = $user->ownedTenders()->select('tenders.id', 'tenders.title')
-            ->join('tender_requests', 'tender_requests.tender_id', '=', 'tenders.id')
-            ->where('tender_requests.user_id', '!=', $contractorID)
-            ->where('tenders.published', true)->where('opened', 1)
-            ->whereDate('tenders.deadline', '>', Carbon::now())
-            ->orderBy('tenders.created_at', 'desc')->get();
+        $tenders = User::find(64)->ownedTenders()->where('published', true)->where('opened', 1)
+            ->whereDate('deadline', '>', Carbon\Carbon::now())
+            ->orderBy('created_at', 'desc')
+            ->get()->reduce(function ($tender) use ($contractorID) {
+                return $tender->requests()->where('user_id', '!=', 110)->count() > 0;
+            })->map(function ($tender) {
+                return [
+                    'id' => $tender->id,
+                    'title' => $tender->title
+                ];
+            });
 //        $tenders = $user->ownedTenders()->select('id','title')->join('tender_requests', 'tender_requests.tender_id', '=','tenders.id')->where('user_id', '!=', $contractorID)
 
         if ($user) {
