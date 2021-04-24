@@ -117,9 +117,9 @@ class ContractorsController extends Controller
             $contractorsCount = $contractors->count();
             $contractors = PaginateCollection::paginateCollection($contractors, 5);
             foreach ($contractors as $contractor) {
-//                $comments = $this->users->getComments($contractor->id);
-////                $mean = (int) collect($comments)->avg('assessment');
-////                $contractor->mean = $mean;
+                $comments = $this->users->getComments($contractor->id);
+                $mean = (int) collect($comments)->avg('assessment');
+                $contractor->mean = $mean;
             }
 
             return response()->json([
