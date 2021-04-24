@@ -120,6 +120,13 @@ class ContractorsController extends Controller
                 $comments = $this->users->getComments($contractor->id);
                 $mean = (int) collect($comments)->avg('assessment');
                 $contractor->mean = $mean;
+                $contractor->categories = $contractor->categories->map(function ($categories){
+                    return [
+                        'ru_title' => $categories->ru_title,
+                        'en_title' => $categories->en_title,
+                        'uz_title' => $categories->uz_title,
+                    ];
+                })->all();
             }
 
             return response()->json([
