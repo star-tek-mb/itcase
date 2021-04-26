@@ -177,6 +177,7 @@ class TenderRepository implements TenderRepositoryInterface
      */
     public function delete($id,$reason = "")
     {
+        Log::info("THERE IS REASON FOR DELETE  " . $reason);
         $tender = Tender::find($id);
         $tender->forceFill([
             'opened' => 0,
