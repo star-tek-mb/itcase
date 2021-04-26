@@ -61,7 +61,7 @@ Route::namespace('Api')->group(function () {
         Route::post('/tenders/makeRequest', 'TenderController@makeRequest');
         Route::post('/tenders/cancelRequest', 'TenderController@cancelRequest');
         Route::match(['delete','put'],'/tenders/{id}/delete', 'TenderController@delete');
-        Route::post('/tenders/{id}/update', 'TenderController@update');
+        Route::post('/tenders/update/{id}', 'TenderController@update');
         Route::post('/tenders/{tenderId}/accept/{requestId}', 'TenderController@acceptTenderRequest');
         Route::post('/tenders/showOffered', 'TenderController@showOffered');
         Route::post('/tenders/showRequested', 'TenderController@showRequested');

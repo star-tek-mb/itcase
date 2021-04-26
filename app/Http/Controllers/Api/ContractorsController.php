@@ -94,8 +94,14 @@ class ContractorsController extends Controller
         foreach ($contractors as $contractor) {
             $comments = $this->users->getComments($contractor->id);
             $mean = (int) collect($comments)->avg('assessment');
-            $contractor->comments = $comments;
             $contractor->mean = $mean;
+            $contractor->categories = $contractor->categories->map(function ($categories){
+                return [
+                    'ru_title' => $categories->ru_title,
+                    'en_title' => $categories->en_title,
+                    'uz_title' => $categories->uz_title,
+                ];
+            })->all();
         }
         return response()->json([
             'contractors'=>$contractors,
