@@ -113,5 +113,5 @@ Route::namespace('Api')->group(function () {
     Route::post('/messages/read/messagesIsRead', 'ChatsController@messagesIsRead');
     Route::put('/messages/read/messagesIsRead', 'ChatsController@messagesIsRead');
     Route::get('/account/chats/{chat_id}', 'ChatsController@index');
-    Route::get('/messages/chat_all/get', "ChatsController@allChats");
+    Route::get('/chats/all/get', "ChatsController@allChats");
 });
