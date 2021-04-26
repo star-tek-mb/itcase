@@ -179,6 +179,7 @@ class TenderRepository implements TenderRepositoryInterface
     {
         $tender = Tender::find($id);
         $tender->forceFill([
+            'opened' => 0,
             'delete_reason' => $reason
         ])->save();
     }

@@ -271,7 +271,7 @@ class AccountController extends Controller
             'tendersCount' => $tendersCount
         ]);
     }
-
+  // for inviting contractors
     public function shortTenders(int $contractorID)
     {
         $user = auth()->user();
