@@ -196,8 +196,8 @@ class UserRepository implements UserRepositoryInterface
         $dataToSet['company_name'] = $data->get($userRole.'_company_name');
         $dataToSet['about_myself'] = $data->get($userRole.'_about_myself');
         $dataToSet['city'] = $data->get($userRole.'_city');
-        if ($userRole == 'contractor' && $data->get($userRole.'_type') == 'individual') {
-            $dataToSet['birthday_date'] = Carbon::createFromFormat('d.m.Y', $data->get('contractor_birthday_date'))->format('Y-m-d');
+        if (($data->has('gender') && $data->has($userRole . '_birthday_date'))||($userRole == 'contractor' && $data->get($userRole.'_type') == 'individual')) {
+            $dataToSet['birthday_date'] = Carbon::createFromFormat('d.m.Y', $data->get($userRole . '_birthday_date'))->format('Y-m-d');
             $dataToSet['gender'] = $data->get('gender');
         }
         $user->update($dataToSet);
