@@ -175,7 +175,7 @@ class TenderRepository implements TenderRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function delete($id, $reason = '')
+    public function delete($id,$reason = "")
     {
         $tender = Tender::find($id);
         $tender->forceFill([

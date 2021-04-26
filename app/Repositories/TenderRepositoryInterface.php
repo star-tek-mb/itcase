@@ -49,7 +49,7 @@ interface TenderRepositoryInterface
      * @param int $id
      * @return void
      */
-    public function delete($id);
+    public function delete($id, $reason);
 
     /**
      * Get a tender by id
