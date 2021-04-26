@@ -340,7 +340,10 @@ class TenderController extends Controller
 
     public function delete(Request $request, int $id)
     {
-        $this->tenderRepository->delete($id, $request->all());
+        $tender =   $this->tenderRepository->get($id);
+        $tender->delete_reason = $request->delete_reason;
+        Log::info($request->delete_reason);
+        Log::info($request->isMethod('put'));
         return response()->json([
             'success' => 'Конкурс удалён'
         ],200);
