@@ -186,60 +186,49 @@ class AccountController extends Controller
 
     public function saveProfessional(Request $request)
     {
-        $user = auth()->user();
-//        $user->authorizeRole('contractor');
-        $user->roles()->attach(Role::where('name', 'contractor')->first()->id);
-        $categories = collect();
-        foreach ($request->get('categories') as $requestCategory) {
-            if (isset($requestCategory['id'])) {
-                $categories->push($requestCategory);
+        if ($request->isMethod('post')) {
+            $user = auth()->user();
+            $user->roles()->attach(Role::where('name', 'contractor')->first()->id);
+            $categories = collect();
+            foreach ($request->get('categories') as $requestCategory) {
+                if (isset($requestCategory['id'])) {
+                    $categories->push($requestCategory);
+                }
             }
-        }
-        if ($categories->count() == 0) {
-            return response()->json([
-                'message' => 'Укажите услуги, которые вы предоставляете'
-            ]);
-        }
-        $categoryIds = $categories->pluck('id')->toArray();
-//        $needs = $this->needsRepository->all();
-//        $selectedNeedsCount = 0;
-
-//        foreach ($needs as $need) {
-//            $menuItems = $need->menuItems;
-//            foreach ($menuItems as $menuItem) {
-//                if ($menuItem->categories()->whereIn('handbook_categories.id', $categoryIds)->count() > 0) {
-//                    $selectedNeedsCount++;
-//                    break;
-//                }
-//            }
-//        }
-
-        if ($this->categoryRepository->getNumberOfCategories($categoryIds) > 4) {
-            return response()->json([
-                'message' => 'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены'
-            ]);
-        }
-
-        foreach ($categories as $category) {
-            if (!isset($category['price_from']) || !isset($category['price_to'])
-                || empty($category['price_from']) || empty($category['price_to'])) {
+            if ($categories->count() == 0) {
                 return response()->json([
-                    'message' => 'Укажите цены на каждую выбранную услугу']);
+                    'message' => 'Укажите услуги, которые вы предоставляете'
+                ]);
             }
-        }
+            $categoryIds = $categories->pluck('id')->toArray();
 
-        $user->categories()->detach();
-        foreach ($categories as $category) {
-            $user->categories()->attach(
-                $category['id'],
-                ['price_to' => $category['price_to'],
-                    'price_from' => $category['price_from'],
-                    'price_per_hour' => $category['price_per_hour']]
-            );
-        }
+            if ($this->categoryRepository->getNumberOfCategories($categoryIds) > 4) {
+                return response()->json([
+                    'message' => 'Извините, мы не даём возможность выбирать категории из всех сфер деятельности. Вы можете выбрать максимум две сферы. Например, из сферы IT и Мультимедия, Бизнес и Маркетинг. Комбинации не ограничены'
+                ]);
+            }
 
-        return response()->json([
-            'message' => 'Ваши профессиональные данные обновлены']);
+            foreach ($categories as $category) {
+                if (!isset($category['price_from']) || !isset($category['price_to'])
+                    || empty($category['price_from']) || empty($category['price_to'])) {
+                    return response()->json([
+                        'message' => 'Укажите цены на каждую выбранную услугу']);
+                }
+            }
+
+            $user->categories()->detach();
+            foreach ($categories as $category) {
+                $user->categories()->attach(
+                    $category['id'],
+                    ['price_to' => $category['price_to'],
+                        'price_from' => $category['price_from'],
+                        'price_per_hour' => $category['price_per_hour']]
+                );
+            }
+
+            return response()->json([
+                'message' => 'Ваши профессиональные данные обновлены']);
+        }
     }
 
     public function saveCustomerProfile(Request $request)
@@ -367,11 +356,7 @@ class AccountController extends Controller
             'tendersCount' => $tendersCount
         ]);
     }
-//->reject(function ($tenderRequests) use($user_id){
-//            if ($tenderRequests->tender)
-//                return $tenderRequests->tender->contractor_id == $user_id;
-//            return  true;
-//        })
+
     public function requestsSend()
     {
         $user = auth()->user();
