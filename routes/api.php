@@ -59,7 +59,7 @@ Route::namespace('Api')->group(function () {
         Route::get('/tenders/user','TenderController@tendersOfUser' );
         Route::post('/tenders/makeRequest', 'TenderController@makeRequest');
         Route::post('/tenders/cancelRequest', 'TenderController@cancelRequest');
-        Route::delete('/tenders/{id}/delete', 'TenderController@delete');
+        Route::match(['delete','put'],'/tenders/{id}/delete', 'TenderController@delete');
         Route::post('/tenders/{id}/update', 'TenderController@update');
         Route::post('/tenders/{tenderId}/accept/{requestId}', 'TenderController@acceptTenderRequest');
         Route::post('/tenders/showOffered', 'TenderController@showOffered');
@@ -112,5 +112,5 @@ Route::namespace('Api')->group(function () {
     Route::post('/messages/read/messagesIsRead', 'ChatsController@messagesIsRead');
     Route::put('/messages/read/messagesIsRead', 'ChatsController@messagesIsRead');
     Route::get('/account/chats/{chat_id}', 'ChatsController@index');
-    Route::get('/messages/all_chats', "ChatsController@allChats");
+    Route::get('/messages/chat_all/get', "ChatsController@allChats");
 });

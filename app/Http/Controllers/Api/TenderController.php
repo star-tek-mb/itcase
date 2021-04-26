@@ -327,7 +327,7 @@ class TenderController extends Controller
             'email' => 'Неверный формат электронной почты'
         ];
         Validator::make($request->all(), [
-            'categories' => 'required',
+
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:5000',
             'files' => 'nullable',

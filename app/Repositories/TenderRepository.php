@@ -164,9 +164,11 @@ class TenderRepository implements TenderRepositoryInterface
         }
         $tender->update($tenderData);
         $tender->saveFiles($data->file('files'));
-        $tender->categories()->detach();
-        foreach ($data->get('categories') as $categoryId) {
-            $tender->categories()->attach($categoryId);
+        if($tenderData->has('categories')) {
+            $tender->categories()->detach();
+            foreach ($data->get('categories') as $categoryId) {
+                $tender->categories()->attach($categoryId);
+            }
         }
     }
 
