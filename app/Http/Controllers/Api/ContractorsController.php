@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Helpers\SlugHelper;
 use App\Http\Controllers\Helpers\PaginateCollection;
 use App\Notifications\InviteRequest;
+use App\Notifications\RequestAction;
 use App\Repositories\HandbookCategoryRepositoryInterface;
 use App\Repositories\MenuRepositoryInterface;
 use App\Repositories\TenderRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use App\Http\Controllers\Controller;
 
 class ContractorsController extends Controller
@@ -184,5 +186,37 @@ class ContractorsController extends Controller
             'success'=>'Исполнитель добавлен в конкурс!',
         ]);
     }
+    public  function acceptInvitation(int $tenderId){
+        $user = auth()->user();
+        $request = $user->requests()->where('tender_id',$tenderId)->get();
+        $tender = $this->tenders->get($tenderId);
+        $tender->contractor_id = $request->user_id;
+        $tender->opened = false;
+        $tender->save();
+        $request->user->victories_count += 1;
+        $request->user->save();
+        if ($request){
+            $requests = $request->tender->requests;
+            try {
+                foreach ($requests as $otherRequest) {
+                    if ($otherRequest->user_id == $request->user_id) {
+                        continue;
+                    }
+                    $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
+                }
+                $adminUsers = $this->users->getAdmins();
 
+                Notification::send($adminUsers, new RequestAction('accepted', $request));
+            } catch (\Swift_TransportException $e) {
+
+            }
+            return response()->json([
+                'success' => 'Исполнитель на этот конкурс назначен! Администратор сайта с вами свяжется и вы получите инструкции, необходимые для того, чтобы исполнитель приступил к работе.'
+            ],200);
+        } else {
+            return response()->json([
+                'success' => 'Невозможно назначить исполнителя на этот конкурс'
+            ],401);
+        }
+    }
 }

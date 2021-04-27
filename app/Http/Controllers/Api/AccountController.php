@@ -383,4 +383,14 @@ class AccountController extends Controller
             'tenders' => $response,
         ]);
     }
+
+    public function getInvitation(){
+        $user = auth()->user();
+        $user_id = $user->id;
+        $response = $user->requests()->select('tenders.*')->join('tenders','tenders.id','=', 'tender_requests.tender_id')->where('tender_requests.invited','=', 1)->paginate(5);
+        return response()->json([
+            'tenders' => $response,
+        ]);
+    }
+
 }

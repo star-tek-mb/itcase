@@ -36,7 +36,8 @@ Route::namespace('Api')->group(function () {
         Route::get('/account/tenders', 'AccountController@tenders');
         Route::get('/account/myTenders/finishedTenders' , 'AccountController@finishedTenders');
         Route::get('/account/myTenders/onModerationTenders' , 'AccountController@onModerationTenders');
-
+        // Get invitations for user
+        Route::get('/account/invitation/get','AccountController@getInvitation');
         //my tenders only short id and title for inviting contractor
         Route::get('/account/myTenders/short/{contractorID}','AccountController@shortTenders');
 
@@ -89,6 +90,8 @@ Route::namespace('Api')->group(function () {
     Route::get('/contractors/category/{id}', 'ContractorsController@category');
     Route::get('/contractors/addContractor/{contractorId}/to/{tenderId}', 'ContractorsController@addContractor');
     Route::get('/contractors/{id}', 'ContractorsController@contractor');
+    // accepts invitations
+    Route::get('/contractors/accept/invitation/{tender_id}', 'ContractorsController@acceptInvitation');
 
     //comments to get comment of particular user
     Route::get('/contractors/comment/{id}', 'CommentController@getCommentsOfUser');
