@@ -318,7 +318,7 @@ class AccountController extends Controller
     {
         $user = auth()->user();
 
-        $tenders = $user->ownedTenders()->where('published', true)->where(function ($query) {
+        $tenders = $user->ownedTenders()->whereNotNull('delete_reason')->where(function ($query) {
             return $query->orWhereDate('deadline', '<', Carbon::now())->orWhere('opened', '=', 0);
         })->orderBy('created_at', 'desc')->paginate(5);
         $tendersCount = $tenders->count();
