@@ -342,6 +342,7 @@ class TenderController extends Controller
     {
         $tender =   $this->tenderRepository->get($id);
         $tender->delete_reason = $request->delete_reason;
+        $tender->opened = 0;
         $tender->save();
         Log::info($request->delete_reason);
         Log::info($request->isMethod('put'));
