@@ -173,8 +173,11 @@ class AccountController extends Controller
         $validator = Validator::make($request->all(), [
             'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
             'newPasswordRepeat' => 'nullable|min:6',
-            'currentPassword' => 'required|password|required_with:newPassword',
+            'currentPassword' => 'required|password',
         ]);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 500);
+        }
         $user->password =  Hash::make($request->newPassword);
         $user->save();
         return response()->json([
