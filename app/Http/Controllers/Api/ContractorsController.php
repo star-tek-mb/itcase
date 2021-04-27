@@ -186,16 +186,17 @@ class ContractorsController extends Controller
             'success'=>'Исполнитель добавлен в конкурс!',
         ]);
     }
-    public  function acceptInvitation(int $tenderId){
+    public  function acceptInvitation(Request $request){
         $user = auth()->user();
-        $request = $user->requests()->where('tender_id',$tenderId)->get();
-        $tender = $this->tenders->get($tenderId);
-        $tender->contractor_id = $request->user_id;
-        $tender->opened = false;
-        $tender->save();
-        $request->user->victories_count += 1;
-        $request->user->save();
+        $tenderId = $request->tenderId;
+        $request = $user->requests()->where('tender_id',$tenderId)->where('invited', 1)->get();
         if ($request){
+            $tender = $this->tenders->get($tenderId);
+            $tender->contractor_id = $request->user_id;
+            $tender->opened = false;
+            $tender->save();
+            $request->user->victories_count += 1;
+            $request->user->save();
             $requests = $request->tender->requests;
             try {
                 foreach ($requests as $otherRequest) {
