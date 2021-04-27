@@ -111,15 +111,19 @@ class ChatsController extends Controller
     }
 
     //FOR NOTIFICATION
-    public function notificationLastMessages()
+    public function notificationLastMessages(Request $request)
     {
         $user = auth()->user();
         $id = $user->id;
         $response = [];
         $chats = $user->chats;
+        $chat_id =0;
+        if ($request->has('chat_id')){
+            $chat_id = $request->chat_id;
+        }
         if($chats) {
             foreach ($chats as $chat) {
-                $message = $chat->messages()->orderBy('id', 'DESC')->first();
+                $message = $chat->messages()->where('chat_id','!=',$chat_id)->orderBy('id', 'DESC')->first();
                 if($message == null){
                     continue;
                 }

@@ -176,7 +176,7 @@ class AccountController extends Controller
             'currentPassword' => 'required|password',
         ]);
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 500);
+            return response()->json(['error' => $validator->errors()], 400);
         }
         $user->password =  Hash::make($request->newPassword);
         $user->save();
