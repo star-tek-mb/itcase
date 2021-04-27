@@ -92,6 +92,8 @@ Route::namespace('Api')->group(function () {
     Route::get('/contractors/{id}', 'ContractorsController@contractor');
     // accepts invitations
     Route::post('/contractors/accept/invitation', 'ContractorsController@acceptInvitation');
+    // reject invitations
+    Route::post('/contractors/reject/invitation', 'ContractorsController@rejectInvitation');
 
     //comments to get comment of particular user
     Route::get('/contractors/comment/{id}', 'CommentController@getCommentsOfUser');

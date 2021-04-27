@@ -220,4 +220,13 @@ class ContractorsController extends Controller
             ],401);
         }
     }
+    public  function  rejectInvitation(Request $request){
+        $user = auth()->user();
+        $tenderId = $request->tenderId;
+        $requestGet = $user->requests()->where('tender_id',$tenderId)->where('invited', 1)->get();
+        $requestGet->delete();
+        return response()->json([
+            'success' => 'Вы успешно отклонили предложение'
+        ],200);
+    }
 }
