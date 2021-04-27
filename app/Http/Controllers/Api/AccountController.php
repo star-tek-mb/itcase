@@ -338,7 +338,7 @@ class AccountController extends Controller
         $user = auth()->user();
         if ($user) {
             return response()->json([
-                'tenders' => $user->ownedTenders()->where('published', false)->whereNull('delete_reason')->orderBy('created_at', 'desc')->paginate(5)
+                'tenders' => $user->ownedTenders()->where('published', false)->where('opened', 1)->whereNull('delete_reason')->orderBy('created_at', 'desc')->paginate(5)
             ]);
         } else {
             abort(404);
