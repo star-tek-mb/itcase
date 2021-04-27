@@ -224,9 +224,9 @@ class TenderController extends Controller
 
     public function store(Request $request)
     {
-        if (auth()->user()) {
-            auth()->user()->authorizeRole('customer');
-        }
+//        if (auth()->user()) {
+//            auth()->user()->authorizeRole('customer');
+//        }
         $validator = Validator::make($request->all(), [
             'categories' => 'required',
             'title' => 'required|string|max:255',

@@ -28,6 +28,8 @@ Route::namespace('Api')->group(function () {
     Route::get('/account/professional', 'AccountController@professional');
     Route::post('/account/professional', 'AccountController@saveProfessional');
     Route::post('/account/customer/profile/save', 'AccountController@saveCustomerProfile');
+    Route::post('/account/password/change/save', 'AccountController@changePassword');
+
     Route::middleware('phone.verified')->group(function () {
 
         //new add routes for account about tenders

@@ -18,6 +18,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Helpers\PaginateCollection;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Role;
 
 class AccountController extends Controller
@@ -167,7 +168,19 @@ class AccountController extends Controller
             'message' => 'Ваши личные данные обновлены'
         ]);
     }
-
+    public  function changePassword(Request $request){
+        $user = auth()->user();
+        $validator = Validator::make($request->all(), [
+            'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
+            'newPasswordRepeat' => 'nullable|min:6',
+            'currentPassword' => 'required|password|required_with:newPassword',
+        ]);
+        $user->password =  Hash::make($request->newPassword);
+        $user->save();
+        return response()->json([
+            'message' => 'Ваши личные данные обновлены'
+        ]);
+    }
 
     public function professional()
     {
