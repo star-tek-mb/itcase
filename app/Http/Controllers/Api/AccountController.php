@@ -204,7 +204,9 @@ class AccountController extends Controller
     {
         if ($request->isMethod('post')) {
             $user = auth()->user();
-            $user->roles()->attach(Role::where('name', 'contractor')->first()->id);
+            if ($user->roles()->where('name', 'contractor')->first()) {
+                $user->roles()->attach(Role::where('name', 'contractor')->first()->id);
+            }
             $categories = collect();
             foreach ($request->get('categories') as $requestCategory) {
                 if (isset($requestCategory['id'])) {
