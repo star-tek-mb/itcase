@@ -224,7 +224,7 @@ class ContractorsController extends Controller
     public  function  rejectInvitation(Request $request){
         $user = auth()->user();
         $tenderId = $request->tenderId;
-        $requestGet = $user->requests()->where('tender_id',$tenderId)->where('invited', 1)->get();
+        $requestGet = $user->requests()->where('tender_id',$tenderId)->where('invited', 1)->first();
         $requestGet->delete();
         return response()->json([
             'success' => 'Вы успешно отклонили предложение'
