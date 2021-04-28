@@ -335,8 +335,8 @@ class AccountController extends Controller
         $user = auth()->user();
 
         $tenders = $user->ownedTenders()->where(function ($query) {
-            return $query->orWhereDate('deadline', '<', Carbon::now())->orWhere('opened', '=', 0);
-        })->OrwhereNotNull('delete_reason')->orderBy('created_at', 'desc')->paginate(5);
+            return $query->orWhereDate('deadline', '<', Carbon::now())->orWhere('opened', '=', 0)->OrwhereNotNull('delete_reason');
+        })->orderBy('created_at', 'desc')->paginate(5);
         $tendersCount = $tenders->count();
 
         if ($user) {
