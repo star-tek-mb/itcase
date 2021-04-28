@@ -220,6 +220,7 @@ class ContractorsController extends Controller
             ],401);
         }
     }
+
     public  function  rejectInvitation(Request $request){
         $user = auth()->user();
         $tenderId = $request->tenderId;

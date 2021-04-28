@@ -318,7 +318,7 @@ class AccountController extends Controller
     {
 
         $user = auth()->user();
-        $tenders = $user->ownedTenders()->where('published', true)->where('opened', 1)->whereDate('deadline', '>', Carbon::now())->orderBy('created_at', 'desc')->paginate(5);
+        $tenders = $user->ownedTenders()->where('opened', 1)->whereDate('deadline', '>=', Carbon::now())->orderBy('created_at', 'desc')->paginate(5);
         $tendersCount = $user->ownedTenders->count();
         if ($user) {
             return response()->json([
@@ -334,9 +334,9 @@ class AccountController extends Controller
     {
         $user = auth()->user();
 
-        $tenders = $user->ownedTenders()->whereNotNull('delete_reason')->where(function ($query) {
+        $tenders = $user->ownedTenders()->where(function ($query) {
             return $query->orWhereDate('deadline', '<', Carbon::now())->orWhere('opened', '=', 0);
-        })->orderBy('created_at', 'desc')->paginate(5);
+        })->OrwhereNotNull('delete_reason')->orderBy('created_at', 'desc')->paginate(5);
         $tendersCount = $tenders->count();
 
         if ($user) {
