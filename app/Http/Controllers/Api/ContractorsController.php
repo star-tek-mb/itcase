@@ -189,15 +189,15 @@ class ContractorsController extends Controller
     public  function acceptInvitation(Request $request){
         $user = auth()->user();
         $tenderId = $request->tenderId;
-        $request = $user->requests()->where('tender_id',$tenderId)->where('invited', 1)->get();
-        if ($request){
+        $tenderRequest = $user->requests()->where('tender_id',$tenderId)->where('invited', 1)->first();
+        if ($tenderRequest){
             $tender = $this->tenders->get($tenderId);
-            $tender->contractor_id = $request->user_id;
+            $tender->contractor_id = $tenderRequest->user_id;
             $tender->opened = false;
             $tender->save();
-            $request->user->victories_count += 1;
-            $request->user->save();
-            $requests = $request->tender->requests;
+            $tenderRequest->user->victories_count += 1;
+            $tenderRequest->user->save();
+            $requests = $tenderRequest->tender->requests;
             try {
                 foreach ($requests as $otherRequest) {
                     if ($otherRequest->user_id == $request->user_id) {
