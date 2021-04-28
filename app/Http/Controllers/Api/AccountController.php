@@ -367,7 +367,7 @@ class AccountController extends Controller
     {
         $user = auth()->user();
         $user_id = $user->id;
-        $response = $user->requests()->select('tenders.*')->join('tenders', 'tenders.id', '=', 'tender_requests.tender_id')->where('contractor_id', '=', $user_id)->paginate(5);
+        $response = $user->requests()->select('tenders.*')->join('tenders', 'tenders.id', '=', 'tender_requests.tender_id')->where('contractor_id', '=', $user_id)->orderBy('id', 'desc')->paginate(5);
         $tendersCount = $response->count();
         return response()->json([
             'tenders' => $response,
@@ -379,7 +379,7 @@ class AccountController extends Controller
     {
         $user = auth()->user();
         $user_id = $user->id;
-        $response = $user->requests()->select('tenders.*')->join('tenders', 'tenders.id', '=', 'tender_requests.tender_id')->where('contractor_id', '!=', $user_id)->paginate(5);
+        $response = $user->requests()->select('tenders.*')->join('tenders', 'tenders.id', '=', 'tender_requests.tender_id')->where('contractor_id', '!=', $user_id)->orderBy('id', 'desc')->paginate(5);
 
         return response()->json([
             'tenders' => $response,
