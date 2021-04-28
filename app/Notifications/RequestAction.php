@@ -104,6 +104,20 @@ class RequestAction extends Notification
                 ->line('Заказчик ' . $this->request->tender->owner->getCommonTitle() . ' выбрал исполнителя ' . $this->request->user->getCommonTitle() . 'в качестве победителя в конкурсе ' . $this->request->tender->title)
                 ->action('Перейти к конкурсу', route('admin.tenders.show', $this->request->tender_id));
         }
+        if ($this->type === 'accepted_by_contractor') {
+            return (new MailMessage)
+                ->subject('Исполнитель принял вашу заявку!')
+                ->greeting('Здравствуйте, '. $notifiable->getCommonTitle())
+                ->line('Исполнитель ' . $this->request->user->getCommonTitle() . 'принял задание ' . $this->request->tender->title)
+                ->action('Перейти к конкурсу', route('admin.tenders.show', $this->request->tender_id));
+        }
+        if ($this->type === 'rejected_by_contractor') {
+            return (new MailMessage)
+                ->subject('Исполнитель отклонил вашу заявку!')
+                ->greeting('Здравствуйте, '. $notifiable->getCommonTitle())
+                ->line('Исполнитель ' . $this->request->user->getCommonTitle() . 'отклонил задание ' . $this->request->tender->title)
+                ->action('Перейти к конкурсу', route('admin.tenders.show', $this->request->tender_id));
+        }
         return (new MailMessage)
             ->subject($this->type === 'rejected' ? 'Ваша заявка отклонена!' : 'Вы выиграли!')
             ->greeting('Здравствуйте, '. $notifiable->getCommonTitle() . '. Не отчаивайтесь, у вас есть возможность получить другой заказ!')

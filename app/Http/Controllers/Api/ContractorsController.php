@@ -206,11 +206,11 @@ class ContractorsController extends Controller
                     $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
                 }
                 $adminUsers = $this->users->getAdmins();
-
                 Notification::send($adminUsers, new RequestAction('accepted', $request));
             } catch (\Swift_TransportException $e) {
 
             }
+            $tenderRequest->delete();
             return response()->json([
                 'success' => 'Исполнитель на этот конкурс назначен! Администратор сайта с вами свяжется и вы получите инструкции, необходимые для того, чтобы исполнитель приступил к работе.'
             ],200);
