@@ -389,7 +389,7 @@ class AccountController extends Controller
     public function getInvitation(){
         $user = auth()->user();
         $user_id = $user->id;
-        $response = $user->requests()->select('tenders.*')->join('tenders','tenders.id','=', 'tender_requests.tender_id')->where('tender_requests.invited','=', 1)->paginate(5);
+        $response = $user->requests()->select('tenders.*')->join('tenders','tenders.id','=', 'tender_requests.tender_id')->whereNull('contractor_id')->where('tender_requests.invited','=', 1)->paginate(5);
         return response()->json([
             'tenders' => $response,
         ]);

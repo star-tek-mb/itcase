@@ -210,7 +210,7 @@ class ContractorsController extends Controller
             } catch (\Swift_TransportException $e) {
 
             }
-            $tenderRequest->delete();
+
             return response()->json([
                 'success' => 'Исполнитель на этот конкурс назначен! Администратор сайта с вами свяжется и вы получите инструкции, необходимые для того, чтобы исполнитель приступил к работе.'
             ],200);
