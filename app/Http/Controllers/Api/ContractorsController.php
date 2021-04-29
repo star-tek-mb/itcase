@@ -89,8 +89,6 @@ class ContractorsController extends Controller
 
     public function contractorSearch(Request $request)
     {
-
-
         $contractors = $this->users->searchContractors($request);
 
         $contractorsCount = $contractors->count();
@@ -99,7 +97,10 @@ class ContractorsController extends Controller
             $comments = $this->users->getComments($contractor->id);
             $mean = (int) collect($comments)->avg('assessment');
             $contractor->mean = $mean;
-            $contractor->categories = $contractor->categories->map(function ($categories){
+            $contractor->categories = $contractor->categories->map(function ($categories) use($contractor){
+                if ($contractor->pivot == null){
+                    $contractor->pivot = $categories->pivot;
+                }
                 return [
                     'ru_title' => $categories->ru_title,
                     'en_title' => $categories->en_title,
