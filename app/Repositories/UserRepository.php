@@ -26,7 +26,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function searchContractors($search)
     {
-        $users = User::where('name', 'like', '%'.$search->contractorSearch.'%')->get();
+        $users = User::whereRaw('CONCAT(first_name, " ", last_name) like ?', ['%'.$search->contractorSearch.'%'])->get();
         return $users->filter(function ($user) {
             return $user->hasRole('contractor');
         });

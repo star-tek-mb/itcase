@@ -7,9 +7,9 @@ use App\Models\Tender;
 use App\Models\TenderRequest;
 use Carbon\Carbon;
 use App\Models\User;
-use http\Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
+use App\Notifications\TenderContractorFinished;
 
 class TenderRepository implements TenderRepositoryInterface
 {
@@ -54,6 +54,7 @@ class TenderRepository implements TenderRepositoryInterface
                 }
             )->first() != null;
     }
+
     public function TenderSearch($search)
     {
         $query = Tender::whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason');
@@ -273,5 +274,20 @@ class TenderRepository implements TenderRepositoryInterface
         $tender->published_at = now();
         $tender->save();
         return $tender;
+    }
+
+    public function contractorComplete($tenderId)
+    {
+        $tender = $this->get($tenderId);
+        Notification::send($tender->owner, new TenderContractorFinished($tender));
+        return redirect()->back()->with('success', __('Ваш запрос отправлен заказчику'));
+    }
+
+    public function customerCompleted($tenderId)
+    {
+        $tender = $this->get($tenderId);
+        $tender->status = 'finished';
+        $tender->opened = false;
+        return redirect()->back()->with('success', __('Ваше задание выполнено и закрыто'));
     }
 }

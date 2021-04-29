@@ -105,8 +105,7 @@ a:focus {
   box-shadow: none;
 }
 .btn-light-green {
-  background-color: #ff6b01;
-  border-color: #ff6b01;
+  background: linear-gradient(90deg, #00366D 0%, #2E3F9D 100%);
   color: #fff;
 }
 .btn-light-green:hover {
@@ -174,11 +173,11 @@ a:focus {
   z-index: 10;
   background-color: transparent;
 }
-.home .header-site a {
+/* .home .header-site a {
   color: #000;
-}
+} */
 .home .header-site .btn-toggle {
-  color: #fff;
+  color: #000;
 }
 .qdesk-logo .qdesk-logo-white {
   display: none;
@@ -204,6 +203,11 @@ a:focus {
   min-height: 60px;
   position: relative;
   background: #fff;
+}
+@media only screen and (min-width: 992px) {
+  .header-wrap {
+    padding: 0 50px;
+  }
 }
 @media only screen and (min-width: 992px) {
   .header-left {
@@ -481,6 +485,19 @@ a:focus {
 .main-menu > li.active > a {
   color: #ff6b01;
 }
+
+.header-menu-item a span {
+  color: #fff;
+  border-radius: 6px;
+  padding: 1px 5px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #00366D 0%, #2E3F9D 100%);
+}
+
+.enter_new_order a {
+  color: #ff6b01 !important;
+}
+
 .sub-menu {
   position: absolute;
   left: 0;
