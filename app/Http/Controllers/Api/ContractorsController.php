@@ -90,14 +90,17 @@ class ContractorsController extends Controller
     public function contractorSearch(Request $request)
     {
         $contractors = $this->users->searchContractors($request);
-
+        $category_id = $request->category_id;
         $contractorsCount = $contractors->count();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
         foreach ($contractors as $contractor) {
             $comments = $this->users->getComments($contractor->id);
             $mean = (int) collect($comments)->avg('assessment');
             $contractor->mean = $mean;
-            $contractor->categories = $contractor->categories->map(function ($categories){
+            $contractor->categories = $contractor->categories->map(function ($categories) use($category_id,$contractor){
+                if ($category_id == $categories->id){
+                    $contractor->pivot = $categories->pivot;
+                }
                 return [
                     'ru_title' => $categories->ru_title,
                     'en_title' => $categories->en_title,
