@@ -89,10 +89,7 @@ class ContractorsController extends Controller
 
     public function contractorSearch(Request $request)
     {
-        $category_id = 0;
-        if ($request->has('category_id')){
-            $category_id = $request->category_id;
-        }
+
 
         $contractors = $this->users->searchContractors($request);
 
@@ -102,16 +99,14 @@ class ContractorsController extends Controller
             $comments = $this->users->getComments($contractor->id);
             $mean = (int) collect($comments)->avg('assessment');
             $contractor->mean = $mean;
-            $contractor->categories = $contractor->categories->map(function ($categories) use($category_id,$contractor){
-                if ($category_id == $categories->id){
-                    $contractor->pivot = $categories->pivot;
-                }
+            $contractor->categories = $contractor->categories->map(function ($categories){
                 return [
                     'ru_title' => $categories->ru_title,
                     'en_title' => $categories->en_title,
                     'uz_title' => $categories->uz_title,
                 ];
             })->all();
+            $contractor->pivot = $contractor->categories[0]->pivot;
         }
         return response()->json([
             'contractors'=>$contractors,
