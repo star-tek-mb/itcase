@@ -107,7 +107,7 @@ class ContractorsController extends Controller
                     'uz_title' => $categories->uz_title,
                 ];
             })->all();
-            $contractor->pivot = $contractor->categories[0]->pivot;
+
         }
         return response()->json([
             'contractors'=>$contractors,
