@@ -89,8 +89,13 @@ class ContractorsController extends Controller
 
     public function contractorSearch(Request $request)
     {
+        $category_id = 0;
+        if ($request->has('category_id')){
+            $category_id = $request->category_id;
+        }
+
         $contractors = $this->users->searchContractors($request);
-        $category_id = $request->category_id;
+
         $contractorsCount = $contractors->count();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
         foreach ($contractors as $contractor) {
