@@ -21,6 +21,7 @@ Route::namespace('Api')->group(function () {
 
     // Account routes
     Route::get('/account/seeAccount/{user_id}', 'AccountController@index');
+    Route::get('/account/notification', 'AccountController@notification');
     Route::get('/account/notifications/markAsRead', 'AccountController@markNotificationsAsRead');
     Route::get('/account/create', 'AccountController@create');
     Route::post('/account/create', 'AccountController@store');

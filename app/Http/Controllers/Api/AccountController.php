@@ -107,6 +107,11 @@ class AccountController extends Controller
         }
     }
 
+    public  function notification(){
+        $user = auth()->user();
+
+    }
+
     public function create(Request $request, OctoService $octo)
     {
         $user = auth()->user();
