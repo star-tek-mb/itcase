@@ -107,9 +107,29 @@ class AccountController extends Controller
         }
     }
 
+    public  function notificationRead(){
+        auth()->user()->unreadNotifications->markAsRead();
+        return response()->json('', 200);
+    }
+
     public  function notification(){
         $user = auth()->user();
+        $notification = User::find(110)->notifications()->orderBy('id','DESC')->get()->map(function ($notification){
+               $type = $this->userRepository->getTyep($notification->type);
+                $notification->type = $type;
+                $notification->isRead = $notification->read_at != null;
+                return $notification;
+            });
+        return response()->json($notification, 200);
+    }
 
+    public  function notificationCount(int $id_last){
+
+        $user = auth()->user();
+        $count = $user->unreadNotifications()->where('id','>',$id_last)->count();
+        $last_id = $user->unreadNotifications()->orderBy('id','DESC')->first();
+
+        return response()->json(['number'=>$count, 'last_id'=>$last_id],200);
     }
 
     public function create(Request $request, OctoService $octo)

@@ -11,6 +11,13 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 
+use App\Notifications\RequestAction;
+use App\Notifications\InviteRequest;
+use App\Notifications\NewRequest;
+use App\Notifications\TenderContractorFinished;
+use App\Notifications\TenderCreated;
+use App\Notifications\TenderPublished;
+
 class UserRepository implements UserRepositoryInterface
 {
 
@@ -229,6 +236,26 @@ class UserRepository implements UserRepositoryInterface
         return $user;
     }
 
+    public  function  getTyep($type){
+        if ($type == InviteRequest::class){
+            return 0;
+        }
+        else if ($type == NewRequest::class){
+            return  1;
+        }
+        else if ($type == RequestAction::class){
+            return  2;
+        }
+        else if ($type == TenderContractorFinished::class){
+            return  3;
+        }
+        else if ($type == TenderCreated::class){
+            return  4;
+        }
+        else if ($type == TenderPublished::class){
+            return  5;
+        }
+    }
     /**
      * @inheritDoc
      */
