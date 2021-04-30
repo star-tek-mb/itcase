@@ -129,12 +129,12 @@ class AccountController extends Controller
         return response()->json(['notification'=>$notification], 200);
     }
 
-    public  function notificationCount(int $id_last){
+    public  function notificationCount(){
 
         $user = auth()->user();
-        $count = $user->unreadNotifications()->where('id','>',$id_last)->count();
-        $last_id = $user->unreadNotifications()->orderBy('id','DESC')->first();
-        return response()->json(['number'=>$count, 'last_id'=>$last_id],200);
+        $count = $user->unreadNotifications()->count();
+
+        return response()->json(['number'=>$count],200);
     }
 
     public function create(Request $request, OctoService $octo)
