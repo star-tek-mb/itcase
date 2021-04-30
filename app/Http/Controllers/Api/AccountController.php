@@ -107,7 +107,8 @@ class AccountController extends Controller
         }
     }
 
-    public  function notificationDelete(int $id){
+    public  function notificationDelete(Request $request){
+        $id = $request->id;
         $notification = auth()->user()->notifications()->where('id', $id)->first();
         $notification->delete();
         return response()->json('',200);
@@ -126,7 +127,7 @@ class AccountController extends Controller
                 $notification->isRead = $notification->read_at != null;
                 return $notification;
             });
-        return response()->json(['notification'=>$notification], 200);
+            return response()->json(['notification'=>$notification], 200);
     }
 
     public  function notificationCount(){

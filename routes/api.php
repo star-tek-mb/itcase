@@ -25,7 +25,7 @@ Route::namespace('Api')->group(function () {
     Route::get('/account/notification', 'AccountController@notification');
     Route::get('/account/notifications/markAsRead', 'AccountController@notificationRead');
     Route::get('/account/notifications/update', 'AccountController@notificationCount');
-    Route::get('/account/notifications/delete/{last_id}', 'AccountController@notificationDelete');
+    Route::post('/account/notifications/delete', 'AccountController@notificationDelete');
 
     Route::get('/account/create', 'AccountController@create');
     Route::post('/account/create', 'AccountController@store');
