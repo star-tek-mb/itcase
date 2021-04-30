@@ -113,7 +113,7 @@ class TenderRepository implements TenderRepositoryInterface
 
     public function allOrderedByCreatedAtAdmin($withoutContractors = false)
     {
-        $query = Tender::whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason');
+        $query = Tender::whereNotNull('owner_id')->whereNull('delete_reason');
         if ($withoutContractors) {
             $query = $query->whereNull('contractor_id');
         }
