@@ -121,7 +121,7 @@ class AccountController extends Controller
 
     public  function notification(){
         $user = auth()->user();
-        $notification = $user->notifications()->orderBy('id','DESC')->get()->map(function ($notification){
+        $notification = $user->notifications()->orderBy('created_at','DESC')->get()->map(function ($notification){
                $type = $this->userRepository->getType($notification->type);
                 $notification->type = $type;
                 $notification->isRead = $notification->read_at != null;
