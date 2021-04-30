@@ -236,7 +236,7 @@ class UserRepository implements UserRepositoryInterface
         return $user;
     }
 
-    public  function  getTyep($type){
+    public  function  getType($type){
         if ($type == InviteRequest::class){
             return 0;
         }
