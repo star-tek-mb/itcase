@@ -235,7 +235,7 @@ class AccountController extends Controller
     {
         if ($request->isMethod('post')) {
             $user = auth()->user();
-            if ($user->roles()->where('name', 'contractor')->first()) {
+            if ($user->roles()->where('name', 'contractor')->first() == null) {
                 $user->roles()->attach(Role::where('name', 'contractor')->first()->id);
             }
             $categories = collect();
