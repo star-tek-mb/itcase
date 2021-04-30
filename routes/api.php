@@ -21,9 +21,12 @@ Route::namespace('Api')->group(function () {
 
     // Account routes
     Route::get('/account/seeAccount/{user_id}', 'AccountController@index');
+
     Route::get('/account/notification', 'AccountController@notification');
     Route::get('/account/notifications/markAsRead', 'AccountController@notificationRead');
     Route::get('/account/notifications/update/{last_id}', 'AccountController@notificationCount');
+    Route::get('/account/notifications/delete/{last_id}', 'AccountController@notificationDelete');
+
     Route::get('/account/create', 'AccountController@create');
     Route::post('/account/create', 'AccountController@store');
     Route::post('/account/contractor/profile/save', 'AccountController@savePersonalContractor');
