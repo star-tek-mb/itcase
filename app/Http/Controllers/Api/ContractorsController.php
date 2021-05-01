@@ -210,13 +210,13 @@ class ContractorsController extends Controller
                     $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
                 }
                 $adminUsers = $this->users->getAdmins();
-                Notification::send($adminUsers, new RequestAction('accepted', $request));
+                Notification::send($adminUsers, new RequestAction('accepted_by_contractor', $request));
             } catch (\Swift_TransportException $e) {
 
             }
 
             return response()->json([
-                'success' => 'Исполнитель на этот конкурс назначен! Администратор сайта с вами свяжется и вы получите инструкции, необходимые для того, чтобы исполнитель приступил к работе.'
+                'success' => 'Вы приняли пришлашение. Скоро свами свяжуться'
             ],200);
         } else {
             return response()->json([
@@ -229,6 +229,7 @@ class ContractorsController extends Controller
         $user = auth()->user();
         $tenderId = $request->tenderId;
         $requestGet = $user->requests()->where('tender_id',$tenderId)->where('invited', 1)->first();
+        $requestGet->tender->owner->notifiy(new RequestAction('rejected_by_contractor', $requestGet));
         $requestGet->delete();
         return response()->json([
             'success' => 'Вы успешно отклонили предложение'
