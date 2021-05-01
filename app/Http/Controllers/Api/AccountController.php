@@ -406,7 +406,7 @@ class AccountController extends Controller
             $user_id = $request->user_id;
         }
 
-        $response = $user->requests()->select('tenders.*')->join('tenders', 'tenders.id', '=', 'tender_requests.tender_id')->where('contractor_id', '=', $user_id)->orderBy('id', 'desc')->paginate(5);
+        $response = $this->userRepository->get($user_id)->requests()->select('tenders.*')->join('tenders', 'tenders.id', '=', 'tender_requests.tender_id')->where('contractor_id', '=', $user_id)->orderBy('id', 'desc')->paginate(5);
         $tendersCount = $response->count();
         return response()->json([
             'tenders' => $response,
