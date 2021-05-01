@@ -313,13 +313,17 @@ class AccountController extends Controller
     public function guestTenders(int $user_id)
     {
         $user = $this->userRepository->get($user_id);
-        $tenders = $user->ownedTenders()->where('published', true)->orderBy('created_at', 'desc')->paginate(5);
+        $tenders = $user->ownedTenders()->where('published', true)->whereNull('delete_reason')->orderBy('created_at', 'desc')->paginate(5);
         $tendersCount = $tenders->total();
         return response()->json([
             'tenders' => $tenders,
             'tendersCount' => $tendersCount
         ]);
     }
+    public  function  guestRequests(int $user_id){
+
+    }
+
   // for inviting contractors
     public function shortTenders(int $contractorID)
     {
@@ -394,10 +398,14 @@ class AccountController extends Controller
         }
     }
 
-    public function requestsAccepted()
+    public function requestsAccepted(Request $request)
     {
         $user = auth()->user();
         $user_id = $user->id;
+        if($request->has('user_id')){
+            $user_id = $request->user_id;
+        }
+
         $response = $user->requests()->select('tenders.*')->join('tenders', 'tenders.id', '=', 'tender_requests.tender_id')->where('contractor_id', '=', $user_id)->orderBy('id', 'desc')->paginate(5);
         $tendersCount = $response->count();
         return response()->json([
