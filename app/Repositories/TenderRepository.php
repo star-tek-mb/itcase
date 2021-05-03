@@ -39,7 +39,7 @@ class TenderRepository implements TenderRepositoryInterface
     }
 
     public  function  onlyOpened(){
-        return Tender::whereNotNull('owner_id')->where('opened',1)->where('published', true)->whereDate('deadline','>=',Carbon::now())->whereNull('delete_reason')->paginate(5);
+        return Tender::whereNotNull('owner_id')->where('opened',1)->where('published', true)->whereDate('deadline','>=',Carbon::now())->whereNull('delete_reason')->orderBy('id', 'desc')->paginate(5);
     }
 
     public function checkPermission($owner_id , $user_id){
