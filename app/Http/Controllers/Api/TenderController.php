@@ -362,7 +362,12 @@ class TenderController extends Controller
                 if ($otherRequest->user_id == $request->user_id) {
                     continue;
                 }
-                $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
+                try {
+                    $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
+                }
+                catch (\Swift_TransportException $e){
+
+                }
             }
             $adminUsers = $this->userRepository->getAdmins();
 
