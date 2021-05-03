@@ -202,13 +202,15 @@ class ContractorsController extends Controller
             $tenderRequest->user->victories_count += 1;
             $tenderRequest->user->save();
             $requests = $tenderRequest->tender->requests;
+            $tender->owner->notify(new RequestAction('accepted_by_contractor',$tenderRequest));
             try {
                 foreach ($requests as $otherRequest) {
-                    if ($otherRequest->user_id == $request->user_id) {
+                    if ($otherRequest->user_id == $user->id) {
                         continue;
                     }
                     $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
                 }
+
                 $adminUsers = $this->users->getAdmins();
                 Notification::send($adminUsers, new RequestAction('accepted_by_contractor', $request));
             } catch (\Swift_TransportException $e) {
