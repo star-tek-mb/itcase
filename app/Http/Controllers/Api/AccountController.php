@@ -418,7 +418,7 @@ class AccountController extends Controller
     {
         $user = auth()->user();
         $user_id = $user->id;
-        $response = $user->requests()->select('tenders.*')->join('tenders', 'tenders.id', '=', 'tender_requests.tender_id')->where('contractor_id', '!=', $user_id)->orderBy('id', 'desc')->paginate(5);
+        $response = $user->requests()->select('tenders.*')->join('tenders', 'tenders.id', '=', 'tender_requests.tender_id')->whereNull('tenders.contractor_id')->orderBy('id', 'desc')->paginate(5);
 
         return response()->json([
             'tenders' => $response,
