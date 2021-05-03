@@ -231,7 +231,7 @@ class ContractorsController extends Controller
         $user = auth()->user();
         $tenderId = $request->tenderId;
         $requestGet = $user->requests()->where('tender_id',$tenderId)->where('invited', 1)->first();
-        $requestGet->tender->owner->notifiy(new RequestAction('rejected_by_contractor', $requestGet));
+        $requestGet->tender->owner->notify(new RequestAction('rejected_by_contractor', $requestGet));
         $requestGet->delete();
         return response()->json([
             'success' => 'Вы успешно отклонили предложение'
