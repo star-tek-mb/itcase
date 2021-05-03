@@ -202,8 +202,9 @@ class ContractorsController extends Controller
             $tenderRequest->user->victories_count += 1;
             $tenderRequest->user->save();
             $requests = $tenderRequest->tender->requests;
-            $tender->owner->notify(new RequestAction('accepted_by_contractor',$tenderRequest));
             try {
+            $tender->owner->notify(new RequestAction('accepted_by_contractor',$tenderRequest));
+
                 foreach ($requests as $otherRequest) {
                     if ($otherRequest->user_id == $user->id) {
                         continue;
