@@ -217,14 +217,14 @@ class ContractorsController extends Controller
                     continue;
                 }
                 try {
-                    $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
+                    $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $tender));
                 } catch (\Swift_TransportException $e) {
 
                 }
             }
 
             $adminUsers = $this->users->getAdmins();
-            Notification::send($adminUsers, new RequestAction('accepted_by_contractor', $request));
+            Notification::send($adminUsers, new RequestAction('accepted_by_contractor', $tenderRequest));
 
             return response()->json([
                 'success' => 'Вы приняли пришлашение. Скоро свами свяжуться'
