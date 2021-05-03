@@ -231,7 +231,12 @@ class ContractorsController extends Controller
         $user = auth()->user();
         $tenderId = $request->tenderId;
         $requestGet = $user->requests()->where('tender_id',$tenderId)->where('invited', 1)->first();
-        $requestGet->tender->owner->notify(new RequestAction('rejected_by_contractor', $requestGet));
+        try {
+            $requestGet->tender->owner->notify(new RequestAction('rejected_by_contractor', $requestGet));
+        }
+        catch (\Swift_TransportException $e) {
+
+        }
         $requestGet->delete();
         return response()->json([
             'success' => 'Вы успешно отклонили предложение'
