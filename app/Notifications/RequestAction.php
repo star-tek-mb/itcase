@@ -59,35 +59,18 @@ class RequestAction extends Notification
      */
     public function toArray($notifiable)
     {
-        if ($this->type === 'rejected') {
-            return [
-                'type' => $this->type,
-                'tenderName' => $this->tender->title,
-                'customerName' => $this->tender->owner->getCommonTitle(),
-                'tenderId' => $this->request->tender_id,
-                'tenderSlug' => $this->tender->slug
-            ];
-        } elseif ($this->type === 'accepted') {
-            return [
-                'type' => $this->type,
-                'tenderName' => $this->request->tender->title,
-                'customerName' => $this->request->tender->owner->getCommonTitle(),
-                'tenderId' => $this->request->tender_id,
-                'tenderSlug' => $this->request->tender->slug,
-                'customerSlug' => $this->request->tender->owner->slug,
-                'customerId' => $this->request->tender->owner->id,
-                'contractorSlug' => $this->request->user->slug,
-                'contractorId' => $this->request->user->id,
-                'contractorName' => $this->request->user->getCommonTitle()
-            ];
-        } else {
-            return [
-                'type' => $this->type,
-                'tenderName' => $this->request->tender->title,
-                'contractorName' => $this->request->user->getCommonTitle(),
-                'tenderId' => $this->request->tender_id,
-            ];
-        }
+        return [
+            'type' => $this->type,
+            'tenderName' => $this->request->tender->title,
+            'customerName' => $this->request->tender->owner->getCommonTitle(),
+            'tenderId' => $this->request->tender_id,
+            'tenderSlug' => $this->request->tender->slug,
+            'customerSlug' => $this->request->tender->owner->slug,
+            'customerId' => $this->request->tender->owner->id,
+            'contractorSlug' => $this->request->user->slug,
+            'contractorId' => $this->request->user->id,
+            'contractorName' => $this->request->user->getCommonTitle()
+        ];
     }
 
     /**
