@@ -111,15 +111,19 @@ class ChatsController extends Controller
     }
 
     //FOR NOTIFICATION
-    public function notificationLastMessages()
+    public function notificationLastMessages(Request $request)
     {
         $user = auth()->user();
         $id = $user->id;
         $response = [];
         $chats = $user->chats;
+        $chat_id =0;
+        if ($request->has('chat_id')){
+            $chat_id = $request->chat_id;
+        }
         if($chats) {
             foreach ($chats as $chat) {
-                $message = $chat->messages()->orderBy('id', 'DESC')->first();
+                $message = $chat->messages()->where('chat_id','!=',$chat_id)->orderBy('id', 'DESC')->first();
                 if($message == null){
                     continue;
                 }
@@ -143,28 +147,6 @@ class ChatsController extends Controller
             return response()->json($response, 200);
         }
         return  response()->json([],404);
-//        $chats = $user->chats()->get()->map(function (Chat  $chat) use ($id) {
-//            return $chat->messages()->get()->reject(function (Message $message) use ($id){
-//                return $message->user->id == $id || $message->read != 0;
-//            })->map(function (Message $message) {
-//                $user = $message->user;
-//                $response = [
-//                    'chat_id' => $message->chat_id,
-//                    'user' => [
-//                        'id' => $user->id,
-//                        'first_name' => $user->first_name,
-//                        'last_name' => $user->last_name,
-//                        'last_online_at' => $user->last_online_at,
-//                        'image' => $user->image,
-//                    ],
-//                    'last_message'=>$message,
-//                    'unread' =>0,
-//                ];
-//                unset($message->user);
-//                return $response;
-//            });
-//        });
-
     }
 
     // checking message was read or not

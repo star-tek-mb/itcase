@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class RequestAction extends Notification
+class InvitationResponse extends Notification
 {
     use Queueable;
 
@@ -60,13 +60,7 @@ class RequestAction extends Notification
     public function toArray($notifiable)
     {
         if ($this->type === 'rejected') {
-            return [
-                'type' => $this->type,
-                'tenderName' => $this->tender->title,
-                'customerName' => $this->tender->owner->getCommonTitle(),
-                'tenderId' => $this->request->tender_id,
-                'tenderSlug' => $this->tender->slug
-            ];
+
         } elseif ($this->type === 'accepted') {
             return [
                 'type' => $this->type,
@@ -82,10 +76,7 @@ class RequestAction extends Notification
             ];
         } else {
             return [
-                'type' => $this->type,
-                'tenderName' => $this->request->tender->title,
-                'contractorName' => $this->request->user->getCommonTitle(),
-                'tenderId' => $this->request->tender_id,
+                //
             ];
         }
     }

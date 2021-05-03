@@ -87,11 +87,10 @@ class TenderController extends Controller
         ]);
     }
 
-    public  function openedTenders()
+    public function openedTenders()
     {
-        $tenders  = $this->tenderRepository->onlyOpened();
+        $tenders = $this->tenderRepository->onlyOpened();
         $currentCategory = null;
-
         $tendersCount = $tenders->count();
         return response()->json([
             'tenders' => $tenders,
@@ -225,9 +224,9 @@ class TenderController extends Controller
 
     public function store(Request $request)
     {
-        if (auth()->user()) {
-            auth()->user()->authorizeRole('customer');
-        }
+//        if (auth()->user()) {
+//            auth()->user()->authorizeRole('customer');
+//        }
         $validator = Validator::make($request->all(), [
             'categories' => 'required',
             'title' => 'required|string|max:255',
@@ -245,7 +244,7 @@ class TenderController extends Controller
             Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
         } catch (\Exception $e) {
 
-        }finally {
+        } finally {
             return response()->json([
                 'success' => "Тендер $tender->title создан и отправлен на модерацию!"
             ], 200);
@@ -292,7 +291,8 @@ class TenderController extends Controller
         if ($rejected) {
             try {
                 $tenderRequest->user->notify(new RequestAction('rejected', $tenderRequest, $tender));
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+            }
             foreach (auth()->user()->chats as $chat) {
                 if ($chat->getAnotherUser()->id === $tenderRequest->user_id) {
                     $chat->delete();
@@ -328,11 +328,9 @@ class TenderController extends Controller
             'email' => 'Неверный формат электронной почты'
         ];
         Validator::make($request->all(), [
-            'categories' => 'required',
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:5000',
             'files' => 'nullable',
-            'budget' => 'required',
             'deadline' => 'required|date'
         ], $validationMessages)->validate();
         $this->tenderRepository->update($id, $request);
@@ -343,26 +341,39 @@ class TenderController extends Controller
 
     public function delete(Request $request, int $id)
     {
-        $this->tenderRepository->delete($id, $request->delete_reason);
+        $tender = $this->tenderRepository->get($id);
+        $tender->delete_reason = $request->delete_reason;
+        $tender->opened = 0;
+        $tender->save();
+        Log::info($request->delete_reason);
+        Log::info($request->isMethod('put'));
         return response()->json([
             'success' => 'Конкурс удалён'
-        ]);
+        ], 200);
     }
 
     public function acceptTenderRequest(Request $request, int $tenderId, int $requestId)
     {
-        $redirectTo = $request->get('redirect_to');
+
         if ($request = $this->tenderRepository->acceptRequest($tenderId, $requestId)) {
-            $request->user->notify(new RequestAction('accepted', $request));
+            try {
+                $request->user->notify(new RequestAction('accepted', $request));
+            } catch (\Swift_TransportException $e) {
+
+            }
             $requests = $request->tender->requests;
             try {
-            foreach ($requests as $otherRequest) {
-                if ($otherRequest->user_id == $request->user_id) {
-                    continue;
+                foreach ($requests as $otherRequest) {
+                    if ($otherRequest->user_id == $request->user_id) {
+                        continue;
+                    }
+                    try {
+                        $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
+                    } catch (\Swift_TransportException $e) {
+
+                    }
                 }
-                $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
-            }
-            $adminUsers = $this->userRepository->getAdmins();
+                $adminUsers = $this->userRepository->getAdmins();
 
                 Notification::send($adminUsers, new RequestAction('accepted', $request));
             } catch (\Swift_TransportException $e) {
@@ -370,11 +381,11 @@ class TenderController extends Controller
             }
             return response()->json([
                 'success' => 'Исполнитель на этот конкурс назначен! Администратор сайта с вами свяжется и вы получите инструкции, необходимые для того, чтобы исполнитель приступил к работе.'
-            ],200);
+            ], 200);
         } else {
             return response()->json([
                 'success' => 'Невозможно назначить исполнителя на этот конкурс'
-            ],401);
+            ], 401);
         }
     }
 }

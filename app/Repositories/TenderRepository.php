@@ -39,7 +39,7 @@ class TenderRepository implements TenderRepositoryInterface
     }
 
     public  function  onlyOpened(){
-        return Tender::whereNotNull('owner_id')->where('opened',1)->where('published', true)->whereDate('deadline','>=',Carbon::now())->whereNull('delete_reason')->paginate(5);
+        return Tender::whereNotNull('owner_id')->where('opened',1)->where('published', true)->whereDate('deadline','>=',Carbon::now())->whereNull('delete_reason')->orderBy('id', 'desc')->paginate(5);
     }
 
     public function checkPermission($owner_id , $user_id){
@@ -165,9 +165,11 @@ class TenderRepository implements TenderRepositoryInterface
         }
         $tender->update($tenderData);
         $tender->saveFiles($data->file('files'));
-        $tender->categories()->detach();
-        foreach ($data->get('categories') as $categoryId) {
-            $tender->categories()->attach($categoryId);
+        if(array_key_exists('categories', $tenderData)) {
+            $tender->categories()->detach();
+            foreach ($data->get('categories') as $categoryId) {
+                $tender->categories()->attach($categoryId);
+            }
         }
     }
 
@@ -178,6 +180,7 @@ class TenderRepository implements TenderRepositoryInterface
     {
         $tender = Tender::find($id);
         $tender->forceFill([
+            'opened' => 0,
             'delete_reason' => $reason
         ])->save();
     }

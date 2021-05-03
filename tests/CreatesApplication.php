@@ -4,7 +4,7 @@ namespace Tests;
 
 use Illuminate\Contracts\Console\Kernel;
 
-trait CreatesApplication
+trait phpCreatesApplication
 {
     /**
      * Creates the application.
