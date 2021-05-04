@@ -167,10 +167,10 @@
                                                                         Открыт @endif</a></span></h3>
                                                         <div class="date-job">
                                                             <i class="fa fa-check-circle"></i><span
-                                                                    class="company-name">Опубликован: {{ \Carbon\Carbon::create($tender->published_at)->format('d.m.Y') }}</span>
+                                                                    class="company-name">Опубликован: {{ $tender->published_at->format('d.m.Y') }}</span>
                                                             <div class="date-job"><i
                                                                         class="fa fa-check-circle"></i><span
-                                                                        class="company-name">Крайний срок приема заявок: {{ \Carbon\Carbon::create($tender->deadline)->format('d.m.Y') }}</span>
+                                                                        class="company-name">Крайний срок приема заявок: {{ $tender->deadline->format('d.m.Y') }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="meta-job">

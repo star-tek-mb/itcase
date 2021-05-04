@@ -58,7 +58,7 @@ class HomeController extends Controller
         }
         $populars = PopularServices::take(4)->get();
         $parentCategories = $this->categories->all();
-        $tenders = $this->tenders->allOrderedByCreatedAt($withoutContractors = true)->take(3);
+        $tenders = $this->tenders->allOrderedByCreatedAt($withoutContractors = true)->take(5);
         $posts = $this->posts->allOrderByDesc()->take(3);
         $comments = Comment::latest()->limit(3)->whereNull('for_set')->get()->reverse();
         return view('site.pages.home', compact('parentCategories', 'tenders', 'posts', 'comments', 'populars'));

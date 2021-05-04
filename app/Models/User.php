@@ -91,6 +91,7 @@ class User extends Authenticatable
         'phone_confirmed_at' => 'datetime',
         'agree_personal_data_processing' => 'boolean',
         'last_online_at' => 'datetime',
+        'birthday_date' => 'datetime'
     ];
 
     private static $UPLOAD_DIRECTORY = 'uploads/users/';

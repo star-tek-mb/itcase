@@ -163,7 +163,7 @@
                                     сум </span>
                                 <span><i class="fas fa-building"></i> Место оказания услуг: {{ __($tender->place) }}</span>
                                 <span class="mail"><i
-                                            class="far fa-calendar"></i>Опубликовано: {{ \Carbon\Carbon::create($tender->published_at)->format('d.m.Y') }}</span>
+                                            class="far fa-calendar"></i>Опубликовано: {{ tender->published_at->format('d.m.Y') }}</span>
                                 <span><i class="fas fa-calendar-times"></i>Крайний срок приёма заявок: {{ $tender->deadline }}</span>
                                 <span><i class="fas fa-calendar-times"></i>Дата начала работ: {{ optional($tender->work_start_at)->format('d.m.Y H:i') }}</span>
                                 <span><i class="fas fa-calendar-times"></i>Дата окончания работ: {{ optional($tender->work_end_at)->format('d.m.Y H:i') }}</span>

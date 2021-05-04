@@ -22,6 +22,8 @@ class Tender extends Model
         'email_subscription' => 'boolean',
         'work_start_at' => 'datetime',
         'work_end_at' => 'datetime',
+        'deadline' => 'datetime',
+        'published_at' => 'datetime',
         'budget' => 'integer'
     ];
 
@@ -163,7 +165,7 @@ class Tender extends Model
 
     public function checkDeadline()
     {
-        $deadline = Carbon::create($this->deadline)->setHour(23)->setMinute(59)->setSecond(59);
+        $deadline = $this->deadline->setHour(23)->setMinute(59)->setSecond(59);
         return now() < $deadline;
     }
 
