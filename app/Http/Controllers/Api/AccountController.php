@@ -175,30 +175,7 @@ class AccountController extends Controller
         ]);
     }
 
-    public function savePersonalContractor(Request $request)
-    {
-        $user = auth()->user();
-        $user->authorizeRole('contractor');
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required|max:255|string',
-            'last_name' => 'required|max:255|string',
-            'about_myself' => 'required|string|max:5000',
-            'company_name' => Rule::requiredIf($user->contractor_type == 'legal_entity'),
-            'phone_number' => 'required',
-            'city' => 'required',
-            'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
-            'newPasswordRepeat' => 'nullable|min:6',
-            'currentPassword' => 'nullable|password|required_with:newPassword',
-            'resume' => 'sometimes|mimes:jpeg,pdf,jpg',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 500);
-        }
-        $this->userRepository->update($user->id, $request);
-        return response()->json([
-            'message' => 'Ваши личные данные обновлены'
-        ]);
-    }
+
     public  function changePassword(Request $request){
         $user = auth()->user();
         $validator = Validator::make($request->all(), [
@@ -219,7 +196,7 @@ class AccountController extends Controller
     public function professional()
     {
         $user = auth()->user();
-        $user->authorizeRole('contractor');
+//        $user->authorizeRole('contractor');
         $chosenSpecs = $user->categories()->pluck('category_id')->toArray();
         $accountPage = 'professional';
         $categories = $this->categoryRepository->all()->load('categories');
@@ -283,7 +260,7 @@ class AccountController extends Controller
     public function saveCustomerProfile(Request $request)
     {
         $user = auth()->user();
-        $user->authorizeRole('customer');
+//        $user->authorizeRole('customer');
         $validator = Validator::make($request->all(), [
 //            'image' => 'required|image',
             'company_name' => [Rule::requiredIf($user->customer_type == 'legal_entity')],
@@ -308,6 +285,31 @@ class AccountController extends Controller
 
         return response()->json([
             'message' => 'Ваш профиль обновлён']);
+    }
+
+    public function savePersonalContractor(Request $request)
+    {
+        $user = auth()->user();
+//        $user->authorizeRole('contractor');
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|max:255|string',
+            'last_name' => 'required|max:255|string',
+            'about_myself' => 'required|string|max:5000',
+            'company_name' => Rule::requiredIf($user->contractor_type == 'legal_entity'),
+            'phone_number' => 'required',
+            'city' => 'required',
+            'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
+            'newPasswordRepeat' => 'nullable|min:6',
+            'currentPassword' => 'nullable|password|required_with:newPassword',
+            'resume' => 'sometimes|mimes:jpeg,pdf,jpg',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 500);
+        }
+        $this->userRepository->update($user->id, $request);
+        return response()->json([
+            'message' => 'Ваши личные данные обновлены'
+        ]);
     }
 
     public function guestTenders(int $user_id)

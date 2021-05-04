@@ -223,8 +223,8 @@ class ContractorsController extends Controller
                 }
             }
 
-            $adminUsers = $this->users->getAdmins();
-            Notification::send($adminUsers, new RequestAction('accepted_by_contractor', $tenderRequest));
+//            $adminUsers = $this->users->getAdmins();
+//            Notification::send($adminUsers, new RequestAction('accepted_by_contractor', $tenderRequest));
 
             return response()->json([
                 'success' => 'Вы приняли пришлашение. Скоро свами свяжуться'
