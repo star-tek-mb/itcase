@@ -15,11 +15,13 @@ class CreateVacanciesTable extends Migration
     {
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vacancy_category_id')->constrained();
+            $table->foreignId('vacancy_category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained();
             $table->string('city');
             $table->json('title');
             $table->json('description');
+            $table->string('budget')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }

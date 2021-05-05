@@ -17,7 +17,7 @@
   <meta name="description" content="" />
   <meta name="keywords" content="" />
 
-  <title>Didit</title>
+  <title>ITCASE</title>
   <link rel="stylesheet" href="/resources/css/plugins/swiper.min.css" />
   <link rel="stylesheet" href="/resources/css/plugins/magnific-popup.min.css" />
   <link rel="stylesheet" href="/resources/css/style.css" />
@@ -621,39 +621,13 @@
           <h4>Вакансии дня в Ташкенте</h4>
 
           <ul class="vacancies__list">
+            @foreach ($vacancies as $vacancy)
             <li>
-              <a href="#">Офис-менеджер/HR ассистент</a>
-              з/п не указана <br>
-              SBAM TRADE, Ташкент
+              <a href="#">{{ $vacancy->title }}</a>
+              {{ $vacancy->budget }} <br>
+              {{ $vacancy->address }}
             </li>
-
-
-            <li>
-              <a href="#">Менеджер по продажам</a>
-              от 350 до 1 000 USD <br>
-              OLKAR TASHKENT, Ташкент
-            </li>
-
-
-            <li>
-              <a href="#">Администратор зала в Автосалон</a>
-              от 3 000 000 до 3 300 000 сум <br>
-              HYUNDAI AUTO ASIA, Ташкент
-            </li>
-
-
-            <li>
-              <a href="#">Менеджер по продажам</a>
-              от 2 000 000 до 5 000 000 сум<br>
-              ЧП CHROMOS PRODUCTION, Ташкент
-            </li>
-
-
-            <li>
-              <a href="#">Специалист в call-centre</a>
-              от 960 000 до 1 800 000 сум<br>
-              Open House, Ташкент
-            </li>
+            @endforeach
           </ul>
         </div>
 
@@ -661,45 +635,11 @@
           <h4>Работа по профессиям</h4>
 
           <ul class="vacancies__list">
+            @foreach ($vacancyCategories as $category)
             <li>
-              <a href="#">Для программистов</a>
+              <a href="#">{{ $category->title }}</a>
             </li>
-
-            <li>
-              <a href="#">Для бухгалтеров</a>
-            </li>
-
-            <li>
-              <a href="#">Для инженеров</a>
-            </li>
-
-            <li>
-              <a href="#">Для менеджеров по продажам</a>
-            </li>
-
-            <li>
-              <a href="#">Для директоров</a>
-            </li>
-
-            <li>
-              <a href="#">Для администраторов</a>
-            </li>
-
-            <li>
-              <a href="#">Для маркетологов</a>
-            </li>
-
-            <li>
-              <a href="#">Для дизайнеров</a>
-            </li>
-
-            <li>
-              <a href="#">Для юристов</a>
-            </li>
-
-            <li>
-              <a href="#">Для секретарей</a>
-            </li>
+            @endforeach
           </ul>
         </div>
 
@@ -708,70 +648,75 @@
 
           <ul class="vacancies__list vacancies__list--double">
             <li>
-              <a href="#">Ташкент</a>
-              4 444 вакансии
+              <a href="#">Андижан</a>
+              {{ $vacanciesCount['andijan'] }} вакансии
             </li>
 
 
             <li>
-              <a href="#">Навои</a>
-              4 444 вакансии
-            </li>
-
-
-            <li>
-              <a href="#">Самарканд</a>
-              4 444 вакансии
+              <a href="#">Бухара</a>
+              {{ $vacanciesCount['bukhara'] }} вакансии
             </li>
 
 
             <li>
               <a href="#">Джизак</a>
-              4 444 вакансии
+              {{ $vacanciesCount['jizzakh'] }} вакансии
             </li>
 
+
+            <li>
+              <a href="#">Кашкадарья</a>
+              {{ $vacanciesCount['qashqadaryo'] }} вакансии
+            </li>
+
+
+            <li>
+              <a href="#">Навои</a>
+              {{ $vacanciesCount['navoiy'] }} вакансии
+            </li>
+
+            <li>
+              <a href="#">Наманган</a>
+              {{ $vacanciesCount['namangan'] }} вакансии
+            </li>
+
+            <li>
+              <a href="#">Самарканд</a>
+              {{ $vacanciesCount['samarqand'] }} вакансии
+            </li>
+
+
+            <li>
+              <a href="#">Сурхандарья</a>
+              {{ $vacanciesCount['surxondaryo'] }} вакансии
+            </li>
+
+            <li>
+              <a href="#">Сырдарья</a>
+              {{ $vacanciesCount['sirdaryo'] }} вакансии
+            </li>
+
+            <li>
+              <a href="#">Ташкент</a>
+              {{ $vacanciesCount['tashkent'] }} вакансии
+            </li>
 
             <li>
               <a href="#">Фергана</a>
-              4 444 вакансии
+              {{ $vacanciesCount['fergana'] }} вакансии
             </li>
 
             <li>
-              <a href="#">Чирчик</a>
-              4 444 вакансии
+              <a href="#">Хорезм</a>
+              {{ $vacanciesCount['xorazm'] }} вакансии
             </li>
 
             <li>
-              <a href="#">Андижан</a>
-              4 444 вакансии
+              <a href="#">Каракалпакстан</a>
+              {{ $vacanciesCount['karakalpakstan'] }} вакансии
             </li>
-
-
-            <li>
-              <a href="#">Термез</a>
-              4 444 вакансии
-            </li>
-
-            <li>
-              <a href="#">Бухара</a>
-              4 444 вакансии
-            </li>
-
-            <li>
-              <a href="#">Коканд</a>
-              4 444 вакансии
-            </li>
-
-            <li>
-              <a href="#">Нановить нужно
-                аманган</a>
-              4 444 вакансии
-            </li>
-
-            <li>
-              <a href="#">Карши</a>
-              4 444 вакансии
-            </li>
+            
           </ul>
         </div>
       </div>

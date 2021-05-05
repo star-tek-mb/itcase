@@ -14,6 +14,6 @@ class VacancyCategory extends Model
     ];
 
     public $translatable = [
-        'name'
+        'title'
     ];
 }

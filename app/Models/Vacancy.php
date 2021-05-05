@@ -14,11 +14,18 @@ class Vacancy extends Model
         'title',
         'description',
         'vacancy_category_id',
-        'city'
+        'city',
+        'budget',
+        'address'
     ];
 
     public $translatable = [
         'title',
         'description'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(VacancyCategory::class, 'vacancy_category_id');
+    }
 }
