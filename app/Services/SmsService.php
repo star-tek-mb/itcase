@@ -19,7 +19,7 @@ class SmsService
                     'recipient' => $phone,
                     'message-id' => Str::random(20),
                     'sms' => [
-                        'originator' => '3700',
+                        'originator' => 'ITCASE',
                         'content' => [
                             'text' => $message
                         ]
