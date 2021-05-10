@@ -208,7 +208,7 @@
 	</div>
 </div>
 <div class="mobile_main_footer">
-	<h1 class="mobile_main_footer_text">Powered by <a href="https://vid.uz/">VID.UZ</a></h1>
+	<h1 class="mobile_main_footer_text"><a href="https://itcase.com">ITCASE.com</a></h1>
 </div>
 
 <script src="{{ asset('assets/js/core/jquery.min.js') }}"></script>

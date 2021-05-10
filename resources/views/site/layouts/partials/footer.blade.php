@@ -60,7 +60,7 @@
         </div>
         <div class="footer-bottom d-md-flex text-center justify-content-between">
             <div class="copyright">© {{ now()->year }} <span class="text-green">IT</span><span class="text-white">ICASE.</span>
-                {{ __('Спроектировано') }} <span class="text-white">VID STUDIO</span>. {{ __('Все права защищены.') }}
+                {{ __('Все права защищены.') }}
             </div>
         </div>
     </div>

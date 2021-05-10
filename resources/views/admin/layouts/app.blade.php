@@ -9,7 +9,7 @@
     <title>@yield('title') | TezInfo</title>
 
     <meta name="description" content="Административная панель TezInfo">
-    <meta name="author" content="vid.uz">
+    <meta name="author" content="itcase.com">
     <meta name="robots" content="noindex, nofollow">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <!-- Icons -->
