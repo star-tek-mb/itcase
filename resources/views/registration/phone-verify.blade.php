@@ -44,7 +44,7 @@
           <button class="btn btn-light-green w-100" type="submit">Отправить еще раз</button>
         </form>
         <div class="text-center mt-2">
-          Указали не тот номер телефона? Поменяйте его в своем <a href="http://itcase.test/account">аккаунте</a>
+          Указали не тот номер телефона? Поменяйте его в своем <a href="/account">аккаунте</a>
         </div>
       </div>
 
