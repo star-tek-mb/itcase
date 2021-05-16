@@ -104,4 +104,16 @@ class BlogPost extends Model
             return $this->ru_content;
         }
     }
+
+    public function getSummaryAttribute()
+    {
+        $locale = config('app.locale');
+        if ($locale == 'uz') {
+            return $this->uz_short_content;
+        } else if ($locale == 'en') {
+            return $this->en_short_content;
+        } else {
+            return $this->ru_short_content;
+        }
+    }
 }

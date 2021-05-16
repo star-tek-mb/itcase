@@ -73,6 +73,13 @@ class ContractorsController extends Controller
         }
         $contractorsCount = $contractors->count();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
+        foreach ($contractors as $contractor) {
+            $comments = $this->users->getComments($contractor->id);
+            $mean = (int)collect($comments)->avg('assessment');
+            $contractor->comments = $comments;
+            $contractor->mean = $mean;
+        }
+
         return view('site.pages.contractors.index', compact('category', 'contractors', 'contractorsCount'));
     }
 
@@ -85,6 +92,13 @@ class ContractorsController extends Controller
 
         $contractorsCount = $contractors->count();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
+        foreach ($contractors as $contractor) {
+            $comments = $this->users->getComments($contractor->id);
+            $mean = (int)collect($comments)->avg('assessment');
+            $contractor->comments = $comments;
+            $contractor->mean = $mean;
+        }
+
         return view('site.pages.contractors.index', compact('category', 'contractors', 'contractorsCount'));
     }
 
@@ -96,19 +110,6 @@ class ContractorsController extends Controller
      */
     public function category(Request $request, string $params)
     {
-        if (preg_match('/[A-Z]/', $params)) {
-            return redirect(route('site.catalog.main', strtolower($params)), 301);
-        }
-        if (strpos($params, 'tenders') !== false) {
-            $paramsArray = explode('/', $params);
-            $slug = end($paramsArray);
-            return redirect(route('site.tenders.category', "tenders/$slug"), 301);
-        }
-        if (strpos($params, 'blog') !== false) {
-            $paramsArray = explode('/', $params);
-            $slug = end($paramsArray);
-            return redirect(route('site.blog.main', $slug), 301);
-        }
         $paramsArray = explode('/', $params);
         $slug = end($paramsArray);
         $category = $this->categories->getBySlug($slug);
@@ -119,19 +120,14 @@ class ContractorsController extends Controller
             $contractors = $category->getAllCompaniesFromDescendingCategories()->sortByDesc('created_at');
             $contractorsCount = $contractors->count();
             $contractors = PaginateCollection::paginateCollection($contractors, 5);
+            foreach ($contractors as $contractor) {
+                $comments = $this->users->getComments($contractor->id);
+                $mean = (int)collect($comments)->avg('assessment');
+                $contractor->comments = $comments;
+                $contractor->mean = $mean;
+            }
 
             return view('site.pages.contractors.index', compact('category', 'contractors', 'contractorsCount'));
-        }
-        $menuItem = $this->menu->getBySlug($slug);
-        if ($menuItem) {
-            if ($menuItem->ru_slug !== $params) {
-                return redirect(route('site.catalog.main', $menuItem->ru_slug), 301);
-            }
-            $contractors = $menuItem->getCompanyFromCategories();
-            $category = $menuItem->categories[0]->parent;
-            $contractorsCount = $contractors->count();
-            $contractors = PaginateCollection::paginateCollection($contractors, 5);
-            return view('site.pages.contractors.category', compact('category', 'contractors', 'contractorsCount'));
         }
         abort(404);
     }

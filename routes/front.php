@@ -6,7 +6,7 @@
  * Time: 16:42
  */
 
-Route::middleware('needsList')->name('site.')->namespace('Site')->group(function () {
+Route::name('site.')->namespace('Site')->group(function () {
     // Blog route
     Route::get('/blog', 'BlogController@index')->name('blog.index');
     Route::get('/blog/{params}', 'BlogController@blog')->where('params', '.+')->name('blog.main');
