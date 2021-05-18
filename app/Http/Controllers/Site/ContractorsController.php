@@ -102,6 +102,19 @@ class ContractorsController extends Controller
         return view('site.pages.contractors.index', compact('category', 'contractors', 'contractorsCount'));
     }
 
+    public function contractorCategory(Request $request)
+    {
+        $contractors = $this->users->categoriesContractors($request);
+        $contractorsCount = $contractors->count();
+        foreach ($contractors as $contractor) {
+            $comments = $this->users->getComments($contractor->id);
+            $mean = (int)collect($comments)->avg('assessment');
+            $contractor->comments = $comments;
+            $contractor->mean = $mean;
+        }
+        return view('site.pages.contractors.index', compact('contractors', 'contractorsCount'));
+    }
+
     /**
      * Show contractors from category
      *

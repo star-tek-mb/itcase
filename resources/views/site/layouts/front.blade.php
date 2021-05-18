@@ -21,6 +21,7 @@
   <title>@yield('title') | ITCASE.com</title>
   <link rel="stylesheet" href="/resources/css/plugins/swiper.min.css" />
   <link rel="stylesheet" href="/resources/css/plugins/magnific-popup.min.css" />
+  <link rel="stylesheet" href="/front/css/bootstrap.min.css">
 
   <link rel="stylesheet" href="/resources/css/style.css" />
 </head>
@@ -311,7 +312,8 @@
 
   <!-- -->
 
-
+  <script src="/front/js/popper.min.js"></script>
+  <script src="/front/js/bootstrap.min.js"></script>
   <script src="/resources/js/jquery.min.js"></script>
   <script src="/resources/js/swiper.min.js"></script>
   <script src="/resources/js/wow.min.js"></script>

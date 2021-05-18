@@ -31,6 +31,15 @@ class UserRepository implements UserRepositoryInterface
         return User::all();
     }
 
+    public function categoriesContractors($request)
+    {
+        $categories = $request->categories ?? [];
+        $result = User::whereHas('categories', function ($query) use ($categories) {
+            $query->whereIn('user_category.category_id', $categories)->orWhereIn('handbook_categories.parent_id', $categories);
+        })->paginate();
+        return $result;
+    }
+
     public function searchContractors($search)
     {
 

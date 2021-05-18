@@ -11,7 +11,8 @@
 	<h2>{{ __('Каталог исполнителей') }}</h2>
 </div>
 
-<div class="body-box">
+<form class="body-box" action="{{ route('site.contractors.categories') }}" method="POST">
+	@csrf
 	<ul class="categories">
 		@foreach ($parentCategories as $parent)
 			<li>
@@ -33,8 +34,10 @@
 			</li>
 		@endforeach
 	</ul>
-</div>
-
+	<div class="worker">
+		<button type="submit" class="button">Фильтр</button>
+	</div>
+</form>
 
 <div class="title-top">
 	<h2>{{ __('Новые публикации') }}
