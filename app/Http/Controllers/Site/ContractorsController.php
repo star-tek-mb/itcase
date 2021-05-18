@@ -90,7 +90,7 @@ class ContractorsController extends Controller
         }
         $contractors = $this->users->searchContractors($request);
 
-        $contractorsCount = $contractors->count();
+        $contractorsCount = $contractors->total();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
         foreach ($contractors as $contractor) {
             $comments = $this->users->getComments($contractor->id);
