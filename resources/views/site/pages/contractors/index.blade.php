@@ -99,7 +99,7 @@
 <div class="title-top title-top--small">
 	<h2>
 		Исполнителей найдено:
-		<span>{{ $contractors->count() }}</span>
+		<span>{{ $contractors->total() }}</span>
 	</h2>
 
 	<a href="#" class="button">{{ __('Стать исполнителем') }}</a>
