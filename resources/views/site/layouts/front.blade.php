@@ -32,7 +32,7 @@
     <div class="container">
       <div class="row justify-content-between align-items-center">
         <div class="header__left d-flex align-items-center">
-          <a href="#" class="logo">
+          <a href="{{ route('site.catalog.index') }}" class="logo">
             <img src="/resources/images/logo.png" alt="">
           </a>
 
