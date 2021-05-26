@@ -16,13 +16,13 @@ class OctoService
             'octo_secret' => config('services.octo.secret'),
             'auto_capture' => true,
             'shop_transaction_id' => 'user:' . $user->id,
-            'currency' => 'UZS',
-            'total_sum' => '5000',
+            'currency' => 'USD',
+            'total_sum' => 5.00,
             'test' => (config('app.env') != 'production'),
             'description' => 'Оплата аккаунта на itcase.com',
             'init_time' => now()->format('Y-m-d H:i:s'),
             'notify_url' => 'https://itcase.com/endpoint/octo',
-            'return_url' => $user->dynamic?'https://itcase.page.link/qL6j':'https://itcase.com/thanks'
+            'return_url' => $user->dynamic ? 'https://itcase.page.link/qL6j' : 'https://itcase.com/thanks'
         ]]);
         $data = json_decode($response->getBody(), true);
         return $data['octo_pay_url'];

@@ -134,18 +134,25 @@
         @yield('breadcrumbs')
       </p>
 
-
-
       <div class="row mt35">
-        <aside class="sidebar">
-          @yield('sidebar')
-        </aside>
+        @hasSection('sidebar')
 
-        <div class="right-block">
-          <div class="right-block__inner">
+          <aside class="sidebar">
+            @yield('sidebar')
+          </aside>
+          <div class="right-block">
+            <div class="right-block__inner">
+              @yield('content')
+            </div>
+          </div>
+
+        @else
+
+          <div class="right-block__inner" style="padding: 0px;">
             @yield('content')
           </div>
-        </div>
+
+        @endif
       </div>
     </div>
   </div>
@@ -265,9 +272,9 @@
 
         <div class="col text-center">
           <p>
-            <a href="#">Правила сервиса</a>
-            <a href="#"> Оферта</a>
-            <a href="#">Политика конфиденциальности</a>
+            <a href="{{ route('site.privacy.policy') }}">Правила сервиса</a>
+            <a href="{{ route('site.privacy.policy') }}"> Оферта</a>
+            <a href="{{ route('site.privacy.policy') }}">Политика конфиденциальности</a>
           </p>
         </div>
 

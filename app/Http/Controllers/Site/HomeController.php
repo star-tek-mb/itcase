@@ -74,4 +74,9 @@ class HomeController extends Controller
         $comments = Comment::latest()->limit(3)->whereNull('for_set')->get()->reverse();
         return view('site.pages.home', compact('parentCategories', 'tenders', 'posts', 'comments', 'populars', 'vacancies', 'vacancyCategories', 'vacanciesCount'));
     }
+
+    public function privacy()
+    {
+        return view('site.pages.privacy');
+    }
 }
