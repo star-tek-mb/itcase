@@ -459,6 +459,6 @@ class User extends Authenticatable
 
     public function getIsOnlineAttribute()
     {
-        return $this->last_online_at < now()->subMinutes(10);
+        return $this->last_online_at > now()->subMinutes(10);
     }
 }
