@@ -81,6 +81,18 @@ class BlogPost extends Model
         }
     }
 
+    public function getSlugAttribute()
+    {
+        $locale = config('app.locale');
+        if ($locale == 'uz') {
+            return $this->uz_slug;
+        } else if ($locale == 'en') {
+            return $this->en_slug;
+        } else {
+            return $this->ru_slug;
+        }
+    }
+
     public function getTitleAttribute()
     {
         $locale = config('app.locale');

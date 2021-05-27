@@ -492,9 +492,6 @@
             <div>
               <p>А также можете скачать с нашего сайта</p>
               <a href="/itcase.apk">
-                <img src="/resources/images/download-ios.png" alt="" style="vertical-align: middle;"> Скачать
-              </a>
-              <a href="/itcase.apk">
                 <img src="/resources/images/download-android.png" alt="" style="vertical-align: middle;"> Скачать
               </a>
             </div>
@@ -577,7 +574,7 @@
     <div class="container">
       <div class="text-center blog__title section-title">
         <h2>Новые публикации в <a href="#">блоге</a> itcase</h2>
-        <p>Хотите стать героем наших историй? Это просто! <a href="#">Разместите задание</a> или <a href="#">станьте
+        <p>Хотите стать героем наших историй? Это просто! <a href="{{ route('site.tenders.common.create') }}">Разместите задание</a> или <a href="{{ route('site.account.contractor.professional') }}">станьте
             исполнителем</a>.</p>
       </div>
 
@@ -587,7 +584,7 @@
           <!-- -->
           @foreach ($posts as $post)
           <div class="swiper-slide post">
-            <a href="{{ $post->ru_slug }}" class="post-link">
+            <a href="{{ route('site.blog.main', $post->slug) }}" class="post-link">
               <figure>
                 <img src="{{ $post->getImage() }}" alt="">
               </figure>
@@ -876,12 +873,7 @@
             </ul>
 
             <ul class="app-info__list" style="margin-left: 10px; text-align: center;">
-              <p style="text-align: center; font-size: 14px; margin-bottom: 10px;">А также можете скачать с нашего сайта</p>
-              <li style="margin-bottom: 5px;">
-                <a href="/itcase.apk">
-                  <img src="/resources/images/download-ios.png" alt="" style="vertical-align: middle;"> Скачать
-                </a>
-              </li>
+              <p style="text-align: center; font-size: 15px; margin-top: 20px; margin-bottom: 20px;">А также можете скачать с нашего сайта</p>
               <li style="margin-bottom: 5px;">
                 <a href="/itcase.apk">
                   <img src="/resources/images/download-android.png" alt="" style="vertical-align: middle;"> Скачать

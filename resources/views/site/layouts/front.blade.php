@@ -252,9 +252,14 @@
               </li>
             </ul>
 
-            <div class="qr-code">
-              <img src="/resources/images/qr.png" alt="">
-            </div>
+            <ul class="app-info__list" style="margin-left: 10px; text-align: center;">
+              <p style="text-align: center; font-size: 15px; margin-top: 20px; margin-bottom: 20px;">А также можете скачать с нашего сайта</p>
+              <li style="margin-bottom: 5px;">
+                <a href="/itcase.apk">
+                  <img src="/resources/images/download-android.png" alt="" style="vertical-align: middle;"> Скачать
+                </a>
+              </li>
+            </ul>
 
           </div>
         </div>
