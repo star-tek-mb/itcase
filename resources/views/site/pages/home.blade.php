@@ -820,7 +820,7 @@
             </li>
 
             <li>
-              <a href="#">Наш блог</a>
+              <a href="{{ route('site.blog.index') }}">Наш блог</a>
             </li>
 
             <li>

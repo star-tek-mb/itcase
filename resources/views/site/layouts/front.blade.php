@@ -167,7 +167,7 @@
 
           <ul>
             <li>
-              <a href="#">Каталог заданий</a>
+              <a href="{{ route('site.tenders.index') }}">Каталог заданий</a>
             </li>
 
             <li>
@@ -201,7 +201,7 @@
             </li>
 
             <li>
-              <a href="#">Наш блог</a>
+              <a href="{{ route('site.blog.index') }}">Наш блог</a>
             </li>
 
             <li>
