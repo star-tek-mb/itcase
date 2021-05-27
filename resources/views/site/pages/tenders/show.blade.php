@@ -163,7 +163,7 @@
                                     сум </span>
                                 <span><i class="fas fa-building"></i> Место оказания услуг: {{ __($tender->place) }}</span>
                                 <span class="mail"><i
-                                            class="far fa-calendar"></i>Опубликовано: {{ tender->published_at->format('d.m.Y') }}</span>
+                                            class="far fa-calendar"></i>Опубликовано: {{ $tender->published_at->format('d.m.Y') }}</span>
                                 <span><i class="fas fa-calendar-times"></i>Крайний срок приёма заявок: {{ $tender->deadline }}</span>
                                 <span><i class="fas fa-calendar-times"></i>Дата начала работ: {{ optional($tender->work_start_at)->format('d.m.Y H:i') }}</span>
                                 <span><i class="fas fa-calendar-times"></i>Дата окончания работ: {{ optional($tender->work_end_at)->format('d.m.Y H:i') }}</span>
@@ -395,7 +395,7 @@
 @endsection
 
 @section('js')
-<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9b7e0e79-b7ed-43b7-87c6-671049c7c8f3" type="text/javascript"></script>
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey={{ config('services.yandex.maps_api') }}" type="text/javascript"></script>
 <script>
 var locationMap = null;
 var placemark = null;

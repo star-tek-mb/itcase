@@ -533,14 +533,13 @@
                 </figure>
 
               </div>
-
+              @inject('geocoder', 'App\Services\GeocoderService')
               <div class="col col--66 slide-right">
                 <div>
                   <h3>{{ $tender->title }}</h3>
                   <ul class="task-data">
                     <li class="task-address">
-                      Юнусабадский район, улица Янги <br>
-                      Шахар, Ташкент, Узбекистан
+                      {{ $geocoder->getAddress($tender->geo_location) }}
                     </li>
 
                     <li class="task-money">

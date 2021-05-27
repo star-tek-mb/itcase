@@ -59,6 +59,10 @@ return [
     'octo' => [
         'secret' => env('OCTO_SECRET'),
         'shop_id' => env('OCTO_SHOP_ID')
+    ],
+
+    'yandex' => [
+        'maps_api' => env('YANDEX_MAPS_API'),
     ]
 
 ];

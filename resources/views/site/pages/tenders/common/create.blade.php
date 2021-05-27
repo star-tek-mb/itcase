@@ -320,7 +320,7 @@
     </script>
 
    {{-- Map--}}
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9b7e0e79-b7ed-43b7-87c6-671049c7c8f3"
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey={{ config('services.yandex.maps_api') }}"
             type="text/javascript"></script>
     <script>
         //Map input
