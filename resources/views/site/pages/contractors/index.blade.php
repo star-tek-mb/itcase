@@ -115,14 +115,19 @@
 
 		<div class="worker__data">
 			<div class="worker__title">
-				{{ $contractor->name }}
+				<a href="{{ route('site.contractors.show', $contractor->slug) }}">{{ $contractor->name }}</a>
 
 				<div class="badge badge--green"></div>
 				<div class="badge badge--red"></div>
 			</div>
-			<p>-Проверенный исполнитель "itcase", более 400 выполненных заданий! -Профессиональный ремонт и
-				программирование, разблокировка, восстановление данных сотовых телефонов, план…</p>
-			<p class="status">Сейчас на сайте</p>
+			<div style="width: 100vw;">{!! $contractor->about_myself !!}</div>
+			<p class="status">
+			@if ($contractor->is_online)
+				{{ __('Сейчас на сайте') }}
+			@else
+				{{ __('Оффлайн') }}
+			@endif
+			</p>
 		</div>
 
 		<div class="worker__rating">

@@ -489,11 +489,14 @@
           </ul>
 
           <div class="info__block">
-            <img src="/resources/images/qr.png" alt="">
-
             <div>
-              <p>Осканируйте qr code чтобы</p>
-              <a href="#">скачать приложение</a>
+              <p>А также можете скачать с нашего сайта</p>
+              <a href="/itcase.apk">
+                <img src="/resources/images/download-ios.png" alt="" style="vertical-align: middle;"> Скачать
+              </a>
+              <a href="/itcase.apk">
+                <img src="/resources/images/download-android.png" alt="" style="vertical-align: middle;"> Скачать
+              </a>
             </div>
           </div>
         </div>
@@ -554,7 +557,7 @@
                     </li>
                   </ul>
 
-                  <a href="#" class="button button--task">Отозваться на задание</a>
+                  <a href="{{ route('site.tenders.category', $tender->slug) }}" class="button button--task">Отозваться на задание</a>
                 </div>
               </div>
             </div>
@@ -787,7 +790,7 @@
 
           <ul>
             <li>
-              <a href="#">Каталог заданий</a>
+              <a href="{{ route('site.tenders.index') }}">Каталог заданий</a>
             </li>
 
             <li>
@@ -872,11 +875,20 @@
               </li>
             </ul>
 
-            <div class="qr-code">
-              <img src="/resources/images/qr.png" alt="">
-            </div>
+            <ul class="app-info__list" style="margin-left: 10px; text-align: center;">
+              <p style="text-align: center; font-size: 14px; margin-bottom: 10px;">А также можете скачать с нашего сайта</p>
+              <li style="margin-bottom: 5px;">
+                <a href="/itcase.apk">
+                  <img src="/resources/images/download-ios.png" alt="" style="vertical-align: middle;"> Скачать
+                </a>
+              </li>
+              <li style="margin-bottom: 5px;">
+                <a href="/itcase.apk">
+                  <img src="/resources/images/download-android.png" alt="" style="vertical-align: middle;"> Скачать
+                </a>
+              </li>
+            </ul>
 
-          </div>
         </div>
       </div>
     </div>
@@ -892,9 +904,9 @@
 
         <div class="col text-center">
           <p>
-            <a href="#">Правила сервиса</a>
-            <a href="#"> Оферта</a>
-            <a href="#">Политика конфиденциальности</a>
+            <a href="{{ route('site.privacy.policy') }}">Правила сервиса</a>
+            <a href="{{ route('site.privacy.policy') }}"> Оферта</a>
+            <a href="{{ route('site.privacy.policy') }}">Политика конфиденциальности</a>
           </p>
         </div>
 
