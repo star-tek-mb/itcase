@@ -16,7 +16,7 @@ class GeocoderService
         ]);
         $response = $client->get('?apikey=' . config('services.yandex.maps_api') . '&sco=latlong&format=json&geocode=' . $location . '&lang=' . $language);
         $data = json_decode($response->getBody(), true);
-        return $data['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['description']
-            . ', ' . $data['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['name']; // TODO: XXX
+        return $data['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['name']
+            . ', ' . $data['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['description']; // TODO: XXX
     }
 }
