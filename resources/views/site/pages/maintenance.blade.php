@@ -23,23 +23,16 @@
   <link rel="stylesheet" href="/resources/css/style.css" />
 </head>
 
-<body>
+<body style="width: 100vw; height: 100vh;">
 
-  <header class="header">
-    <div class="container">
-      <div class="row justify-content-between align-items-center">
-        <div class="header__left d-flex align-items-center">
-          <a href="#" class="logo">
+    <div class="container" style="height: 100%;">
+      <div class="row" style="height: 100%; align-items: center; justify-content: center;">
+        <div class="col col--7">
+        <div style="margin-bottom: 40px;">
+          <a href="#">
             <img src="/resources/images/logo.png" alt="">
           </a>
-      </div>
-    </div>
-  </header>
-
-  <section class="info">
-    <div class="container">
-      <div class="row">
-        <div class="col col--7">
+        </div>
           <h2>Персональный помощник
             itcase.com в вашем кармане</h2>
 
@@ -70,23 +63,18 @@
               </a>
             </div>
           </div>
-        </div>
-
-        <div class="col col--5 d-flex justify-content-end" style="margin-top: 70px;">
-          <img src="/resources/images/hand.png" alt="" class="image">
-        </div>
-      </div>
-
-    </div>
-
-    <div class="text-center">
-      <p style="color: black; font-size: 16px; font-weight: bold;">
+          <div>
+      <p style="margin: 50px;color: black; font-size: 16px; font-weight: bold;">
         <a style="color: black; font-size: 16px; font-weight: bold;" href="{{ route('site.privacy.policy') }}">Правила сервиса</a> |
         <a style="color: black; font-size: 16px; font-weight: bold;" href="{{ route('site.privacy.policy') }}"> Оферта</a> |
         <a style="color: black; font-size: 16px; font-weight: bold;" href="{{ route('site.privacy.policy') }}">Политика конфиденциальности</a>
       </p>
     </div>
-  </section>
+        </div>
+        
+      </div>
+      
+    </div>
 
 
   <!--<div id="scrollTop" class="scrollToTop">
