@@ -78,6 +78,8 @@ Route::middleware('checkIsAdmin')->prefix('admin')->name('admin.')->namespace('A
 
     Route::resource('vacancyCategory', 'VacancyCategoryController');
     Route::resource('vacancy', 'VacancyController');
+
+    Route::resource('pages', 'PageController');
 });
 
 Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {

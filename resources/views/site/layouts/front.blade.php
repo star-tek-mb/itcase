@@ -172,15 +172,15 @@
             </li>
 
             <li>
-              <a href="#">Как стать исполнителем</a>
+              <a href="{{ route('site.page', 'how-to-contractor') }}">Как стать исполнителем</a>
             </li>
 
             <li>
-              <a href="#">Как стать заказчиком</a>
+              <a href="{{ route('site.page', 'how-to-customer') }}">Как стать заказчиком</a>
             </li>
 
             <li>
-              <a href="#">Частые вопросы</a>
+              <a href="{{ route('site.page', 'faq') }}">Частые вопросы</a>
             </li>
 
             <li>
@@ -206,11 +206,11 @@
             </li>
 
             <li>
-              <a href="#">Контакты</a>
+              <a href="{{ route('site.page', 'contacts') }}">Контакты</a>
             </li>
 
             <li>
-              <a href="#">Служба поддержки</a>
+              <a href="{{ route('site.page', 'support') }}">Служба поддержки</a>
             </li>
           </ul>
         </div>
@@ -278,9 +278,9 @@
 
         <div class="col text-center">
           <p>
-            <a href="{{ route('site.privacy.policy') }}">Правила сервиса</a>
-            <a href="{{ route('site.privacy.policy') }}"> Оферта</a>
-            <a href="{{ route('site.privacy.policy') }}">Политика конфиденциальности</a>
+            <a href="{{ route('site.page', 'terms-of-service') }}">Правила сервиса</a>
+            <a href="{{ route('site.page', 'offerta') }}"> Оферта</a>
+            <a href="{{ route('site.page', 'privacy-policy') }}">Политика конфиденциальности</a>
           </p>
         </div>
 

@@ -65,5 +65,5 @@ Route::name('site.')->namespace('Site')->group(function () {
     Route::post('/live-search', 'CatalogController@ajax_search')->name('catalog.live-search');
     Route::post('/chat-search', 'ChatsController@searchChat')->name('chats.search');
 
-    Route::get('/privacy-policy', 'HomeController@privacy')->name('privacy.policy');
+    Route::get('/{params}', 'HomeController@page')->where('params', '.+')->name('page');
 });

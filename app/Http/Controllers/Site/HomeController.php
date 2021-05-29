@@ -8,6 +8,7 @@ use App\Repositories\TenderRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\Page;
 use App\Models\PopularServices;
 use App\Models\VacancyCategory;
 use App\Models\Vacancy;
@@ -75,8 +76,11 @@ class HomeController extends Controller
         return view('site.pages.maintenance', compact('parentCategories', 'tenders', 'posts', 'comments', 'populars', 'vacancies', 'vacancyCategories', 'vacanciesCount'));
     }
 
-    public function privacy()
+    public function page($params)
     {
-        return view('site.pages.privacy');
+        $locale = config('app.locale');
+        $page = Page::where('slug->' . $locale, $params)->first();
+        abort_if(!$page, 404);
+        return view('site.pages.page', compact('page'));
     }
 }
