@@ -33,7 +33,7 @@
     <link rel="canonical" href="{{ request()->fullUrl() }}">
     <!-- END Icons -->
     <title>
-        @yield('title') | ITCASE.com
+        @yield('title') | itcase.com
     </title>
 
     <script>

@@ -31,7 +31,7 @@
 
 <div class="title-top">
 	<h2>{{ __('Популярные вакансии') }}
-		<span>ITCASE.com</span>
+		<span>itcase.com</span>
 	</h2>
 </div>
 

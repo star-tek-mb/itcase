@@ -17,7 +17,7 @@
   <meta name="description" content="" />
   <meta name="keywords" content="" />
 
-  <title>ITCASE</title>
+  <title>itcase.com</title>
   <link rel="stylesheet" href="/resources/css/plugins/swiper.min.css" />
   <link rel="stylesheet" href="/resources/css/plugins/magnific-popup.min.css" />
   <link rel="stylesheet" href="/resources/css/style.css" />
@@ -471,7 +471,7 @@
 
           <div class="subtitle mt31">
             <p>Скачайте наше приложение и пользуйтесь
-              ITCASE, где бы вы ни находились.</p>
+              itcase.com, где бы вы ни находились.</p>
           </div>
 
           <ul class="buttons">

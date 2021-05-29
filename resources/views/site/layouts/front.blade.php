@@ -18,7 +18,7 @@
   <meta name="description" content="" />
   <meta name="keywords" content="" />
 
-  <title>@yield('title') | ITCASE.com</title>
+  <title>@yield('title') | itcase.com</title>
   <link rel="stylesheet" href="/resources/css/plugins/swiper.min.css" />
   <link rel="stylesheet" href="/resources/css/plugins/magnific-popup.min.css" />
   <link rel="stylesheet" href="/front/css/bootstrap.min.css">

@@ -17,7 +17,7 @@
   <meta name="description" content="" />
   <meta name="keywords" content="" />
 
-  <title>ITCASE</title>
+  <title>itcase.com</title>
   <link rel="stylesheet" href="/resources/css/plugins/swiper.min.css" />
   <link rel="stylesheet" href="/resources/css/plugins/magnific-popup.min.css" />
   <link rel="stylesheet" href="/resources/css/style.css" />
