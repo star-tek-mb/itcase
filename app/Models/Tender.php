@@ -96,9 +96,9 @@ class Tender extends Model
     {
         $icon = $this->categories()->first()->parentCategory;
         if ($icon)
-        return $icon->image;
+            return $icon->getImage();
 
-        return  $this->categories()->first()->image;
+        return  $this->categories()->first()->getImage();
     }
 
     /**

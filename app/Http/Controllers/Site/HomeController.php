@@ -72,7 +72,7 @@ class HomeController extends Controller
         $tenders = $this->tenders->allOrderedByCreatedAt($withoutContractors = true)->take(5);
         $posts = $this->posts->allOrderByDesc()->take(3);
         $comments = Comment::latest()->limit(3)->whereNull('for_set')->get()->reverse();
-        return view('site.pages.home', compact('parentCategories', 'tenders', 'posts', 'comments', 'populars', 'vacancies', 'vacancyCategories', 'vacanciesCount'));
+        return view('site.pages.maintenance', compact('parentCategories', 'tenders', 'posts', 'comments', 'populars', 'vacancies', 'vacancyCategories', 'vacanciesCount'));
     }
 
     public function privacy()

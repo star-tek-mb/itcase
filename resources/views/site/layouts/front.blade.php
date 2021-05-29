@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="/front/css/bootstrap.min.css">
 
   <link rel="stylesheet" href="/resources/css/style.css" />
+  @stack('css')
 </head>
 
 <body>
@@ -325,14 +326,14 @@
   <!-- -->
 
   <script src="/front/js/popper.min.js"></script>
-  <script src="/front/js/bootstrap.min.js"></script>
   <script src="/resources/js/jquery.min.js"></script>
+  <script src="/front/js/bootstrap.min.js"></script>
   <script src="/resources/js/swiper.min.js"></script>
   <script src="/resources/js/wow.min.js"></script>
   <script src="/resources/js/isotope.pkgd.js"></script>
   <script src="/resources/js/jquery.magnific-popup.min.js"></script>
   <script src="/resources/js/main.js"></script>
-
+  @stack('js')
 
 
 </body>

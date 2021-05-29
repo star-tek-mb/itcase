@@ -527,7 +527,7 @@
 
                   <figcaption>
                     <a href="#">
-                      <img src="{{ $tender->categoryIcon() }}" alt="">
+                      <img style="width: 100%; height: auto;" src="{{ $tender->categoryIcon() }}" alt="">
                     </a>
                   </figcaption>
                 </figure>
