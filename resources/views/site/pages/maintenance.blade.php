@@ -40,7 +40,7 @@
         <div class="text-4xl font-medium hover:text-blue-500"><a href="/itcase.apk">Скачать</a></div>
     </main>
     <footer class="bg-main text-white py-12">
-      <div class="grid grid-rows-1 md:grid-cols-2 gap-4 container mx-auto px-4 md:px-12 items-center">
+      <div class="grid md:grid-cols-2 gap-4 container mx-auto px-4 md:px-12 items-center">
         <div class="px-4">
           <b>Реквизиты компании</b><br>
           Общество с ограниченной ответственностью «Avto Powerball»<br>
@@ -61,9 +61,9 @@
         </div>
       </div>
       <hr class="w-full my-6">
-      <div class="flex px-4 md:px-12 container text-xl mx-auto">
-        <div class="whitespace-nowrap text-left">© 2021 itcase.com</div>
-        <div class="w-full text-center mx-auto">
+      <div class="grid md:grid-cols-4 gap-4 container mx-auto px-4 md:px-12 text-center items-center justify-center">
+        <div class="whitespace-nowrap w-full md:ml-4 md:text-left text-xl">© 2021 itcase.com</div>
+        <div class="text-lg md:col-span-3 text-xl">
           <a class="hover:underline" href="{{ route('site.page', 'terms-of-service') }}">Правила сервиса</a> |
           <a class="hover:underline" href="{{ route('site.page', 'offerta') }}"> Оферта</a> |
           <a class="hover:underline" href="{{ route('site.page', 'privacy-policy') }}">Политика конфиденциальности</a>
