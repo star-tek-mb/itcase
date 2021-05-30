@@ -1,123 +1,74 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]> <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]> <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang="en">
-<!--<![endif]-->
-<head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <!-- mobile responsive meta -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Favicons -->
-  <link rel="shortcut icon" href="favicon.ico" />
-
-  <meta name="author" content="" />
-  <meta name="description" content="" />
-  <meta name="keywords" content="" />
-
-  <title>itcase.com</title>
-  <link rel="stylesheet" href="/resources/css/plugins/swiper.min.css" />
-  <link rel="stylesheet" href="/resources/css/plugins/magnific-popup.min.css" />
-  <link rel="stylesheet" href="/resources/css/style.css" />
-</head>
-
-<body style="width: 100%; height: 100%;">
-  <header style="color: white; height: 96px; width: 100%; display: flex; align-items: center; background: linear-gradient(90deg, #7D7CD3 0%, #5553C4 100%); color: white !important;">
-      <div class="container d-flex" style="justify-content: space-evenly;">
-        <div class="d-flex" style="align-items: center;">
-          <a href="{{ route('site.page', 'about') }}" style="color: white;">О компании</a>
-        </div>
-        <div class="d-flex" style="align-items: center;">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Административная панель бота</title>
+    <link href="https://unpkg.com/@tailwindcss/forms/dist/forms.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <link href="/css/all.min.css" rel="stylesheet">
+    <style>
+      .bg-main { background: linear-gradient(90deg, #7D7CD3 0%, #5553C4 100%); }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+  </head>
+  <body>
+    <header class="flex bg-main py-12 px-4 md:px-12">
+      <ul class="container grid md:grid-cols-3 grid-rows-1 text-center text-white">
+        <li class="col-4">
+          <a class="underline" href="{{ route('site.page', 'about') }}">О компании</a>
+        </li>
+        <li class="col-4">
           Почта:  itcase.com@yandex.ru
-        </div class="d-flex" style="align-items: center;">
-        <div>Телефон для справок:<br> +99899420 00 00</div>
-      </div>
+        </li>
+        <li class="col-4">
+          Телефон для справок:  +99899420 00 00
+        </li>
+      </ul>
     </header>
-
-    <div class="container" style="height: 100%;">
-      <div class="row" style="height: 100%; align-items: center; justify-content: center; text-align: center;">
-        <div class="col col--8">
-        <div style="margin-top: 40px; margin-bottom: 40px; ">
-          <a href="/">
-            <img style="width: 128px; height: auto;" src="/resources/images/itcase.png" alt="">
-          </a>
+    <main class="text-center w-full md:w-1/2 mx-auto py-8">
+        <img class="w-32 h-auto mx-auto" src="/resources/images/itcase.png">
+        <div class="text-6xl font-semibold">itcase.com</div>
+        <div class="text-4xl mt-4 font-bold">Персональный помощник itcase.com в вашем кормане</div>
+        <div class="text-4xl mt-4">
+          Скачайте наше приложение и пользуйтесь itcase.com, где бы вы ни находились. Разовая оплата за использование сервиса производится в размере 53 000 сум
         </div>
-          <h2>Персональный помощник
-            itcase.com в вашем кармане</h2>
-
-          <div class="subtitle mt31">
-            <p>Скачайте наше приложение и пользуйтесь itcase.com, где бы вы ни находились. Разовая оплата за использование сервиса производится в размере 53 000 сум</p>
+        <img class="w-128 h-auto mx-auto my-8 cursor-pointer" src="/resources/images/googleplay.svg">
+        <div class="text-4xl mb-8">А также можете скачать приложение с нашего сайта:</div>
+        <img class="w-16 h-auto mx-auto" src="/resources/images/itcase.png">
+        <div class="text-4xl font-medium hover:text-blue-500"><a href="/itcase.apk">Скачать</a></div>
+    </main>
+    <footer class="bg-main text-white py-12">
+      <div class="grid grid-rows-1 md:grid-cols-2 gap-4 container mx-auto px-4 md:px-12 items-center">
+        <div class="px-4">
+          <b>Реквизиты компании</b><br>
+          Общество с ограниченной ответственностью «Avto Powerball»<br>
+          Адрес для корреспонденции, направления жалоб и предложений: Узбекистан , г. Ташкент, Олтин тепа, д. 204<br>
+          ИНН 306870820<br>
+          МФО: 01041<br>
+          ОКЭД: 73110<br>
+          Почта: avtopowerball@gmail.com
+        </div>
+        <div class="text-center px-4 text-xl">
+          Способы разовой оплаты за использования сервиса
+          <div class="">
+            <img class="inline" style="width: 72px; height: 72px;" src="/resources/images/visa.png">
+            <img class="inline ml-2" style="width: 72px; height: 44px;" src="/resources/images/mastercard.png">
+            <img class="inline ml-2" style="width: 72px; height: 43px;" src="/resources/images/uzcard.png">
+            <img class="inline ml-2" style="width: 65px; height: 43px;" src="/resources/images/humo.png">
           </div>
-          <br><br>
-          <a href="#">
-            <img src="/resources/images/googleplay.svg" alt="">
-          </a>
-
-
-          <div class="info__block" style="text-align: center;">
-            <div>
-              <p>А также можете скачать с нашего сайта</p>
-              <a href="/itcase.apk">
-                <img style="width: 64px; height: auto;" src="/resources/images/itcase.png" alt="" style="vertical-align: middle;">
-                <br>
-                Скачать
-              </a>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-      <br><br>
-    </div>
-
-  <footer>
-    <div style="width: 100%; padding: 40px; display: flex; align-items: center; background: linear-gradient(90deg, #7D7CD3 0%, #5553C4 100%); color: white !important;">
-      <div class="col col--8">
-        <div class="d-flex" style="align-items: center; width: 50%; margin-left: 20px;">
-        Реквизиты компании<br>
-        Общество с ограниченной ответственностью «Avto Powerball» <br>
-        Адрес для корреспонденции, направления жалоб и предложений: Узбекистан , г. Ташкент, Олтин тепа, д.  204<br>
-        ИНН 306870820<br>
-        МФО: 01041<br>
-        ОКЭД: 73110<br>
-        Почта: avtopowerball@gmail.com<br>
         </div>
       </div>
-      <div class="d-flex" style="text-align: center; align-items: center; justify-content: center;  flex-direction: column; width: 50%;">
-        <div class="d-flex">Способы разовой оплаты за использования сервиса</div>
-        <div class="d-flex" style="align-items: center; flex-direction: row; justify-content: space-evenly;">
-          <img style="width: 72px; height: 72px; margin: 0px 10px;" src="/resources/images/visa.png">
-          <img style="width: 72px; height: 44px; margin: 0px 10px;" src="/resources/images/mastercard.png">
-          <img style="width: 72px; height: 43px; margin: 0px 10px;" src="/resources/images/uzcard.png">
-          <img style="width: 65px; height: 43px; margin: 0px 10px;" src="/resources/images/humo.png">
+      <hr class="w-full my-6">
+      <div class="flex px-4 md:px-12 container text-xl mx-auto">
+        <div class="whitespace-nowrap text-left">© 2021 itcase.com</div>
+        <div class="w-full text-center mx-auto">
+          <a class="hover:underline" href="{{ route('site.page', 'terms-of-service') }}">Правила сервиса</a> |
+          <a class="hover:underline" href="{{ route('site.page', 'offerta') }}"> Оферта</a> |
+          <a class="hover:underline" href="{{ route('site.page', 'privacy-policy') }}">Политика конфиденциальности</a>
         </div>
       </div>
-    </div>
-    <div class="d-flex" style="width: 100%; padding: 40px 20px; margin: 0 auto; background: linear-gradient(90deg, #7D7CD3 0%, #5553C4 100%); color: white !important;">
-      <p style="width: 100%; text-align: center; color: white; font-size: 16px; font-weight: bold;">
-        <a style="color: white; font-size: 16px; font-weight: bold;" href="{{ route('site.page', 'terms-of-service') }}">Правила сервиса</a> |
-        <a style="color: white; font-size: 16px; font-weight: bold;" href="{{ route('site.page', 'offerta') }}"> Оферта</a> |
-        <a style="color: white; font-size: 16px; font-weight: bold;" href="{{ route('site.page', 'privacy-policy') }}">Политика конфиденциальности</a>
-      </p>
-    </div>
-  </footer>
-
-  <!--<div id="scrollTop" class="scrollToTop">
-    <img src="/resources/images/artop.svg" alt="" class="third arrow">
-    <img src="/resources/images/artop.svg" alt="" class="second arrow">
-    <img src="/resources/images/artop.svg" alt="" class="first arrow">
-  </div>-->
-
-
-  <!-- -->
-  <script src="/resources/js/jquery.min.js"></script>
-  <script src="/resources/js/swiper.min.js"></script>
-  <script src="/resources/js/wow.min.js"></script>
-  <script src="/resources/js/isotope.pkgd.js"></script>
-  <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-  <script src="/resources/js/main.js"></script>
-</body>
-
+    </footer>
+  </body>
 </html>
