@@ -18,6 +18,8 @@
         "hshn/base64-encoded-file": "^2.1",
         "intervention/image": "^2.5",
         "kalnoy/nestedset": "^5.0",
+        "kreait/laravel-firebase": "^3.1",
+        "laravel-notification-channels/fcm": "~2.0",
         "laravel/framework": "^7.0",
         "laravel/helpers": "^1.4",
         "laravel/sanctum": "^2.8",

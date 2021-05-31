@@ -435,5 +435,12 @@ class AccountController extends Controller
             'tenders' => $response,
         ]);
     }
-
+    public function getMessageToken(Request $request) {
+        $user = auth()->user();
+       $result =  $user->createToken($request->token);
+       return response()->json(
+           [],
+           $result ? 200 : 400
+       );
+    }
 }

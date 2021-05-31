@@ -92,6 +92,7 @@ class ChatsController extends Controller
             'chat_id' => 'required',
             'text' => 'required',
         ]);
+        
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
