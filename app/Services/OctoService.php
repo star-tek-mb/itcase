@@ -19,7 +19,7 @@ class OctoService
             'currency' => 'UZS',
             'total_sum' => 53000,
             'test' => (config('app.env') != 'production'),
-            'description' => 'Оплата аккаунта на itcase.com',
+            'description' => 'Оплата за использования сервиса itcase.com',
             'init_time' => now()->format('Y-m-d H:i:s'),
             'notify_url' => 'https://itcase.com/endpoint/octo',
             'return_url' => $user->dynamic ? 'https://itcase.page.link/qL6j' : 'https://itcase.com/thanks'
