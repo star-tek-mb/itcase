@@ -129,7 +129,7 @@ class User extends Authenticatable
         return $this->hasMany(MessageToken::class, 'user_id', 'id');
     }
 
-    public function createToken(string $token)
+    public function createTokenMessage(string $token)
     {
         $message = new MessageToken([
             'token' => $token,
