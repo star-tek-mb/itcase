@@ -215,7 +215,7 @@
           </ul>
         </div>
 
-        <div class="col">
+        {{--<div class="col">
           <h4>Скоро в itcase.com</h4>
 
           <ul>
@@ -232,7 +232,7 @@
               <a href="#">itcar - краткосрочная аренда, прокат машины</a>
             </li>
           </ul>
-        </div>
+        </div>--}}
 
 
         <div class="col">
@@ -287,26 +287,26 @@
         <div class="col col--25 d-flex justify-content-end align-items-center">
           <ul>
             <li>
-              <a href="#">
+              <a href="https://www.facebook.com/Itcasecom-104128105147920">
                 <img src="/resources/images/facebook.svg" alt="">
               </a>
             </li>
 
             <li>
-              <a href="#">
+              <a href="https://instagram.com/itcasecom">
                 <img src="/resources/images/instagram.svg" alt="">
               </a>
             </li>
 
             <li>
-              <a href="#">
+              <a href="https://www.youtube.com/channel/UCfxBExrj8M7H9aW5RCa-Jmw/about">
                 <img src="/resources/images/youtube.svg" alt="">
               </a>
             </li>
 
 
             <li>
-              <a href="#">
+              <a href="https://t.me/itcase_com">
                 <img src="/resources/images/telegram.svg" alt="">
               </a>
             </li>
