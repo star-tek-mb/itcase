@@ -337,8 +337,8 @@
                                 <button type="submit" @if (is_null($user->account_paid_at)) disabled @endif class="btn btn-light-green"><i class="fas fa-save"></i> Сохранить</button>
                             </form>
                         </div>
-                        <button id="payment-button" @if (!is_null($user->account_paid_at)) disabled @endif type="button" class="btn btn-primary" data-toggle="modal" data-target="#payment-modal">{{ __('Оплатить аккаунт') }}</button>
-                        Разовая оплата за использование сервиса производится в размере 53 000 сум
+                        <div class="my-4" style="font-size: 20px; font-weight: bold;">Разовая оплата за использование сервиса производится в размере <span style="color: orange;">53 000 сум</span></div>
+                        <button id="payment-button" @if (!is_null($user->account_paid_at)) disabled @endif type="button" class="btn btn-primary" data-toggle="modal" data-target="#payment-modal">{{ __('Оплата за сервис') }}</button>
                     </div>
                 </div>
             </div>
@@ -349,7 +349,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Оплата аккаунта</h5>
+                    <h5 class="modal-title">Оплата за использование сервиса</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
