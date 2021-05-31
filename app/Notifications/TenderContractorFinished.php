@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Models\Tender;
+use NotificationChannels\Fcm\FcmChannel;
 
 class TenderContractorFinished extends Notification
 {
@@ -35,7 +36,7 @@ class TenderContractorFinished extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail',FcmChannel::class];
     }
 
     public function toArray($notifiable)

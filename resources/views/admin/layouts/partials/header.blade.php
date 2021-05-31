@@ -26,7 +26,7 @@
                     <ul class="list-unstyled my-20">
                         @foreach(auth()->user()->unreadNotifications as $notification)
                             <li>
-                                @if ($notification->type == 'App\Notifications\RequestAction')
+                                @if ($notification->type == 'App\Notifications\RequestAction' && isset($notification->data['customerId']))
                                     <div class="text-body-color-dark media mb-15" data-notification-id="{{ $notification->id }}">
                                         <div class="ml-5 mr-15">
                                             <i class="fa fa-fw fa-info text-info"></i>

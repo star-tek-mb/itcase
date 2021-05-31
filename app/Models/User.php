@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\MessageToken;
 use App\Models\Traits\MustVerifyPhone;
 use App\Models\Chat\Chat;
-use Illuminate\Http\UploadedFile;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Notifications\SendNotificationFireBase;
 
 class User extends Authenticatable
 {
@@ -54,6 +54,17 @@ class User extends Authenticatable
         'fake',
         'meta_title'
     ];
+
+//    public function notify($instance)
+//    {
+//        $this->traitNotify($instance);
+//        $this->sendToApp($instance);
+//    }
+    public function routeNotificationForFcm()
+    {
+        return $this->messageTokens;
+    }
+
 
     protected static function boot()
     {
@@ -111,11 +122,25 @@ class User extends Authenticatable
         return $this->hasMany(Company::class, 'user_id', 'id');
     }
 
+    public function messageTokens()
+    {
+        return $this->hasMany(MessageToken::class, 'user_id', 'id');
+    }
+
+    public function createTokenMessage(string $token)
+    {
+        $message = new MessageToken([
+            'token' => $token,
+            'user_id' => $this->id,
+        ]);
+        return $message != null;
+    }
+
     /**
      * Get user role
      *
      * @return Role
-    */
+     */
     public function getRole()
     {
         return $this->roles[0];
@@ -125,7 +150,7 @@ class User extends Authenticatable
      * Check if user has any role
      *
      * @return boolean
-    */
+     */
     public function hasOneRole()
     {
         return isset($this->roles[0]);
@@ -198,7 +223,7 @@ class User extends Authenticatable
      * Get history of user's actions
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
+     */
     public function history()
     {
         return $this->hasMany(HistoryItem::class, 'user_id', 'id');
@@ -293,6 +318,7 @@ class User extends Authenticatable
         $image->storeAs(self::$UPLOAD_DIRECTORY, $filename, '');
         $this->saveImageName($filename);
     }
+
     public function uploadResume($resume)
     {
         if (!$resume) {
@@ -312,7 +338,7 @@ class User extends Authenticatable
      * Set default user avatar
      *
      * @return void
-    */
+     */
     public function setDefaultAvatar()
     {
         $this->image = 'avatar0.jpg';
@@ -327,7 +353,7 @@ class User extends Authenticatable
      */
     private function generateFileName(string $imageName)
     {
-        return Str::random(20) .'.'. $imageName;
+        return Str::random(20) . '.' . $imageName;
     }
 
     /**
@@ -343,6 +369,7 @@ class User extends Authenticatable
             return asset('assets/img/avatars/avatar15.jpg');
         }
     }
+
     public function getResume()
     {
         if ($this->resume) {
@@ -351,6 +378,7 @@ class User extends Authenticatable
             return asset('assets/img/avatars/avatar15.jpg');
         }
     }
+
     /**
      * Remove an image
      *
@@ -380,7 +408,7 @@ class User extends Authenticatable
      *
      * @param string $password
      * @return void
-    */
+     */
     public function savePassword(string $password)
     {
         $this->password = Hash::make($password);
@@ -419,15 +447,21 @@ class User extends Authenticatable
     {
         if ($this->hasRole('customer')) {
             switch ($this->customer_type) {
-                case 'legal_entity': return $this->company_name;
-                case 'individual': return $this->name;
-                default: return $this->email;
+                case 'legal_entity':
+                    return $this->company_name;
+                case 'individual':
+                    return $this->name;
+                default:
+                    return $this->email;
             }
         } elseif ($this->hasRole('contractor')) {
             switch ($this->contractor_type) {
-                case 'legal_entity': return $this->company_name;
-                case 'individual': return $this->name;
-                default: return $this->email;
+                case 'legal_entity':
+                    return $this->company_name;
+                case 'individual':
+                    return $this->name;
+                default:
+                    return $this->email;
             }
         } else {
             return $this->email;

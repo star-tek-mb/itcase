@@ -26,7 +26,7 @@ Route::namespace('Api')->group(function () {
     Route::get('/account/notifications/markAsRead', 'AccountController@notificationRead');
     Route::get('/account/notifications/update', 'AccountController@notificationCount');
     Route::post('/account/notifications/delete', 'AccountController@notificationDelete');
-
+    Route::post('/account/token_message/save', 'AccountController@getMessageToken');
     Route::get('/account/create', 'AccountController@create');
     Route::post('/account/create', 'AccountController@store');
     Route::post('/account/contractor/profile/save', 'AccountController@savePersonalContractor');
