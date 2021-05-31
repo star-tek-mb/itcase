@@ -163,7 +163,7 @@ class TenderController extends Controller
         return view('site.pages.tenders.show', compact('tender'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $user = auth()->user();
         if ($user) {
