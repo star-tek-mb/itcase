@@ -98,7 +98,7 @@
           @endguest
           @auth
           <ul class="header__menu">
-            <li class="color-primary user"><a href="{{ route('site.account.index') }}">{{ auth()->user()->name }}</a></li>
+            <li class="color-primary user"><a href="{{ route('site.account.index') }}">{{ auth()->user()->first_name ? auth()->user()->name : __('Аккаунт') }}</a></li>
             <li class="enter"><a href="{{ route('logout') }}" onclick="event.preventDefault();
               document.getElementById('logout-form').submit();">{{ __('Выйти') }}</a></li>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
