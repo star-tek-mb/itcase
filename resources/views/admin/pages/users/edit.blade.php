@@ -195,7 +195,7 @@
                     @foreach($user->requests as $request)
                         <a class="list-group-item list-group-item-action" href="{{ route('admin.tenders.show', $request->tender_id) }}">
                             <p class="font-weight-bold font-size-lg">{{ $request->tender->title }}</p>
-                            <p class="text-muted m-0"><i class="si si-calendar mr-5"></i>Опубликован: {{ \Carbon\Carbon::create($request->tender->published_at)->format('d.m.Y') }}  <i class="si si-calendar ml-10 mr-5"></i>Истекает {{ \Carbon\Carbon::create($request->tender->deadline)->format('d.m.Y') }}</p>
+                            <p class="text-muted m-0"><i class="si si-calendar mr-5"></i>Опубликован: {{ $request->tender->published_at->format('d.m.Y') }}  <i class="si si-calendar ml-10 mr-5"></i>Истекает {{ $request->tender->deadline->format('d.m.Y') }}</p>
                             <p class="text-muted m-0"><i class="fa fa-money mr-5"></i> Бюджет: {{ $request->tender->budget }} сум</p>
                         </a>
                     @endforeach
@@ -204,7 +204,7 @@
                         <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" href="{{ route('admin.tenders.show', $tender->id) }}">
                             <div>
                                 <p class="font-weight-bold font-size-lg">{{ $tender->title }}</p>
-                                <p class="text-muted m-0"><i class="si si-calendar mr-5"></i>Опубликован: {{ \Carbon\Carbon::create($tender->published_at)->format('d.m.Y') }}  <i class="si si-calendar ml-10 mr-5"></i>Истекает {{ \Carbon\Carbon::create($tender->deadline)->format('d.m.Y') }}</p>
+                                <p class="text-muted m-0"><i class="si si-calendar mr-5"></i>Опубликован: {{ $tender->published_at->format('d.m.Y') }}  <i class="si si-calendar ml-10 mr-5"></i>Истекает {{ $tender->deadline->format('d.m.Y') }}</p>
                                 <p class="text-muted m-0"><i class="fa fa-money mr-5"></i> Бюджет: {{ $tender->budget }} сум</p>
                                 @if ($tender->contractor)   <p class="text-muted m-0">Исполнитель: {{ $user->getCommonTitle() }}</p>    @endif
                             </div>
@@ -224,7 +224,7 @@
                 @foreach($user->contractedTenders as $tender)
                     <a class="list-group-item list-group-item-action" href="{{ route('admin.tenders.show', $tender->id) }}">
                         <p class="font-weight-bold font-size-lg">{{ $tender->title }}</p>
-                        <p class="text-muted m-0"><i class="si si-calendar mr-5"></i>Опубликован: {{ \Carbon\Carbon::create($tender->published_at)->format('d.m.Y') }}  <i class="si si-calendar ml-10 mr-5"></i>Истекает {{ \Carbon\Carbon::create($tender->deadline)->format('d.m.Y') }}</p>
+                        <p class="text-muted m-0"><i class="si si-calendar mr-5"></i>Опубликован: {{ $tender->published_at->format('d.m.Y') }}  <i class="si si-calendar ml-10 mr-5"></i>Истекает {{ $tender->deadline->format('d.m.Y') }}</p>
                         <p class="text-muted m-0"><i class="fa fa-money mr-5"></i> Бюджет: {{ $tender->budget }} сум</p>
                     </a>
                 @endforeach

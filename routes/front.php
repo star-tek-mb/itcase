@@ -6,7 +6,7 @@
  * Time: 16:42
  */
 
-Route::middleware('needsList')->name('site.')->namespace('Site')->group(function () {
+Route::name('site.')->namespace('Site')->group(function () {
     // Blog route
     Route::get('/blog', 'BlogController@index')->name('blog.index');
     Route::get('/blog/{params}', 'BlogController@blog')->where('params', '.+')->name('blog.main');
@@ -50,6 +50,7 @@ Route::middleware('needsList')->name('site.')->namespace('Site')->group(function
 
     Route::get('/', 'HomeController@index')->name('catalog.index');
     Route::get('/contractors', 'ContractorsController@index')->name('contractors.index');
+    Route::post('/contractors/categories', 'ContractorsController@contractorCategory')->name('contractors.categories');
     Route::get('/contractors/category/{params}', 'ContractorsController@category')->where('params', '.+')->name('catalog.main');
     Route::get('/contractors/addContractor/{contractorId}/to/{tenderId}', 'ContractorsController@addContractor')->name('tenders.contractors.add');
     Route::get('/contractors/addContractorGuest/clear', 'ContractorsController@deleteAllContractorsFromSession')->name('tenders.contractors.clear');
@@ -63,4 +64,6 @@ Route::middleware('needsList')->name('site.')->namespace('Site')->group(function
     Route::post('/search', 'CatalogController@search')->name('catalog.search');
     Route::post('/live-search', 'CatalogController@ajax_search')->name('catalog.live-search');
     Route::post('/chat-search', 'ChatsController@searchChat')->name('chats.search');
+
+    Route::get('/{params}', 'HomeController@page')->where('params', '.+')->name('page');
 });

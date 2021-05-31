@@ -27,7 +27,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "pusher/pusher-php-server": "~3.0",
-        "spatie/laravel-sitemap": "^5.7"
+        "spatie/laravel-sitemap": "^5.7",
+        "spatie/laravel-translatable": "^4.6"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

@@ -124,7 +124,7 @@
                                 <label for="birthdayDate">{{ __('Дата рождения') }}</label>
                                 <input type="text" class="form-control @error('birthday_date') is-invalid @enderror"
                                        id="birthdayDate" name="birthday_date"
-                                       value="{{ \Carbon\Carbon::create($user->birthday_date)->format('d.m.Y') }}">
+                                       value="{{ $user->birthday_date->format('d.m.Y') }}">
                                 @error('birthday_date')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

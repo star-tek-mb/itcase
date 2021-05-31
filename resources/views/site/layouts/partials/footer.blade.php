@@ -5,8 +5,9 @@
                 <div class="col-lg-4 mb-2 mb-lg-0"><img src="/front/images/VID.png" alt="VID"></div>
                 <div class="col-lg-8">
                     <ul class="nav-footer">
-                        <li class="pl-4"><a href="#">{{ __('Политика конфиценциальности') }}</a></li>
-                        <li><a href="{{ asset('terms_of_use.pdf') }}">{{ __('Пользовательское соглашение') }}</a></li>
+                        <li><a href="{{ route('site.page', 'terms-of-service') }}">Правила сервиса</a></li>
+                        <li><a href="{{ route('site.page', 'offerta') }}"> Оферта</a></li>
+                        <li><a href="{{ route('site.page', 'privacy-policy') }}">Политика конфиденциальности</a></li>
                     </ul>
                 </div>
             </div>
@@ -45,22 +46,18 @@
                 <div class="col-lg-4">
                     <div class="newsletter">
                         <span class="title-footer">{{ __('Рассылка') }}</span>
-                        <p>{{ __('Подпишись на') }} <span class="name"><span>IT</span>CASE</span> {{ __('и получай на уведомления о новостях и акциях.') }}</p>
+                        <p>{{ __('Подпишись на') }} itcase.com {{ __('и получай на уведомления о новостях и акциях.') }}</p>
                         <div class="form">
                             <input class="form-control" type="text" placeholder="Введите email адресс">
                             <button><i class="fa fa-envelope"></i></button>
                         </div>
                     </div>
-                    <ul class="social-footer">
-                        <li><a href="https://t.me/gde_podeshevle"><i class="fab fa-telegram" style="font-size:30px"></i></a></li>
-                        <li><a href="https://www.instagram.com/vid.market/"><i class="fab fa-instagram" style="font-size:30px"></i></a></li>
-                    </ul>
                 </div>
             </div>
         </div>
         <div class="footer-bottom d-md-flex text-center justify-content-between">
-            <div class="copyright">© {{ now()->year }} <span class="text-green">IT</span><span class="text-white">ICASE.</span>
-                {{ __('Спроектировано') }} <span class="text-white">VID STUDIO</span>. {{ __('Все права защищены.') }}
+            <div class="copyright">© {{ now()->year }} itcase.com
+                {{ __('Все права защищены.') }}
             </div>
         </div>
     </div>

@@ -154,7 +154,7 @@
                         </div>
                         <div class="form-group">
                             <label for="deadline">{{ __('Срок окончания приёма заявок') }}</label>
-                            <input type="text" class="form-control @error('deadline') is-invalid @enderror" id="deadline" name="deadline" value="{{ \Carbon\Carbon::create($tender->deadline)->format('d.m.Y') }}">
+                            <input type="text" class="form-control @error('deadline') is-invalid @enderror" id="deadline" name="deadline" value="{{ $tender->deadline->format('d.m.Y') }}">
                             @error('deadline')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -291,7 +291,7 @@
     </script>
 
    {{-- Map--}}
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9b7e0e79-b7ed-43b7-87c6-671049c7c8f3"
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey={{ config('services.yandex.maps_api') }}"
             type="text/javascript"></script>
     <script>
         //Map input

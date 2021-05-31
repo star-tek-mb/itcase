@@ -17,12 +17,13 @@ class OctoService
             'auto_capture' => true,
             'shop_transaction_id' => 'user:' . $user->id,
             'currency' => 'UZS',
-            'total_sum' => '5000',
+            'total_sum' => 53000,
             'test' => (config('app.env') != 'production'),
-            'description' => 'Оплата аккаунта на itcase.com',
+            'description' => 'Оплата за использования сервиса itcase.com',
             'init_time' => now()->format('Y-m-d H:i:s'),
             'notify_url' => 'https://itcase.com/endpoint/octo',
             'return_url' => $user->dynamic?'https://itcasecom.page.link/DQbR':'https://itcase.com/thanks'
+
         ]]);
         $data = json_decode($response->getBody(), true);
         return $data['octo_pay_url'];

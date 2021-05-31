@@ -21,7 +21,7 @@
             <div class="d-flex align-items-center justify-content-between mb-50">
                 <span><i class="si si-wallet text-primary"></i> Бюджет: {{ $tender->budget }}</span>
                 <span><i class="si si-calendar text-info"></i> Опубликован: @if ($tender->publish) {{ $tender->published_at->format('d.m.Y') }} @else На модерации @endif</span>
-                <span><i class="fa fa-calendar-times-o text-danger"></i> Крайний срок: {{ \Carbon\Carbon::create($tender->deadline)->format('d.m.Y') }}</span>
+                <span><i class="fa fa-calendar-times-o text-danger"></i> Крайний срок: {{ $tender->deadline->format('d.m.Y') }}</span>
                 <span><i class="si si-user text-info"></i> Организатор: @if ($tender->owner) <a
                         href="{{ route('admin.users.edit', $tender->owner_id) }}"
                         class="link-effect">{{ $tender->owner->getCommonTitle() }}</a> @else Не зарегистрирован @endif</span>

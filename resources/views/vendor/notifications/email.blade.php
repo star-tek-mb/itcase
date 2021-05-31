@@ -44,7 +44,7 @@
 {{ $salutation }}
 @else
 @lang('Regards'),<br>
-VID.UZ
+itcase.com
 @endif
 
 {{-- Subcopy --}}

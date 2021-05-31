@@ -83,4 +83,24 @@
             <span class="sidebar-mini-hide">Конкурсы</span>
         </a>
     </li>
+    <li>
+        <a href="{{ route('admin.pages.index') }}">
+            <i class="fa fa-newspaper-o"></i>
+            <span class="sidebar-mini-hide">Статические страницы</span>
+        </a>
+    </li>
+    <li>
+        <a href="#" class="nav-submenu" data-toggle="nav-submenu">
+            <i class="si si-list"></i>
+            <span class="sidebar-mini-hide">Вакансии</span>
+        </a>
+        <ul>
+            <li>
+                <a href="{{ route('admin.vacancyCategory.index') }}">Категории</a>
+            </li>
+            <li>
+                <a href="{{ route('admin.vacancy.index') }}">Вакансии</a>
+            </li>
+        </ul>
+    </li>
 </ul>

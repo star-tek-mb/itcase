@@ -2,7 +2,7 @@
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => config('app.url')])
-            ITCASE.com
+            itcase.com
         @endcomponent
     @endslot
 
@@ -21,7 +21,7 @@
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
-            © {{ date('Y') }} ITCASE.com. Все права защищены
+            © {{ date('Y') }} itcase.com. Все права защищены
         @endcomponent
     @endslot
 @endcomponent
