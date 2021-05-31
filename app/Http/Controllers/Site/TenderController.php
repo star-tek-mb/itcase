@@ -167,6 +167,12 @@ class TenderController extends Controller
     {
         $user = auth()->user();
         if ($user) {
+            if (!$user->hasRole('customer')) {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect(route('login'))->with('warning', __('Вы должны войти или зарегестрироваться как заказчик'));;
+            }
             $user->authorizeRole('customer');
         } else {
             return redirect(route('register'))->with('warning', __('Для данного действия необходима регистрация'));

@@ -482,7 +482,7 @@
             </li>
 
             <li>
-              <a href="#">
+              <a href="https://play.google.com/store/apps/details?id=com.itcase.itcase">
                 <img src="/resources/images/googleplay.svg" alt="">
               </a>
             </li>

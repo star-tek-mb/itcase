@@ -161,6 +161,9 @@
                                                 @endif
                                             </li>
                                         @endforeach
+                                        @if (auth()->user()->unreadNotifications->count() == 0)
+                                        <li>{{ __('Нет новых оповещений') }}</li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
@@ -170,24 +173,6 @@
             </div>
             <div class="header-right">
                 <ul>
-
-                    <ul class="main-menu" style="display: inline-block;">
-                        <li class="header-menu-item">
-                            <a href="#" class="d-flex justify-content-between align-items-center"><span>{{ config('app.locale') }} <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M5.3902 5.83709L9.84025 1.29221C9.94325 1.1871 10 1.04677 10 0.897152C10 0.74753 9.94325 0.607207 9.84025 0.50209L9.51261 0.167391C9.29911 -0.0503999 8.95212 -0.0503999 8.73895 0.167391L5.00207 3.98384L1.26105 0.163156C1.15804 0.0580382 1.02072 -5.8482e-07 0.874302 -5.94356e-07C0.727717 -6.03903e-07 0.590401 0.0580382 0.487312 0.163156L0.159754 0.497854C0.0567474 0.603055 -2.18057e-08 0.743295 -2.61951e-08 0.892917C-3.05845e-08 1.04254 0.0567474 1.18286 0.159754 1.28798L4.61386 5.83709C4.7172 5.94246 4.85516 6.00033 5.00183 6C5.14906 6.00033 5.28695 5.94246 5.3902 5.83709Z" fill="white"/>
-</svg>
-</span></a>
-                            <ul class="sub-menu">
-                                @foreach(config('app.enabled_locales') as $locale)
-                                <li class="menu-item" style="display: block; margin-left: 15px;">
-                                    <a href="{{ route(request()->route()->getName(), array_merge(['locale' => $locale], request()->route()->parameters())) }}" class="d-flex justify-content-between align-items-center">
-                                        {{ __($locale) }}
-                                    </a>
-                                </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                    </ul>
 
                     @guest
                     <!-- <li><a href="{{ route('site.tenders.common.create') }}">

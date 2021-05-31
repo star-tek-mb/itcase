@@ -355,6 +355,7 @@
                     </button>
                 </div>
                 <div class="modal-body text-center">
+                    <span style="font-size: 20px; font-weight: bold;">Разовая оплата за использование сервиса производится в размере 53 000 сум</span>
                     <iframe id="payment-iframe" src="{{ $paymentUrl }}" width="400" height="400"></iframe>
                 </div>
             </div>

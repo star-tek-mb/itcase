@@ -247,7 +247,7 @@
               </li>
 
               <li>
-                <a href="/itcase.apk">
+                <a href="https://play.google.com/store/apps/details?id=com.itcase.itcase">
                   <img src="/resources/images/googleplay-black.svg" alt="">
                 </a>
               </li>
