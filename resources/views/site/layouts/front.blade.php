@@ -135,9 +135,8 @@
         @yield('breadcrumbs')
       </p>
 
-      <div class="row mt35">
-        @hasSection('sidebar')
-
+      @hasSection('sidebar')
+        <div class="row mt35">
           <aside class="sidebar">
             @yield('sidebar')
           </aside>
@@ -146,14 +145,16 @@
               @yield('content')
             </div>
           </div>
+        </div>
 
-        @else
-
+      @else
+        <div class="mt35">
           <div class="right-block__inner" style="padding: 0px;">
             @yield('content')
           </div>
+        </div>
+      @endif
 
-        @endif
       </div>
     </div>
   </div>
