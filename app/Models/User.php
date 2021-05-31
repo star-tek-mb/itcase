@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use App\MessageToken;
+use App\Models\MessageToken;
 use App\Models\Traits\MustVerifyPhone;
 use App\Models\Chat\Chat;
-use Illuminate\Http\UploadedFile;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
