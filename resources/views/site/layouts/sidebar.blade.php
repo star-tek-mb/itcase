@@ -29,7 +29,7 @@
 </div>
 
 
-<div class="title-top">
+{{--<div class="title-top">
 	<h2>{{ __('Популярные вакансии') }}
 		<span>itcase.com</span>
 	</h2>
@@ -51,4 +51,4 @@
 	<div class="text-center mt24">
 		<a href="#" class="button button--simple button--small">{{ __('Смотреть еще') }}</a>
 	</div>
-</div>
+</div>--}}
