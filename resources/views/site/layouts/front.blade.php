@@ -118,9 +118,8 @@
     </div>
   </header>
 
-  <div class="wrapper">
+  <div class="wrapper" style="margin-bottom: 30px;">
     <div class="container">
-
 
       <!-- КАТАЛОГ ИСПОЛНИТЕЛЕЙ - ФОРМА-->
       @hasSection('search-box')
