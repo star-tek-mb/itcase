@@ -437,7 +437,7 @@ class AccountController extends Controller
     }
     public function getMessageToken(Request $request) {
         $user = auth()->user();
-       $result =  $user->createToken($request->token);
+       $result =  $user->createTokenMessage($request->token);
        return response()->json(
            [],
            $result ? 200 : 400
