@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Административная панель бота</title>
+    <title>itcase.com</title>
     <link href="https://unpkg.com/@tailwindcss/forms/dist/forms.min.css" rel="stylesheet">
     <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
     <link href="/css/all.min.css" rel="stylesheet">
@@ -20,7 +20,7 @@
           <a class="underline" href="{{ route('site.page', 'about') }}">О компании</a>
         </li>
         <li class="col-4">
-          Почта:  itcase.com@yandex.ru
+          Почта: itcase.com@yandex.ru
         </li>
         <li class="col-4">
           Телефон для справок:  +99899420 00 00

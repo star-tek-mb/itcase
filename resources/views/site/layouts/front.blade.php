@@ -77,7 +77,7 @@
 
 
         <div class="header__right d-flex align-items-center">
-          <div class="languages has-submenu">
+          {{--<div class="languages has-submenu">
             <span>{{ Str::upper(config('app.locale')) }}</span>
             <ul class="languages__menu">
               @foreach (config('app.enabled_locales') as $locale)
@@ -88,7 +88,7 @@
               </li>
               @endforeach
             </ul>
-          </div>
+          </div>--}}
 
           @guest
           <ul class="header__menu">

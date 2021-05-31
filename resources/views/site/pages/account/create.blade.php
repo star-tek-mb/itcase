@@ -184,6 +184,12 @@
                                             Соглашаюсь на обработку персональных данных
                                         </label>
                                     </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" required type="checkbox" value="1" name="agree_tos" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Соглашаюсь с <a href="{{ route('site.page', 'terms-of-service') }}">правилами сервиса</a> и <a href="{{ route('site.page', 'offerta') }}">условиями оферты</a>
+                                        </label>
+                                    </div>
                                     <br>
                                     <button type="submit" @if (is_null($user->account_paid_at)) disabled @endif class="btn btn-light-green">Профессиональные данные <i class="fas fa-arrow-right"></i></button>
                                 </form>
@@ -321,11 +327,18 @@
                                         Соглашаюсь на обработку персональных данных
                                     </label>
                                 </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" required type="checkbox" value="1" name="agree_tos" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Соглашаюсь с <a href="{{ route('site.page', 'terms-of-service') }}">правилами сервиса</a> и <a href="{{ route('site.page', 'offerta') }}">условиями оферты</a>
+                                    </label>
+                                </div>
                                 <br>
                                 <button type="submit" @if (is_null($user->account_paid_at)) disabled @endif class="btn btn-light-green"><i class="fas fa-save"></i> Сохранить</button>
                             </form>
                         </div>
                         <button id="payment-button" @if (!is_null($user->account_paid_at)) disabled @endif type="button" class="btn btn-primary" data-toggle="modal" data-target="#payment-modal">{{ __('Оплатить аккаунт') }}</button>
+                        Разовая оплата за использование сервиса производится в размере 53 000 сум
                     </div>
                 </div>
             </div>
