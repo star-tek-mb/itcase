@@ -182,10 +182,6 @@
             <li>
               <a href="{{ route('site.page', 'faq') }}">Частые вопросы</a>
             </li>
-
-            <li>
-              <a href="#">Вакансии</a>
-            </li>
           </ul>
         </div>
 
@@ -193,14 +189,6 @@
           <h4>Компания</h4>
 
           <ul>
-            <li>
-              <a href="#">Отзывы заказчиков</a>
-            </li>
-
-            <li>
-              <a href="#">itcase для бизнеса</a>
-            </li>
-
             <li>
               <a href="{{ route('site.blog.index') }}">Наш блог</a>
             </li>

@@ -790,19 +790,15 @@
             </li>
 
             <li>
-              <a href="#">Как стать исполнителем</a>
+              <a href="{{ route('site.page', 'how-to-contractor') }}">Как стать исполнителем</a>
             </li>
 
             <li>
-              <a href="#">Как стать заказчиком</a>
+              <a href="{{ route('site.page', 'how-to-customer') }}">Как стать заказчиком</a>
             </li>
 
             <li>
-              <a href="#">Частые вопросы</a>
-            </li>
-
-            <li>
-              <a href="#">Вакансии</a>
+              <a href="{{ route('site.page', 'faq') }}">Частые вопросы</a>
             </li>
           </ul>
         </div>
@@ -811,14 +807,6 @@
           <h4>Компания</h4>
 
           <ul>
-            <li>
-              <a href="#">Отзывы заказчиков</a>
-            </li>
-
-            <li>
-              <a href="#">itcase для бизнеса</a>
-            </li>
-
             <li>
               <a href="{{ route('site.blog.index') }}">Наш блог</a>
             </li>
