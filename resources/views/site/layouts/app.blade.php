@@ -9,7 +9,6 @@
     @yield('meta')
 
 
-    <link rel="shortcut icon" type="image/png" href="https://via.placeholder.com/16x16">
     <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/flaticon-category.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/slick.css') }}">
@@ -27,10 +26,7 @@
     @yield('css')
     <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-    <link rel="shortcut icon" href="{{ asset('assets/img/favicons/favicon.png') }}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('assets/img/favicons/favicon-192x192.png') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/favicons/apple-touch-icon-180x180.png') }}">
-    <link rel="canonical" href="{{ request()->fullUrl() }}">
+    <link rel="shortcut icon" href="/favicon.ico">
     <!-- END Icons -->
     <title>
         @yield('title') | itcase.com
