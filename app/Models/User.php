@@ -17,9 +17,7 @@ use App\Notifications\SendNotificationFireBase;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens, MustVerifyPhone, SendNotificationFireBase {
-        Notifiable::notify as protected traitNotify;
-    }
+    use Notifiable, HasApiTokens, MustVerifyPhone, SendNotificationFireBase;
 
     const INDIVIDUAL = 'individual';
     const LEGAL_ENTITY = 'legal_entity';
@@ -59,11 +57,16 @@ class User extends Authenticatable
         'meta_title'
     ];
 
-    public function notify($instance)
+//    public function notify($instance)
+//    {
+//        $this->traitNotify($instance);
+//        $this->sendToApp($instance);
+//    }
+    public function routeNotificationForFcm()
     {
-        $this->traitNotify($instance);
-        $this->sendToApp($instance);
+        return $this->messageTokens();
     }
+
 
     protected static function boot()
     {

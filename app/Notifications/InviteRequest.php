@@ -6,6 +6,13 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use NotificationChannels\Fcm\FcmChannel;
+use NotificationChannels\Fcm\FcmMessage;
+use NotificationChannels\Fcm\Resources\AndroidConfig;
+use NotificationChannels\Fcm\Resources\AndroidFcmOptions;
+use NotificationChannels\Fcm\Resources\AndroidNotification;
+use NotificationChannels\Fcm\Resources\ApnsConfig;
+use NotificationChannels\Fcm\Resources\ApnsFcmOptions;
 
 class InviteRequest extends Notification
 {
@@ -29,20 +36,31 @@ class InviteRequest extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  \App\Models\User  $notifiable
+     * @param \App\Models\User $notifiable
      * @return array
      */
     public function via($notifiable)
     {
-        return $notifiable->email ? ['database', 'mail'] : ['database'];
+        return $notifiable->email ? ['database', 'mail', FcmChannel::class] : ['database', FcmChannel::class];
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  \App\Models\User  $notifiable
+     * @param \App\Models\User $notifiable
      * @return array
      */
+
+    public  function  toFcm($notifiable)
+    {
+        return FcmMessage::create()
+            ->setData($this->toArray($notifiable))
+            ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
+                ->setTitle('Account Activated')
+                ->setBody('Your account has been activated.')
+                ->setImage('http://example.com/url-to-image-here.png'));
+    }
+
     public function toArray($notifiable)
     {
         return [
@@ -57,7 +75,7 @@ class InviteRequest extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  \App\Models\User  $notifiable
+     * @param \App\Models\User $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
@@ -66,7 +84,7 @@ class InviteRequest extends Notification
 
         return (new MailMessage)
             ->subject('Вас приглашают участвовать в конкурсе!')
-            ->greeting('Здравствуйте, '. $notifiable->getCommonTitle())
+            ->greeting('Здравствуйте, ' . $notifiable->getCommonTitle())
             ->line('Заказчик ' . $this->request->tender->owner->getCommonTitle() . ' приглашает вас принять участие в конкурсе ' . $this->request->tender->title . ' и добавил вас в список участников.')
             ->action('Перейти к конкурсу', $url);
     }

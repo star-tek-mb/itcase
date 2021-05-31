@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Helpers\SlugHelper;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\PaginateCollection;
 use App\Notifications\InviteRequest;
 use App\Notifications\RequestAction;
@@ -11,8 +11,6 @@ use App\Repositories\MenuRepositoryInterface;
 use App\Repositories\TenderRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
-use App\Http\Controllers\Controller;
 
 class ContractorsController extends Controller
 {

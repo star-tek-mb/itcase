@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use NotificationChannels\Fcm\FcmChannel;
 
 class TenderPublished extends Notification
 {
@@ -41,7 +42,7 @@ class TenderPublished extends Notification
      */
     public function via($notifiable)
     {
-        return $notifiable->email ? ['database', 'mail'] : ['database'];
+        return $notifiable->email ? ['database', 'mail',FcmChannel::class] : ['database',FcmChannel::class];
     }
 
     /**
