@@ -118,7 +118,7 @@
     </div>
   </header>
 
-  <div class="wrapper" style="margin-bottom: 30px;">
+  <div class="wrapper" style="padding-bottom: 30px;">
     <div class="container">
 
       <!-- КАТАЛОГ ИСПОЛНИТЕЛЕЙ - ФОРМА-->
