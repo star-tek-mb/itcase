@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\TenderRequest;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -28,7 +29,7 @@ class InviteRequest extends Notification
      *
      * @param \App\Models\TenderRequest $request
      */
-    public function __construct(\App\Models\TenderRequest $request)
+    public function __construct(TenderRequest $request)
     {
         $this->request = $request;
     }
@@ -55,10 +56,7 @@ class InviteRequest extends Notification
     {
         return FcmMessage::create()
             ->setData($this->toArray($notifiable))
-            ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
-                ->setTitle('Account Activated')
-                ->setBody('Your account has been activated.')
-                ->setImage('http://example.com/url-to-image-here.png'));
+            ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create());
     }
 
     public function toArray($notifiable)

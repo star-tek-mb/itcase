@@ -17,7 +17,7 @@ use App\Notifications\SendNotificationFireBase;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens, MustVerifyPhone, SendNotificationFireBase;
+    use Notifiable, HasApiTokens, MustVerifyPhone;
 
     const INDIVIDUAL = 'individual';
     const LEGAL_ENTITY = 'legal_entity';

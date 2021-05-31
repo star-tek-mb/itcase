@@ -2,11 +2,13 @@
 
 namespace App\Notifications;
 
+use App\Models\Chat\Message;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Fcm\FcmChannel;
+use NotificationChannels\Fcm\FcmMessage;
 
 class SendMessage extends Notification
 {
@@ -17,9 +19,10 @@ class SendMessage extends Notification
      *
      * @return void
      */
-    public function __construct()
+    private  $message;
+    public function __construct(Message $message)
     {
-        //
+        $this->message = $message;
     }
 
     /**
@@ -30,9 +33,14 @@ class SendMessage extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail',FcmChannel::class];
+        return [FcmChannel::class];
     }
-
+    public  function  toFcm($notifiable)
+    {
+        return FcmMessage::create()
+            ->setData($this->toArray($notifiable))
+            ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create());
+    }
     /**
      * Get the mail representation of the notification.
      *
@@ -56,7 +64,7 @@ class SendMessage extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'message' => $this->message,
         ];
     }
 }

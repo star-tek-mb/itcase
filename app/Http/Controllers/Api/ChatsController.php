@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\MessageSent;
+use App\Notifications\SendMessage;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\Chat\Chat;
@@ -92,7 +93,7 @@ class ChatsController extends Controller
             'chat_id' => 'required',
             'text' => 'required',
         ]);
-        
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
@@ -105,6 +106,7 @@ class ChatsController extends Controller
             'text' => $message
         ];
         $message = Message::create($messageData);
+        $this->chatRepository->getById($chatId)->getAnotherUser()->notify(new SendMessage($message));
         return response()->json([
             'id' => $message->id,
             'created_at' => $message->created_at,
