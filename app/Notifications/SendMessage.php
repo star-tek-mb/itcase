@@ -38,7 +38,7 @@ class SendMessage extends Notification
     public  function  toFcm($notifiable)
     {
         return FcmMessage::create()
-            ->setData($this->toArray($notifiable))
+            ->setData(json_encode($this->toArray($notifiable)))
             ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create());
     }
     /**
