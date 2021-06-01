@@ -131,6 +131,7 @@ class User extends Authenticatable
     {
         $message = new MessageToken([
             'token' => $token,
+            'user_id'=>$this->id
         ]);
         $message->save();
         return $message != null;
