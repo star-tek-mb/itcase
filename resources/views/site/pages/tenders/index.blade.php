@@ -25,7 +25,7 @@
 					<ul>
 						@foreach ($parent->categories as $category)
 							<li>
-								<input @if (($currentCategory && $currentCategory->id == $category->id) || in_array($category->id, request()->categories ?? [])) checked="" @elseif ($currentCategory == null && request()->categories == null) checked="" @endif type="checkbox" id="cat{{ $category->id }}" class="form-check-input" name="categories[]" value="{{ $category->id }}">
+								<input @if (($currentCategory && $currentCategory->id == $category->id) || in_array($category->id, request()->categories ?? [])  || in_array($category->parent->id, request()->categories ?? [])) checked="" @elseif ($currentCategory == null && request()->categories == null) checked="" @endif type="checkbox" id="cat{{ $category->id }}" class="form-check-input" name="categories[]" value="{{ $category->id }}">
 								<label class="form-check-label" for="cat{{ $category->id }}">{{ $category->title }}</label>
 								<span></span>
 							</li>
