@@ -99,7 +99,7 @@ class ContractorsController extends Controller
             $contractor->comments = $comments;
             $contractor->mean = $mean;
         }
-
+        $category = null;
         return view('site.pages.contractors.index', compact('category', 'contractors', 'contractorsCount'));
     }
 
@@ -113,7 +113,8 @@ class ContractorsController extends Controller
             $contractor->comments = $comments;
             $contractor->mean = $mean;
         }
-        return view('site.pages.contractors.index', compact('contractors', 'contractorsCount'));
+        $category = null;
+        return view('site.pages.contractors.index', compact('category', 'contractors', 'contractorsCount'));
     }
 
     /**
