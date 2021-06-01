@@ -193,9 +193,6 @@
                             {{ __('Регистрация') }}</a>
                     </li>
                     @else
-                    @if (auth()->user()->hasRole('customer'))
-                    <li><a href="{{ route('site.tenders.common.create') }}"><i class="fas fa-plus-circle"></i>
-                            {{ __('Добавить заказ') }}</a></li>@endif
                     <li>
                         <div class="notification-item">
                             <a role="button" id="page-header-notifications" class="notification-button" data-toggle="dropdown" class="" aria-haspopup="true">
@@ -226,7 +223,7 @@
                                                 <small><i class="fas fa-info text-primary"></i></small>
                                             </div>
                                             <div class="notification-item-body">
-                                                <p class="mb-0">{{ __('Заказчик') }}<span class="font-weight-bold">{{ $notification->data['customerName'] }}</span>
+                                                <p class="mb-0">{{ __('Заказчик') }} <span class="font-weight-bold">{{ $notification->data['customerName'] }}</span>
                                                     {{ __('приглашает вас принять участие в конкурсе') }} <span class="font-weight-bold">{{ $notification->data['tenderName'] }}</span>
                                                     {{ __('и добавил вас в список участников') }}
                                                 </p>
