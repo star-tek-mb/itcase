@@ -67,9 +67,9 @@ class SendMessage extends Notification
             'message' => $this->message,
         ];
     }
-    public function fcmProject($notifiable, $message)
-    {
-        // $message is what is returned by `toFcm`
-        return 'itcase'; // name of the firebase project to use
-    }
+//    public function fcmProject($notifiable, $message)
+//    {
+//        // $message is what is returned by `toFcm`
+//        return 'itcase'; // name of the firebase project to use
+//    }
 }
