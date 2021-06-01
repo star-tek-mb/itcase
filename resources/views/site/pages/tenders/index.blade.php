@@ -83,9 +83,15 @@
           Крайний срок приема заявок: <span>{{ $tender->deadline->format('d.m.Y') }}</span>
         </li>
 
-        <li>
-          <a href="#" class="button button--small">Предложить задание</a>
+        @guest
+        <li class="alert">
+          <a href="{{ route('login') }}">Войдите на сайт чтобы подать заявку</a>
         </li>
+        @else
+        <li>
+          <a href="{{ route('site.tenders.category', $tender->slug) }}" class="button button--small">Откликнуться на задание</a>
+        </li>
+        @endguest
       </ul>
     </div>
   </div>

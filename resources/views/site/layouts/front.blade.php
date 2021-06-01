@@ -19,10 +19,9 @@
   <meta name="keywords" content="" />
 
   <title>@yield('title') | itcase.com</title>
+
   <link rel="stylesheet" href="/resources/css/plugins/swiper.min.css" />
   <link rel="stylesheet" href="/resources/css/plugins/magnific-popup.min.css" />
-  <link rel="stylesheet" href="/front/css/bootstrap.min.css">
-
   <link rel="stylesheet" href="/resources/css/style.css" />
   @stack('css')
 </head>
@@ -312,6 +311,8 @@
 
 
   <!-- -->
+  @yield('modal')
+  <div class="cover"></div>
 
   <script src="/front/js/popper.min.js"></script>
   <script src="/resources/js/jquery.min.js"></script>

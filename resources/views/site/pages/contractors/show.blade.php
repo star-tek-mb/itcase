@@ -107,7 +107,7 @@
       </div>
 
 
-      <a href="#" class="button button--small">Предложить задание</a>
+      <a href="#" class="button button--full" data-modal="#modal">Предложить задание</a>
 
       <p>Был на сайте: <strong>{{ $contractor->last_online_at->diffForHumans() }}</strong> </p>
     </div>
@@ -207,4 +207,36 @@
   </div>
 
 </div>
+@endsection
+
+@section('modal')
+@auth
+<div class="modal" id="modal">
+  <h4>Выберите конкурс, в который вы хотите пригласить исполнителя</h4>
+  <select id="add-form" style="margin-top: 20px;">
+      @foreach(auth()->user()->ownedTenders as $tender)
+          @continue(!$tender->opened || $tender->status == 'done')
+          @if ($tender->hasRequestFrom($contractor->id))
+              <option disabled>{{ $tender->title }} - уже учавствует</option>
+          @endif
+          <option value="{{ route('site.tenders.contractors.add', ['tenderId' => $tender->id, 'contractorId' => $contractor->id]) }}">{{ $tender->title }}</option>
+      @endforeach
+  </select>
+  <a href="#" onclick="window.location = document.getElementById('add-form').value;" class="button button--simple button--small">Пригласить</a>
+  <a href="#" class="close"></a>
+</div>
+@else
+<div class="modal" id="modal">
+  <h4>Хотите стать заказчиком?</h4>
+
+  <p>Это не сложно. Всего предстоит два шага:
+    анкета и подписка на задания. Всё займёт 
+    примерно 5 минут.</p>
+
+    <a href="{{ route('register') }}" class="button button--simple button--small">Зарегестрироваться</a>
+    <p class="light"><a href="{{ route('login') }}">У меня уже есть аккаунт. Войти</a></p>
+
+    <a href="#" class="close"></a>
+</div>
+@endauth
 @endsection

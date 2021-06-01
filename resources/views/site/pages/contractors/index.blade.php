@@ -93,7 +93,7 @@
 				<span>{{ $contractor->mean }}</span>
 			</div>
 
-			<a href="#" class="button button--small">Предложить задание</a>
+			<a href="{{ route('site.contractors.show', $contractor->slug) }}" class="button button--small">Предложить задание</a>
 		</div>
 	</li>
 	@endforeach
