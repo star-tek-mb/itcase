@@ -102,7 +102,7 @@
         <li class="task-date">
           <div>
             Крайний срок приема заявок: <span>{{ $tender->deadline->format('d.m.Y') }}</span> <br>
-            Дата окончания работ: <span>{{ $tender->work_end_at->format('d.m.Y') }}</span> <br>
+            Дата окончания работ: <span>{{ $tender->work_end_at ? $tender->work_end_at->format('d.m.Y') : 'Неизвестно' }}</span> <br>
           </div>
         </li>
 
