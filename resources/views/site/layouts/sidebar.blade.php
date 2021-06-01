@@ -1,4 +1,4 @@
-<div class="title-top">
+{{--<div class="title-top">
 	<h2>{{ __('Новые публикации') }}
 		<span>{{ __('в блоге') }}</span>
 	</h2>
@@ -29,7 +29,7 @@
 </div>
 
 
-{{--<div class="title-top">
+<div class="title-top">
 	<h2>{{ __('Популярные вакансии') }}
 		<span>itcase.com</span>
 	</h2>
