@@ -16,17 +16,17 @@
 	<ul class="categories">
 		@foreach ($parentCategories as $parent)
 			<li>
-				<div class="ml-4 form-check">
-					<input checked="" type="checkbox" id="cat{{ $parent->id }}" class="form-check-input" name="categories[]" value="{{ $parent->id }}">
+				<div class="ml-4 form-check @if ($category && $category->parent->id == $parent->id) active @endif">
+					<input @if ($category == null) checked="" @endif type="checkbox" id="cat{{ $parent->id }}" class="form-check-input" name="categories[]" value="{{ $parent->id }}">
 					<label class="form-check-label" for="cat{{ $parent->id }}">{{ $parent->title }}</label>
 					<span></span>
 
-					<div class="arrow"></div>
+					<div class="arrow @if ($category && $category->parent->id == $parent->id) active @endif"></div>
 					<ul>
-						@foreach ($parent->categories as $category)
+						@foreach ($parent->categories as $cat)
 							<li>
-								<input checked="" type="checkbox" id="cat{{ $category->id }}" class="form-check-input" name="categories[]" value="{{ $category->id }}">
-								<label class="form-check-label" for="cat{{ $category->id }}">{{ $category->title }}</label>
+								<input @if ($category && $category->id == $cat->id) checked="" @elseif ($category == null) checked="" @endif type="checkbox" id="cat{{ $cat->id }}" class="form-check-input" name="categories[]" value="{{ $cat->id }}">
+								<label class="form-check-label" for="cat{{ $cat->id }}">{{ $cat->title }}</label>
 								<span></span>
 							</li>
 						@endforeach

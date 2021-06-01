@@ -152,7 +152,7 @@
   <ul class="worklist">
     @foreach ($contractor->categories as $category)
     <li>
-      <a href="{{ route('site.tenders.category', $category->getAncestorsSlugs()) }}">{{ $category->title }}</a>
+      <a href="{{ route('site.catalog.main', $category->getAncestorsSlugs()) }}">{{ $category->title }}</a>
     </li>
     @endforeach
   </ul>
