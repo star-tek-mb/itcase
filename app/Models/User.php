@@ -62,7 +62,7 @@ class User extends Authenticatable
 //    }
     public function routeNotificationForFcm()
     {
-        return $this->messageTokens()->first()->token;
+        return $this->messageTokens()->select('token')->get()->map(function($s) {return $s->token;});
     }
 
 

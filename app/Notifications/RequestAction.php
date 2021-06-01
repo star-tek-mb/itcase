@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use NotificationChannels\Fcm\FcmChannel;
+use NotificationChannels\Fcm\FcmMessage;
 
 class RequestAction extends Notification
 {
@@ -40,7 +41,12 @@ class RequestAction extends Notification
         $this->request = $request;
         $this->tender = $tender;
     }
-
+    public  function  toFcm($notifiable)
+    {
+        return FcmMessage::create()
+            ->setData(["message" => json_encode($this->toArray($notifiable))])
+            ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create());
+    }
     /**
      * Get the notification's delivery channels.
      *
