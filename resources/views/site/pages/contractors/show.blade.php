@@ -214,8 +214,9 @@
 @section('modal')
 @auth
 <div class="modal" id="modal">
-  <h4>Выберите конкурс, в который вы хотите пригласить исполнителя</h4>
+  <h4>Выберите задание, в который вы хотите пригласить исполнителя</h4>
   <select id="add-form" style="margin-top: 20px;">
+      <option value="{{ route('site.tenders.create') }}">У вас нету опубликованных заданий</option>
       @foreach(auth()->user()->ownedTenders as $tender)
           @continue(!$tender->opened || $tender->status == 'done')
           @if ($tender->hasRequestFrom($contractor->id))
