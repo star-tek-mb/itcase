@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use NotificationChannels\Fcm\FcmChannel;
+use NotificationChannels\Fcm\FcmMessage;
 
 class InvitationResponse extends Notification
 {
@@ -51,7 +52,12 @@ class InvitationResponse extends Notification
     {
         return $notifiable->email ? ['database', 'mail', FcmChannel::class] : ['database',FcmChannel::class];
     }
-
+    public  function  toFcm($notifiable)
+    {
+        return FcmMessage::create()
+            ->setData(["message" => json_encode($this->toArray($notifiable))])
+            ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create());
+    }
     /**
      * Get the array representation of the notification.
      *

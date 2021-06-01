@@ -64,7 +64,12 @@ class SendMessage extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => $this->message,
+            'message' => json_encode($this->message->toArray()),
         ];
     }
+//    public function fcmProject($notifiable, $message)
+//    {
+//        // $message is what is returned by `toFcm`
+//        return 'itcase'; // name of the firebase project to use
+//    }
 }

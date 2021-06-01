@@ -9,7 +9,8 @@ use function Symfony\Component\String\b;
 class MessageToken extends Model
 {
     protected $fillable = [
-        'token'
+        'token',
+        'user_id'
     ];
     public $timestamps = false;
 

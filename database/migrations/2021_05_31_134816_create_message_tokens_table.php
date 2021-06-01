@@ -15,7 +15,7 @@ class CreateMessageTokensTable extends Migration
     {
         Schema::create('message_tokens', function (Blueprint $table) {
             $table->id();
-            $table->string('token',100);
+            $table->string('token');
             $table->bigInteger('user_id')->default(0);
         });
     }
