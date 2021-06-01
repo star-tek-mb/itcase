@@ -122,6 +122,7 @@
   </div>
 
 
+  @if ($contractor->contractedTenders->count() > 0)
   <div class="worker__portfolio">
     <h3>Примеры работ</h3>
   </div>
@@ -141,6 +142,7 @@
     </div>
     @endforeach
   </div>
+  @endif
 
   <div class="mt50">
     <h3>Виды выполняемых работ</h3>
