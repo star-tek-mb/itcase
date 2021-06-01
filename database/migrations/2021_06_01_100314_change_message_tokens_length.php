@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMessageTokensTable extends Migration
+class ChangeMessageTokensLength extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateMessageTokensTable extends Migration
      */
     public function up()
     {
-        Schema::create('message_tokens', function (Blueprint $table) {
-            $table->id();
+        Schema::table('message_tokens', function (Blueprint $table) {
+            $table->dropColumn('token');
+        });
+        Schema::table('message_tokens', function (Blueprint $table) {
             $table->string('token');
-            $table->bigInteger('user_id')->default(0);
         });
     }
 
@@ -27,6 +28,6 @@ class CreateMessageTokensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('message_tokens');
+        //
     }
 }
