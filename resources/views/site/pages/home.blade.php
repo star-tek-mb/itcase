@@ -182,7 +182,7 @@
             <span>{{ $parent->descendants->reduce(fn($carry, $item) => $carry + $item->tenders->count(), 0) }}</span> Заданий
           </div>
 
-          <img style="fill: #fff;" src="{{ $category->getImage() }}" alt="">
+          <img style="fill: #fff;" src="{{ $parent->getImage() }}" alt="">
           <h3>{{ $parent->title }}</h3>
 
           <ul class="service__list">
