@@ -115,11 +115,23 @@
       </ul>
 
       @if (auth()->user() && in_array(auth()->user()->id, $tender->requests()->pluck('user_id')->toArray()))
-      <a class="button button--full">
-        Вы уже оставили заявку
+      <div style="text-align: center; font-size: 24px; font-weight: bold; margin: 20px;">Вы уже оставили заявку</div>
+      <form action="{{ route('site.tenders.requests.cancel') }}" method="post" class="mr-3">
+          @csrf
+          <input type="hidden" name="requestId" value="{{ $tender->requests()->where('user_id', auth()->user()->id)->first()->id }}">
+          <button style="margin-top: 0; width: 100%; justify-content: center; font-weight: 24px; font-weight: bold;" class="button" type="submit">Отменить</button>
+      </form>
+      <form action="{{ route('site.account.chats') }}" method="post">
+        @csrf
+        <input type="hidden" name="with_user_id" value="{{ $tender->owner->id }}">
+        <button style="margin: 0; width: 100%; justify-content: center; font-weight: 24px; font-weight: bold;" class="button" type="submit" data-toggle="tooltip" title="Связаться">Связаться через чат</button>
+      </form>
+      @elseif (auth()->user() && auth()->user()->hasRole('customer'))
+      <a href="#" class="button button--full" data-modal="#modal">
+        Войдите как исполнитель чтоб оставить заявку
       </a>
       @elseif ($tender->checkDeadline())
-      <li><a href="#" class="button button--full" data-modal="#modal">Откликнуться на задание</a></li>
+      <a href="#" class="button button--full" data-modal="#modal">Откликнуться на задание</a></li>
       @else
       <a class="button button--full">
         Срок приема заявок закончен
@@ -147,7 +159,7 @@
 @endsection
 
 @section('modal')
-@auth
+@if (auth()->user() && auth()->user()->hasRole('customer'))
 <div class="modal" id="modal">
   <h4>Хотите стать исполнителем?</h4>
 
@@ -164,7 +176,7 @@
 <div class="modal" id="modal">
   <form action="{{ route('site.tenders.requests.make') }}" method="post" class="main__form">
     @csrf
-    <input type="hidden" name="user_id" value="">
+    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
     <input type="hidden" name="tender_id" value="{{ $tender->id }}">
     <h4>Отправляйте заявку.</h4>
     <div for="budget" style="margin: 5px;">Бюджет</div>

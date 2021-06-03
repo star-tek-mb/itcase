@@ -79,8 +79,7 @@
     <li>
         <a href="{{ route('admin.tenders.all') }}">
           <i class="fas fa-angry"></i>
-
-            <span class="sidebar-mini-hide">Конкурсы</span>
+            <span class="sidebar-mini-hide">Задания / Конкурсы</span>
         </a>
     </li>
     <li>

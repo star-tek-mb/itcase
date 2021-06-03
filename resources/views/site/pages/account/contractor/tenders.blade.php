@@ -77,7 +77,7 @@
                                         </form>
                                         @endif
                                         @if ($request->tender->contractor_id == $request->user_id && $request->tender->status != 'finished')
-                                        <form method="post" action="{{ route('site.tenders.check', $tender->id) }}">
+                                        <form method="post" action="{{ route('site.tenders.check', $request->tender->id) }}">
                                             @csrf
                                             <button type="submit" class="btn btn-light mr-2" title="Выполнено"><i class="fas fa-check"></i></button>
                                         </form>

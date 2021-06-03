@@ -10,6 +10,8 @@ use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use App\Notifications\TenderContractorFinished;
+use App\Notifications\TenderCustomerFinished;
+use Illuminate\Support\Facades\Notification;
 
 class TenderRepository implements TenderRepositoryInterface
 {
