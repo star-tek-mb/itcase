@@ -73,7 +73,7 @@
 
 
         <div class="header__right d-flex align-items-center">
-          <div class="languages has-submenu">
+          {{--<div class="languages has-submenu">
             <span>{{ Str::upper(config('app.locale')) }}</span>
             <ul class="languages__menu">
               @foreach (config('app.enabled_locales') as $locale)
@@ -84,7 +84,7 @@
               </li>
               @endforeach
             </ul>
-          </div>
+          </div>--}}
 
           @guest
           <ul class="header__menu">
@@ -111,7 +111,25 @@
         </div>
 
       </div>
+      <div class="row justify-content-between align-items-center">
+        <div class="header__left d-flex align-items-center">
+          <ul class="header__menu menu">
+            <li><a style="padding-top: 15px; padding-bottom: 15px;" href="{{ route('site.page', 'about') }}">О компании</a></li>
+          </ul>
+        </div>
+        <div class="header__right d-flex align-items-center">
+          <ul class="header__menu menu">
+            <li>
+              Почта: itcase.com@yandex.ru
+            </li>
+            <li>
+              Телефон для справок:  +99899 420 00 00
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+
   </header>
 
   <!-- ГЛАВНАЯ СЕКЦИЯ-->
@@ -134,11 +152,11 @@
 
       <ul class="buttons-list">
         <li>
-          <a href="#" class="button">{{ __('Добавить задание') }}</a>
+          <a href="{{ route('site.tenders.common.create') }}" class="button">{{ __('Добавить задание') }}</a>
         </li>
 
         <li>
-          <a href="#" class="button">{{ __('Выполнить задание') }}</a>
+          <a href="{{ route('site.tenders.index') }}" class="button">{{ __('Выполнить задание') }}</a>
         </li>
       </ul>
     </div>
@@ -269,7 +287,7 @@
                   <div>
                     <h3>Создайте задание</h3>
                     <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="#" class="button button--secondary">Создать задание</a>
+                    <a href="{{ route('site.tenders.common.create') }}" class="button button--secondary">Создать задание</a>
                   </div>
                 </div>
               </div>
@@ -290,7 +308,7 @@
                   <div>
                     <h3>Создайте задание</h3>
                     <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="#" class="button button--secondary">Создать задание</a>
+                    <a href="{{ route('site.tenders.common.create') }}" class="button button--secondary">Создать задание</a>
                   </div>
 
                 </div>
@@ -312,7 +330,7 @@
                   <div>
                     <h3>Создайте задание</h3>
                     <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="#" class="button button--secondary">Создать задание</a>
+                    <a href="{{ route('site.tenders.common.create') }}" class="button button--secondary">Создать задание</a>
                   </div>
                 </div>
               </div>
@@ -332,7 +350,7 @@
                   <div>
                     <h3>Создайте задание</h3>
                     <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="#" class="button button--secondary">Создать задание</a>
+                    <a href="{{ route('site.tenders.common.create') }}" class="button button--secondary">Создать задание</a>
                   </div>
                 </div>
               </div>
@@ -352,7 +370,7 @@
                   <div>
                     <h3>Создайте задание</h3>
                     <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="#" class="button button--secondary">Создать задание</a>
+                    <a href="{{ route('site.tenders.common.create') }}" class="button button--secondary">Создать задание</a>
                   </div>
                 </div>
               </div>
@@ -372,7 +390,7 @@
                   <div>
                     <h3>Создайте задание</h3>
                     <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="#" class="button button--secondary">Создать задание</a>
+                    <a href="{{ route('site.tenders.common.create') }}" class="button button--secondary">Создать задание</a>
                   </div>
                 </div>
               </div>
@@ -457,7 +475,7 @@
       </div>
 
       <div class="text-center mt55">
-        <a href="#" class="button">Добавить задание</a>
+        <a href="{{ route('site.tenders.common.create') }}" class="button">Добавить задание</a>
       </div>
     </div>
   </section>
@@ -470,8 +488,7 @@
             itcase.com в вашем кормане</h2>
 
           <div class="subtitle mt31">
-            <p>Скачайте наше приложение и пользуйтесь
-              itcase.com, где бы вы ни находились.</p>
+            <p>Скачайте наше приложение и пользуйтесь itcase.com, где бы вы ни находились. Разовая оплата за использование сервиса производится в размере 53 000 сум</p>
           </div>
 
           <ul class="buttons">
@@ -502,7 +519,7 @@
           <img src="/resources/images/hand.png" alt="" class="image">
         </div>
       </div>
-
+      <br><br>
     </div>
   </section>
 
@@ -572,7 +589,7 @@
   <section class="blog">
     <div class="container">
       <div class="text-center blog__title section-title">
-        <h2>Новые публикации в <a href="#">блоге</a> itcase</h2>
+        <h2>Новые публикации в <a href="{{ route('site.blog.index') }}">блоге</a> itcase</h2>
         <p>Хотите стать героем наших историй? Это просто! <a href="{{ route('site.tenders.common.create') }}">Разместите задание</a> или <a href="{{ route('site.account.contractor.professional') }}">станьте
             исполнителем</a>.</p>
       </div>
@@ -812,16 +829,16 @@
             </li>
 
             <li>
-              <a href="#">Контакты</a>
+              <a href="{{ route('site.page', 'contacts') }}">Контакты</a>
             </li>
 
             <li>
-              <a href="#">Служба поддержки</a>
+              <a href="{{ route('site.page', 'support') }}">Служба поддержки</a>
             </li>
           </ul>
         </div>
 
-        <div class="col">
+        {{--<div class="col">
           <h4>Скоро в itcase.com</h4>
 
           <ul>
@@ -838,7 +855,7 @@
               <a href="#">itcar - краткосрочная аренда, прокат машины</a>
             </li>
           </ul>
-        </div>
+        </div>--}}
 
 
         <div class="col">
@@ -853,7 +870,7 @@
               </li>
 
               <li>
-                <a href="/itcase.apk">
+                <a href="https://play.google.com/store/apps/details?id=com.itcase.itcase">
                   <img src="/resources/images/googleplay-black.svg" alt="">
                 </a>
               </li>
@@ -868,6 +885,7 @@
               </li>
             </ul>
 
+          </div>
         </div>
       </div>
     </div>
