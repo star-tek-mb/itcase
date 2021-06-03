@@ -60,7 +60,9 @@
                         </td>
                         <td class="d-none d-xl-table-cell text-center active">
                             @if ($tender->status !== 'done' && !$tender->isDeleted())
-                                @if ($tender->contractor_id) {{ __('В разработке') }}
+                                @if ($tender->status == 'check') {{ __('Ожидает проверки') }}
+                                @elseif ($tender->status == 'finished') {{ __('Завершено') }}
+                                @elseif ($tender->contractor_id) {{ __('В разработке') }}
                                 @elseif ($tender->checkDeadline()) {{ __('Открыт') }}
                                 @else {{ __('Приём заявок закрыт') }}
                                 @endif
@@ -74,6 +76,14 @@
                                 <a href="{{ route('site.account.tenders.candidates', $tender->slug) }}" class="btn btn-light btn-new" data-toggle="tooltip" title="Посмотреть кандидатов"><i class="fas fa-eye"></i></a>
                                 <a href="{{ route('site.account.tenders.edit', $tender->slug) }}" class="btn btn-light btn-edit"><i class="fas fa-pencil-alt"></i>
                                 </a>
+                                
+                                @if ($tender->contractor_id && $tender->status == 'check')
+                                <form method="post" action="{{ route('site.tenders.complete', $tender->id) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-light mr-2" title="Выполнено"><i class="fas fa-check"></i></button>
+                                </form>
+                                @endif
+                                
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#delete-modal" data-route="{{ route('site.tenders.delete', $tender->id) }}"><i class="far fa-trash-alt"></i></button>
                             </div>
                             @endif

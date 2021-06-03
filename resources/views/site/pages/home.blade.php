@@ -883,9 +883,9 @@
 
         <div class="col text-center">
           <p>
-            <a href="{{ route('site.privacy.policy') }}">Правила сервиса</a>
-            <a href="{{ route('site.privacy.policy') }}"> Оферта</a>
-            <a href="{{ route('site.privacy.policy') }}">Политика конфиденциальности</a>
+            <a href="{{ route('site.page', 'terms-of-service') }}">Правила сервиса</a>
+            <a href="{{ route('site.page', 'offerta') }}"> Оферта</a>
+            <a href="{{ route('site.page', 'privacy-policy') }}">Политика конфиденциальности</a>
           </p>
         </div>
 

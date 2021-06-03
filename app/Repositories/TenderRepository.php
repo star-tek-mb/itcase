@@ -279,8 +279,9 @@ class TenderRepository implements TenderRepositoryInterface
     public function contractorComplete($tenderId)
     {
         $tender = $this->get($tenderId);
+        $tender->status = 'check';
+        $tender->save();
         Notification::send($tender->owner, new TenderContractorFinished($tender));
-        return redirect()->back()->with('success', __('Ваш запрос отправлен заказчику'));
     }
 
     public function customerCompleted($tenderId)
@@ -288,6 +289,7 @@ class TenderRepository implements TenderRepositoryInterface
         $tender = $this->get($tenderId);
         $tender->status = 'finished';
         $tender->opened = false;
-        return redirect()->back()->with('success', __('Ваше задание выполнено и закрыто'));
+        $tender->save();
+        Notification::send($tender->contractor, new TenderCustomerFinished($tender));
     }
 }

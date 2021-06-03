@@ -40,6 +40,8 @@ Route::name('site.')->namespace('Site')->group(function () {
         Route::post('/tenders/cancelRequest', 'TenderController@cancelRequest')->name('tenders.requests.cancel');
         Route::delete('/tenders/{id}/delete', 'TenderController@delete')->name('tenders.delete');
         Route::post('/tenders/{id}/update', 'TenderController@update')->name('tenders.edit');
+        Route::post('/tenders/{id}/check', 'TenderController@checkContractor')->name('tenders.check');
+        Route::post('/tenders/{id}/complete', 'TenderController@completeCustomer')->name('tenders.complete');
         Route::post('/tenders/{tenderId}/accept/{requestId}', 'TenderController@acceptTenderRequest')->name('tenders.accept');
         Route::patch('/tenders/email-subscription/{tender}', 'TenderController@emailSubscription')->name('tenders.email-subscription');
     });

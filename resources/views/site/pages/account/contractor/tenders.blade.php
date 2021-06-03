@@ -56,7 +56,11 @@
                                 </td>
                                 <td class="d-none d-xl-table-cell text-center number-application">{{ __('Ташкент') }}</td>
                                 <td class="d-none d-xl-table-cell text-center">@foreach($request->tender->categories as $category) <div>{{ $category->getTitle() }} </div>@endforeach</td>
-                                <td class="d-none d-xl-table-cell text-center active">@if($request->tender->contractor_id == $request->user_id) {{ __('Активный') }} @else {{ __('В ожидании') }} @endif</td>
+                                <td class="d-none d-xl-table-cell text-center active">
+                                    @if($request->tender->status == 'check') {{ __('Отправлено на проверку') }}
+                                    @elseif ($request->tender->status == 'finished') {{ __('Выполнено') }}
+                                    @elseif($request->tender->contractor_id == $request->user_id) {{ __('Активный') }} @else {{ __('В ожидании') }} @endif
+                                </td>
                                 <td class="d-none d-md-table-cell text-right">
                                     <div class="d-flex">
                                         <form action="{{ route('site.account.chats') }}" method="post">
@@ -64,12 +68,20 @@
                                             <input type="hidden" name="with_user_id" value="{{ $request->tender->owner->id }}">
                                             <button class="btn btn-light btn-view" type="submit" data-toggle="tooltip" title="Связаться"><i class="fas fa-comments"></i></button>
                                         </form>
+                                        @if ($request->tender->status != 'finished')
                                         <form action="{{ route('site.tenders.requests.cancel') }}" method="post" class="ml-1">
                                             @csrf
                                             <input type="hidden" name="requestId" value="{{ $request->id }}">
                                             <button type="submit" onclick="return confirm('Вы уверены, что хотите отменить заявку на конкурс {{ $request->tender->title }}?')" data-toggle="tooltip" data-placement="top" title="Отменить заявку" class="btn btn-light btn-delete"><i class="fas fa-times"></i>
                                             </button>
                                         </form>
+                                        @endif
+                                        @if ($request->tender->contractor_id == $request->user_id && $request->tender->status != 'finished')
+                                        <form method="post" action="{{ route('site.tenders.check', $tender->id) }}">
+                                            @csrf
+                                            <button type="submit" class="btn btn-light mr-2" title="Выполнено"><i class="fas fa-check"></i></button>
+                                        </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

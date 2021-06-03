@@ -318,4 +318,16 @@ class TenderController extends Controller
     {
         return view('site.pages.tenders.maps');
     }
+
+    public function checkContractor($id)
+    {
+        $this->tenderRepository->contractorComplete($id);
+        return redirect()->back()->with('success', __('Ваш запрос отправлен заказчику'));
+    }
+
+    public function completeCustomer($id)
+    {
+        $this->tenderRepository->customerCompleted($id);
+        return redirect()->back()->with('success', __('Ваше задание выполнено и закрыто'));
+    }
 }
