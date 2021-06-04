@@ -215,52 +215,15 @@
         <div class="swiper-wrapper">
 
           <!-- -->
+          @foreach ($populars as $popular)
           <div class="swiper-slide">
-            <a href="#">
-              <img src="/resources/images/slide_1.jpg" alt="">
+            <a href="{{ $popular->url }}">
+              <img src="{{ $popular->getImage() }}" alt="">
             </a>
           </div>
+          @endforeach
           <!-- -->
 
-          <!-- -->
-          <div class="swiper-slide">
-            <a href="#">
-              <img src="/resources/images/slide_2.jpg" alt="">
-            </a>
-          </div>
-          <!-- -->
-
-          <!-- -->
-          <div class="swiper-slide">
-            <a href="#">
-              <img src="/resources/images/slide_3.jpg" alt="">
-            </a>
-          </div>
-          <!-- -->
-
-          <!-- -->
-          <div class="swiper-slide">
-            <a href="#">
-              <img src="/resources/images/slide_1.jpg" alt="">
-            </a>
-          </div>
-          <!-- -->
-
-          <!-- -->
-          <div class="swiper-slide">
-            <a href="#">
-              <img src="/resources/images/slide_2.jpg" alt="">
-            </a>
-          </div>
-          <!-- -->
-
-          <!-- -->
-          <div class="swiper-slide">
-            <a href="#">
-              <img src="/resources/images/slide_3.jpg" alt="">
-            </a>
-          </div>
-          <!-- -->
         </div>
 
         <div id="prev" class="carousel__arrow carousel__arrow--left"></div>
@@ -277,127 +240,25 @@
           <div class="swiper-wrapper">
 
             <!-- -->
+            @foreach ($howtos as $howto)
             <div class="swiper-slide">
               <div class="row">
                 <div class="col col--50 slide-left">
-                  <img src="/resources/images/slide.jpg" alt="">
+                  <img src="{{ $howto->getImage() }}" alt="">
                 </div>
 
                 <div class="col col--50 slide-right">
                   <div>
-                    <h3>Создайте задание</h3>
-                    <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="{{ route('site.tenders.common.create') }}" class="button button--secondary">Создать задание</a>
+                    <h3>{{ $howto->title }}</h3>
+                    <p>{{ strip_tags($howto->content) }}</p>
+                    <a href="{{ route('site.tenders.common.create') }}" class="button button--secondary">{{ $howto->url_label }}</a>
                   </div>
                 </div>
               </div>
 
             </div>
+            @endforeach
             <!-- -->
-
-
-
-            <!-- -->
-            <div class="swiper-slide">
-              <div class="row">
-                <div class="col col--50 slide-left">
-                  <img src="/resources/images/slide.jpg" alt="">
-                </div>
-
-                <div class="col col--50 slide-right">
-                  <div>
-                    <h3>Создайте задание</h3>
-                    <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="{{ route('site.tenders.common.create') }}" class="button button--secondary">Создать задание</a>
-                  </div>
-
-                </div>
-              </div>
-
-            </div>
-            <!-- -->
-
-
-
-            <!-- -->
-            <div class="swiper-slide">
-              <div class="row">
-                <div class="col col--50 slide-left">
-                  <img src="/resources/images/slide.jpg" alt="">
-                </div>
-
-                <div class="col col--50 slide-right">
-                  <div>
-                    <h3>Создайте задание</h3>
-                    <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="{{ route('site.tenders.common.create') }}" class="button button--secondary">Создать задание</a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- -->
-
-
-            <!-- -->
-            <div class="swiper-slide">
-              <div class="row">
-                <div class="col col--50 slide-left">
-                  <img src="/resources/images/slide.jpg" alt="">
-                </div>
-
-                <div class="col col--50 slide-right">
-                  <div>
-                    <h3>Создайте задание</h3>
-                    <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="{{ route('site.tenders.common.create') }}" class="button button--secondary">Создать задание</a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- -->
-
-
-            <!-- -->
-            <div class="swiper-slide">
-              <div class="row">
-                <div class="col col--50 slide-left">
-                  <img src="/resources/images/slide.jpg" alt="">
-                </div>
-
-                <div class="col col--50 slide-right">
-                  <div>
-                    <h3>Создайте задание</h3>
-                    <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="{{ route('site.tenders.common.create') }}" class="button button--secondary">Создать задание</a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- -->
-
-
-            <!-- -->
-            <div class="swiper-slide">
-              <div class="row">
-                <div class="col col--50 slide-left">
-                  <img src="/resources/images/slide.jpg" alt="">
-                </div>
-
-                <div class="col col--50 slide-right">
-                  <div>
-                    <h3>Создайте задание</h3>
-                    <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="{{ route('site.tenders.common.create') }}" class="button button--secondary">Создать задание</a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- -->
-
 
           </div>
         </div>

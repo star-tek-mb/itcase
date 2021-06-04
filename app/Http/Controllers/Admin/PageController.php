@@ -22,6 +22,10 @@ class PageController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'title.ru' => 'required'
+        ]);
+
         Page::create($request->all());
         return redirect()->back()->with('success', 'Страница добавлена');
     }
@@ -33,6 +37,10 @@ class PageController extends Controller
 
     public function update(Request $request, Page $page)
     {
+        $request->validate([
+            'title.ru' => 'required'
+        ]);
+
         $page->update($request->all());
         return redirect()->back()->with('success', 'Страница отредактирована');
     }

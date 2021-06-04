@@ -89,6 +89,12 @@
         </a>
     </li>
     <li>
+        <a href="{{ route('admin.howtos.index') }}">
+            <i class="fa fa-question"></i>
+            <span class="sidebar-mini-hide">Слайдер на главной</span>
+        </a>
+    </li>
+    <li>
         <a href="#" class="nav-submenu" data-toggle="nav-submenu">
             <i class="si si-list"></i>
             <span class="sidebar-mini-hide">Вакансии</span>
