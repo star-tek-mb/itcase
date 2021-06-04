@@ -164,9 +164,9 @@
                 </div>
                 <div class="form-group">
                     <label for="image">Изображение</label>
-                    @if($current->image != null)
+                    @if($howto->image != null)
                         <br>
-                        <img src="{{ $current->getImage() }}" style="width: 200px;">
+                        <img src="{{ $howto->getImage() }}" style="width: 200px;">
                         <br>
                     @endif
                     <input type="file" name="image" class="form-control">
