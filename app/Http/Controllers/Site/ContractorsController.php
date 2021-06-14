@@ -71,6 +71,9 @@ class ContractorsController extends Controller
         foreach ($categories as $category) {
             $contractors = $contractors->merge($category->getAllCompaniesFromDescendingCategories()->sortByDesc('created_at'));
         }
+        $contractors = $contractors->unique(function ($item) {
+            return $item->id;
+        });
         $contractorsCount = $contractors->count();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
         foreach ($contractors as $contractor) {
