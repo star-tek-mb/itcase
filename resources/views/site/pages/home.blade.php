@@ -485,7 +485,7 @@
   </section>
 
 
-  <section class="vacancies">
+  {{--<section class="vacancies">
     <div class="container">
       <div class="text-center color-white vacancies__title">
         <h2>Популярные вакансии в Узбекистане</h2>
@@ -603,7 +603,7 @@
       </div>
 
     </div>
-  </section>
+  </section>--}}
 
 
   {{--<section class="soon">
