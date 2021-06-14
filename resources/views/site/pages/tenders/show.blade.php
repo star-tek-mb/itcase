@@ -1,14 +1,15 @@
 @extends('site.layouts.front')
 
-@section('title') {{ __('Исполнители') }} @endsection
+@section('title') {{ $tender->title }} @endsection
 
 @section('breadcrumbs')
-- {{ __('Исполнители') }}
+- {{ __('Каталог заданий') }}
+- {{ $tender->title }}
 @endsection
 
 @section('sidebar')
 <div class="title-top">
-	<h2>{{ __('Каталог заданий') }}</h2>
+	<h2>{{ $tender->title }}</h2>
 </div>
 
 <form class="body-box" action="{{ route('site.tenders.search') }}" method="POST">
@@ -159,7 +160,7 @@
 @endsection
 
 @section('modal')
-@if (auth()->user() && auth()->user()->hasRole('customer'))
+@if (!auth()->user() && !auth()->user()->hasRole('customer'))
 <div class="modal" id="modal">
   <h4>Хотите стать исполнителем?</h4>
 
