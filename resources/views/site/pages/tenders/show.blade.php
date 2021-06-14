@@ -160,20 +160,7 @@
 @endsection
 
 @section('modal')
-@if (!auth()->user() && !auth()->user()->hasRole('customer'))
-<div class="modal" id="modal">
-  <h4>Хотите стать исполнителем?</h4>
-
-  <p>Это не сложно. Всего предстоит два шага:
-    анкета и подписка на задания. Всё займёт 
-    примерно 5 минут.</p>
-
-    <a href="{{ route('register') }}" class="button button--simple button--small">Зарегестрироваться</a>
-    <p class="light"><a href="{{ route('login') }}">У меня уже есть аккаунт. Войти</a></p>
-
-    <a href="#" class="close"></a>
-</div>
-@else
+@if (auth()->user() && auth()->user()->hasRole('customer'))
 <div class="modal" id="modal">
   <form action="{{ route('site.tenders.requests.make') }}" method="post" class="main__form">
     @csrf
@@ -199,6 +186,19 @@
     <button class="button" type="submit">Отправить заявку</button>
   </form>
   <a href="#" class="close"></a>
+</div>
+@else
+<div class="modal" id="modal">
+  <h4>Хотите стать исполнителем?</h4>
+
+  <p>Это не сложно. Всего предстоит два шага:
+    анкета и подписка на задания. Всё займёт 
+    примерно 5 минут.</p>
+
+    <a href="{{ route('register') }}" class="button button--simple button--small">Зарегестрироваться</a>
+    <p class="light"><a href="{{ route('login') }}">У меня уже есть аккаунт. Войти</a></p>
+
+    <a href="#" class="close"></a>
 </div>
 @endif
 @endsection
