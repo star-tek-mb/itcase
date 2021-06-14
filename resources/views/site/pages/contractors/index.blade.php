@@ -57,7 +57,7 @@
 	<!-- -->
 	<li class="worker">
 		<div class="worker__avatar">
-			<img src="{{ $contractor->getImage() }}" alt="{{ $contractor->name }}">
+			<img style="width: 100%;" src="{{ $contractor->getImage() }}" alt="{{ $contractor->name }}">
 		</div>
 
 		<div class="worker__data">

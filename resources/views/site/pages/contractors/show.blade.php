@@ -48,7 +48,7 @@
 <div class="worker-list">
   <div class="worker worker--page">
     <div class="worker__avatar">
-      <img src="{{ $contractor->getImage() }}" alt="">
+      <img style="width: 100%;" src="{{ $contractor->getImage() }}" alt="">
     </div>
 
     <div class="worker__data">
