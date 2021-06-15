@@ -32,7 +32,7 @@
         <div class="text-6xl font-semibold">itcase.com</div>
         <div class="text-4xl mt-4 font-bold">Персональный помощник itcase.com в вашем кормане</div>
         <div class="text-4xl mt-4">
-          Скачайте наше приложение и пользуйтесь itcase.com, где бы вы ни находились. Разовая оплата за использование сервиса производится в размере 53 000 сум
+          Скачайте наше приложение и пользуйтесь itcase.com, где бы вы ни находились. Разовая оплата за использование сервиса производится в размере 5$
         </div>
         <a href="https://play.google.com/store/apps/details?id=com.itcase.itcase"><img class="w-128 h-auto mx-auto my-8 cursor-pointer" src="/resources/images/googleplay.svg"></a>
         <div class="text-4xl mb-8">А также можете скачать приложение с нашего сайта:</div>
