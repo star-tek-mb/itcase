@@ -107,35 +107,39 @@ class AccountController extends Controller
         }
     }
 
-    public  function notificationDelete(Request $request){
+    public function notificationDelete(Request $request)
+    {
         $id = $request->id;
         $notification = auth()->user()->notifications()->where('id', $id)->first();
         $notification->delete();
-        return response()->json('',200);
+        return response()->json('', 200);
     }
 
-    public  function notificationRead(){
+    public function notificationRead()
+    {
         auth()->user()->unreadNotifications->markAsRead();
         return response()->json('', 200);
     }
 
-    public  function notification(){
+    public function notification()
+    {
         $user = auth()->user();
-        $notification = $user->notifications()->orderBy('created_at','DESC')->get()->map(function ($notification){
-               $type = $this->userRepository->getType($notification->type);
-                $notification->type = $type;
-                $notification->isRead = $notification->read_at != null;
-                return $notification;
-            });
-            return response()->json(['notification'=>$notification], 200);
+        $notification = $user->notifications()->orderBy('created_at', 'DESC')->get()->map(function ($notification) {
+            $type = $this->userRepository->getType($notification->type);
+            $notification->type = $type;
+            $notification->isRead = $notification->read_at != null;
+            return $notification;
+        });
+        return response()->json(['notification' => $notification], 200);
     }
 
-    public  function notificationCount(){
+    public function notificationCount()
+    {
 
         $user = auth()->user();
         $count = $user->unreadNotifications()->count();
 
-        return response()->json(['number'=>$count],200);
+        return response()->json(['number' => $count], 200);
     }
 
     public function create(Request $request, OctoService $octo)
@@ -176,7 +180,8 @@ class AccountController extends Controller
     }
 
 
-    public  function changePassword(Request $request){
+    public function changePassword(Request $request)
+    {
         $user = auth()->user();
         $validator = Validator::make($request->all(), [
             'newPassword' => 'nullable|min:6|required_with:newPasswordRepeat|same:newPasswordRepeat',
@@ -186,7 +191,7 @@ class AccountController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 400);
         }
-        $user->password =  Hash::make($request->newPassword);
+        $user->password = Hash::make($request->newPassword);
         $user->save();
         return response()->json([
             'message' => 'Ваши личные данные обновлены'
@@ -322,11 +327,13 @@ class AccountController extends Controller
             'tendersCount' => $tendersCount
         ]);
     }
-    public  function  guestRequests(int $user_id){
+
+    public function guestRequests(int $user_id)
+    {
 
     }
 
-  // for inviting contractors
+    // for inviting contractors
     public function shortTenders(int $contractorID)
     {
         $user = auth()->user();
@@ -404,7 +411,7 @@ class AccountController extends Controller
     {
         $user = auth()->user();
         $user_id = $user->id;
-        if($request->has('user_id')){
+        if ($request->has('user_id')) {
             $user_id = $request->user_id;
         }
 
@@ -427,20 +434,23 @@ class AccountController extends Controller
         ]);
     }
 
-    public function getInvitation(){
+    public function getInvitation()
+    {
         $user = auth()->user();
         $user_id = $user->id;
-        $response = $user->requests()->select('tenders.*')->join('tenders','tenders.id','=', 'tender_requests.tender_id')->whereNull('tenders.contractor_id')->where('tender_requests.invited','=', 1)->paginate(5);
+        $response = $user->requests()->select('tenders.*')->join('tenders', 'tenders.id', '=', 'tender_requests.tender_id')->whereNull('tenders.contractor_id')->where('tender_requests.invited', '=', 1)->paginate(5);
         return response()->json([
             'tenders' => $response,
         ]);
     }
-    public function getMessageToken(Request $request) {
+
+    public function getMessageToken(Request $request)
+    {
         $user = auth()->user();
-       $result =  $user->createTokenMessage($request->token);
-       return response()->json(
-           [],
-           $result ? 200 : 400
-       );
+        $result = $user->createTokenMessage($request->token);
+        return response()->json(
+            [],
+            $result ? 200 : 400
+        );
     }
 }
