@@ -46,7 +46,7 @@
             <img class="mx-auto my-4 cursor-pointer" src="/resources/images/googleplay.svg" style="width: 224px;">
         </a>
     </div>
-    <img src="/resources/images/main_image.jpg" style="width:100%; height: 650px;">
+    <img src="/resources/images/main_image.jpg" style="width:100%;height: auto">
 </main>
 <footer class="bg-main text-white py-12">
     <div class="grid md:grid-cols-2 gap-4 container mx-auto px-4 md:px-12 items-center">
