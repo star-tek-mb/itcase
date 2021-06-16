@@ -73,7 +73,7 @@
 
 
         <div class="header__right d-flex align-items-center">
-          <div class="languages has-submenu">
+          {{--<div class="languages has-submenu">
             <span>{{ Str::upper(config('app.locale')) }}</span>
             <ul class="languages__menu">
               @foreach (config('app.enabled_locales') as $locale)
@@ -84,7 +84,7 @@
               </li>
               @endforeach
             </ul>
-          </div>
+          </div>--}}
 
           @guest
           <ul class="header__menu">
@@ -111,7 +111,25 @@
         </div>
 
       </div>
+      <div class="row justify-content-between align-items-center">
+        <div class="header__left d-flex align-items-center">
+          <ul class="header__menu menu">
+            <li><a style="padding-top: 15px; padding-bottom: 15px;" href="{{ route('site.page', 'about') }}">О компании</a></li>
+          </ul>
+        </div>
+        <div class="header__right d-flex align-items-center">
+          <ul class="header__menu menu">
+            <li>
+              Почта: itcase.com@yandex.ru
+            </li>
+            <li>
+              Телефон для справок:  +99899 420 00 00
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+
   </header>
 
   <!-- ГЛАВНАЯ СЕКЦИЯ-->
@@ -134,11 +152,11 @@
 
       <ul class="buttons-list">
         <li>
-          <a href="#" class="button">{{ __('Добавить задание') }}</a>
+          <a href="{{ route('site.tenders.common.create') }}" class="button">{{ __('Добавить задание') }}</a>
         </li>
 
         <li>
-          <a href="#" class="button">{{ __('Выполнить задание') }}</a>
+          <a href="{{ route('site.tenders.index') }}" class="button">{{ __('Выполнить задание') }}</a>
         </li>
       </ul>
     </div>
@@ -164,7 +182,7 @@
             <span>{{ $parent->descendants->reduce(fn($carry, $item) => $carry + $item->tenders->count(), 0) }}</span> Заданий
           </div>
 
-          <img style="fill: #fff;" src="{{ $category->getImage() }}" alt="">
+          <img style="fill: #fff;" src="{{ $parent->getImage() }}" alt="">
           <h3>{{ $parent->title }}</h3>
 
           <ul class="service__list">
@@ -197,52 +215,15 @@
         <div class="swiper-wrapper">
 
           <!-- -->
+          @foreach ($populars as $popular)
           <div class="swiper-slide">
-            <a href="#">
-              <img src="/resources/images/slide_1.jpg" alt="">
+            <a href="{{ $popular->url }}">
+              <img src="{{ $popular->getImage() }}" alt="">
             </a>
           </div>
+          @endforeach
           <!-- -->
 
-          <!-- -->
-          <div class="swiper-slide">
-            <a href="#">
-              <img src="/resources/images/slide_2.jpg" alt="">
-            </a>
-          </div>
-          <!-- -->
-
-          <!-- -->
-          <div class="swiper-slide">
-            <a href="#">
-              <img src="/resources/images/slide_3.jpg" alt="">
-            </a>
-          </div>
-          <!-- -->
-
-          <!-- -->
-          <div class="swiper-slide">
-            <a href="#">
-              <img src="/resources/images/slide_1.jpg" alt="">
-            </a>
-          </div>
-          <!-- -->
-
-          <!-- -->
-          <div class="swiper-slide">
-            <a href="#">
-              <img src="/resources/images/slide_2.jpg" alt="">
-            </a>
-          </div>
-          <!-- -->
-
-          <!-- -->
-          <div class="swiper-slide">
-            <a href="#">
-              <img src="/resources/images/slide_3.jpg" alt="">
-            </a>
-          </div>
-          <!-- -->
         </div>
 
         <div id="prev" class="carousel__arrow carousel__arrow--left"></div>
@@ -259,127 +240,25 @@
           <div class="swiper-wrapper">
 
             <!-- -->
+            @foreach ($howtos as $howto)
             <div class="swiper-slide">
               <div class="row">
                 <div class="col col--50 slide-left">
-                  <img src="/resources/images/slide.jpg" alt="">
+                  <img src="{{ $howto->getImage() }}" alt="">
                 </div>
 
                 <div class="col col--50 slide-right">
                   <div>
-                    <h3>Создайте задание</h3>
-                    <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="#" class="button button--secondary">Создать задание</a>
+                    <h3>{{ $howto->title }}</h3>
+                    <p>{{ strip_tags($howto->content) }}</p>
+                    <a href="{{ route('site.tenders.common.create') }}" class="button button--secondary">{{ $howto->url_label }}</a>
                   </div>
                 </div>
               </div>
 
             </div>
+            @endforeach
             <!-- -->
-
-
-
-            <!-- -->
-            <div class="swiper-slide">
-              <div class="row">
-                <div class="col col--50 slide-left">
-                  <img src="/resources/images/slide.jpg" alt="">
-                </div>
-
-                <div class="col col--50 slide-right">
-                  <div>
-                    <h3>Создайте задание</h3>
-                    <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="#" class="button button--secondary">Создать задание</a>
-                  </div>
-
-                </div>
-              </div>
-
-            </div>
-            <!-- -->
-
-
-
-            <!-- -->
-            <div class="swiper-slide">
-              <div class="row">
-                <div class="col col--50 slide-left">
-                  <img src="/resources/images/slide.jpg" alt="">
-                </div>
-
-                <div class="col col--50 slide-right">
-                  <div>
-                    <h3>Создайте задание</h3>
-                    <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="#" class="button button--secondary">Создать задание</a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- -->
-
-
-            <!-- -->
-            <div class="swiper-slide">
-              <div class="row">
-                <div class="col col--50 slide-left">
-                  <img src="/resources/images/slide.jpg" alt="">
-                </div>
-
-                <div class="col col--50 slide-right">
-                  <div>
-                    <h3>Создайте задание</h3>
-                    <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="#" class="button button--secondary">Создать задание</a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- -->
-
-
-            <!-- -->
-            <div class="swiper-slide">
-              <div class="row">
-                <div class="col col--50 slide-left">
-                  <img src="/resources/images/slide.jpg" alt="">
-                </div>
-
-                <div class="col col--50 slide-right">
-                  <div>
-                    <h3>Создайте задание</h3>
-                    <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="#" class="button button--secondary">Создать задание</a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- -->
-
-
-            <!-- -->
-            <div class="swiper-slide">
-              <div class="row">
-                <div class="col col--50 slide-left">
-                  <img src="/resources/images/slide.jpg" alt="">
-                </div>
-
-                <div class="col col--50 slide-right">
-                  <div>
-                    <h3>Создайте задание</h3>
-                    <p>Опишите своими словами задачу, которую требуется выполнить.</p>
-                    <a href="#" class="button button--secondary">Создать задание</a>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- -->
-
 
           </div>
         </div>
@@ -457,7 +336,7 @@
       </div>
 
       <div class="text-center mt55">
-        <a href="#" class="button">Добавить задание</a>
+        <a href="{{ route('site.tenders.common.create') }}" class="button">Добавить задание</a>
       </div>
     </div>
   </section>
@@ -470,8 +349,7 @@
             itcase.com в вашем кормане</h2>
 
           <div class="subtitle mt31">
-            <p>Скачайте наше приложение и пользуйтесь
-              itcase.com, где бы вы ни находились.</p>
+            <p>Скачайте наше приложение и пользуйтесь itcase.com, где бы вы ни находились. Разовая оплата за использование сервиса производится в размере 53 000 сум</p>
           </div>
 
           <ul class="buttons">
@@ -502,7 +380,7 @@
           <img src="/resources/images/hand.png" alt="" class="image">
         </div>
       </div>
-
+      <br><br>
     </div>
   </section>
 
@@ -572,7 +450,7 @@
   <section class="blog">
     <div class="container">
       <div class="text-center blog__title section-title">
-        <h2>Новые публикации в <a href="#">блоге</a> itcase</h2>
+        <h2>Новые публикации в <a href="{{ route('site.blog.index') }}">блоге</a> itcase</h2>
         <p>Хотите стать героем наших историй? Это просто! <a href="{{ route('site.tenders.common.create') }}">Разместите задание</a> или <a href="{{ route('site.account.contractor.professional') }}">станьте
             исполнителем</a>.</p>
       </div>
@@ -607,7 +485,7 @@
   </section>
 
 
-  <section class="vacancies">
+  {{--<section class="vacancies">
     <div class="container">
       <div class="text-center color-white vacancies__title">
         <h2>Популярные вакансии в Узбекистане</h2>
@@ -725,7 +603,7 @@
       </div>
 
     </div>
-  </section>
+  </section>--}}
 
 
   {{--<section class="soon">
@@ -812,16 +690,16 @@
             </li>
 
             <li>
-              <a href="#">Контакты</a>
+              <a href="{{ route('site.page', 'contacts') }}">Контакты</a>
             </li>
 
             <li>
-              <a href="#">Служба поддержки</a>
+              <a href="{{ route('site.page', 'support') }}">Служба поддержки</a>
             </li>
           </ul>
         </div>
 
-        <div class="col">
+        {{--<div class="col">
           <h4>Скоро в itcase.com</h4>
 
           <ul>
@@ -838,7 +716,7 @@
               <a href="#">itcar - краткосрочная аренда, прокат машины</a>
             </li>
           </ul>
-        </div>
+        </div>--}}
 
 
         <div class="col">
@@ -853,7 +731,7 @@
               </li>
 
               <li>
-                <a href="/itcase.apk">
+                <a href="https://play.google.com/store/apps/details?id=com.itcase.itcase">
                   <img src="/resources/images/googleplay-black.svg" alt="">
                 </a>
               </li>
@@ -868,6 +746,7 @@
               </li>
             </ul>
 
+          </div>
         </div>
       </div>
     </div>
@@ -883,9 +762,9 @@
 
         <div class="col text-center">
           <p>
-            <a href="{{ route('site.privacy.policy') }}">Правила сервиса</a>
-            <a href="{{ route('site.privacy.policy') }}"> Оферта</a>
-            <a href="{{ route('site.privacy.policy') }}">Политика конфиденциальности</a>
+            <a href="{{ route('site.page', 'terms-of-service') }}">Правила сервиса</a>
+            <a href="{{ route('site.page', 'offerta') }}"> Оферта</a>
+            <a href="{{ route('site.page', 'privacy-policy') }}">Политика конфиденциальности</a>
           </p>
         </div>
 

@@ -1,4 +1,4 @@
-<div class="title-top">
+{{--<div class="title-top">
 	<h2>{{ __('Новые публикации') }}
 		<span>{{ __('в блоге') }}</span>
 	</h2>
@@ -51,4 +51,4 @@
 	<div class="text-center mt24">
 		<a href="#" class="button button--simple button--small">{{ __('Смотреть еще') }}</a>
 	</div>
-</div>
+</div>--}}

@@ -5005,8 +5005,8 @@ textarea.form-control {
   color: #ff6b01;
 }
 .footer-site {
-  background-color: #383838;
-  color: #9f9f9f;
+  background: linear-gradient(90deg, #7C7BD2 0%, #5452C3 100%),#C4C4C4;
+  color: white;
   margin-top: 50px;
 }
 .footer-top {
@@ -5038,12 +5038,12 @@ textarea.form-control {
   color: #ff6b01;
 }
 .footer-middle {
-  color: #9f9f9f;
+  color: white;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding-bottom: 20px;
 }
 .footer-middle a {
-  color: #9f9f9f;
+  color: white;
 }
 .footer-middle a:hover {
   color: #ff6b01;

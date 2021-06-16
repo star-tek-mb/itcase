@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Page;
+use App\Models\Howto;
 use App\Models\PopularServices;
 use App\Models\VacancyCategory;
 use App\Models\Vacancy;
@@ -73,7 +74,8 @@ class HomeController extends Controller
         $tenders = $this->tenders->allOrderedByCreatedAt($withoutContractors = true)->take(5);
         $posts = $this->posts->allOrderByDesc()->take(3);
         $comments = Comment::latest()->limit(3)->whereNull('for_set')->get()->reverse();
-        return view('site.pages.maintenance', compact('parentCategories', 'tenders', 'posts', 'comments', 'populars', 'vacancies', 'vacancyCategories', 'vacanciesCount'));
+        $howtos = Howto::all();
+        return view('site.pages.maintenance', compact('parentCategories', 'tenders', 'posts', 'comments', 'populars', 'vacancies', 'vacancyCategories', 'vacanciesCount', 'howtos'));
     }
 
     public function page($params)

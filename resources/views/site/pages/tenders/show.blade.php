@@ -1,14 +1,15 @@
 @extends('site.layouts.front')
 
-@section('title') {{ __('Исполнители') }} @endsection
+@section('title') {{ $tender->title }} @endsection
 
 @section('breadcrumbs')
-- {{ __('Исполнители') }}
+- {{ __('Каталог заданий') }}
+- {{ $tender->title }}
 @endsection
 
 @section('sidebar')
 <div class="title-top">
-	<h2>{{ __('Каталог заданий') }}</h2>
+	<h2>{{ $tender->title }}</h2>
 </div>
 
 <form class="body-box" action="{{ route('site.tenders.search') }}" method="POST">
@@ -102,7 +103,7 @@
         <li class="task-date">
           <div>
             Крайний срок приема заявок: <span>{{ $tender->deadline->format('d.m.Y') }}</span> <br>
-            Дата окончания работ: <span>{{ $tender->work_end_at->format('d.m.Y') }}</span> <br>
+            Дата окончания работ: <span>{{ $tender->work_end_at ? $tender->work_end_at->format('d.m.Y') : 'Неизвестно' }}</span> <br>
           </div>
         </li>
 
@@ -114,7 +115,29 @@
         </li>
       </ul>
 
-      <a href="#" class="button button--full">Откликнуться на задание</a>
+      @if (auth()->user() && in_array(auth()->user()->id, $tender->requests()->pluck('user_id')->toArray()))
+      <div style="text-align: center; font-size: 24px; font-weight: bold; margin: 20px;">Вы уже оставили заявку</div>
+      <form action="{{ route('site.tenders.requests.cancel') }}" method="post" class="mr-3">
+          @csrf
+          <input type="hidden" name="requestId" value="{{ $tender->requests()->where('user_id', auth()->user()->id)->first()->id }}">
+          <button style="margin-top: 0; width: 100%; justify-content: center; font-weight: 24px; font-weight: bold;" class="button" type="submit">Отменить</button>
+      </form>
+      <form action="{{ route('site.account.chats') }}" method="post">
+        @csrf
+        <input type="hidden" name="with_user_id" value="{{ $tender->owner->id }}">
+        <button style="margin: 0; width: 100%; justify-content: center; font-weight: 24px; font-weight: bold;" class="button" type="submit" data-toggle="tooltip" title="Связаться">Связаться через чат</button>
+      </form>
+      @elseif (auth()->user() && auth()->user()->hasRole('customer'))
+      <a href="#" class="button button--full" data-modal="#modal">
+        Войдите как исполнитель чтоб оставить заявку
+      </a>
+      @elseif ($tender->checkDeadline())
+      <a href="#" class="button button--full" data-modal="#modal">Откликнуться на задание</a></li>
+      @else
+      <a class="button button--full">
+        Срок приема заявок закончен
+      </a>
+      @endif
 
       <div class="task__data-description">
         <h4>Что требуется сделать?</h4>
@@ -134,4 +157,48 @@
   </div>
   <!-- -->
 </div>
+@endsection
+
+@section('modal')
+@if (auth()->user() && auth()->user()->hasRole('customer'))
+<div class="modal" id="modal">
+  <form action="{{ route('site.tenders.requests.make') }}" method="post" class="main__form">
+    @csrf
+    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+    <input type="hidden" name="tender_id" value="{{ $tender->id }}">
+    <h4>Отправляйте заявку.</h4>
+    <div for="budget" style="margin: 5px;">Бюджет</div>
+    <div class="input-holder">
+        <input type="text" required name="budget_from" id="budgetFrom" placeholder="500 000">
+    </div>
+    <div class="input-holder">
+        <input type="text" required name="budget_to" id="budgetTo" placeholder="1 000 000">
+    </div>
+    <div for="period" style="margin: 5px;">Срок</div>
+    <div class="input-holder">
+        <input type="text" required name="period_from" id="period_from" placeholder="2 дня">
+    </div>
+    <div class="input-holder">
+        <input type="text" required name="period_to" id="period_to" placeholder="3 дня">
+    </div>
+    <div for="comment" style="margin: 5px;">Комментарий (по желанию)</div>
+    <input name="comment" id="comment" type="text">
+    <button class="button" type="submit">Отправить заявку</button>
+  </form>
+  <a href="#" class="close"></a>
+</div>
+@else
+<div class="modal" id="modal">
+  <h4>Хотите стать исполнителем?</h4>
+
+  <p>Это не сложно. Всего предстоит два шага:
+    анкета и подписка на задания. Всё займёт 
+    примерно 5 минут.</p>
+
+    <a href="{{ route('register') }}" class="button button--simple button--small">Зарегестрироваться</a>
+    <p class="light"><a href="{{ route('login') }}">У меня уже есть аккаунт. Войти</a></p>
+
+    <a href="#" class="close"></a>
+</div>
+@endif
 @endsection

@@ -15,7 +15,7 @@
   </head>
   <body>
     <header class="flex bg-main py-12 px-4 md:px-12">
-      <ul class="container grid md:grid-cols-3 grid-rows-1 text-center text-white">
+      <ul class="container mx-auto grid md:grid-cols-3 grid-rows-1 text-center text-white">
         <li class="col-4">
           <a class="underline" href="{{ route('site.page', 'about') }}">О компании</a>
         </li>
@@ -32,9 +32,11 @@
         <div class="text-6xl font-semibold">itcase.com</div>
         <div class="text-4xl mt-4 font-bold">Персональный помощник itcase.com в вашем кормане</div>
         <div class="text-4xl mt-4">
-          Скачайте наше приложение и пользуйтесь itcase.com, где бы вы ни находились. Разовая оплата за использование сервиса производится в размере 53 000 сум
+          Скачайте наше приложение и пользуйтесь itcase.com, где бы вы ни находились. Разовая оплата за использование сервиса производится в размере 5$
         </div>
-        <a href="https://play.google.com/store/apps/details?id=com.itcase.itcase"><img class="w-128 h-auto mx-auto my-8 cursor-pointer" src="/resources/images/googleplay.svg"></a>
+        <a href="https://play.google.com/store/apps/details?id=com.itcase.itcase">
+          <img class="mx-auto my-4 cursor-pointer" src="/resources/images/googleplay.svg" style="width: 224px;">
+        </a>
         <div class="text-4xl mb-8">А также можете скачать приложение с нашего сайта:</div>
         <img class="w-16 h-auto mx-auto" src="/resources/images/itcase.png">
         <div class="text-4xl font-medium hover:text-blue-500"><a href="/itcase.apk">Скачать</a></div>

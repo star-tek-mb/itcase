@@ -71,6 +71,9 @@ class ContractorsController extends Controller
         foreach ($categories as $category) {
             $contractors = $contractors->merge($category->getAllCompaniesFromDescendingCategories()->sortByDesc('created_at'));
         }
+        $contractors = $contractors->unique(function ($item) {
+            return $item->id;
+        });
         $contractorsCount = $contractors->count();
         $contractors = PaginateCollection::paginateCollection($contractors, 5);
         foreach ($contractors as $contractor) {
@@ -79,6 +82,7 @@ class ContractorsController extends Controller
             $contractor->comments = $comments;
             $contractor->mean = $mean;
         }
+        $category = null; // main page
 
         return view('site.pages.contractors.index', compact('category', 'contractors', 'contractorsCount'));
     }
@@ -98,7 +102,7 @@ class ContractorsController extends Controller
             $contractor->comments = $comments;
             $contractor->mean = $mean;
         }
-
+        $category = null;
         return view('site.pages.contractors.index', compact('category', 'contractors', 'contractorsCount'));
     }
 
@@ -112,7 +116,8 @@ class ContractorsController extends Controller
             $contractor->comments = $comments;
             $contractor->mean = $mean;
         }
-        return view('site.pages.contractors.index', compact('contractors', 'contractorsCount'));
+        $category = null;
+        return view('site.pages.contractors.index', compact('category', 'contractors', 'contractorsCount'));
     }
 
     /**

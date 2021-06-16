@@ -19,10 +19,9 @@
   <meta name="keywords" content="" />
 
   <title>@yield('title') | itcase.com</title>
+
   <link rel="stylesheet" href="/resources/css/plugins/swiper.min.css" />
   <link rel="stylesheet" href="/resources/css/plugins/magnific-popup.min.css" />
-  <link rel="stylesheet" href="/front/css/bootstrap.min.css">
-
   <link rel="stylesheet" href="/resources/css/style.css" />
   @stack('css')
 </head>
@@ -118,9 +117,8 @@
     </div>
   </header>
 
-  <div class="wrapper">
+  <div class="wrapper" style="padding-bottom: 30px;">
     <div class="container">
-
 
       <!-- КАТАЛОГ ИСПОЛНИТЕЛЕЙ - ФОРМА-->
       @hasSection('search-box')
@@ -135,9 +133,8 @@
         @yield('breadcrumbs')
       </p>
 
-      <div class="row mt35">
-        @hasSection('sidebar')
-
+      @hasSection('sidebar')
+        <div class="row mt35">
           <aside class="sidebar">
             @yield('sidebar')
           </aside>
@@ -146,14 +143,16 @@
               @yield('content')
             </div>
           </div>
+        </div>
 
-        @else
-
+      @else
+        <div class="mt35">
           <div class="right-block__inner" style="padding: 0px;">
             @yield('content')
           </div>
+        </div>
+      @endif
 
-        @endif
       </div>
     </div>
   </div>
@@ -312,6 +311,8 @@
 
 
   <!-- -->
+  @yield('modal')
+  <div class="cover"></div>
 
   <script src="/front/js/popper.min.js"></script>
   <script src="/resources/js/jquery.min.js"></script>

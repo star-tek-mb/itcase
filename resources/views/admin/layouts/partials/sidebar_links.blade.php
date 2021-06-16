@@ -79,14 +79,19 @@
     <li>
         <a href="{{ route('admin.tenders.all') }}">
           <i class="fas fa-angry"></i>
-
-            <span class="sidebar-mini-hide">Конкурсы</span>
+            <span class="sidebar-mini-hide">Задания / Конкурсы</span>
         </a>
     </li>
     <li>
         <a href="{{ route('admin.pages.index') }}">
             <i class="fa fa-newspaper-o"></i>
             <span class="sidebar-mini-hide">Статические страницы</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('admin.howtos.index') }}">
+            <i class="fa fa-question"></i>
+            <span class="sidebar-mini-hide">Слайдер на главной</span>
         </a>
     </li>
     <li>

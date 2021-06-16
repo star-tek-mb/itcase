@@ -80,6 +80,7 @@ Route::middleware('checkIsAdmin')->prefix('admin')->name('admin.')->namespace('A
     Route::resource('vacancy', 'VacancyController');
 
     Route::resource('pages', 'PageController');
+    Route::resource('howtos', 'HowtoController');
 });
 
 Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {

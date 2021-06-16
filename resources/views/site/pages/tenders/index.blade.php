@@ -16,16 +16,16 @@
 	<ul class="categories">
 		@foreach ($parentCategories as $parent)
 			<li>
-				<div class="ml-4 form-check">
-					<input checked="" type="checkbox" id="cat{{ $parent->id }}" class="form-check-input" name="categories[]" value="{{ $parent->id }}">
+				<div class="ml-4 form-check @if ($currentCategory && $currentCategory->parent->id == $parent->id) active @endif">
+					<input @if (($currentCategory && $currentCategory->id == $parent->id) || in_array($parent->id, request()->categories ?? [])) checked="" @elseif ($currentCategory == null) checked="" @endif type="checkbox" id="cat{{ $parent->id }}" class="form-check-input" name="categories[]" value="{{ $parent->id }}">
 					<label class="form-check-label" for="cat{{ $parent->id }}">{{ $parent->title }}</label>
 					<span></span>
 
-					<div class="arrow"></div>
+					<div class="arrow @if ($currentCategory && $currentCategory->parent->id == $parent->id) active @endif"></div>
 					<ul>
 						@foreach ($parent->categories as $category)
 							<li>
-								<input checked="" type="checkbox" id="cat{{ $category->id }}" class="form-check-input" name="categories[]" value="{{ $category->id }}">
+								<input @if (($currentCategory && $currentCategory->id == $category->id) || in_array($category->id, request()->categories ?? [])  || in_array($category->parent->id, request()->categories ?? [])) checked="" @elseif ($currentCategory == null && request()->categories == null) checked="" @endif type="checkbox" id="cat{{ $category->id }}" class="form-check-input" name="categories[]" value="{{ $category->id }}">
 								<label class="form-check-label" for="cat{{ $category->id }}">{{ $category->title }}</label>
 								<span></span>
 							</li>
@@ -83,9 +83,15 @@
           Крайний срок приема заявок: <span>{{ $tender->deadline->format('d.m.Y') }}</span>
         </li>
 
-        <li>
-          <a href="#" class="button button--small">Предложить задание</a>
+        @guest
+        <li class="alert">
+          <a href="{{ route('login') }}">Войдите на сайт чтобы подать заявку</a>
         </li>
+        @else
+        <li>
+          <a href="{{ route('site.tenders.category', $tender->slug) }}" class="button button--small">Откликнуться на задание</a>
+        </li>
+        @endguest
       </ul>
     </div>
   </div>

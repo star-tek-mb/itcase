@@ -11,7 +11,7 @@
 	<h2>{{ $page->title }}</h2>
 </div>
 
-<div class="px-4 py-4">
+<div style="padding: 20px;">
 {!! $page->content !!}
 </div>
 @endsection

@@ -11,7 +11,7 @@
                 </div>
                 <div class="navigation" id="navigation">
                     <ul class="ml-4 main-menu">
-                        <li class="header-menu-item"><a href="{{ route('site.tenders.index') }}">{{ __('Конкурсы') }} <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <li class="header-menu-item"><a href="{{ route('site.tenders.index') }}">{{ __('Найти задания') }} <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M5.3902 5.77793L9.84025 1.3278C9.94325 1.22488 10 1.08748 10 0.940979C10 0.794476 9.94325 0.657079 9.84025 0.554153L9.51261 0.226432C9.29911 0.0131814 8.95212 0.0131814 8.73895 0.226432L5.00207 3.96331L1.26105 0.222285C1.15804 0.119359 1.02072 0.0625301 0.874302 0.0625301C0.727717 0.0625301 0.590401 0.119359 0.487312 0.222285L0.159754 0.550006C0.0567474 0.653013 -3.18131e-08 0.790329 -3.82169e-08 0.936832C-4.46208e-08 1.08333 0.0567474 1.22073 0.159754 1.32366L4.61386 5.77793C4.7172 5.8811 4.85516 5.93777 5.00183 5.93744C5.14906 5.93777 5.28695 5.8811 5.3902 5.77793Z" fill="black"/>
 </svg>
 </a>
@@ -31,7 +31,7 @@
                                 @endforeach
                             </ul>
                         </li>
-                        <li class="header-menu-item"><a href="{{ route('site.contractors.index') }}">{{ __('Исполнители') }} <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <li class="header-menu-item"><a href="{{ route('site.contractors.index') }}">{{ __('Найти исполнителя') }} <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M5.3902 5.77793L9.84025 1.3278C9.94325 1.22488 10 1.08748 10 0.940979C10 0.794476 9.94325 0.657079 9.84025 0.554153L9.51261 0.226432C9.29911 0.0131814 8.95212 0.0131814 8.73895 0.226432L5.00207 3.96331L1.26105 0.222285C1.15804 0.119359 1.02072 0.0625301 0.874302 0.0625301C0.727717 0.0625301 0.590401 0.119359 0.487312 0.222285L0.159754 0.550006C0.0567474 0.653013 -3.18131e-08 0.790329 -3.82169e-08 0.936832C-4.46208e-08 1.08333 0.0567474 1.22073 0.159754 1.32366L4.61386 5.77793C4.7172 5.8811 4.85516 5.93777 5.00183 5.93744C5.14906 5.93777 5.28695 5.8811 5.3902 5.77793Z" fill="black"/>
 </svg>
 </a>
@@ -52,7 +52,7 @@
                             </ul>
                         </li>
                         <li class="enter_new_order"><a href="{{ route('site.tenders.common.create') }}">
-                            {{ __('Добавить заказ') }} <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            {{ __('Добавить задания') }} <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M16.4285 0H3.57141C1.59994 0.00234375 0.00234375 1.59994 0 3.57141V16.4285C0.00234375 18.4 1.59994 19.9976 3.57141 20H16.4285C18.4 19.9976 19.9976 18.4 20 16.4285V3.57141C19.9976 1.59994 18.4 0.00234375 16.4285 0ZM18.5714 16.4285C18.5714 17.612 17.612 18.5714 16.4285 18.5714H3.57141C2.38794 18.5714 1.42856 17.612 1.42856 16.4285V3.57141C1.42856 2.38794 2.38794 1.42856 3.57141 1.42856H16.4285C17.612 1.42856 18.5714 2.38794 18.5714 3.57141V16.4285Z" fill="#FF6B01"/>
 <path d="M13.5715 9.28572H10.7143V6.42856C10.7143 6.03406 10.3945 5.71426 10 5.71426C9.6055 5.71426 9.2857 6.03406 9.2857 6.42856V9.28572H6.42859C6.03409 9.28572 5.71429 9.60551 5.71429 10C5.71429 10.3945 6.03409 10.7143 6.42859 10.7143H9.28575V13.5714C9.28575 13.9659 9.60554 14.2857 10 14.2857C10.3945 14.2857 10.7143 13.9659 10.7143 13.5714V10.7143H13.5715C13.966 10.7143 14.2858 10.3945 14.2858 9.99997C14.2858 9.60547 13.9659 9.28572 13.5715 9.28572Z" fill="#FF6B01"/>
 </svg>
@@ -193,9 +193,6 @@
                             {{ __('Регистрация') }}</a>
                     </li>
                     @else
-                    @if (auth()->user()->hasRole('customer'))
-                    <li><a href="{{ route('site.tenders.common.create') }}"><i class="fas fa-plus-circle"></i>
-                            {{ __('Добавить заказ') }}</a></li>@endif
                     <li>
                         <div class="notification-item">
                             <a role="button" id="page-header-notifications" class="notification-button" data-toggle="dropdown" class="" aria-haspopup="true">
@@ -226,7 +223,7 @@
                                                 <small><i class="fas fa-info text-primary"></i></small>
                                             </div>
                                             <div class="notification-item-body">
-                                                <p class="mb-0">{{ __('Заказчик') }}<span class="font-weight-bold">{{ $notification->data['customerName'] }}</span>
+                                                <p class="mb-0">{{ __('Заказчик') }} <span class="font-weight-bold">{{ $notification->data['customerName'] }}</span>
                                                     {{ __('приглашает вас принять участие в конкурсе') }} <span class="font-weight-bold">{{ $notification->data['tenderName'] }}</span>
                                                     {{ __('и добавил вас в список участников') }}
                                                 </p>
