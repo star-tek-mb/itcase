@@ -7,7 +7,6 @@ use App\Repositories\HandbookCategoryRepository;
 use App\Repositories\NeedTypeRepository;
 use App\Repositories\TenderRepository;
 use App\Repositories\UserRepository;
-use App\Services\OctoService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -83,13 +82,13 @@ class AccountController extends Controller
         }
     }
 
-    public function create(OctoService $octo)
+    public function create()
     {
         $user = auth()->user();
         if ($user->checkCompletedAccount()) {
             return redirect()->route('site.account.index');
         }
-        $paymentUrl = $octo->requestPayment($user);
+        $paymentUrl = $request->url;
         return view('site.pages.account.create', compact('user', 'paymentUrl'));
     }
 

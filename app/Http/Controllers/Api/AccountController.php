@@ -8,7 +8,6 @@ use App\Repositories\HandbookCategoryRepository;
 use App\Repositories\NeedTypeRepository;
 use App\Repositories\TenderRepository;
 use App\Repositories\UserRepository;
-use App\Services\OctoService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -142,7 +141,7 @@ class AccountController extends Controller
         return response()->json(['number' => $count], 200);
     }
 
-    public function create(Request $request, OctoService $octo)
+    public function create(Request $request)
     {
         $user = auth()->user();
         $user->dynamic = false;
@@ -150,7 +149,7 @@ class AccountController extends Controller
             $user->dynamic = true;
         }
 
-        $paymentUrl = $octo->requestPayment($user);
+        $paymentUrl = $request->url; // TODO: ???
         return response()->json(compact('user', 'paymentUrl'));
     }
 

@@ -21,7 +21,6 @@ Route::prefix('site')->group(function () {
     Route::post('/messages', 'Site\ChatsController@sendMessage');
     Route::get('/messages', 'Site\ChatsController@fetchMessages');
 });
-Route::post('/endpoint/octo', 'OctoController');
 Route::view('/thanks', 'site.pages.thanks');
 Route::get('/auth/google', 'Auth\LoginController@redirectToGoogle');
 Route::get('/auth/google/callback', 'Auth\LoginController@handleGoogleCallback');
