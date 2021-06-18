@@ -17,7 +17,7 @@
 </head>
 <body>
 <header class="flex bg-main py-12 px-4 md:px-12">
-    <ul class="container mx-auto grid md:grid-cols-3 grid-rows-1 text-center text-white">
+    <ul class="container mx-auto grid md:grid-cols-3 grid-rows-1 text-center text-white text-2xl">
         <li class="col-4">
             <a class="underline" href="{{ route('site.page', 'about') }}">О компании</a>
         </li>
@@ -25,7 +25,7 @@
             Почта: itcase.com@yandex.ru
         </li>
         <li class="col-4">
-            Телефон для справок: +99899420 00 00
+            Телефон для справок: +99899 420 00 00
         </li>
     </ul>
 </header>
