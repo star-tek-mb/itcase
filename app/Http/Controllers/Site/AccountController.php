@@ -82,7 +82,7 @@ class AccountController extends Controller
         }
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $user = auth()->user();
         if ($user->checkCompletedAccount()) {
