@@ -76,16 +76,27 @@ class PaymentController extends Controller
         } else {
             try {
                 $user = $this->userRepository->get($request->user_id);
-                $transaction = $this->userRepository->createTransaction($user->id, $request->transaction_id);
-                $user->account_paid_at = Carbon::now();
-                $user->save();
-                return response()->json(
-                    [
-                        'status' => 0,
-                        "message" => "",
-                    ],
-                    200
-                );
+                if ($user->account_paid_at == null) {
+                    $transaction = $this->userRepository->createTransaction($user->id, $request->transaction_id);
+                    $user->account_paid_at = Carbon::now();
+                    $user->save();
+                    return response()->json(
+                        [
+                            'status' => 0,
+                            "message" => "",
+                        ],
+                        200
+                    );
+                }
+                else {
+                    return response()->json(
+                        [
+                            'status' => -1,
+                            "message" => "Пользователь уже заплатил",
+                        ],
+                        200
+                    );
+                }
             }
             catch (\Exception $e) {
 
