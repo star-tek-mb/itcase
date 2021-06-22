@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\FormMultipleUpload;
 use App\Models\Comment;
-use App\Transaction;
+use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
@@ -41,7 +41,11 @@ class UserRepository implements UserRepositoryInterface
         );
     }
     public function findTransaction(int $transaction_id):Transaction {
-        return Transaction::findOrFail($transaction_id);
+        $transaction = Transaction::where('transaction_id',$transaction_id)->first();
+        if ($transaction){
+            return $transaction;
+        }
+        throw new \Exception();
     }
     public function categoriesContractors($request)
     {

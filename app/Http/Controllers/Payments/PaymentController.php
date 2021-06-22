@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Payments;
 
+use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Dropbox\Exception;
@@ -32,11 +33,11 @@ class PaymentController extends Controller
                     'status' => 0,
                     "message" => "",
                     "full_name" => $exists->first_name . $exists->last_name,
-                    "amount" => 100,
+                    "amount" => 50000,
                 ],
                 200
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             return response()->json(
                 [

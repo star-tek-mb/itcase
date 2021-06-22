@@ -17,12 +17,12 @@ use Illuminate\Support\Facades\Route;
     Route::post('/check-user', [\App\Http\Controllers\Payments\PaymentController::class,'checkUser']);
 //});
 
+    Route::post('/pay-account', [\App\Http\Controllers\Payments\PaymentController::class,'makePayment']);
+    Route::post('/cancel-payment', [\App\Http\Controllers\Payments\PaymentController::class,'cancelPayment']);
 Route::namespace('Api')->group(function () {
 
     //Pro Accounts
 
-//    Route::post('/pay-account', [Payment::class,'makePayment']);
-//    Route::post('/cancel-payment', [Payment::class,'cancelPayment']);
 
     //Login & Register
     Route::post('/login', 'AuthController@login');

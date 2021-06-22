@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\User;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
@@ -11,6 +11,8 @@ class Transaction extends Model
         'transaction_id',
         'user_id'
     ];
+
+
 
     public function user()
     {
