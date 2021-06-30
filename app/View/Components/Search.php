@@ -26,9 +26,6 @@ class Search extends Component
         if ($search != null) {
             $this->contractors = $user->searchContractorsByName($search);
             $this->tenders = $tender->searchTenderByTitle($search);
-        } else {
-            $this->contractors = collect([]);
-            $this->tenders = collect([]);
         }
 //        dd($this->contractors);
 //        dd($this->tenders);

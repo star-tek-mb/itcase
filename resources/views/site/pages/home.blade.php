@@ -172,13 +172,14 @@
                 <a href="{{ route('site.tenders.index') }}" class="button">{{ __('Выполнить задание') }}</a>
             </li>
         </ul>
-        <x-search :search='$search'/>
+
     </div>
 </section>
 
 <!-- ВЫБРАТЬ ИСПОЛНИТЕЛЯ-->
 <section class="services">
     <div class="container">
+        <x-search :search='$search'/>
         <div class="text-center">
             <h2>Выбрать исполнителя</h2>
             <div class="mt20 color-grey">
