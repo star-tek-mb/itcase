@@ -32,7 +32,7 @@
     <div class="container">
         <div class="row justify-content-between align-items-center">
             <div class="header__left d-flex align-items-center">
-                <a href="#" class="logo">
+                <a href="/" class="logo">
                     <img src="/resources/images/logo.png" alt="">
                 </a>
 
@@ -156,7 +156,7 @@
         </div>
 
         <form method="GET" action="" class="main__form">
-            @csrf
+
             <div class="input-holder">
                 <input type="text" name="search" placeholder="Чем вам помочь ? .......">
                 <input type="submit" value="">
