@@ -270,7 +270,7 @@
 
                                     <div class="col col--50 slide-right">
                                         <div>
-                                            <h3>{{ $howto->title }}</h3>
+                                            <h3 id="header-howto">{{ $howto->title }}</h3>
                                             <p>{{ strip_tags($howto->content) }}</p>
                                             <a href="{{ route('site.tenders.common.create') }}"
                                                class="button button--secondary">{{ $howto->url_label }}</a>
