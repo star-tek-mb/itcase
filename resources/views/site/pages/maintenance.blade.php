@@ -38,6 +38,19 @@
             Скачайте наше приложение и пользуйтесь itcase.com, где бы вы ни находились. Разовая оплата за использование
             сервиса производится в размере 5$
         </div>
+{{--        @php--}}
+{{--            $mrh_login = "demo";--}}
+{{--            $mrh_pass1 = "password_1";--}}
+{{--            $inv_id = 0;--}}
+{{--            $inv_desc = "Техническая документация по ROBOKASSA";--}}
+{{--            $out_summ = "8.96";--}}
+{{--            $crc = md5("$mrh_login:$out_summ:$inv_id:$mrh_pass1");--}}
+
+{{--            print "<html><script language=JavaScript ".--}}
+{{--                "src='https://auth.robokassa.ru/Merchant/PaymentForm/FormMS.js?".--}}
+{{--                "MerchantLogin=$mrh_login&OutSum=$out_summ&InvoiceID=$inv_id".--}}
+{{--                "&Description=$inv_desc&SignatureValue=$crc'></script></html>";--}}
+{{--        @endphp--}}
 
         <div class="text-4xl mb-8">А также можете скачать приложение с нашего сайта:</div>
         <img class="w-16 h-auto mx-auto" src="/resources/images/itcase.png">
@@ -69,6 +82,7 @@
             </div>
         </div>
     </div>
+
     <hr class="w-full my-6">
     <div class="grid md:grid-cols-4 gap-4 container mx-auto px-4 md:px-12 text-center items-center justify-center">
         <div class="whitespace-nowrap w-full md:ml-4 md:text-left text-xl">© 2021 itcase.com</div>

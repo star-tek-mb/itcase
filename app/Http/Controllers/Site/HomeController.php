@@ -42,7 +42,8 @@ class HomeController extends Controller
         HandbookCategoryRepositoryInterface $categoriesRepository,
         TenderRepositoryInterface $tenderRepository,
         BlogPostRepositoryInterface $blogPostRepository
-    ) {
+    )
+    {
         $this->categories = $categoriesRepository;
         $this->tenders = $tenderRepository;
         $this->posts = $blogPostRepository;
@@ -56,6 +57,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+//        return view('site.pages.maintenance');
         // Check if url path has get parameters
         if (array_key_exists('query', parse_url($request->fullUrl()))) {
             return redirect(route('site.catalog.index'), 301);
@@ -75,7 +77,7 @@ class HomeController extends Controller
         $posts = $this->posts->allOrderByDesc()->take(3);
         $comments = Comment::latest()->limit(3)->whereNull('for_set')->get()->reverse();
         $howtos = Howto::all();
-        return view('site.pages.maintenance', compact('parentCategories', 'tenders', 'posts', 'comments', 'populars', 'vacancies', 'vacancyCategories', 'vacanciesCount', 'howtos'));
+        return view('site.pages.home', compact('parentCategories', 'tenders', 'posts', 'comments', 'populars', 'vacancies', 'vacancyCategories', 'vacanciesCount', 'howtos'));
     }
 
     public function page($params)
