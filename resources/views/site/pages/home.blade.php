@@ -401,7 +401,7 @@
             <div class="row">
               <div class="col col--33 slide-left">
                 <figure>
-                  <img src="{{ optional($tender->files()->first())->path }}" alt="">
+                  <img src="{{ asset(optional($tender->files()->first())->path) }}" alt="">
 
                   <figcaption>
                     <a href="#">
