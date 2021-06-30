@@ -991,7 +991,7 @@ var Codebase = function() {
      *
      * Third party plugin inits or various custom user interface helpers to extend functionality
      * They need to be called in a page to be initialized. They are included here to be easy to
-     * init them on demand on multiple pages (usually repeated init code in common components)
+     * init them on demand on multiple pages (usually repeated init code in common home_components)
      *
      ********************************************************************************************
      */

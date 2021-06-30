@@ -6818,7 +6818,7 @@ var DateComponent = FC.DateComponent = Component.extend({
 	// Hit Areas
 	// ---------------------------------------------------------------------------------------------------------------
 	// just because all DateComponents support this interface
-	// doesn't mean they need to have their own internal coord system. they can defer to sub-components.
+	// doesn't mean they need to have their own internal coord system. they can defer to sub-home_components.
 
 
 	hitsNeeded: function() {
@@ -15513,7 +15513,7 @@ var DayGrid = FC.DayGrid = InteractiveDateComponent.extend(StandardInteractionsM
 			this.renderHighlight(eventFootprints[i].componentFootprint);
 		}
 
-		// render drags from OTHER components as helpers
+		// render drags from OTHER home_components as helpers
 		if (eventFootprints.length && seg && seg.component !== this) {
 			this.helperRenderer.renderEventDraggingFootprints(eventFootprints, seg, isTouch);
 
@@ -17570,7 +17570,7 @@ var AgendaView = FC.AgendaView = View.extend({
 
 
 	// Builds the HTML skeleton for the view.
-	// The day-grid and time-grid components will render inside containers defined by this HTML.
+	// The day-grid and time-grid home_components will render inside containers defined by this HTML.
 	renderSkeletonHtml: function() {
 		var theme = this.calendar.theme;
 

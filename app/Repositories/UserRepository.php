@@ -64,6 +64,14 @@ class UserRepository implements UserRepositoryInterface
             return $user->hasRole('contractor');
         });
     }
+    public function searchContractorsByName($search)
+    {
+
+        $users = User::whereRaw('CONCAT(first_name, " ", last_name) like ?', ['%'. $search .'%'])->get();
+        return $users->filter(function ($user) {
+            return $user->hasRole('contractor');
+        });
+    }
     //$allUsers = User::all();
     // return $allUsers->filter(function ($user) { return $user->hasRole('contractor'); });
 

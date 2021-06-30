@@ -78,7 +78,9 @@ class TenderRepository implements TenderRepositoryInterface
         ->orderBy('created_at', 'desc')->paginate();
         return $result;
     }
-
+    public  function searchTenderByTitle(string $title){
+        return Tender::where('title', 'like', '%' . $title . '%')->get();
+    }
 //    public function tenderTextWithoutTerms(array $categories)
 //    {
 //        $result = Tender::whereHas('categories', function ($query) use ($categories) {

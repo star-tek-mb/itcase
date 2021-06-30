@@ -42,7 +42,7 @@
 	background: #fff !important;
 }
 
-/* kill the overlaid, absolutely-positioned components */
+/* kill the overlaid, absolutely-positioned home_components */
 /* common... */
 .fc-bg,
 .fc-bgevent-skeleton,

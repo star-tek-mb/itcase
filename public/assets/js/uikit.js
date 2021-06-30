@@ -3961,7 +3961,7 @@
 
             height(el, '');
 
-            // Update child components first
+            // Update child home_components first
             fastdom.flush();
 
             var endHeight = height(el) + (inProgress ? 0 : inner);
@@ -7435,7 +7435,7 @@
                     var this$1 = this;
 
 
-                    // Let child components be applied at least once first
+                    // Let child home_components be applied at least once first
                     if (!data.update) {
                         this.$update();
                         return data.update = true;
@@ -12235,7 +12235,7 @@
         Upload: upload
     });
 
-    // register components
+    // register home_components
     each(coreComponents, register);
     each(components, register);
 

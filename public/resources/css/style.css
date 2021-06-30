@@ -372,6 +372,7 @@ h1 {
     background: -o-linear-gradient(left, #FF6B01 0%, #FF7E22 100%);
     background: linear-gradient(90deg, #FF6B01 0%, #FF7E22 100%);
     -webkit-border-radius: 10px;
+    border: none;
     border-radius: 10px;
     color: #fff;
     display: -webkit-inline-box;
@@ -2647,7 +2648,15 @@ ul.buttons li {
 
 .tasks-holder {
     padding-top: 45px;
-    padding-left: 53px
+    width: 90%;
+    padding-left: 53px;
+}
+
+.search-container {
+    background-color: whitesmoke;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 15px
 }
 
 .task-block {
@@ -3449,12 +3458,13 @@ body.hidden {
 .footer ul li a:hover {
     text-decoration: underline
 }
+
 .form-control {
     display: block;
-    width: 70%;
+    width: 85%;
     height: calc(1.5em + 0.75rem + 2px);
     padding: 0.375rem 0.75rem;
-    margin: auto;
+    margin: 10px auto;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;

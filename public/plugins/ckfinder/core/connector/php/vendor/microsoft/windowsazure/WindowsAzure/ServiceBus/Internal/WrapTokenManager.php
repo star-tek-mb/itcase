@@ -187,7 +187,7 @@ class WrapTokenManager
     /** 
      * Gets whether the authority related elements are valid. 
      * 
-     * @param array $uriComponents The components of an URI.
+     * @param array $uriComponents The home_components of an URI.
      * 
      * @return boolean
      */
@@ -213,9 +213,9 @@ class WrapTokenManager
     }
 
     /** 
-     * Creates an authority string with specified Uri components. 
+     * Creates an authority string with specified Uri home_components.
      *
-     * @param array $uriComponents The URI components
+     * @param array $uriComponents The URI home_components
      *
      * @return string 
      */

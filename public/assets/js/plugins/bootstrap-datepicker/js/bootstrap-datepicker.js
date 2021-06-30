@@ -358,7 +358,7 @@
             // component: input + button
             else if (this.component && this.inputField.length) {
                 this._events = [
-                    // For components that are not readonly, allow keyboard nav
+                    // For home_components that are not readonly, allow keyboard nav
                     [this.inputField, events],
                     [this.component, {
                         click: $.proxy(this.show, this)

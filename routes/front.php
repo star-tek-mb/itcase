@@ -50,7 +50,7 @@ Route::name('site.')->namespace('Site')->group(function () {
     Route::get('/tenders/map', 'TenderController@map')->name('tenders.map');
     Route::get('/tenders/{params}', 'TenderController@category')->where('params', '.+')->name('tenders.category');
 
-    Route::get('/', 'HomeController@index')->name('catalog.index');
+    Route::match(['get','post'],'/', 'HomeController@index')->name('catalog.index');
     Route::get('/contractors', 'ContractorsController@index')->name('contractors.index');
     Route::post('/contractors/categories', 'ContractorsController@contractorCategory')->name('contractors.categories');
     Route::get('/contractors/category/{params}', 'ContractorsController@category')->where('params', '.+')->name('catalog.main');

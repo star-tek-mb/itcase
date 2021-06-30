@@ -59,9 +59,21 @@ class HomeController extends Controller
     {
 //        return view('site.pages.maintenance');
         // Check if url path has get parameters
-        if (array_key_exists('query', parse_url($request->fullUrl()))) {
-            return redirect(route('site.catalog.index'), 301);
+
+//        if($request->isMethod("GET")){
+//            dd($request->all());
+//        }
+        $search =null;
+        $bolean = $request->has('search');
+        if ($bolean == true) {
+            $search = $request->search;
         }
+//        if (array_key_exists('query', parse_url($request->fullUrl()))) {
+//            return redirect(route('site.catalog.index'), 301);
+//        }
+
+//        dd('asd');
+
         $populars = PopularServices::take(4)->get();
         $parentCategories = $this->categories->all();
 
@@ -77,7 +89,11 @@ class HomeController extends Controller
         $posts = $this->posts->allOrderByDesc()->take(3);
         $comments = Comment::latest()->limit(3)->whereNull('for_set')->get()->reverse();
         $howtos = Howto::all();
-        return view('site.pages.home', compact('parentCategories', 'tenders', 'posts', 'comments', 'populars', 'vacancies', 'vacancyCategories', 'vacanciesCount', 'howtos'));
+//        if($bolean == true){
+//            dd($search);
+//        }
+
+        return view('site.pages.home', compact('parentCategories', 'search', 'tenders', 'posts', 'comments', 'populars', 'vacancies', 'vacancyCategories', 'vacanciesCount', 'howtos'));
     }
 
     public function page($params)

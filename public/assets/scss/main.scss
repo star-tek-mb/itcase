@@ -18,7 +18,7 @@
 // Codebase mixins and Bootstrap overrides
 @import 'codebase/mixins';
 
-// Bootstrap components (original)
+// Bootstrap home_components (original)
 @import 'bootstrap/print';
 @import 'bootstrap/reboot';
 @import 'bootstrap/type';
@@ -79,7 +79,7 @@
 @import 'codebase/hero';
 @import 'codebase/block';
 
-// Codebase components
+// Codebase home_components
 @import 'codebase/page-loader';
 @import 'codebase/nav-main';
 @import 'codebase/forms-material';
@@ -93,7 +93,7 @@
 @import 'codebase/utilities';
 @import 'codebase/themes';
 
-// Third party components
+// Third party home_components
 @import 'vendor/animate';
 @import 'vendor/font-awesome';
 @import 'vendor/simple-line-icons';
