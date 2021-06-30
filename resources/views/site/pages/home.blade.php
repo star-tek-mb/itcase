@@ -224,35 +224,34 @@
     </section>
 
 
-    <!-- ПОПУЛЯРНЫЕ УСЛУГИ-->
-    <section class="popular-services">
-        <div class="container">
-            <div class="text-center">
-                <h2>Популярные услуги</h2>
-            </div>
+{{--    <!-- ПОПУЛЯРНЫЕ УСЛУГИ-->--}}
+{{--    <section class="popular-services">--}}
+{{--        <div class="container">--}}
+{{--            <div class="text-center">--}}
+{{--                <h2>Популярные услуги</h2>--}}
+{{--            </div>--}}
+{{--            --}}
+{{--            <div class="swiper-container carousel">--}}
+{{--                <div class="swiper-wrapper">--}}
 
+{{--                    <!-- -->--}}
+{{--                    @foreach ($populars as $popular)--}}
+{{--                        <div class="swiper-slide">--}}
+{{--                            <a href="{{ $popular->url }}">--}}
+{{--                                <img src="{{ $popular->getImage() }}" alt="">--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                @endforeach--}}
+{{--                <!-- -->--}}
 
-            <div class="swiper-container carousel">
-                <div class="swiper-wrapper">
+{{--                </div>--}}
 
-                    <!-- -->
-                    @foreach ($populars as $popular)
-                        <div class="swiper-slide">
-                            <a href="{{ $popular->url }}">
-                                <img src="{{ $popular->getImage() }}" alt="">
-                            </a>
-                        </div>
-                @endforeach
-                <!-- -->
+{{--                <div id="prev" class="carousel__arrow carousel__arrow--left"></div>--}}
+{{--                <div id="next" class="carousel__arrow carousel__arrow--right"></div>--}}
 
-                </div>
-
-                <div id="prev" class="carousel__arrow carousel__arrow--left"></div>
-                <div id="next" class="carousel__arrow carousel__arrow--right"></div>
-
-            </div>
-        </div>
-    </section>
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
 
     <section>
         <div class="container">
