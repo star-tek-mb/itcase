@@ -1,7 +1,9 @@
 @extends('site.layouts.front')
 
 @section('title') {{ __('Задания') }} @endsection
-
+{{--@push('css')--}}
+{{--    <link rel="stylesheet" href="/front/css/bootstrap.css" />--}}
+{{--@endpush--}}
 @section('breadcrumbs')
 - {{ __('Задания') }}
 @endsection
@@ -31,6 +33,7 @@
 							</li>
 						@endforeach
 					</ul>
+                </div>
 			</li>
 		@endforeach
 	</ul>

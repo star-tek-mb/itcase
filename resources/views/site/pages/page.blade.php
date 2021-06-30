@@ -7,6 +7,11 @@
 @endsection
 
 @section('content')
+{{--	<style>--}}
+{{--		a{--}}
+{{--			color: orange;--}}
+{{--		}--}}
+{{--	</style>--}}
 <div class="title-top title-top--small">
 	<h2>{{ $page->title }}</h2>
 </div>

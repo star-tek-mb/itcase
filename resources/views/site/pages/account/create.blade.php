@@ -324,7 +324,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" required type="checkbox" value="1" name="agree_personal_data_processing" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
-                                        Соглашаюсь на обработку персональных данных
+                                        Соглашаюсь на обработку <a href="{{ route('site.page', 'privacy-policy') }}">персональных данных</a>
                                     </label>
                                 </div>
                                 <div class="form-check">
