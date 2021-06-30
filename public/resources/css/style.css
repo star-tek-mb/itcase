@@ -2645,10 +2645,19 @@ ul.buttons li {
     max-width: 100%;
     height: auto
 }
+.block-search{
+    margin: 40px;
+}
+.block-search p strong{
+    font-size: 2em;
+}
+.block-search p {
+    margin: 20px;
+}
 
 .tasks-holder {
     padding-top: 45px;
-    width: 90%;
+    width: 80%;
     padding-left: 53px;
 }
 
@@ -3539,4 +3548,15 @@ select.form-control:focus::-ms-value {
 .form-control-range {
     display: block;
     width: 100%;
+}
+
+a span{
+    color: orange;
+    text-decoration: underline;
+}
+#hover_remove_decoration a:hover ,a:hover span {
+    text-decoration: none;
+}
+#hover_add_text_underline:hover{
+    text-decoration: underline;
 }

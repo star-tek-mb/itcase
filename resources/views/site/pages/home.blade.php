@@ -124,7 +124,8 @@
         <div class="row justify-content-between align-items-center">
             <div class="header__left d-flex align-items-center">
                 <ul class="header__menu menu">
-                    <li><a style="padding-top: 15px; padding-bottom: 15px;" href="{{ route('site.page', 'about') }}">О
+                    <li><a id="hover_add_text_underline" style="padding-top: 15px; padding-bottom: 15px;"
+                           href="{{ route('site.page', 'about') }}">О
                             компании</a></li>
                 </ul>
             </div>
@@ -134,7 +135,7 @@
                         Почта: itcase.com@yandex.ru
                     </li>
                     <li>
-                        Телефон для справок: +99899 420 00 00
+                        Телефон для справок: +77781887708
                     </li>
                 </ul>
             </div>
@@ -175,101 +176,294 @@
 
     </div>
 </section>
-
+<x-search :search='$search'/>
 <!-- ВЫБРАТЬ ИСПОЛНИТЕЛЯ-->
-<section class="services">
-    <div class="container">
-        <x-search :search='$search'/>
-        <div class="text-center">
-            <h2>Выбрать исполнителя</h2>
-            <div class="mt20 color-grey">
-                <p>Поможем вам найти исполнителя в решении самых разнообразных задач</p>
-            </div>
-        </div>
+
+@if($search == null)
+    <section class="services">
+        <div class="container">
 
 
-        <div class="row services__row">
-
-            <!-- -->
-            @foreach($parentCategories as $parent)
-                <div class="col service">
-                    <div class="service__count">
-                        <span>{{ $parent->descendants->reduce(fn($carry, $item) => $carry + $item->tenders->count(), 0) }}</span>
-                        Заданий
-                    </div>
-
-                    <img style="fill: #fff;" src="{{ $parent->getImage() }}" alt="">
-                    <h3>{{ $parent->title }}</h3>
-
-                    <ul class="service__list">
-                        @foreach ($parent->categories->take(4) as $category)
-                            <li>
-                                <a href="{{ route('site.catalog.main', $category->getAncestorsSlugs()) }}">{{ $category->title }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
+            <div class="text-center">
+                <h2>Выбрать исполнителя</h2>
+                <div class="mt20 color-grey">
+                    <p>Поможем вам найти исполнителя в решении самых разнообразных задач</p>
                 </div>
-        @endforeach
-        <!-- -->
-        </div>
-        <div class="text-center mt73">
-            <a href="{{ route('site.contractors.index') }}" class="button button--secondary">Посмотреть все
-                категории</a>
-        </div>
-    </div>
-</section>
+            </div>
 
 
-<!-- ПОПУЛЯРНЫЕ УСЛУГИ-->
-<section class="popular-services">
-    <div class="container">
-        <div class="text-center">
-            <h2>Популярные услуги</h2>
-        </div>
-
-
-        <div class="swiper-container carousel">
-            <div class="swiper-wrapper">
+            <div class="row services__row">
 
                 <!-- -->
-                @foreach ($populars as $popular)
-                    <div class="swiper-slide">
-                        <a href="{{ $popular->url }}">
-                            <img src="{{ $popular->getImage() }}" alt="">
-                        </a>
+                @foreach($parentCategories as $parent)
+                    <div class="col service">
+                        <div class="service__count">
+                            <span>{{ $parent->descendants->reduce(fn($carry, $item) => $carry + $item->tenders->count(), 0) }}</span>
+                            Заданий
+                        </div>
+
+                        <img style="fill: #fff;" src="{{ $parent->getImage() }}" alt="">
+                        <h3>{{ $parent->title }}</h3>
+
+                        <ul class="service__list">
+                            @foreach ($parent->categories->take(4) as $category)
+                                <li>
+                                    <a href="{{ route('site.catalog.main', $category->getAncestorsSlugs()) }}">{{ $category->title }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
             @endforeach
             <!-- -->
+            </div>
+            <div class="text-center mt73">
+                <a href="{{ route('site.contractors.index') }}" class="button button--secondary">Посмотреть все
+                    категории</a>
+            </div>
+        </div>
+    </section>
 
+
+    <!-- ПОПУЛЯРНЫЕ УСЛУГИ-->
+    <section class="popular-services">
+        <div class="container">
+            <div class="text-center">
+                <h2>Популярные услуги</h2>
             </div>
 
-            <div id="prev" class="carousel__arrow carousel__arrow--left"></div>
-            <div id="next" class="carousel__arrow carousel__arrow--right"></div>
 
-        </div>
-    </div>
-</section>
-
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="swiper-container slider">
+            <div class="swiper-container carousel">
                 <div class="swiper-wrapper">
 
                     <!-- -->
-                    @foreach ($howtos as $howto)
+                    @foreach ($populars as $popular)
                         <div class="swiper-slide">
-                            <div class="row">
-                                <div class="col col--50 slide-left">
-                                    <img src="{{ $howto->getImage() }}" alt="">
+                            <a href="{{ $popular->url }}">
+                                <img src="{{ $popular->getImage() }}" alt="">
+                            </a>
+                        </div>
+                @endforeach
+                <!-- -->
+
+                </div>
+
+                <div id="prev" class="carousel__arrow carousel__arrow--left"></div>
+                <div id="next" class="carousel__arrow carousel__arrow--right"></div>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="swiper-container slider">
+                    <div class="swiper-wrapper">
+
+                        <!-- -->
+                        @foreach ($howtos as $howto)
+                            <div class="swiper-slide">
+                                <div class="row">
+                                    <div class="col col--50 slide-left">
+                                        <img src="{{ $howto->getImage() }}" alt="">
+                                    </div>
+
+                                    <div class="col col--50 slide-right">
+                                        <div>
+                                            <h3>{{ $howto->title }}</h3>
+                                            <p>{{ strip_tags($howto->content) }}</p>
+                                            <a href="{{ route('site.tenders.common.create') }}"
+                                               class="button button--secondary">{{ $howto->url_label }}</a>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="col col--50 slide-right">
+                            </div>
+                    @endforeach
+                    <!-- -->
+
+                    </div>
+                </div>
+
+                <div class="swiper-pagination slider-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="text-center mt70 section-title">
+        <h2>Как решать задачи на itcase.com</h2>
+        <div class="mt18">
+            <p>Идеально подходит для бизнеса и для себя</p>
+        </div>
+    </div>
+
+    <section class="background process">
+        <div class="container">
+            <div class="row process__row">
+                <div class="col col--25 process__item">
+                    <div class="process__item-inner">
+                        <div class="img-holder">
+                            <img src="/resources/images/image_1.png" alt="">
+                        </div>
+
+                        <h4>Выберите услугу</h4>
+
+                        <p>В сервисе itcase представлен
+                            большой выбор услуг
+                            разного рода задач и специалистов до профессионалов своего дела.</p>
+                    </div>
+                </div>
+
+                <div class="col col--25 process__item">
+                    <div class="process__item-inner">
+                        <div class="img-holder">
+                            <img src="/resources/images/image_2.png" alt="">
+                        </div>
+                        <h4>Выберите оплату</h4>
+
+                        <p>В itcase на данный момент оплата картой в разработке, сейчас вы сможете оплачивать за услугу
+                            наличными средствами. Оплачивайте исполнителю после того, как он выполнит работу, и вы её
+                            одобрите.</p>
+                    </div>
+                </div>
+
+
+                <div class="col col--25 process__item">
+                    <div class="process__item-inner">
+                        <div class="img-holder">
+                            <img src="/resources/images/image_3.png" alt="">
+                        </div>
+                        <h4>Выберите исполнителя</h4>
+
+                        <p>
+                            В itcase только надежные исполнители, которые подтвердили свой номер телефона, почту и свои
+                            дынные.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col col--25 process__item">
+                    <div class="process__item-inner">
+                        <div class="img-holder">
+                            <img src="/resources/images/image_4.png" alt="">
+                        </div>
+                        <h4>Получите результат</h4>
+
+                        <p>
+                            Получите результат, проверьте выполненную работу, оставьте отзыв о исполнителе работы.
+                        </p>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="text-center mt55">
+                <a href="{{ route('site.tenders.common.create') }}" class="button">Добавить задание</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="info">
+        <div class="container">
+            <div class="row">
+                <div class="col col--7">
+                    <h2>Совсем скоро, вы сможете скачать приложение, персональный помощник itcase.com в Play market и
+                        App store</h2>
+
+                    <div class="subtitle mt31">
+                        <p>Совсем скоро можно будет скачать наше приложение itcase.com в Play market и App store и
+                            пользоваться , где бы вы ни находились. Разовая оплата за использование сервиса производится
+                            в размере 2145 тенге</p>
+                    </div>
+
+                    <ul class="buttons">
+                        <li>
+                            <a href="#">
+                                <img src="/resources/images/appstore.svg" alt="">
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="https://play.google.com/store/apps/details?id=com.itcase.itcase">
+                                <img src="/resources/images/googleplay.svg" alt="">
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="info__block">
+                        <div>
+                            <p>А пока вы можете скачать приложение с нашего сайта</p>
+                            <a href="/itcase.apk">
+                                <img src="/resources/images/download-android.png" alt=""
+                                     style="vertical-align: middle;">
+                                Скачать
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col--5 d-flex justify-content-end">
+                    <img src="/resources/images/hand.png" alt="" class="image">
+                </div>
+            </div>
+            <br><br>
+        </div>
+    </section>
+
+    <section class="background tasks-catalogue">
+        <div class="container">
+
+            <div class="text-center color-white tasks-catalogue__title">
+                <h2>Каталог заданий</h2>
+                <p>Что заказывают на ITcase сейчас</p>
+            </div>
+
+            <div class="swiper-container slider-vertical">
+                <div class="swiper-wrapper">
+
+                    <!-- -->
+                    @foreach ($tenders as $tender)
+                        <div class="swiper-slide">
+                            <div class="row">
+                                <div class="col col--33 slide-left">
+                                    <figure>
+                                        <img src="{{ asset(optional($tender->files()->first())->path) }}" alt="">
+
+                                        <figcaption>
+                                            <a href="#">
+                                                <img style="width: 100%; height: auto;"
+                                                     src="{{ $tender->categoryIcon() }}"
+                                                     alt="">
+                                            </a>
+                                        </figcaption>
+                                    </figure>
+
+                                </div>
+                                @inject('geocoder', 'App\Services\GeocoderService')
+                                <div class="col col--66 slide-right">
                                     <div>
-                                        <h3>{{ $howto->title }}</h3>
-                                        <p>{{ strip_tags($howto->content) }}</p>
-                                        <a href="{{ route('site.tenders.common.create') }}"
-                                           class="button button--secondary">{{ $howto->url_label }}</a>
+                                        <h3>{{ $tender->title }}</h3>
+                                        <ul class="task-data">
+                                            <li class="task-address">
+                                                {{ $geocoder->getAddress($tender->geo_location) }}
+                                            </li>
+
+                                            <li class="task-money">
+                                                Оплата наличными <br>
+                                                Бюджет: <strong>{{ $tender->budget }} сум</strong>
+                                            </li>
+
+                                            <li class="task-date">
+                                                Опубликован: <span>{{ $tender->published_at->format('d.m.Y') }}</span>
+                                                <br>
+                                                Крайний срок приема заявок:
+                                                <span>{{ $tender->deadline->format('d.m.Y') }}</span>
+                                            </li>
+                                        </ul>
+
+                                        <a href="{{ route('site.tenders.category', $tender->slug) }}"
+                                           class="button button--task">Отозваться на задание</a>
                                     </div>
                                 </div>
                             </div>
@@ -277,409 +471,222 @@
                         </div>
                 @endforeach
                 <!-- -->
-
                 </div>
-            </div>
-
-            <div class="swiper-pagination slider-pagination"></div>
-        </div>
-    </div>
-</section>
-
-<div class="text-center mt70 section-title">
-    <h2>Как решать задачи на itcase.com</h2>
-    <div class="mt18">
-        <p>Идеально подходит для бизнеса и для себя</p>
-    </div>
-</div>
-
-<section class="background process">
-    <div class="container">
-        <div class="row process__row">
-            <div class="col col--25 process__item">
-                <div class="process__item-inner">
-                    <div class="img-holder">
-                        <img src="/resources/images/image_1.png" alt="">
-                    </div>
-
-                    <h4>Выберите услугу</h4>
-
-                    <p>В сервисе itcase представлен
-                        большой выбор услуг
-                        разного рода задач и специалистов до профессионалов своего дела.</p>
-                </div>
-            </div>
-
-            <div class="col col--25 process__item">
-                <div class="process__item-inner">
-                    <div class="img-holder">
-                        <img src="/resources/images/image_2.png" alt="">
-                    </div>
-                    <h4>Выберите оплату</h4>
-
-                    <p>В itcase удобный способ оплат картой или наличными средствами. Деньги будут перечислены
-                        исполнителю
-                        после того, как он выполнит работу, и вы её одобрите.</p>
-                </div>
-            </div>
-
-
-            <div class="col col--25 process__item">
-                <div class="process__item-inner">
-                    <div class="img-holder">
-                        <img src="/resources/images/image_3.png" alt="">
-                    </div>
-                    <h4>Выберите исполнителя</h4>
-
-                    <p>
-                        В itcase только надежные исполнители, которые подтвердили свой номер телефона, почту и свои
-                        документы.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col col--25 process__item">
-                <div class="process__item-inner">
-                    <div class="img-holder">
-                        <img src="/resources/images/image_4.png" alt="">
-                    </div>
-                    <h4>Получите результат</h4>
-
-                    <p>
-                        Получите результат оцените выполненную работы, 100% гарантия возврата средств
-                        если вы выбрали оплату картой безопасной сделкой в случае невыполнения заказа.
-                    </p>
-                </div>
+                <div class="swiper-pagination slider-vertical-pagination"></div>
             </div>
 
 
         </div>
+    </section>
 
-        <div class="text-center mt55">
-            <a href="{{ route('site.tenders.common.create') }}" class="button">Добавить задание</a>
-        </div>
-    </div>
-</section>
-
-<section class="info">
-    <div class="container">
-        <div class="row">
-            <div class="col col--7">
-                <h2>Персональный помощник
-                    itcase.com в вашем кормане</h2>
-
-                <div class="subtitle mt31">
-                    <p>Скачайте наше приложение и пользуйтесь itcase.com, где бы вы ни находились. Разовая оплата за
-                        использование сервиса производится в размере 53 000 сум</p>
-                </div>
-
-                <ul class="buttons">
-                    <li>
-                        <a href="#">
-                            <img src="/resources/images/appstore.svg" alt="">
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="https://play.google.com/store/apps/details?id=com.itcase.itcase">
-                            <img src="/resources/images/googleplay.svg" alt="">
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="info__block">
-                    <div>
-                        <p>А также можете скачать с нашего сайта</p>
-                        <a href="/itcase.apk">
-                            <img src="/resources/images/download-android.png" alt="" style="vertical-align: middle;">
-                            Скачать
-                        </a>
-                    </div>
-                </div>
+    <section class="blog">
+        <div class="container">
+            <div class="text-center blog__title section-title">
+                <h2>Новые публикации в <a href="{{ route('site.blog.index') }}">блоге</a> itcase</h2>
+                <p>Хотите стать героем наших историй? Это просто! <a href="{{ route('site.tenders.common.create') }}">Разместите
+                        задание</a> или <a href="{{ route('site.account.contractor.professional') }}">станьте
+                        исполнителем</a>.</p>
             </div>
 
-            <div class="col col--5 d-flex justify-content-end">
-                <img src="/resources/images/hand.png" alt="" class="image">
-            </div>
-        </div>
-        <br><br>
-    </div>
-</section>
+            <div class="swiper-container slider-blog">
+                <div class="swiper-wrapper">
 
-<section class="background tasks-catalogue">
-    <div class="container">
-
-        <div class="text-center color-white tasks-catalogue__title">
-            <h2>Каталог заданий</h2>
-            <p>Что заказывают на ITcase сейчас</p>
-        </div>
-
-        <div class="swiper-container slider-vertical">
-            <div class="swiper-wrapper">
-
-                <!-- -->
-                @foreach ($tenders as $tender)
-                    <div class="swiper-slide">
-                        <div class="row">
-                            <div class="col col--33 slide-left">
+                    <!-- -->
+                    @foreach ($posts as $post)
+                        <div class="swiper-slide post">
+                            <a href="{{ route('site.blog.main', $post->slug) }}" class="post-link">
                                 <figure>
-                                    <img src="{{ asset(optional($tender->files()->first())->path) }}" alt="">
-
-                                    <figcaption>
-                                        <a href="#">
-                                            <img style="width: 100%; height: auto;" src="{{ $tender->categoryIcon() }}"
-                                                 alt="">
-                                        </a>
-                                    </figcaption>
+                                    <img src="{{ $post->getImage() }}" alt="">
                                 </figure>
 
-                            </div>
-                            @inject('geocoder', 'App\Services\GeocoderService')
-                            <div class="col col--66 slide-right">
-                                <div>
-                                    <h3>{{ $tender->title }}</h3>
-                                    <ul class="task-data">
-                                        <li class="task-address">
-                                            {{ $geocoder->getAddress($tender->geo_location) }}
-                                        </li>
 
-                                        <li class="task-money">
-                                            Оплата наличными <br>
-                                            Бюджет: <strong>{{ $tender->budget }} сум</strong>
-                                        </li>
+                                <span class="post__title">{{ $post->title }}</span>
+                            </a>
 
-                                        <li class="task-date">
-                                            Опубликован: <span>{{ $tender->published_at->format('d.m.Y') }}</span> <br>
-                                            Крайний срок приема заявок:
-                                            <span>{{ $tender->deadline->format('d.m.Y') }}</span>
-                                        </li>
-                                    </ul>
 
-                                    <a href="{{ route('site.tenders.category', $tender->slug) }}"
-                                       class="button button--task">Отозваться на задание</a>
-                                </div>
-                            </div>
                         </div>
-
-                    </div>
-            @endforeach
-            <!-- -->
-            </div>
-            <div class="swiper-pagination slider-vertical-pagination"></div>
-        </div>
-
-
-    </div>
-</section>
-
-<section class="blog">
-    <div class="container">
-        <div class="text-center blog__title section-title">
-            <h2>Новые публикации в <a href="{{ route('site.blog.index') }}">блоге</a> itcase</h2>
-            <p>Хотите стать героем наших историй? Это просто! <a href="{{ route('site.tenders.common.create') }}">Разместите
-                    задание</a> или <a href="{{ route('site.account.contractor.professional') }}">станьте
-                    исполнителем</a>.</p>
-        </div>
-
-        <div class="swiper-container slider-blog">
-            <div class="swiper-wrapper">
-
+                @endforeach
                 <!-- -->
-                @foreach ($posts as $post)
-                    <div class="swiper-slide post">
-                        <a href="{{ route('site.blog.main', $post->slug) }}" class="post-link">
-                            <figure>
-                                <img src="{{ $post->getImage() }}" alt="">
-                            </figure>
+                </div>
 
-
-                            <span class="post__title">{{ $post->title }}</span>
-                        </a>
-
-
-                    </div>
-            @endforeach
-            <!-- -->
+                <div class="slider-pagination"></div>
             </div>
 
-            <div class="slider-pagination"></div>
+
+        </div>
+    </section>
+
+
+    {{--<section class="vacancies">
+      <div class="container">
+        <div class="text-center color-white vacancies__title">
+          <h2>Популярные вакансии в Узбекистане</h2>
+          <p>itcase сервис, где работа найдётся всегда!</p>
         </div>
 
 
-    </div>
-</section>
+        <div class="row mt64">
+          <div class="col col--33">
+            <h4>Вакансии дня в Ташкенте</h4>
+
+            <ul class="vacancies__list">
+              @foreach ($vacancies as $vacancy)
+              <li>
+                <a href="#">{{ $vacancy->title }}</a>
+                {{ $vacancy->budget }} <br>
+                {{ $vacancy->address }}
+              </li>
+              @endforeach
+            </ul>
+          </div>
+
+          <div class="col col--33 pl50">
+            <h4>Работа по профессиям</h4>
+
+            <ul class="vacancies__list">
+              @foreach ($vacancyCategories as $category)
+              <li>
+                <a href="#">{{ $category->title }}</a>
+              </li>
+              @endforeach
+            </ul>
+          </div>
+
+          <div class="col col--33 pl73">
+            <h4>Работы по городам</h4>
+
+            <ul class="vacancies__list vacancies__list--double">
+              <li>
+                <a href="#">Андижан</a>
+                {{ $vacanciesCount['andijan'] }} вакансии
+              </li>
 
 
-{{--<section class="vacancies">
-  <div class="container">
-    <div class="text-center color-white vacancies__title">
-      <h2>Популярные вакансии в Узбекистане</h2>
-      <p>itcase сервис, где работа найдётся всегда!</p>
-    </div>
+              <li>
+                <a href="#">Бухара</a>
+                {{ $vacanciesCount['bukhara'] }} вакансии
+              </li>
 
 
-    <div class="row mt64">
-      <div class="col col--33">
-        <h4>Вакансии дня в Ташкенте</h4>
-
-        <ul class="vacancies__list">
-          @foreach ($vacancies as $vacancy)
-          <li>
-            <a href="#">{{ $vacancy->title }}</a>
-            {{ $vacancy->budget }} <br>
-            {{ $vacancy->address }}
-          </li>
-          @endforeach
-        </ul>
-      </div>
-
-      <div class="col col--33 pl50">
-        <h4>Работа по профессиям</h4>
-
-        <ul class="vacancies__list">
-          @foreach ($vacancyCategories as $category)
-          <li>
-            <a href="#">{{ $category->title }}</a>
-          </li>
-          @endforeach
-        </ul>
-      </div>
-
-      <div class="col col--33 pl73">
-        <h4>Работы по городам</h4>
-
-        <ul class="vacancies__list vacancies__list--double">
-          <li>
-            <a href="#">Андижан</a>
-            {{ $vacanciesCount['andijan'] }} вакансии
-          </li>
+              <li>
+                <a href="#">Джизак</a>
+                {{ $vacanciesCount['jizzakh'] }} вакансии
+              </li>
 
 
-          <li>
-            <a href="#">Бухара</a>
-            {{ $vacanciesCount['bukhara'] }} вакансии
-          </li>
+              <li>
+                <a href="#">Кашкадарья</a>
+                {{ $vacanciesCount['qashqadaryo'] }} вакансии
+              </li>
 
 
-          <li>
-            <a href="#">Джизак</a>
-            {{ $vacanciesCount['jizzakh'] }} вакансии
-          </li>
+              <li>
+                <a href="#">Навои</a>
+                {{ $vacanciesCount['navoiy'] }} вакансии
+              </li>
+
+              <li>
+                <a href="#">Наманган</a>
+                {{ $vacanciesCount['namangan'] }} вакансии
+              </li>
+
+              <li>
+                <a href="#">Самарканд</a>
+                {{ $vacanciesCount['samarqand'] }} вакансии
+              </li>
 
 
-          <li>
-            <a href="#">Кашкадарья</a>
-            {{ $vacanciesCount['qashqadaryo'] }} вакансии
-          </li>
+              <li>
+                <a href="#">Сурхандарья</a>
+                {{ $vacanciesCount['surxondaryo'] }} вакансии
+              </li>
 
+              <li>
+                <a href="#">Сырдарья</a>
+                {{ $vacanciesCount['sirdaryo'] }} вакансии
+              </li>
 
-          <li>
-            <a href="#">Навои</a>
-            {{ $vacanciesCount['navoiy'] }} вакансии
-          </li>
+              <li>
+                <a href="#">Ташкент</a>
+                {{ $vacanciesCount['tashkent'] }} вакансии
+              </li>
 
-          <li>
-            <a href="#">Наманган</a>
-            {{ $vacanciesCount['namangan'] }} вакансии
-          </li>
+              <li>
+                <a href="#">Фергана</a>
+                {{ $vacanciesCount['fergana'] }} вакансии
+              </li>
 
-          <li>
-            <a href="#">Самарканд</a>
-            {{ $vacanciesCount['samarqand'] }} вакансии
-          </li>
+              <li>
+                <a href="#">Хорезм</a>
+                {{ $vacanciesCount['xorazm'] }} вакансии
+              </li>
 
+              <li>
+                <a href="#">Каракалпакстан</a>
+                {{ $vacanciesCount['karakalpakstan'] }} вакансии
+              </li>
 
-          <li>
-            <a href="#">Сурхандарья</a>
-            {{ $vacanciesCount['surxondaryo'] }} вакансии
-          </li>
-
-          <li>
-            <a href="#">Сырдарья</a>
-            {{ $vacanciesCount['sirdaryo'] }} вакансии
-          </li>
-
-          <li>
-            <a href="#">Ташкент</a>
-            {{ $vacanciesCount['tashkent'] }} вакансии
-          </li>
-
-          <li>
-            <a href="#">Фергана</a>
-            {{ $vacanciesCount['fergana'] }} вакансии
-          </li>
-
-          <li>
-            <a href="#">Хорезм</a>
-            {{ $vacanciesCount['xorazm'] }} вакансии
-          </li>
-
-          <li>
-            <a href="#">Каракалпакстан</a>
-            {{ $vacanciesCount['karakalpakstan'] }} вакансии
-          </li>
-
-        </ul>
-      </div>
-    </div>
-
-    <div class="text-center mt90">
-      <a href="#" class="button button--simple">Еще вакансии</a>
-    </div>
-
-  </div>
-</section>--}}
-
-
-{{--<section class="soon">
-  <div class="container">
-    <div class="text-center section-title">
-      <h2>Скоро в itcase.com</h2>
-      <p>Наши сервисы в разработке</p>
-    </div>
-
-
-    <div class="swiper-container slider-soon">
-      <div class="swiper-wrapper">
-
-        <!-- -->
-        <div class="swiper-slide">
-          <a href="#">
-            <figure>
-              <img src="/resources/images/ittaxi.svg" alt="">
-            </figure>
-          </a>
+            </ul>
+          </div>
         </div>
-        <!-- -->
 
-
-        <!-- -->
-        <div class="swiper-slide">
-          <a href="#">
-            <figure>
-              <img src="/resources/images/itmoney.svg" alt="">
-            </figure>
-          </a>
+        <div class="text-center mt90">
+          <a href="#" class="button button--simple">Еще вакансии</a>
         </div>
-        <!-- -->
 
-
-        <!-- -->
-        <div class="swiper-slide">
-          <a href="#">
-            <figure>
-              <img src="/resources/images/itcar.svg" alt="">
-            </figure>
-          </a>
-        </div>
-        <!-- -->
       </div>
+    </section>--}}
 
-      <div class="slider-pagination"></div>
-    </div>
-  </div>
-</section>--}}
 
+    {{--<section class="soon">
+      <div class="container">
+        <div class="text-center section-title">
+          <h2>Скоро в itcase.com</h2>
+          <p>Наши сервисы в разработке</p>
+        </div>
+
+
+        <div class="swiper-container slider-soon">
+          <div class="swiper-wrapper">
+
+            <!-- -->
+            <div class="swiper-slide">
+              <a href="#">
+                <figure>
+                  <img src="/resources/images/ittaxi.svg" alt="">
+                </figure>
+              </a>
+            </div>
+            <!-- -->
+
+
+            <!-- -->
+            <div class="swiper-slide">
+              <a href="#">
+                <figure>
+                  <img src="/resources/images/itmoney.svg" alt="">
+                </figure>
+              </a>
+            </div>
+            <!-- -->
+
+
+            <!-- -->
+            <div class="swiper-slide">
+              <a href="#">
+                <figure>
+                  <img src="/resources/images/itcar.svg" alt="">
+                </figure>
+              </a>
+            </div>
+            <!-- -->
+          </div>
+
+          <div class="slider-pagination"></div>
+        </div>
+      </div>
+    </section>--}}
+@endif
 
 <footer class="footer">
     <div class="container">
@@ -710,6 +717,8 @@
                 <h4>Компания</h4>
 
                 <ul>
+                    <li><a href="{{ route('site.page', 'about') }}">О
+                            компании</a></li>
                     <li>
                         <a href="{{ route('site.blog.index') }}">Наш блог</a>
                     </li>
@@ -745,7 +754,7 @@
 
 
             <div class="col">
-                <h4>Скачайте наше приложение</h4>
+                <h4>Скоро в Play market и App store</h4>
 
                 <div class="app-info">
                     <ul class="app-info__list">
@@ -756,15 +765,15 @@
                         </li>
 
                         <li>
-                            <a href="https://play.google.com/store/apps/details?id=com.itcase.itcase">
+                            <a href="">
                                 <img src="/resources/images/googleplay-black.svg" alt="">
                             </a>
                         </li>
                     </ul>
 
                     <ul class="app-info__list" style="margin-left: 10px; text-align: center;">
-                        <p style="text-align: center; font-size: 15px; margin-top: 20px; margin-bottom: 20px;">А также
-                            можете скачать с нашего сайта</p>
+                        <p style="text-align: center; font-size: 15px; margin-top: 20px; margin-bottom: 20px;">А пока вы
+                            можете скачать приложение с нашего сайта</p>
                         <li style="margin-bottom: 5px;">
                             <a href="/itcase.apk">
                                 <img src="/resources/images/download-android.png" alt=""
@@ -788,7 +797,7 @@
             </div>
 
             <div class="col text-center">
-                <p>
+                <p id="hover_remove_decoration">
                     <a href="{{ route('site.page', 'terms-of-service') }}">Правила сервиса</a>
                     <a href="{{ route('site.page', 'offerta') }}"> Оферта</a>
                     <a href="{{ route('site.page', 'privacy-policy') }}">Политика конфиденциальности</a>

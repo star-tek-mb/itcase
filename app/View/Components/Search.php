@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Page;
 use App\Repositories\TenderRepository;
 use App\Repositories\UserRepository;
 
@@ -17,15 +18,18 @@ class Search extends Component
      */
     public $contractors;
     public $tenders;
-
+    public $search;
+    public $pages;
     public function __construct($search)
     {
 
         $user = new UserRepository();
         $tender = new TenderRepository();
+        $this->search = $search;
         if ($search != null) {
             $this->contractors = $user->searchContractorsByName($search);
             $this->tenders = $tender->searchTenderByTitle($search);
+            $this->pages = Page::where('title', 'LIKE', '%' . $search . '%')->get();
         }
 //        dd($this->contractors);
 //        dd($this->tenders);
