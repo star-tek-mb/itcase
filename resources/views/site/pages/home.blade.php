@@ -132,10 +132,10 @@
             <div class="header__right d-flex align-items-center">
                 <ul class="header__menu menu">
                     <li>
-                        Почта: itcase.com@yandex.ru
+                        <a href="mailto:itcase.com@yandex.ru">Почта: itcase.com@yandex.ru</a>
                     </li>
                     <li>
-                        Телефон для справок: +77781887708
+                        <a href="tel:+77781887708"> Телефон для справок: +77781887708</a>
                     </li>
                 </ul>
             </div>
@@ -224,34 +224,34 @@
     </section>
 
 
-{{--    <!-- ПОПУЛЯРНЫЕ УСЛУГИ-->--}}
-{{--    <section class="popular-services">--}}
-{{--        <div class="container">--}}
-{{--            <div class="text-center">--}}
-{{--                <h2>Популярные услуги</h2>--}}
-{{--            </div>--}}
-{{--            --}}
-{{--            <div class="swiper-container carousel">--}}
-{{--                <div class="swiper-wrapper">--}}
+    {{--    <!-- ПОПУЛЯРНЫЕ УСЛУГИ-->--}}
+    {{--    <section class="popular-services">--}}
+    {{--        <div class="container">--}}
+    {{--            <div class="text-center">--}}
+    {{--                <h2>Популярные услуги</h2>--}}
+    {{--            </div>--}}
+    {{--            --}}
+    {{--            <div class="swiper-container carousel">--}}
+    {{--                <div class="swiper-wrapper">--}}
 
-{{--                    <!-- -->--}}
-{{--                    @foreach ($populars as $popular)--}}
-{{--                        <div class="swiper-slide">--}}
-{{--                            <a href="{{ $popular->url }}">--}}
-{{--                                <img src="{{ $popular->getImage() }}" alt="">--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                @endforeach--}}
-{{--                <!-- -->--}}
+    {{--                    <!-- -->--}}
+    {{--                    @foreach ($populars as $popular)--}}
+    {{--                        <div class="swiper-slide">--}}
+    {{--                            <a href="{{ $popular->url }}">--}}
+    {{--                                <img src="{{ $popular->getImage() }}" alt="">--}}
+    {{--                            </a>--}}
+    {{--                        </div>--}}
+    {{--                @endforeach--}}
+    {{--                <!-- -->--}}
 
-{{--                </div>--}}
+    {{--                </div>--}}
 
-{{--                <div id="prev" class="carousel__arrow carousel__arrow--left"></div>--}}
-{{--                <div id="next" class="carousel__arrow carousel__arrow--right"></div>--}}
+    {{--                <div id="prev" class="carousel__arrow carousel__arrow--left"></div>--}}
+    {{--                <div id="next" class="carousel__arrow carousel__arrow--right"></div>--}}
 
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </section>--}}
 
     <section>
         <div class="container">
@@ -363,10 +363,10 @@
         </div>
     </section>
 
-    <section class="info">
+    <section  class="info">
         <div class="container">
             <div class="row">
-                <div class="col col--7">
+                <div class="col col--7 mb-80">
                     <h2>Совсем скоро, вы сможете скачать приложение, персональный помощник itcase.com в Play market и
                         App store</h2>
 
@@ -378,13 +378,13 @@
 
                     <ul class="buttons">
                         <li>
-                            <a href="#">
+                            <a href="">
                                 <img src="/resources/images/appstore.svg" alt="">
                             </a>
                         </li>
 
                         <li>
-                            <a href="https://play.google.com/store/apps/details?id=com.itcase.itcase">
+                            <a href="">
                                 <img src="/resources/images/googleplay.svg" alt="">
                             </a>
                         </li>

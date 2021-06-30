@@ -57,6 +57,7 @@
             <button type="submit" class="button">Фильтр</button>
         </div>
     </form>
+
     @include('site.layouts.sidebar')
 @endsection
 
@@ -69,7 +70,9 @@
 
         <a href="{{ route('site.tenders.map') }}" class="button button--search-task">Поиск заданий на карте</a>
     </div>
-
+   <div id="full_width_tasks_holder">
     @include('site.pages.tenders.individual_task')
+   </div>
     {{ $tenders->links()}}
+
 @endsection

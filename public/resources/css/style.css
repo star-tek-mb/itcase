@@ -484,8 +484,8 @@ h1 {
 }
 
 h2 {
-    font-size: 45px;
-    line-height: 55px
+    font-size: 40px;
+    line-height: 55px;
 }
 
 h4 {
@@ -782,7 +782,7 @@ h4 {
 
 .info__block p {
     font-weight: 500;
-    font-size: 35px;
+    font-size: 30px;
     line-height: 43px;
     color: #343434
 }
@@ -800,7 +800,7 @@ h4 {
 }
 
 .subtitle * {
-    font-size: 35px;
+    font-size: 30px;
     line-height: 43px
 }
 
@@ -3563,4 +3563,19 @@ a span{
 
 #header-howto{
     line-height: initial;
+}
+.info{
+    line-height: 0;
+}
+/*.info div div div{*/
+/*    margin-bottom: 80px;*/
+/*}*/
+.info div div div div p {
+    font-size: 1.5em;
+}
+#full_width_tasks_holder .tasks-holder {
+    width: 100%;
+}
+.mb-80{
+    margin-bottom: 80px !important;
 }
