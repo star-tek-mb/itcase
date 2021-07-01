@@ -2646,12 +2646,15 @@ ul.buttons li {
     max-width: 100%;
     height: auto
 }
-.block-search{
+
+.block-search {
     margin: 40px;
 }
-.block-search p strong{
+
+.block-search p strong {
     font-size: 2em;
 }
+
 .block-search p {
     margin: 20px;
 }
@@ -2947,6 +2950,8 @@ ul.buttons li {
     color: #D03131
 }
 
+
+
 .button--full {
     margin-top: 38px;
     width: 100%;
@@ -2960,7 +2965,9 @@ ul.buttons li {
     height: 54px;
     line-height: 54px
 }
-
+.task__data .button--full {
+    line-height: 27px;
+}
 .task__data-description {
     margin-top: 40px
 }
@@ -3551,32 +3558,38 @@ select.form-control:focus::-ms-value {
     width: 100%;
 }
 
-a span{
+a span {
     color: orange;
     text-decoration: underline;
 }
-#hover_remove_decoration a:hover ,a:hover span {
+
+#hover_remove_decoration a:hover, a:hover span {
     text-decoration: none;
 }
-#hover_add_text_underline:hover{
+
+#hover_add_text_underline:hover {
     text-decoration: underline;
 }
 
-#header-howto{
+#header-howto {
     line-height: initial;
 }
-.info{
+
+.info {
     line-height: 0;
 }
+
 /*.info div div div{*/
 /*    margin-bottom: 80px;*/
 /*}*/
 .info div div div div p {
     font-size: 1.5em;
 }
+
 #full_width_tasks_holder .tasks-holder {
     width: 100%;
 }
-.mb-80{
+
+.mb-80 {
     margin-bottom: 80px !important;
 }
