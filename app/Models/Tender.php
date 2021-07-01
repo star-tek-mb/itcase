@@ -86,7 +86,7 @@ class Tender extends Model
      */
     public function getImageFirst():string
     {
-        if ($this->files)
+        if ($this->files()->first())
             return "/" . self::UPLOAD_DIRECTORY . $this->files()->first()->path;
         return  "";
     }
