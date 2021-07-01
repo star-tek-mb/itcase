@@ -122,25 +122,26 @@
             </div>
 
         </div>
-        <div class="row justify-content-between align-items-center back-color-header">
+        <div class="back-color-header">
+            <div class="row justify-content-between align-items-center set_max_width">
+                <div class="header__left d-flex align-items-center">
+                    <ul class="header__menu menu">
+                        <li><a id="hover_add_text_underline" style="padding-top: 15px; padding-bottom: 15px;"
+                               href="{{ route('site.page', 'about') }}">О
+                                компании</a></li>
+                    </ul>
+                </div>
 
-            <div class="header__left d-flex align-items-center">
-                <ul class="header__menu menu">
-                    <li><a id="hover_add_text_underline" style="padding-top: 15px; padding-bottom: 15px;"
-                           href="{{ route('site.page', 'about') }}">О
-                            компании</a></li>
-                </ul>
-            </div>
-
-            <div class="header__right d-flex align-items-center">
-                <ul class="header__menu menu info-company">
-                    <li>
-                        <a href="mailto:itcase.com@yandex.ru">Почта: itcase.com@yandex.ru</a>
-                    </li>
-                    <li>
-                        <a href="tel:+77781887708"> Телефон для справок: +77781887708</a>
-                    </li>
-                </ul>
+                <div class="header__right d-flex align-items-center">
+                    <ul class="header__menu menu info-company">
+                        <li>
+                            <a href="mailto:itcase.com@yandex.ru">Почта: itcase.com@yandex.ru</a>
+                        </li>
+                        <li>
+                            <a href="tel:+77781887708"> Телефон для справок: +77781887708</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -366,7 +367,7 @@
         </div>
     </section>
 
-    <section  class="info">
+    <section class="info">
         <div class="container">
             <div class="row">
                 <div class="col col--7 mb-80">
