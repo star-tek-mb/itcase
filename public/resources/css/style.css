@@ -2689,14 +2689,30 @@ ul.buttons li {
     -o-transition: .3s;
     transition: .3s
 }
-
-.task-block .button:hover, .body-box .button:hover {
+a .post__title {
+    text-decoration: none;
+}
+.blog__title h2 a, .blog__title p a {
+    text-decoration: none;
+}
+.blog__title h2 a:hover, .blog__title p a:hover  {
+    text-decoration: underline;
+}
+.task-block .button:hover, .body-box .button:hover, .button:hover {
     background: -webkit-gradient(linear, left top, right top, from(#02386F), to(#2F419E)), rgba(255, 255, 255, 0.9);
     background: -webkit-linear-gradient(left, #02386F 0%, #2F419E 100%), rgba(255, 255, 255, 0.9);
     background: -o-linear-gradient(left, #02386F 0%, #2F419E 100%), rgba(255, 255, 255, 0.9);
     background: linear-gradient(90deg, #02386F 0%, #2F419E 100%), rgba(255, 255, 255, 0.9)
 }
-
+.info__block a:hover{
+    text-decoration: underline;
+}
+.header__menu a:hover{
+    text-decoration: underline;
+}
+.breadcrumbs a:hover{
+    text-decoration: none;
+}
 .task-block .button:after {
     display: none
 }
