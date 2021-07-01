@@ -185,6 +185,7 @@ class TenderController extends Controller
         if (auth()->user()) {
             auth()->user()->authorizeRole('customer');
         }
+
         Validator::make($request->all(), [
             'categories' => 'required',
             'title' => 'required|string|max:255',
@@ -198,7 +199,8 @@ class TenderController extends Controller
 
         try {
             Notification::send($this->userRepository->getAdmins(), new TenderCreated($tender));
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
         return redirect()->route('site.account.tenders')->with('success', "Тендер $tender->title создан и отправлен на модерацию!");
     }
 
@@ -214,7 +216,8 @@ class TenderController extends Controller
         $tenderRequest = $this->tenderRepository->createRequest($request);
         try {
             $tenderRequest->tender->owner->notify(new NewRequest($tenderRequest));
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
         $tenderTitle = $tenderRequest->tender->title;
         return back()->with('success', "Вы подали заявку на участие в конкурсе \"$tenderTitle\" или прием заявок окончен.");
     }
@@ -283,7 +286,8 @@ class TenderController extends Controller
         if ($request = $this->tenderRepository->acceptRequest($tenderId, $requestId)) {
             try {
                 $request->user->notify(new RequestAction('accepted', $request));
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+            }
             $requests = $request->tender->requests;
 
             foreach ($requests as $otherRequest) {
@@ -292,14 +296,16 @@ class TenderController extends Controller
                 }
                 try {
                     $otherRequest->user->notify(new RequestAction('rejected', $otherRequest, $otherRequest->tender));
-                } catch (\Exception $e) {}
+                } catch (\Exception $e) {
+                }
             }
             $adminUsers = $this->userRepository->getAdmins();
             try {
                 Notification::send($adminUsers, new RequestAction('accepted', $request));
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+            }
             return redirect()->route('site.account.chats.create');
-        // return redirect($redirectTo)->with('account.success', 'Исполнитель на этот конкурс назначен! Администратор сайта с вами свяжется и вы получите инструкции, необходимые для того, чтобы исполнитель приступил к работе.');
+            // return redirect($redirectTo)->with('account.success', 'Исполнитель на этот конкурс назначен! Администратор сайта с вами свяжется и вы получите инструкции, необходимые для того, чтобы исполнитель приступил к работе.');
         } else {
             return redirect($redirectTo)->with('account.error', 'Невозможно назначить исполнителя на этот конкурс');
         }

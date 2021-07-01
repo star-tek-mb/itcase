@@ -15,7 +15,7 @@
 
                     <li class="task-money">
                         Оплата наличными <br>
-                        Бюджет: <strong>{{ $tender->budget }} сум</strong>
+                        Бюджет: <strong>{{ $tender->budget }} тенге</strong>
                     </li>
 
                     <li class="task-date">

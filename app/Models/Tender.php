@@ -123,6 +123,7 @@ class Tender extends Model
 
     public function saveFiles($files)
     {
+        dd($files);
         if (!$files) {
             return;
         }
