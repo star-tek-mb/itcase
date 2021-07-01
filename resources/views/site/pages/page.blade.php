@@ -12,6 +12,10 @@
             color: orange;
             text-decoration: underline;
         }
+        .mt35 a:hover {
+
+            text-decoration: none;
+        }
     </style>
     <div class="title-top title-top--small">
         <h2>{{ $page->title }}</h2>
