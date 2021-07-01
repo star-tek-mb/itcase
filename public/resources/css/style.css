@@ -84,6 +84,11 @@ a, a:hover, a:focus {
     margin-left: auto;
     margin-right: auto
 }
+.set_max_width_second {
+    max-width: 1520px;
+    margin-left: 500px;
+    /*margin-right: auto*/
+}
 .row {
     display: -webkit-box;
     display: -webkit-flex;
@@ -514,7 +519,8 @@ h4 {
 }
 
 .services {
-    padding-top: 50px
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .services__row {
@@ -3639,9 +3645,9 @@ a span {
     margin-bottom: 80px !important;
 }
 
-.info-company li a {
-    padding-bottom: 15px;
-}
+/*.info-company li a {*/
+/*    padding-bottom: 17px;*/
+/*}*/
 
 .back-color-header {
     background-color: #f8f6ff;

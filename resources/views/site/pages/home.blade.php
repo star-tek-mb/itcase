@@ -114,31 +114,23 @@
                     </ul>
                 @endauth
             </div>
-
-            <div class="toggle-button">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
         </div>
         <div class="back-color-header">
-            <div class="row justify-content-between align-items-center set_max_width">
+            <div class="row justify-content-between align-items-center set_max_width_second">
                 <div class="header__left d-flex align-items-center">
                     <ul class="header__menu menu">
-                        <li><a id="hover_add_text_underline" style="padding-top: 15px; padding-bottom: 15px;"
+                        <li><a id="hover_add_text_underline"    style="padding-top: 15px; padding-bottom: 15px;"
                                href="{{ route('site.page', 'about') }}">О
                                 компании</a></li>
                     </ul>
                 </div>
-
                 <div class="header__right d-flex align-items-center">
                     <ul class="header__menu menu info-company">
                         <li>
-                            <a href="mailto:itcase.com@yandex.ru">Почта: itcase.com@yandex.ru</a>
+                            <a  style="padding-top: 15px; padding-bottom: 15px;" href="mailto:itcase.com@yandex.ru"> Почта: itcase.com@yandex.ru</a>
                         </li>
                         <li>
-                            <a href="tel:+77781887708"> Телефон для справок: +77781887708</a>
+                            <a style="padding-top: 15px; padding-bottom: 15px;" href="tel:+77781887708"> Телефон для справок: +77781887708</a>
                         </li>
                     </ul>
                 </div>
@@ -454,7 +446,7 @@
 
                                             <li class="task-money">
                                                 Оплата наличными <br>
-                                                Бюджет: <strong>{{ $tender->budget }} сум</strong>
+                                                Бюджет: <strong>{{ $tender->budget }} {{ $tender->currency }}</strong>
                                             </li>
 
                                             <li class="task-date">
