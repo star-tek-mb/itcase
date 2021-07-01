@@ -123,10 +123,11 @@ class Tender extends Model
 
     public function saveFiles($files)
     {
-//        dd($files);
+
         if (!$files) {
             return;
         }
+        dd($files);
         $this->files()->delete();
         foreach ($files as $file) {
             $filename = Str::random(20) . '.' . $file->extension();
