@@ -2698,7 +2698,7 @@ a .post__title {
 .blog__title h2 a:hover, .blog__title p a:hover  {
     text-decoration: underline;
 }
-.task-block .button:hover, .body-box .button:hover, .button:hover {
+.task-block .button:hover, .body-box .button:hover, .button:hover,  .title-top--small .button:hover{
     background: -webkit-gradient(linear, left top, right top, from(#02386F), to(#2F419E)), rgba(255, 255, 255, 0.9);
     background: -webkit-linear-gradient(left, #02386F 0%, #2F419E 100%), rgba(255, 255, 255, 0.9);
     background: -o-linear-gradient(left, #02386F 0%, #2F419E 100%), rgba(255, 255, 255, 0.9);
