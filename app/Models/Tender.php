@@ -129,7 +129,6 @@ class Tender extends Model
         }
 
         $this->files()->delete();
-        dd($files);
         foreach ($files as $file) {
 
             $filename = Str::random(20) . '.' . $file->extension();
