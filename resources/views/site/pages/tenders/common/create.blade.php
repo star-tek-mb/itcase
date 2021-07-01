@@ -136,7 +136,7 @@
                                         сэкономите много времени.</p>
                                     <p>Максималльный размер: 50 MB    Максимальное количество файлов: 10</p></div>
                                 <div class="btn-upload">
-                                    <input type="file" name="files" id="file" multiple>
+                                    <input type="file" name="files[]" id="file" multiple>
                                     <span class="btn btn-light-green">Прикрепить файлы</span>
                                 </div>
                             </div>
