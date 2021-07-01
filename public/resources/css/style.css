@@ -978,7 +978,8 @@ h4 {
 
 .slider-vertical figure > img {
     display: block;
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
     -o-object-fit: cover;
     object-fit: cover;
     -webkit-border-radius: 40px;
