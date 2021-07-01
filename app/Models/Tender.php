@@ -127,9 +127,11 @@ class Tender extends Model
         if (!$files) {
             return;
         }
-        dd($files);
+
         $this->files()->delete();
+
         foreach ($files as $file) {
+            dd($file);
             $filename = Str::random(20) . '.' . $file->extension();
             $file->storeAs(self::UPLOAD_DIRECTORY, $filename);
             $this->files()->create([
