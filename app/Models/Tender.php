@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Components\Image;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Tender extends Model
 {
+
     const UPLOAD_DIRECTORY = 'uploads/tenders/';
 
     protected $fillable = [
@@ -82,6 +84,13 @@ class Tender extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
+    public function getImageFirst():string
+    {
+        if ($this->files)
+            return "/" . self::UPLOAD_DIRECTORY . $this->files()->first()->path;
+        return  "";
+    }
+
     public function categories()
     {
         return $this->belongsToMany(
@@ -98,7 +107,7 @@ class Tender extends Model
         if ($icon)
             return $icon->getImage();
 
-        return  $this->categories()->first()->getImage();
+        return $this->categories()->first()->getImage();
     }
 
     /**
@@ -187,9 +196,10 @@ class Tender extends Model
     {
         return $this->hasMany(Visit::class, 'listing_id');
     }
+
     public function showTender()
     {
-        if (auth()->id()==null) {
+        if (auth()->id() == null) {
             return $this->Visit()
                 ->where('ip', '=', request()->ip())->exists();
         }
@@ -197,8 +207,8 @@ class Tender extends Model
         return $this->Visit()
             ->where(function ($postViewsQuery) {
                 $postViewsQuery
-                ->where('session_id', '=', request()->getSession()->getId())
-                ->orWhere('user_id', '=', (auth()->check()));
+                    ->where('session_id', '=', request()->getSession()->getId())
+                    ->orWhere('user_id', '=', (auth()->check()));
             })->exists();
     }
 }
