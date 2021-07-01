@@ -87,7 +87,7 @@
                 <div class="task__data-details">
                     <ul>
                         <li>{{ $tender->views }} просмотров</li>
-                        <li>Создано: <span>{{ $tender->published_at->format('d.m.Y') }}</span></li>
+                        <li>Создано: <span>{{$tender->published_at? $tender->published_at->format('d.m.Y') : "Неизвестно" }}</span></li>
                         <li>Организатор: <a href="{{ route('site.contractors.show', $tender->owner->slug) }}"
                                             class="organisation">{{ $tender->owner->name }}</a></li>
                     </ul>
