@@ -89,8 +89,8 @@ a, a:hover, a:focus {
 
 .set_max_width_second {
     max-width: 1520px;
-    margin-left: 500px;
-    /*margin-right: auto*/
+    margin-left: auto;
+    margin-right: auto
 }
 
 .row {
