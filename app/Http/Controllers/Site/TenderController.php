@@ -89,7 +89,11 @@ class TenderController extends Controller
     public function searchTender(Request $request)
     {
         $request->categories = $request->categories ?? [];
-        $tenders = $this->tenderRepository->tenderText($request->terms, $request->categories, $request->minPrice, $request->remote);
+        $currency = null;
+        if ($request->currency != '0') {
+            $currency = $request->currency;
+        }
+        $tenders = $this->tenderRepository->tenderText($request->terms, $request->categories, $request->minPrice, $request->remote, $currency);
         $currentCategory = null;
         $tendersCount = $tenders->count();
         return view('site.pages.tenders.index', compact('tenders', 'currentCategory', 'tendersCount'));

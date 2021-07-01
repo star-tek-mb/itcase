@@ -56,7 +56,7 @@
                                    class="form-control @error('title') is-invalid @enderror"
                                    placeholder="Название проекта..." value="{{ old('title') }}">
                             @error('title')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -67,12 +67,22 @@
                                 <option value="contractor_place">{{ __('contractor_place') }}</option>
                             </select>
                             @error('place')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="currency">Выберите валюту</label>
+                            <select name="currency" id="currency" class="form-control">
+                                <option selected value="Тенге">{{ __('Тенге') }}</option>
+                                <option value="Сумм">{{ __('Сумм') }}</option>
+                            </select>
+                            @error('currency')
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <label class="mt-3">Выберите услуги: </label>
                         @error('categories')
-                            <div class="text-danger">{{ $message }}</div>
+                        <div class="text-danger">{{ $message }}</div>
                         @enderror
                         <ul class="nav nav-tabs mt-3" id="needsTabs" role="tablist">
                             @foreach($parentCategories as $key => $parent)
@@ -96,10 +106,10 @@
                                                 <li class="list-group-item">
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" name="categories[]"
-                                                                id="category-{{ $category->id }}"
-                                                                class="custom-control-input" value="{{ $category->id }}">
+                                                               id="category-{{ $category->id }}"
+                                                               class="custom-control-input" value="{{ $category->id }}">
                                                         <label for="category-{{ $category->id }}"
-                                                                class="custom-control-label">{{ $category->title }}</label>
+                                                               class="custom-control-label">{{ $category->title }}</label>
                                                     </div>
                                                 </li>
                                             @endforeach
@@ -110,31 +120,35 @@
                         </div>
                         <div class="form-group mt-3">
                             <label for="description">Опишите проект подробнее</label>
-                            <textarea name="description" @error('description') class="is-invalid" @enderror id="description">{{ old('description') }}</textarea>
+                            <textarea name="description" @error('description') class="is-invalid"
+                                      @enderror id="description">{{ old('description') }}</textarea>
                             @error('description')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group mt-3">
                             <label for="additional_info">Дополнительная информация (показывается исполнителю)</label>
-                            <textarea name="additional_info" @error('additional_info') class="is-invalid" @enderror id="additional_info">{{ old('additional_info') }}</textarea>
+                            <textarea name="additional_info" @error('additional_info') class="is-invalid"
+                                      @enderror id="additional_info">{{ old('additional_info') }}</textarea>
                             @error('additional_info')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group mt-3">
                             <label for="other_info">Способы связи с вами (показывается исполнителю)</label>
-                            <textarea name="other_info" @error('other_info') class="is-invalid" @enderror id="other_info">{{ old('other_info') }}</textarea>
+                            <textarea name="other_info" @error('other_info') class="is-invalid"
+                                      @enderror id="other_info">{{ old('other_info') }}</textarea>
                             @error('other_info')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="upload-avatar">
                             <div class="upload">
                                 <div class="desc"><p>Если есть готовое задание или пожелания, обязательно прикрепите их
-                                        сюда. Исполнители лучше поймут задачу и зададут минимум уточняющих вопросов, а вы
+                                        сюда. Исполнители лучше поймут задачу и зададут минимум уточняющих вопросов, а
+                                        вы
                                         сэкономите много времени.</p>
-                                    <p>Максималльный размер: 50 MB    Максимальное количество файлов: 10</p></div>
+                                    <p>Максималльный размер: 50 MB Максимальное количество файлов: 10</p></div>
                                 <div class="btn-upload">
                                     <input type="file" name="files[]" id="file" multiple>
                                     <span class="btn btn-light-green">Прикрепить файлы</span>
@@ -144,16 +158,19 @@
                         <div class="row mt-3">
                             <div class="col-md-6 form-group">
                                 <label for="work_start_at">Дата начала работ</label>
-                                <input type="text" class="date form-control @error('work_start_at') is-invalid @enderror" id="work_start_at" name="work_start_at" value="{{ old('work_start_at') }}">
+                                <input type="text"
+                                       class="date form-control @error('work_start_at') is-invalid @enderror"
+                                       id="work_start_at" name="work_start_at" value="{{ old('work_start_at') }}">
                                 @error('work_start_at')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="work_end_at">Дата окончания работ</label>
-                                <input type="text" class="date form-control @error('work_end_at') is-invalid @enderror" id="work_end_at" name="work_end_at" value="{{ old('work_end_at') }}">
+                                <input type="text" class="date form-control @error('work_end_at') is-invalid @enderror"
+                                       id="work_end_at" name="work_end_at" value="{{ old('work_end_at') }}">
                                 @error('work_end_at')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -161,22 +178,26 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="budget">Ориентировочный бюджет, сум</label>
-                                    <input type="number" name="budget" id="budget" onkeypress='validate(event)' class="form-control @error('budget') is-invalid @enderror" placeholder="Укажите ориентировочный бюджет..." value="{{ old('budget') }}">
+                                    <input type="number" name="budget" id="budget" onkeypress='validate(event)'
+                                           class="form-control @error('budget') is-invalid @enderror"
+                                           placeholder="Укажите ориентировочный бюджет..." value="{{ old('budget') }}">
                                     @error('budget')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="deadline">Срок окончания приёма заявок</label>
-                                    <input type="text" class="form-control @error('deadline') is-invalid @enderror" id="deadline" name="deadline" value="{{ old('deadline') }}">
+                                    <input type="text" class="form-control @error('deadline') is-invalid @enderror"
+                                           id="deadline" name="deadline" value="{{ old('deadline') }}">
                                     @error('deadline')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="geo_location">Укажите местоположение</label>
-                                    <input hidden class="form-control" id="geo_location" name="geo_location" value="41.31064707835609, 69.2795380845336">
+                                    <input hidden class="form-control" id="geo_location" name="geo_location"
+                                           value="41.31064707835609, 69.2795380845336">
                                     <div id="location"></div>
                                 </div>
 
@@ -286,16 +307,17 @@
     </script>
 
     <script>
-    function validate(evt) {
-        var theEvent = evt || window.event;
-        var key = theEvent.keyCode || theEvent.which;
-        key = String.fromCharCode( key );
-        var regex = /[0-9]|\./;
-        if( !regex.test(key) ) {
-          theEvent.returnValue = false;
-          if(theEvent.preventDefault) theEvent.preventDefault();
+        function validate(evt) {
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+            var regex = /[0-9]|\./;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+            }
         }
-      }
+
         document.addEventListener('DOMContentLoaded', function () {
             flatpickr('#deadline', {
                 dateFormat: 'd.m.Y',
@@ -319,7 +341,7 @@
         });
     </script>
 
-   {{-- Map--}}
+    {{-- Map--}}
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey={{ config('services.yandex.maps_api') }}"
             type="text/javascript"></script>
     <script>
@@ -372,8 +394,7 @@
                             .removeAll()
                             .add(myPlacemark);
 
-                    }
-                    else {
+                    } else {
                         map.balloon.close();
                     }
                 });

@@ -29,8 +29,9 @@
 <body>
 
 <header class="header">
-    <div class="container">
-        <div class="row justify-content-between align-items-center">
+    <div id="remove_max_width" class="container">
+
+        <div class="row justify-content-between align-items-center set_max_width">
             <div class="header__left d-flex align-items-center">
                 <a href="/" class="logo">
                     <img src="/resources/images/logo.png" alt="">
@@ -121,7 +122,8 @@
             </div>
 
         </div>
-        <div class="row justify-content-between align-items-center">
+        <div class="row justify-content-between align-items-center back-color-header">
+
             <div class="header__left d-flex align-items-center">
                 <ul class="header__menu menu">
                     <li><a id="hover_add_text_underline" style="padding-top: 15px; padding-bottom: 15px;"
@@ -129,8 +131,9 @@
                             компании</a></li>
                 </ul>
             </div>
+
             <div class="header__right d-flex align-items-center">
-                <ul class="header__menu menu">
+                <ul class="header__menu menu info-company">
                     <li>
                         <a href="mailto:itcase.com@yandex.ru">Почта: itcase.com@yandex.ru</a>
                     </li>

@@ -33,7 +33,7 @@
                             <div class="meta-job"><span> <i class="fas fa-calendar-alt"></i> {{ __('Опубликован:') }} @if ($tender->published)
                                     {{ $tender->published_at->format('d.m.Y') }} @else {{ __('На модерации') }} @endif</span><span> <i class="fas fa-calendar-alt"></i>{{ __('Истекает') }}
                                     {{ $tender->deadline }}</span></div>
-                            <div class="salary-job"><i class="fas fa-money-bill-alt"></i>{{ $tender->budget }} {{ __('сум') }}
+                            <div class="salary-job"><i class="fas fa-money-bill-alt"></i>{{ $tender->budget }} {{$tender->currency}}
                             </div>
                             <div class="job-info d-xl-none"><a href="{{ route('site.account.tenders.candidates', $tender->slug) }}" class="number-application">{{ $tender->requests()->count() }} {{ __('заявок') }}</a> <span class="active">
                                 @if ($tender->status !== 'done' && !$tender->isDeleted())

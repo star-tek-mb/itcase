@@ -40,11 +40,19 @@
         </ul>
         <div class="py-4 px-4 text-center">
             <div class="form-group">
+                <label for="currency">Выберите валюту</label>
+                <select name="currency" id="currency" class="form-control">
+                    <option selected value="0">{{ __('Все') }}</option>
+                    <option  value="Тенге">{{ __('Тенге') }}</option>
+                    <option value="Сумм">{{ __('Сумм') }}</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="distance">Содержит ключевые слова</label>
                 <input type="text" id="terms" class="form-control" name="terms" value="{{ request()->terms }}">
             </div>
             <div class="form-group">
-                <label for="price">Минимальная цена задания, сум</label>
+                <label for="price">Минимальная цена задания</label>
                 <input type="text" id="price" class="form-control" name="minPrice" value="{{ request()->minPrice }}">
             </div>
             <br>
@@ -87,7 +95,9 @@
                 <div class="task__data-details">
                     <ul>
                         <li>{{ $tender->views }} просмотров</li>
-                        <li>Создано: <span>{{$tender->published_at? $tender->published_at->format('d.m.Y') : "Неизвестно" }}</span></li>
+                        <li>Создано:
+                            <span>{{$tender->published_at? $tender->published_at->format('d.m.Y') : "Неизвестно" }}</span>
+                        </li>
                         <li>Организатор: <a href="{{ route('site.contractors.show', $tender->owner->slug) }}"
                                             class="organisation">{{ $tender->owner->name }}</a></li>
                     </ul>
@@ -119,7 +129,7 @@
                     <li class="task-money">
                         <div>
                             Оплата наличными <br>
-                            Бюджет: <strong>{{ $tender->budget }} сум</strong>
+                            Бюджет: <strong>{{ $tender->budget }} {{$tender->currency}}</strong>
                         </div>
                     </li>
                 </ul>

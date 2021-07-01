@@ -40,19 +40,21 @@ class TenderRepository implements TenderRepositoryInterface
         return $query->whereNotNull('owner_id')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
     }
 
-    public  function  onlyOpened(){
-        return Tender::whereNotNull('owner_id')->where('opened',1)->where('published', true)->whereDate('deadline','>=',Carbon::now())->whereNull('delete_reason')->orderBy('id', 'desc')->paginate(5);
+    public function onlyOpened()
+    {
+        return Tender::whereNotNull('owner_id')->where('opened', 1)->where('published', true)->whereDate('deadline', '>=', Carbon::now())->whereNull('delete_reason')->orderBy('id', 'desc')->paginate(5);
     }
 
-    public function checkPermission($owner_id , $user_id){
+    public function checkPermission($owner_id, $user_id)
+    {
 
         return Tender::orWhere(
-                function ($query) use($owner_id, $user_id){
-                    $query->where('contractor_id' , '=', $user_id)->where('owner_id', '=' , $owner_id);
+                function ($query) use ($owner_id, $user_id) {
+                    $query->where('contractor_id', '=', $user_id)->where('owner_id', '=', $owner_id);
                 }
             )->orWhere(
-                function ($query) use($owner_id, $user_id){
-                    $query->where('contractor_id' , '=', $owner_id)->where('owner_id', '=' , $user_id);
+                function ($query) use ($owner_id, $user_id) {
+                    $query->where('contractor_id', '=', $owner_id)->where('owner_id', '=', $user_id);
                 }
             )->first() != null;
     }
@@ -63,22 +65,27 @@ class TenderRepository implements TenderRepositoryInterface
         return $query->where('title', 'like', '%' . $search->search . '%')->orderBy('opened', 'desc')->orderBy('created_at', 'desc')->get();
     }
 
-    public function tenderText($terms, $categories, $minPrice = null, $remote = null)
+    public function tenderText($terms, $categories, $minPrice = null, $remote = null, $currency = null)
     {
         $result = Tender::whereHas('categories', function ($query) use ($categories) {
             $query->whereIn('tender_category.category_id', $categories)->orWhereIn('handbook_categories.parent_id', $categories);
         })->whereNotNull('owner_id')->where('published', true)->whereNull('delete_reason')
-        ->when($terms, function ($query, $terms) {
-            return $query->where('title', 'like', '%' . $terms . '%');
-        })->when($minPrice, function ($query, $minPrice) {
-            return $query->where('budget', '>=', $minPrice);
-        })->when($remote, function ($query, $remote) {
-            return $query->where('type', '=', 'remote');
-        })
-        ->orderBy('created_at', 'desc')->paginate();
+            ->when($terms, function ($query, $terms) {
+                return $query->where('title', 'like', '%' . $terms . '%');
+            })->when($minPrice, function ($query, $minPrice) {
+                return $query->where('budget', '>=', $minPrice);
+            })->when($remote, function ($query, $remote) {
+                return $query->where('type', '=', 'remote');
+            })->when($currency, function ($query, $currency){
+                return $query->where('currency', '=', $currency);
+            }
+            )
+            ->orderBy('created_at', 'desc')->paginate();
         return $result;
     }
-    public  function searchTenderByTitle(string $title){
+
+    public function searchTenderByTitle(string $title)
+    {
         return Tender::where('title', 'like', '%' . $title . '%')->get();
     }
 //    public function tenderTextWithoutTerms(array $categories)
@@ -130,6 +137,7 @@ class TenderRepository implements TenderRepositoryInterface
     public function create($data)
     {
         $tenderData = $data->all();
+//        dd($tenderData);
         $user = auth()->user();
         $tenderData['client_name'] = $user->first_name . " " . $user->last_name;
         $tenderData['client_email'] = $user->email;
@@ -169,7 +177,7 @@ class TenderRepository implements TenderRepositoryInterface
         }
         $tender->update($tenderData);
         $tender->saveFiles($data->file('files'));
-        if(array_key_exists('categories', $tenderData)) {
+        if (array_key_exists('categories', $tenderData)) {
             $tender->categories()->detach();
             foreach ($data->get('categories') as $categoryId) {
                 $tender->categories()->attach($categoryId);
@@ -208,7 +216,7 @@ class TenderRepository implements TenderRepositoryInterface
     /**
      * @inheritDoc
      */
-        public function createRequest($data)
+    public function createRequest($data)
     {
         if (Tender::find($data['tender_id'])->checkDeadline() && TenderRequest::where('tender_id', $data->tender_id)->where('user_id', $data->user_id)->get()->first() == null) {
             return TenderRequest::create($data->all());

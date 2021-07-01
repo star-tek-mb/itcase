@@ -122,7 +122,7 @@
                                 сэкономите много времени.') }}</p>
                             <p>{{ __('Максималльный размер: 50 MB    Максимальное количество файлов: 10') }}</p></div>
                         <div class="btn-upload">
-                            <input type="file" name="file" id="file" multiple>
+                            <input type="file" name="file" id="files[]" multiple>
                             <span class="btn btn-light-green">{{ __('Прикрепить файлы') }}</span>
                         </div>
                     </div>

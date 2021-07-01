@@ -113,7 +113,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="price">Минимальная цена задания, сум</label>
+                                        <label for="price">Минимальная цена задания</label>
                                         <input type="text" id="minPrice" class="form-control" name="minPrice" value="0">
                                     </div>
                                     <div class="form-check">

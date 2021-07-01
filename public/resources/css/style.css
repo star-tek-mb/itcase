@@ -76,7 +76,14 @@ a, a:hover, a:focus {
     margin-left: auto;
     margin-right: auto
 }
-
+.header #remove_max_width{
+    max-width:400000px;
+}
+.set_max_width {
+    max-width: 1520px;
+    margin-left: auto;
+    margin-right: auto
+}
 .row {
     display: -webkit-box;
     display: -webkit-flex;
@@ -2689,40 +2696,51 @@ ul.buttons li {
     -o-transition: .3s;
     transition: .3s
 }
+
 a .post__title {
     text-decoration: none;
 }
+
 .blog__title h2 a, .blog__title p a {
     text-decoration: none;
 }
-.blog__title h2 a:hover, .blog__title p a:hover  {
+
+.blog__title h2 a:hover, .blog__title p a:hover {
     text-decoration: underline;
 }
-.task-block .button:hover, .body-box .button:hover, .button:hover{
+
+.task-block .button:hover, .body-box .button:hover, .button:hover {
     background: -webkit-gradient(linear, left top, right top, from(#02386F), to(#2F419E)), rgba(255, 255, 255, 0.9);
     background: -webkit-linear-gradient(left, #02386F 0%, #2F419E 100%), rgba(255, 255, 255, 0.9);
     background: -o-linear-gradient(left, #02386F 0%, #2F419E 100%), rgba(255, 255, 255, 0.9);
     background: linear-gradient(90deg, #02386F 0%, #2F419E 100%), rgba(255, 255, 255, 0.9)
 }
+
 .title-top--small .button:hover {
     background: -webkit-gradient(linear, left top, right top, from(#FF6900), to(#F0904D)), rgba(255, 255, 255, 0.9);
     background: -webkit-linear-gradient(left, #FF6900 0%, #F0904D 100%), rgba(255, 255, 255, 0.9);
     background: -o-linear-gradient(left, #FF6900 0%, #F0904D 100%), rgba(255, 255, 255, 0.9);
     background: linear-gradient(
-            90deg
-            , #FF6900 0%, #F0904D 100%), rgba(255, 255, 255, 0.9);
+            90deg, #FF6900 0%, #F0904D 100%), rgba(255, 255, 255, 0.9);
+}
+
+.main__form input[type='submit']:hover {
+    cursor: pointer;
 }
 
 
-.info__block a:hover{
+.info__block a:hover {
     text-decoration: underline;
 }
-.header__menu a:hover{
+
+.header__menu a:hover {
     text-decoration: underline;
 }
-.breadcrumbs a:hover{
+
+.breadcrumbs a:hover {
     text-decoration: none;
 }
+
 .task-block .button:after {
     display: none
 }
@@ -3619,4 +3637,12 @@ a span {
 
 .mb-80 {
     margin-bottom: 80px !important;
+}
+
+.info-company li a {
+    padding-bottom: 15px;
+}
+
+.back-color-header {
+    background-color: #f8f6ff;
 }

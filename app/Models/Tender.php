@@ -17,6 +17,7 @@ class Tender extends Model
         'title', 'description', 'budget', 'deadline', 'status',
         'target_audience', 'links', 'additional_info', 'other_info', 'what_for', 'type',
         'slug', 'opened', 'work_start_at', 'work_end_at',
+        'currency',
         'need_id', 'owner_id', 'contractor_id', 'geo_location', 'place', 'delete_reason'
     ];
 
