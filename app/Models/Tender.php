@@ -84,11 +84,11 @@ class Tender extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function getImageFirst():string
+    public function getImageFirst(): string
     {
         if ($this->files()->first())
             return "/" . self::UPLOAD_DIRECTORY . $this->files()->first()->path;
-        return  "";
+        return "";
     }
 
     public function categories()
@@ -103,11 +103,14 @@ class Tender extends Model
 
     public function categoryIcon()
     {
-        $icon = $this->categories()->first()->parentCategory;
-        if ($icon)
-            return $icon->getImage();
+        if ($this->categories()->first()) {
+            $icon = $this->categories()->first()->parentCategory;
+            if ($icon)
+                return $icon->getImage();
 
-        return $this->categories()->first()->getImage();
+            return $this->categories()->first()->getImage();
+        }
+        return  "";
     }
 
     /**
