@@ -3003,7 +3003,9 @@ a .post__title {
     color: #D03131
 }
 
-
+.sidebar .body-box .form-group {
+    margin-top: 20px;
+}
 .button--full {
     margin-top: 38px;
     width: 100%;
