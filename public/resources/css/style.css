@@ -2690,7 +2690,7 @@ ul.buttons li {
     transition: .3s
 }
 
-.task-block .button:hover {
+.task-block .button:hover, .body-box .button:hover {
     background: -webkit-gradient(linear, left top, right top, from(#02386F), to(#2F419E)), rgba(255, 255, 255, 0.9);
     background: -webkit-linear-gradient(left, #02386F 0%, #2F419E 100%), rgba(255, 255, 255, 0.9);
     background: -o-linear-gradient(left, #02386F 0%, #2F419E 100%), rgba(255, 255, 255, 0.9);
@@ -2951,7 +2951,6 @@ ul.buttons li {
 }
 
 
-
 .button--full {
     margin-top: 38px;
     width: 100%;
@@ -2965,9 +2964,11 @@ ul.buttons li {
     height: 54px;
     line-height: 54px
 }
+
 .task__data .button--full {
     line-height: 27px;
 }
+
 .task__data-description {
     margin-top: 40px
 }
