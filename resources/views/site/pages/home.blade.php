@@ -374,15 +374,15 @@
 
                     <ul class="buttons">
                         <li>
-                            <a href="">
+
                                 <img src="/resources/images/appstore.svg" alt="">
-                            </a>
+
                         </li>
 
                         <li>
-                            <a href="">
+
                                 <img src="/resources/images/googleplay.svg" alt="">
-                            </a>
+
                         </li>
                     </ul>
 

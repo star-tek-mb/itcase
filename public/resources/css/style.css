@@ -76,19 +76,23 @@ a, a:hover, a:focus {
     margin-left: auto;
     margin-right: auto
 }
-.header #remove_max_width{
-    max-width:400000px;
+
+.header #remove_max_width {
+    max-width: 400000px;
 }
+
 .set_max_width {
     max-width: 1520px;
     margin-left: auto;
     margin-right: auto
 }
+
 .set_max_width_second {
     max-width: 1520px;
     margin-left: 500px;
     /*margin-right: auto*/
 }
+
 .row {
     display: -webkit-box;
     display: -webkit-flex;
@@ -2992,7 +2996,6 @@ a .post__title {
 }
 
 .task-block--full .task__data .task-data li.task-address {
-    margin-left: auto;
     padding-right: 60px
 }
 

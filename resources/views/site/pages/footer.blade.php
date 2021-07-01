@@ -69,15 +69,15 @@
                 <div class="app-info">
                     <ul class="app-info__list">
                         <li>
-                            <a href="#">
-                                <img src="/resources/images/appstore-black.svg" alt="">
-                            </a>
+
+                            <img src="/resources/images/appstore-black.svg" alt="">
+
                         </li>
 
                         <li>
-                            <a href="">
-                                <img src="/resources/images/googleplay-black.svg" alt="">
-                            </a>
+
+                            <img src="/resources/images/googleplay-black.svg" alt="">
+
                         </li>
                     </ul>
 
