@@ -14,7 +14,7 @@ class AddColumnCurrency extends Migration
     public function up()
     {
         Schema::table('tenders', function (Blueprint $table) {
-            $table->enum('currency',array('Сумм','Тенге'))->default('Тенге');
+            $table->enum('currency',array('Тенге','Сум','Рубль','Доллар'))->default('Тенге');
         });
     }
 

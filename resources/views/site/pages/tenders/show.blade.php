@@ -43,8 +43,10 @@
                 <label for="currency">Выберите валюту</label>
                 <select name="currency" id="currency" class="form-control">
                     <option selected value="0">{{ __('Все') }}</option>
-                    <option  value="Тенге">{{ __('Тенге') }}</option>
-                    <option value="Сумм">{{ __('Сумм') }}</option>
+                    <option selected value="Тенге">{{ __('Тенге') }}</option>
+                    <option value="Сум">{{ __('Сум') }}</option>
+                    <option selected value="Рубль">{{ __('Рубль') }}</option>
+                    <option value="Доллар">{{ __('Доллар') }}</option>
                 </select>
             </div>
             <div class="form-group">
