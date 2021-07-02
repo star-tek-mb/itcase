@@ -6,7 +6,8 @@
                 <div class="avatar"><a href="#"><img src="{{ $user->getImage() }}" alt="Image" width=""></a></div>
                 <div class="info-user">
                     <h3>{{__("Статус:")}} <span style="color: #ff6b01">{{$user->getTypeUser()}}</span></h3>
-                    <h3><a id="name_of_user" style="font-size: 14px" href="{{ route('site.account.index') }}">{{ $user->getCommonTitle() }}</a></h3>
+                    <h3><a id="name_of_user" style="font-size: 14px"
+                           href="{{ route('site.account.index') }}">{{ $user->getCommonTitle() }}</a></h3>
                     @auth
                         @if (auth()->user()->hasRole('customer'))
                             ({{$user->ownedTenders()->count()}})
@@ -23,9 +24,9 @@
                     <li><a @if(Route::currentRouteName() == 'site.account.professional') id="selected_a"
                            @endif  href="{{ route('site.account.contractor.professional') }}"><i
                                     class="fas fa-suitcase"></i> {{ __('Проф. данные') }}</a></li>
-                    <li><a @if(Route::currentRouteName()== 'site.account.tenders') id="selected_a"
-                           @endif href="{{ route('site.account.tenders') }}"><i
-                                    class="fas fa-file-alt"></i> {{ __('Мои задания') }}</a></li>
+                    <li><a @if(Route::currentRouteName()== 'site.account.tenders.requests') id="selected_a"
+                           @endif href="{{ route('site.account.tenders.requests') }}"><i
+                                    class="fas fa-file-alt"></i> {{ __('Мои заявки на конкурсы') }}</a></li>
                     <li><a @if(Route::currentRouteName()== 'site.account.portfolio') id="selected_a"
                            @endif href="{{ route('site.account.portfolio') }}"><i
                                     class="far fa-images"></i>{{ __('Портфолио') }}</a></li>

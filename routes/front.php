@@ -22,6 +22,7 @@ Route::name('site.')->namespace('Site')->group(function () {
     Route::post('/account/customer/profile/save', 'AccountController@saveCustomerProfile')->name('account.customer.profile.save');
     Route::middleware('phone.verified')->group(function () {
         Route::get('/account/tenders', 'AccountController@tenders')->name('account.tenders');
+        Route::get('/account/tenders/requests', 'AccountController@tendersRequests')->name('account.tenders.requests');
         Route::get('/account/portfolio', 'FileController@index')->name('account.portfolio');
         Route::post('/account/portfolio/save', 'FileController@save')->name('account.portfolio.save');
         Route::get('/account/tenders/{slug}/edit', 'AccountController@editTender')->name('account.tenders.edit');

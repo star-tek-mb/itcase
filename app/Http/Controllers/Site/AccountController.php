@@ -170,7 +170,7 @@ class AccountController extends Controller
         // TODO: removed check count
         foreach ($categories as $category) {
             if (!isset($category['price_from']) || !isset($category['price_to'])
-            || empty($category['price_from']) || empty($category['price_to'])) {
+                || empty($category['price_from']) || empty($category['price_to'])) {
                 return back()->with('account.error', 'Укажите цены на каждую выбранную услугу');
             }
         }
@@ -219,9 +219,19 @@ class AccountController extends Controller
         $accountPage = 'tenders';
         if ($user->hasRole('customer')) {
             return \view('site.pages.account.customer.tenders', compact('user', 'accountPage'));
-        } elseif ($user->hasRole('contractor')) {
+        }  else {
+            abort(404);
+        }
+    }
+
+    public function tendersRequests()
+    {
+        $user = auth()->user();
+        $accountPage = 'tenders';
+        if ($user->hasRole('contractor')) {
             return \view('site.pages.account.contractor.tenders', compact('user', 'accountPage'));
-        } else {
+        }
+        else {
             abort(404);
         }
     }
@@ -248,7 +258,7 @@ class AccountController extends Controller
     {
         if ($this->checkTelegramAuthorization($request->all())) {
             $telegramId = $request->get('id');
-            $user = $this->userRepository->getUserByTelegramId((int) $telegramId);
+            $user = $this->userRepository->getUserByTelegramId((int)$telegramId);
             if (!$user) {
                 $user = $this->userRepository->createUserViaTelegram($request);
             }

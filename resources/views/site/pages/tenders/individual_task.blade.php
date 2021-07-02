@@ -29,8 +29,7 @@
                         </li>
                     @else
                         <li>
-                            <a href="{{ route('site.tenders.category', $tender->slug) }}" class="button button--small">Откликнуться
-                                на задание</a>
+                            <a href="{{ route('site.tenders.category', $tender->slug) }}" class="button button--small">Подробнее</a>
                         </li>
                     @endguest
                 </ul>

@@ -135,8 +135,8 @@
                         </div>
                     </li>
                 </ul>
-
-                @if (auth()->user() && in_array(auth()->user()->id, $tender->requests()->pluck('user_id')->toArray()))
+                @if(auth()->user()->checkOwnTender($tender))
+                @elseif (auth()->user() && in_array(auth()->user()->id, $tender->requests()->pluck('user_id')->toArray()))
                     <div style="text-align: center; font-size: 24px; font-weight: bold; margin: 20px;">Вы уже оставили заявку
                     </div>
                     <form action="{{ route('site.tenders.requests.cancel') }}" method="post" class="mr-3">
@@ -155,8 +155,8 @@
                                 class="button" type="submit" data-toggle="tooltip" title="Связаться">Связаться через чат
                         </button>
                     </form>
-                @elseif (auth()->user() && auth()->user()->hasRole('customer'))
-                    <a href="#" class="button button--full" data-modal="#modal">
+                @elseif (auth()->user() && !auth()->user()->hasRole('contractor'))
+                    <a href="#" class="button button--full">
                         Войдите как исполнитель чтоб оставить заявку
                     </a>
                 @elseif ($tender->checkDeadline())

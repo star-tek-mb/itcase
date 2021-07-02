@@ -668,7 +668,8 @@ h4 {
     display: block;
     max-width: 100%;
     height: auto;
-    width: 100%
+    width: 350px;
+    border-radius: 10px;
 }
 
 .carousel__arrow {
@@ -3670,4 +3671,8 @@ a span {
 }
 #back_color_change{
     background-color: #705DD1;
+}
+
+#text-howto{
+    font-size: 20px;
 }

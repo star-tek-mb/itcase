@@ -455,6 +455,11 @@ class User extends Authenticatable
         }
     }
 
+    public function checkOwnTender(Tender $tender)
+    {
+        return $this->id == $tender->owner_id;
+    }
+
     public function getCommonTitle()
     {
         if ($this->hasRole('customer')) {

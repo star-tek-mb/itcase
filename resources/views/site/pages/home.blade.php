@@ -268,7 +268,7 @@
                                     <div class="col col--50 slide-right">
                                         <div>
                                             <h3 id="header-howto">{{ $howto->title }}</h3>
-                                            <p>{{ strip_tags($howto->content) }}</p>
+                                            <p id="text-howto">{{ strip_tags($howto->content) }}</p>
                                             <a href="{{ route('site.tenders.common.create') }}"
                                                class="button button--secondary">{{ $howto->url_label }}</a>
                                         </div>
@@ -460,7 +460,7 @@
                                         </ul>
 
                                         <a href="{{ route('site.tenders.category', $tender->slug) }}"
-                                           class="button button--task">Отозваться на задание</a>
+                                           class="button button--task">Подробнее</a>
                                     </div>
                                 </div>
                             </div>
