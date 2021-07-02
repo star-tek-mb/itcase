@@ -409,6 +409,9 @@ a:focus {
   right: 0;
   z-index: 10;
 }
+.fa-plus-circle:before {
+  content: "\f055";
+}
 .user-profile-dropdown ul {
   list-style: none;
   padding-left: 0;
@@ -5267,4 +5270,7 @@ textarea.form-control {
   border-top: 0.4em solid;
   border-right: 0.25em solid transparent;
   border-left: 0.25em solid transparent;
+}
+.contact-chat div{
+   margin-top: 15px;
 }

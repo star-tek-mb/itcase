@@ -38,11 +38,11 @@
                                                 <div class="col-md-4">
                                                     <p class="mb-1 text-muted">{{ __('Примерная стоимость услуги') }}</p>
                                                     <input type="text" @if (in_array($child->id, $chosenSpecs)) required @endif name="categories[{{ $child->id }}][price_from]" @if (in_array($child->id, $chosenSpecs)) value="{{ $user->categories()->find($child->id)->pivot->price_from }}" @endif class="price-control must-required" style="width: 35%"> &mdash; <input
-                                                        type="text" @if (in_array($child->id, $chosenSpecs)) required @endif name="categories[{{ $child->id }}][price_to]" @if (in_array($child->id, $chosenSpecs)) value="{{ $user->categories()->find($child->id)->pivot->price_to }}" @endif class="price-control must-required" style="width: 35%"> <span class="text-muted">{{ __('сум') }}</span>
+                                                        type="text" @if (in_array($child->id, $chosenSpecs)) required @endif name="categories[{{ $child->id }}][price_to]" @if (in_array($child->id, $chosenSpecs)) value="{{ $user->categories()->find($child->id)->pivot->price_to }}" @endif class="price-control must-required" style="width: 35%"> <span class="text-muted">{{ __('Тенге') }}</span>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p class="mb-1 text-muted">{{ __('Стоимость в час') }}</p>
-                                                    <input type="text" name="categories[{{ $child->id }}][price_per_hour]" @if (in_array($child->id, $chosenSpecs)) value="{{ $user->categories()->find($child->id)->pivot->price_per_hour }}" @endif class="price-control" style="width: 60%"> <span class="text-muted">{{ __('сум/час') }}</span>
+                                                    <input type="text" name="categories[{{ $child->id }}][price_per_hour]" @if (in_array($child->id, $chosenSpecs)) value="{{ $user->categories()->find($child->id)->pivot->price_per_hour }}" @endif class="price-control" style="width: 60%"> <span class="text-muted">{{ __('Тенге/час') }}</span>
                                                 </div>
                                             </div>
                                         </li>

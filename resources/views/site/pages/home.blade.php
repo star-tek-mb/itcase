@@ -21,9 +21,12 @@
     <meta name="keywords" content=""/>
 
     <title>itcase.com</title>
+
     <link rel="stylesheet" href="/resources/css/plugins/swiper.min.css"/>
     <link rel="stylesheet" href="/resources/css/plugins/magnific-popup.min.css"/>
     <link rel="stylesheet" href="/resources/css/style.css"/>
+    <link rel="stylesheet" href="/resources/css/header.css" />
+    <script src="/assets/js/uikit.js"></script>
 </head>
 
 <body>
@@ -582,12 +585,8 @@
 
 
 <!-- -->
-<script src="/resources/js/jquery.min.js"></script>
-<script src="/resources/js/swiper.min.js"></script>
-<script src="/resources/js/wow.min.js"></script>
-<script src="/resources/js/isotope.pkgd.js"></script>
-<script src="/resources/js/jquery.magnific-popup.min.js"></script>
-<script src="/resources/js/main.js"></script>
+
+
 </body>
 
 </html>

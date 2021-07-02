@@ -1,18 +1,23 @@
 <header class="header">
-    <div id="remove_max_width" class="container">
 
+    <link rel="stylesheet" href="">
+
+    <div id="remove_max_width" class="container">
         <div class="row justify-content-between align-items-center set_max_width">
             <div class="header__left d-flex align-items-center">
                 <div class="container-media">
                     <a href="/" class="logo">
                         <img src="/resources/images/logo.png" alt="">
                     </a>
-                    <div class="toggle-button">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                    <div class="header-main-toggle">
+                        <div class="toggle-button burger-btn btn-toggle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                     </div>
                 </div>
+
                 <ul class="header__menu menu">
                     <li class="has-submenu">
                         <a href="{{ route('site.tenders.index') }}">{{ __('Найти задания') }}</a>
@@ -54,8 +59,6 @@
                     </li>
                 </ul>
             </div>
-
-
             <div class="header__right d-flex align-items-center">
                 {{--<div class="languages has-submenu">
                   <span>{{ Str::upper(config('app.locale')) }}</span>
@@ -120,3 +123,4 @@
 
 
 </header>
+@include('site.pages.drawer')

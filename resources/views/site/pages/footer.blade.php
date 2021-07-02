@@ -82,16 +82,16 @@
                         </li>
                     </ul>
 
-{{--                    <ul class="app-info__list" style="margin-left: 10px; text-align: center;">--}}
-{{--                        <p style="text-align: center; font-size: 15px; margin-top: 20px; margin-bottom: 20px;">А пока вы--}}
-{{--                            можете скачать приложение с нашего сайта</p>--}}
-{{--                        <li style="margin-bottom: 5px;">--}}
-{{--                            <a href="/itcase.apk">--}}
-{{--                                <img src="/resources/images/download-android.png" alt=""--}}
-{{--                                     style="vertical-align: middle;"> Скачать--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
+                    {{--                    <ul class="app-info__list" style="margin-left: 10px; text-align: center;">--}}
+                    {{--                        <p style="text-align: center; font-size: 15px; margin-top: 20px; margin-bottom: 20px;">А пока вы--}}
+                    {{--                            можете скачать приложение с нашего сайта</p>--}}
+                    {{--                        <li style="margin-bottom: 5px;">--}}
+                    {{--                            <a href="/itcase.apk">--}}
+                    {{--                                <img src="/resources/images/download-android.png" alt=""--}}
+                    {{--                                     style="vertical-align: middle;"> Скачать--}}
+                    {{--                            </a>--}}
+                    {{--                        </li>--}}
+                    {{--                    </ul>--}}
 
                 </div>
             </div>
@@ -146,3 +146,18 @@
         </div>
     </div>
 </footer>
+
+<script src="/resources/js/jquery.min.js"></script>
+
+<script src="/front/js/slick.js"></script>
+<script src="/resources/js/swiper.min.js"></script>
+<script src="/resources/js/wow.min.js"></script>
+<script src="/resources/js/isotope.pkgd.js"></script>
+<script src="/resources/js/jquery.magnific-popup.min.js"></script>
+<script src="/front/js/popper.min.js"></script>
+<script src="/front/js/bootstrap.min.js"></script>
+<script src="/front/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/front/js/jquery-ui.js"></script>
+<script src="/front/js/imagesloaded.pkgd.js"></script>
+<script src="/front/js/main.js"></script>
+
