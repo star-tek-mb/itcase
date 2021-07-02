@@ -3,7 +3,7 @@
     @foreach ($tenders as $tender)
         <div class="task-block">
             <div class="task-block__icon">
-                <img style="width: 100%; height: auto;" src="{{ $tender->categoryIcon() }}" alt="">
+                <img style="width: 100%; height: auto;padding: 15px;" src="{{ $tender->categoryIcon() }}" alt="">
             </div>
             <div class="task__data">
                 <h3><a href="{{ route('site.tenders.category', $tender->slug) }}">{{ $tender->title }}</a></h3>
