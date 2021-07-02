@@ -49,5 +49,5 @@
         <input type="text" id="price" class="form-control" name="minPrice" value="{{ request()->minPrice }}">
     </div>
     <br>
-    <button type="submit" class="button">Фильтр</button>
+    <button type="submit" class="button">Найти</button>
 </div>

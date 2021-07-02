@@ -34,8 +34,8 @@
 			</li>
 		@endforeach
 	</ul>
-	<div class="worker">
-		<button type="submit" class="button">Фильтр</button>
+	<div class="worker filter-button">
+		<button type="submit" class="button">Найти</button>
 	</div>
 </form>
 

@@ -3712,6 +3712,7 @@ a span {
     color: #ff6b06;
 }
 
+
 @media (max-width: 1024px) {
     .title-top h2 {
         margin-bottom: 15px;
@@ -3779,7 +3780,10 @@ a span {
         width: 100%;
         box-sizing: border-box;
     }
-
+    .worker__avatar {
+        /*margin: 0 auto;*/
+        margin-bottom: 15px;
+    }
     .worker__rating {
         padding-left: 0;
         -webkit-box-align: start;
@@ -3787,7 +3791,10 @@ a span {
         -ms-flex-align: start;
         align-items: start;
     }
-
+    .mt35 .right-block__inner img, .mt35 .right-block__inner div img  {
+        width: 100% !important;
+        height: auto !important;
+    }
     .title-top--small {
         padding: 35px 12px 36px 15px;
     }
@@ -3830,7 +3837,7 @@ a span {
     }
 
     .task-block__icon, .worker__avatar {
-        margin: 0 auto;
+        /*margin: 0 auto;*/
     }
 
     .mt35 {
@@ -3866,4 +3873,11 @@ a span {
         font-size: 14px;
         text-transform: uppercase;
     }
+}
+.filter-button{
+    padding-left: 28px;
+
+}
+.filter-button .button {
+    padding: 0 30px;
 }
