@@ -40,8 +40,7 @@
                     <span>{{ $contractor->mean }}</span>
                 </div>
 
-                <a href="{{ route('site.contractors.show', $contractor->slug) }}" class="button button--small">Предложить
-                    задание</a>
+                <a href="{{ route('site.contractors.show', $contractor->slug) }}" class="button button--small">Подробнее</a>
             </div>
         </li>
 @endforeach
