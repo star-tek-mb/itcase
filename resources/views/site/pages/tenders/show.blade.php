@@ -135,7 +135,7 @@
                         </div>
                     </li>
                 </ul>
-                @if(auth()->user()->checkOwnTender($tender))
+                @if( auth()->user() && auth()->user()->checkOwnTender($tender))
                 @elseif (auth()->user() && in_array(auth()->user()->id, $tender->requests()->pluck('user_id')->toArray()))
                     <div style="text-align: center; font-size: 24px; font-weight: bold; margin: 20px;">Вы уже оставили заявку
                     </div>

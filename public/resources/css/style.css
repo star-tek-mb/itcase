@@ -3242,7 +3242,21 @@ body.hidden {
         display: -ms-flexbox;
         display: flex
     }
+
+    .container-media {
+        max-width: 1000px;
+        display: flex;
+        justify-content: space-between;
+
+    }
+
+   #remove_max_width .row,#remove_max_width .d-flex {
+        display: block;
+    }
+
+
 }
+
 
 @media (max-width: 560px) {
     ul.buttons {
