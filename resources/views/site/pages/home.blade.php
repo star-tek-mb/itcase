@@ -276,20 +276,20 @@
                         </li>
                     </ul>
 
-                    <div class="info__block">
-                        <div>
-                            <p>А пока вы можете скачать приложение с нашего сайта</p>
-                            <a href="/itcase.apk">
-                                <img src="/resources/images/download-android.png" alt=""
-                                     style="vertical-align: middle;">
-                                Скачать
-                            </a>
-                        </div>
-                    </div>
+{{--                    <div class="info__block">--}}
+{{--                        <div>--}}
+{{--                            <p>А пока вы можете скачать приложение с нашего сайта</p>--}}
+{{--                            <a href="/itcase.apk">--}}
+{{--                                <img src="/resources/images/download-android.png" alt=""--}}
+{{--                                     style="vertical-align: middle;">--}}
+{{--                                Скачать--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
 
                 <div class="col col--5 d-flex justify-content-end">
-                    <img src="/resources/images/hand.png" alt="" class="image">
+                    <img src="/resources/images/hand_fill.png" alt="" class="image">
                 </div>
             </div>
             <br><br>

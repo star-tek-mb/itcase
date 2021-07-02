@@ -507,7 +507,7 @@ h1 {
 }
 
 h2 {
-    font-size: 40px;
+    font-size: 48px;
     line-height: 55px;
 }
 
@@ -3669,7 +3669,7 @@ a span {
 /*    margin-bottom: 80px;*/
 /*}*/
 .info div div div div p {
-    font-size: 1.5em;
+    font-size: 1.8em;
 }
 
 #full_width_tasks_holder .tasks-holder {
