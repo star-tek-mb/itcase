@@ -84,9 +84,7 @@
                 @foreach($parentCategories as $parent)
                     <div class="col service">
                         <div class="service__count">
-                            <span>{{ App\Models\User::whereHas('categories', function ($query) use ($parent) {
-            $query->whereIn('user_category.category_id', $parent->descendants)->orWhereIn('handbook_categories.parent_id', $parent->id );
-        })->count()}}</span>
+                            <span>{{$parent->getAllCompaniesCount()}}</span>
                             Исполнителей
                         </div>
 
