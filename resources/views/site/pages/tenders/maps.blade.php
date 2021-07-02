@@ -215,7 +215,7 @@ function mapFiltersChanged(e) {
                     coordinates: [lat, lng]
                 },
                 properties: {
-                    balloonContentHeader: '<img style="width: 64px; height: auto;" src="' + tender.icon + '">',
+                    balloonContentHeader: '<div class="image-maps"><div class="task-block__icon"><img style="width: 64px; height: auto;" src="' + tender.icon + '"></div></div>',
                     balloonContentBody: '<a href="/tenders/' + tender.slug + '">' + tender.title + '</a><br><br>' + tender.description
                 }
             });

@@ -5234,3 +5234,23 @@ textarea.form-control {
 .has-fixed-sidebar {
   padding-left: 320px;
 }
+
+.image-maps:first-child .task-block__icon, .image-maps:nth-of-type(5n+1) .task-block__icon {
+  background: #A9B7F2 !important
+}
+
+.image-maps:nth-of-type(2) .task-block__icon, .image-maps:nth-of-type(6n+1) .task-block__icon {
+  background: #DFA9F2
+}
+
+.image-maps:nth-of-type(3) .task-block__icon {
+  background: #A9F2B9
+}
+
+.image-maps:nth-of-type(4) .task-block__icon {
+  background: #F2D5A9
+}
+
+.image-maps:nth-of-type(5) .task-block__icon {
+  background: #F2A9A9
+}
