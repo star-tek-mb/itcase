@@ -225,7 +225,7 @@ function mapFiltersChanged(e) {
 
 function init () {
     myMap = new ymaps.Map('map', {
-        center: [41.37430329377309, 69.31025753144529],
+        center: [43.2220,76.8512],
         zoom: 10
     }, {
         searchControlProvider: 'yandex#search'
