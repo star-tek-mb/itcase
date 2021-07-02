@@ -275,14 +275,14 @@
                     </li>
                     @auth
                     @if (auth()->user()->hasRole('customer'))
-                    <li> ({{auth()->user()->ownedTenders()->count()}})</li>
+                    <li><a href="{{ route('site.account.tenders') }}">Мои задания: {{auth()->user()->ownedTenders()->count()}}</a> </li>
                     @endif
                     @endauth
                     <li>
                         <a href="#" id="navBarDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             @if(auth()->user()->getImage())
                             <span class="user-photo">
-                                <img src="{{ auth()->user()->getImage() }}" alt="" width="50px">
+                                <img src="{{ auth()->user()->getImage() }}" style="border-radius: 50%" alt="" width="50px">
                             </span>
                             @endif
                             @if(auth()->user()->name)

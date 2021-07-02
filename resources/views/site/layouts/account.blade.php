@@ -20,7 +20,7 @@
                             @endif href="{{ route('site.account.index') }}"><i
                                 class="fas fa-user"></i> {{ __('Профиль') }}</a></li>
                 @if ($user->hasRole('contractor'))
-                    <li><a @if(Route::currentRouteName()== 'site.account.professional') id="selected_a"
+                    <li><a @if(Route::currentRouteName() == 'site.account.professional') id="selected_a"
                            @endif  href="{{ route('site.account.contractor.professional') }}"><i
                                     class="fas fa-suitcase"></i> {{ __('Проф. данные') }}</a></li>
                     <li><a @if(Route::currentRouteName()== 'site.account.tenders') id="selected_a"

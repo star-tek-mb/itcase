@@ -137,8 +137,7 @@
                 </ul>
 
                 @if (auth()->user() && in_array(auth()->user()->id, $tender->requests()->pluck('user_id')->toArray()))
-                    <div style="text-align: center; font-size: 24px; font-weight: bold; margin: 20px;">Вы уже оставили
-                        заявку
+                    <div style="text-align: center; font-size: 24px; font-weight: bold; margin: 20px;">Вы уже оставили заявку
                     </div>
                     <form action="{{ route('site.tenders.requests.cancel') }}" method="post" class="mr-3">
                         @csrf
@@ -148,6 +147,7 @@
                                 class="button" type="submit">Отменить
                         </button>
                     </form>
+                    <br>
                     <form action="{{ route('site.account.chats') }}" method="post">
                         @csrf
                         <input type="hidden" name="with_user_id" value="{{ $tender->owner->id }}">
@@ -189,20 +189,20 @@
 
 @section('modal')
     @if (auth()->user() && auth()->user()->hasRole('customer'))
-        <div class="modal" id="modal">
+        <div class="modal send_request" id="modal">
             <form action="{{ route('site.tenders.requests.make') }}" method="post" class="main__form">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                 <input type="hidden" name="tender_id" value="{{ $tender->id }}">
-                <h4>Отправляйте заявку.</h4>
-                <div for="budget" style="margin: 5px;">Бюджет</div>
+                <h4>Отправьте заявку.</h4>
+                <div for="budget" style="margin: 5px;"> Предложите бюджет</div>
                 <div class="input-holder">
                     <input type="text" required name="budget_from" id="budgetFrom" placeholder="500 000">
                 </div>
                 <div class="input-holder">
                     <input type="text" required name="budget_to" id="budgetTo" placeholder="1 000 000">
                 </div>
-                <div for="period" style="margin: 5px;">Срок</div>
+                <div for="period" style="margin: 5px;">Выберите срок выполнения задачи</div>
                 <div class="input-holder">
                     <input type="text" required name="period_from" id="period_from" placeholder="2 дня">
                 </div>
@@ -210,7 +210,10 @@
                     <input type="text" required name="period_to" id="period_to" placeholder="3 дня">
                 </div>
                 <div for="comment" style="margin: 5px;">Комментарий (по желанию)</div>
-                <input name="comment" id="comment" type="text">
+                <div class="input-holder">
+                    <textarea  class="text-area-container" name="comment" style="min-height: 150px; max-height: 200px;" placeholder="Комментарий"  id="comment" type="text"> </textarea>
+                </div>
+
                 <button class="button" type="submit">Отправить заявку</button>
             </form>
             <a href="#" class="close"></a>
