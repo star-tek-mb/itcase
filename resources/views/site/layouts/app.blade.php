@@ -5,14 +5,6 @@
     <meta charset="UTF-8">
 {{--    <meta name="viewport"--}}
 {{--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">--}}
-    <script>
-        var viewMode = getCookie("view-mode");
-        if (viewMode == "desktop") {
-            viewport.setAttribute('content', 'width=1024');
-        } else if (viewMode == "mobile") {
-            viewport.setAttribute('content', 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no');
-        }
-    </script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('meta')
 
