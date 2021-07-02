@@ -26,7 +26,7 @@
                                     class="fas fa-suitcase"></i> {{ __('Проф. данные') }}</a></li>
                     <li><a @if(Route::currentRouteName()== 'site.account.tenders.requests') id="selected_a"
                            @endif href="{{ route('site.account.tenders.requests') }}"><i
-                                    class="fas fa-file-alt"></i> {{ __('Мои заявки на конкурсы') }}</a></li>
+                                    class="fas fa-file-alt"></i> {{ __('Мои заявки на задания') }}</a></li>
                     <li><a @if(Route::currentRouteName()== 'site.account.portfolio') id="selected_a"
                            @endif href="{{ route('site.account.portfolio') }}"><i
                                     class="far fa-images"></i>{{ __('Портфолио') }}</a></li>

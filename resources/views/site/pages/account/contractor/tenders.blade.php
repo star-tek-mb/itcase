@@ -11,7 +11,7 @@
 @section('account.content')
     <section class="box-admin">
         <div class="header-box-admin">
-            <h3>{{ __('Мои заявки на конкурсы') }}</h3>
+            <h3>{{ __('Мои заявки на задания') }}</h3>
 
         </div>
         <div class="body-box-admin p-0">
@@ -19,7 +19,7 @@
                 <table class="table tbl-job">
                     <thead>
                         <tr>
-                            <th>{{ __('Название проекта') }}</th>
+                            <th>{{ __('Название задания') }}</th>
                             <th class="d-none d-xl-table-cell text-center">{{ __('Локация') }}</th>
                             <th class="d-none d-xl-table-cell text-center">{{ __('Категории') }}</th>
                             <th class="d-none d-xl-table-cell text-center">{{ __('Статус') }}</th>
