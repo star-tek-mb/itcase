@@ -12,15 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!-- mobile responsive meta -->
-{{--    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>--}}
-    <script>
-        var viewMode = getCookie("view-mode");
-        if (viewMode == "desktop") {
-            viewport.setAttribute('content', 'width=1024');
-        } else if (viewMode == "mobile") {
-            viewport.setAttribute('content', 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no');
-        }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- Favicons -->
     <link rel="shortcut icon" href="favicon.ico"/>
 
