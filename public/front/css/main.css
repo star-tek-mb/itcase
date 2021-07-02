@@ -5254,3 +5254,7 @@ textarea.form-control {
 .image-maps:nth-of-type(5) .task-block__icon {
   background: #F2A9A9
 }
+.task-block__icon{
+  border-radius: 10px;
+  padding: 5px;
+}
