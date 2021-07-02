@@ -84,7 +84,9 @@
                 @foreach($parentCategories as $parent)
                     <div class="col service">
                         <div class="service__count">
-                            <span>{{ $parent->descendants->reduce(fn($carry, $item) => $carry + $item->users->count(), 0) }}</span>
+                            <span>{{ App\Models\User::whereHas('categories', function ($query) use ($parent) {
+            $query->whereIn('user_category.category_id', $parent->descendants)->orWhereIn('handbook_categories.parent_id', $parent->id );
+        })->count()}}</span>
                             Исполнителей
                         </div>
 
@@ -276,16 +278,16 @@
                         </li>
                     </ul>
 
-{{--                    <div class="info__block">--}}
-{{--                        <div>--}}
-{{--                            <p>А пока вы можете скачать приложение с нашего сайта</p>--}}
-{{--                            <a href="/itcase.apk">--}}
-{{--                                <img src="/resources/images/download-android.png" alt=""--}}
-{{--                                     style="vertical-align: middle;">--}}
-{{--                                Скачать--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    {{--                    <div class="info__block">--}}
+                    {{--                        <div>--}}
+                    {{--                            <p>А пока вы можете скачать приложение с нашего сайта</p>--}}
+                    {{--                            <a href="/itcase.apk">--}}
+                    {{--                                <img src="/resources/images/download-android.png" alt=""--}}
+                    {{--                                     style="vertical-align: middle;">--}}
+                    {{--                                Скачать--}}
+                    {{--                            </a>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
                 </div>
 
                 <div class="col col--5 d-flex justify-content-end">
