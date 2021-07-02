@@ -179,7 +179,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="budget">Ориентировочный бюджет, сум</label>
+                                    <label for="budget">Ориентировочный бюджет</label>
                                     <input type="number" name="budget" id="budget" onkeypress='validate(event)'
                                            class="form-control @error('budget') is-invalid @enderror"
                                            placeholder="Укажите ориентировочный бюджет..." value="{{ old('budget') }}">
