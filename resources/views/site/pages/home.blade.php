@@ -197,7 +197,7 @@
                     <div class="col service">
                         <div class="service__count">
                             <span>{{ $parent->descendants->reduce(fn($carry, $item) => $carry + $item->tenders->count(), 0) }}</span>
-                            Заданий
+                            Исполнителей
                         </div>
 
                         <img style="fill: #fff;" src="{{ $parent->getImage() }}" alt="">

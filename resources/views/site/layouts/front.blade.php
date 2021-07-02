@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <!-- mobile responsive meta -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=1024" />
   <!-- Favicons -->
   <link rel="shortcut icon" href="/favicon.ico" />
 
