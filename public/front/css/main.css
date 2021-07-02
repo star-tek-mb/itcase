@@ -5258,3 +5258,13 @@ textarea.form-control {
   border-radius: 10px;
   padding: 5px;
 }
+
+.dropdown-toggle::after {
+  display: inline-block;
+  margin-left: 0.1em;
+  vertical-align: 0.1em;
+  content: "";
+  border-top: 0.4em solid;
+  border-right: 0.25em solid transparent;
+  border-left: 0.25em solid transparent;
+}
