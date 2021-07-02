@@ -339,7 +339,7 @@ h1, h2, h3, h4, h5 {
     position: relative
 }
 
-.main__form input[type="text"] ,.text-area-container {
+.main__form input[type="text"], .text-area-container {
     width: 100%;
     height: 60px;
     line-height: 60px;
@@ -352,6 +352,7 @@ h1, h2, h3, h4, h5 {
     /*border: none*/
     border: 1px solid #00000022;
 }
+
 .text-area-container {
     line-height: 20px;
     padding-top: 20px;
@@ -688,7 +689,8 @@ h4 {
 }
 
 .carousel__arrow--left {
-    left: 0
+    left: 0;
+    background: linear-gradient(-90deg, rgba(255, 255, 255, 0.1) 7.81%, #fff 100%);
 }
 
 .carousel__arrow--right {
@@ -3014,6 +3016,7 @@ a .post__title {
 .sidebar .body-box .form-group {
     margin-top: 20px;
 }
+
 .button--full {
     margin-top: 38px;
     width: 100%;
@@ -3181,7 +3184,8 @@ a .post__title {
     color: #ACACAC;
     text-decoration: underline
 }
-.send_request .input-holder{
+
+.send_request .input-holder {
     margin-top: 10px
 }
 
@@ -3669,10 +3673,11 @@ a span {
 .back-color-header {
     background-color: #f8f6ff;
 }
-#back_color_change{
+
+#back_color_change {
     background-color: #705DD1;
 }
 
-#text-howto{
+#text-howto {
     font-size: 20px;
 }
