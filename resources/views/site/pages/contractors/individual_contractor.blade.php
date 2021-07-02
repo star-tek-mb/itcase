@@ -12,7 +12,7 @@
                     <div class="badge badge--green"></div>
                     <div class="badge badge--red"></div>
                 </div>
-                <div>{!! $contractor->about_myself !!}</div>
+                <div class="worker__about_my_self">{!! $contractor->about_myself !!}</div>
                 <p class="status" @if (!$contractor->is_online) style="color: red !important;" @endif>
                     @if ($contractor->is_online)
                         {{ __('Сейчас на сайте') }}

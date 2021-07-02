@@ -3250,7 +3250,7 @@ body.hidden {
 
     }
 
-   #remove_max_width .row,#remove_max_width .d-flex {
+    #remove_max_width .row, #remove_max_width .d-flex {
         display: block;
     }
 
@@ -3694,4 +3694,19 @@ a span {
 
 #text-howto {
     font-size: 20px;
+}
+
+.worker__about_my_self {
+    overflow: hidden;
+    max-height: 87px;
+}
+
+.worker__title a {
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.worker__title a:hover {
+    text-decoration: none;
+    color: #ff6b06;
 }
