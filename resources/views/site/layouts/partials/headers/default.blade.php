@@ -292,7 +292,7 @@
                             @else
                             {{ auth()->user()->phone_number }}
                             @endif
-                            <span class="caret"></span>
+{{--                            <span class="caret"></span>--}}
                         </a>
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                             <a href="{{ route('site.account.index') }}" class="dropdown-item user-dropdown-item"><i class="fas fa-user"></i> {{ __('Личный кабинет') }}</a>
