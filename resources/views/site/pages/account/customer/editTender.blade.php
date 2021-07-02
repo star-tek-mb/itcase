@@ -324,7 +324,7 @@
             }, function (e) {
                 // Если местоположение невозможно получить, то просто создаем карту.
                 createMap({
-                    center: [{{empty($tender->geo_location) ? "41.31064707835609, 69.2795380845336" :$tender->geo_location }}],
+                    center: [{{empty($tender->geo_location) ? "43.2220, 76.8512" :$tender->geo_location }}],
                     zoom: 10
                 });
             });
