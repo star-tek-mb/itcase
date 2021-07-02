@@ -577,6 +577,7 @@
 @endif
 
 @include('site.pages.footer')
+<script src="/resources/js/main.js"></script>
 <!--<div id="scrollTop" class="scrollToTop">
   <img src="/resources/images/artop.svg" alt="" class="third arrow">
   <img src="/resources/images/artop.svg" alt="" class="second arrow">
