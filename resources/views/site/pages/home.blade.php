@@ -119,7 +119,7 @@
             <div class="row justify-content-between align-items-center set_max_width_second">
                 <div class="header__left d-flex align-items-center">
                     <ul class="header__menu menu">
-                        <li><a id="hover_add_text_underline"    style="padding-top: 15px; padding-bottom: 15px;"
+                        <li><a id="hover_add_text_underline" style="padding-top: 15px; padding-bottom: 15px;"
                                href="{{ route('site.page', 'about') }}">О
                                 компании</a></li>
                     </ul>
@@ -127,10 +127,12 @@
                 <div class="header__right d-flex align-items-center">
                     <ul class="header__menu menu info-company">
                         <li>
-                            <a  style="padding-top: 15px; padding-bottom: 15px;" href="mailto:itcase.com@yandex.ru"> Почта: itcase.com@yandex.ru</a>
+                            <a style="padding-top: 15px; padding-bottom: 15px;" href="mailto:itcase.com@yandex.ru">
+                                Почта: itcase.com@yandex.ru</a>
                         </li>
                         <li>
-                            <a style="padding-top: 15px; padding-bottom: 15px;" href="tel:+77781887708"> Телефон для справок: +77781887708</a>
+                            <a style="padding-top: 15px; padding-bottom: 15px;" href="tel:+77781887708"> Телефон для
+                                справок: +77781887708</a>
                         </li>
                     </ul>
                 </div>
@@ -375,13 +377,13 @@
                     <ul class="buttons">
                         <li>
 
-                                <img src="/resources/images/appstore.svg" alt="">
+                            <img src="/resources/images/appstore.svg" alt="">
 
                         </li>
 
                         <li>
 
-                                <img src="/resources/images/googleplay.svg" alt="">
+                            <img src="/resources/images/googleplay.svg" alt="">
 
                         </li>
                     </ul>
@@ -425,9 +427,9 @@
                                     <figure>
                                         <img src="{{$tender->getImageFirst()}}" alt="">
 
-                                        <figcaption>
+                                        <figcaption id="back_color_change">
                                             <a href="#">
-                                                <img style="width: 100%; height: auto;"
+                                                <img style="width: 100%; height: 70px;"
                                                      src="{{ $tender->categoryIcon() }}"
                                                      alt="">
                                             </a>

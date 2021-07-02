@@ -12,6 +12,8 @@
     <section class="box-admin">
         <div class="header-box-admin">
             <h3>{{ __('Мои заявки на конкурсы') }}</h3>
+            <h3><a href="{{ route('site.tenders.common.create') }}"><i class="fas fa-plus-circle"></i>
+                    {{ __('Добавить заказ') }}</a></h3>
         </div>
         <div class="body-box-admin p-0">
             <div class="table-responsive">
@@ -91,4 +93,6 @@
             </div>
         </div>
     </section>
+
 @endsection
+
