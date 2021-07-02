@@ -73,6 +73,7 @@ class HandbookCategory extends Model
     */
     public function hasParentCategory()
     {
+
         return $this->parentCategory !== null;
     }
 

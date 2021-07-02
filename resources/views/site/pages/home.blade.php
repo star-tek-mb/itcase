@@ -84,7 +84,7 @@
                 @foreach($parentCategories as $parent)
                     <div class="col service">
                         <div class="service__count">
-                            <span>{{ $parent->descendants->reduce(fn($carry, $item) => $carry + $item->tenders->count(), 0) }}</span>
+                            <span>{{ $parent->descendants->reduce(fn($carry, $item) => $carry + $item->users->count(), 0) }}</span>
                             Исполнителей
                         </div>
 
