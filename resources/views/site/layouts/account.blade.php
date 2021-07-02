@@ -5,8 +5,8 @@
             <div class="header-user">
                 <div class="avatar"><a href="#"><img src="{{ $user->getImage() }}" alt="Image" width=""></a></div>
                 <div class="info-user">
-                    <h3>{{__("Статус:")}} {{$user->getTypeUser()}}</h3>
-                    <h3><a href="{{ route('site.account.index') }}">{{ $user->getCommonTitle() }}</a></h3>
+                    <h3>{{__("Статус:")}} <span style="color: #ff6b01">{{$user->getTypeUser()}}</span></h3>
+                    <h3><a id="name_of_user" style="font-size: 14px" href="{{ route('site.account.index') }}">{{ $user->getCommonTitle() }}</a></h3>
                     @auth
                         @if (auth()->user()->hasRole('customer'))
                             ({{$user->ownedTenders()->count()}})

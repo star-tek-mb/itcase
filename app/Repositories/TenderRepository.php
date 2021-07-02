@@ -142,7 +142,7 @@ class TenderRepository implements TenderRepositoryInterface
         $tenderData['client_name'] = $user->first_name . " " . $user->last_name;
         $tenderData['client_email'] = $user->email;
         $tenderData['client_phone_number'] = $user->phone_number || '';
-        $tenderData['client_type'] = $user->customer_type;
+        $tenderData['client_type'] = 'customer';
         $tenderData['owner_id'] = $user->id;
         if (Arr::get($tenderData, 'remote') == 'on') {
             $tenderData['type'] = 'remote';
