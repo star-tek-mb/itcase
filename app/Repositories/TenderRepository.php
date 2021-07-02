@@ -208,6 +208,7 @@ class TenderRepository implements TenderRepositoryInterface
     /**
      * @inheritDoc
      */
+
     public function getBySlug(string $slug)
     {
         return Tender::where('slug', $slug)->first();
@@ -216,6 +217,7 @@ class TenderRepository implements TenderRepositoryInterface
     /**
      * @inheritDoc
      */
+
     public function createRequest($data)
     {
         if (Tender::find($data['tender_id'])->checkDeadline() && TenderRequest::where('tender_id', $data->tender_id)->where('user_id', $data->user_id)->get()->first() == null) {
