@@ -54,7 +54,7 @@
 
                 <li>
                     <div class="row">
-                        <div class="col-9"><a class="style_a stretched-link" href="{{ route('site.tenders.index') }}">{{ __('Конкурсы') }}</a>
+                        <div class="col-9"><a class="style_a stretched-link" href="{{ route('site.tenders.index') }}">{{ __('Задания') }}</a>
                         </div>
                         <div class="col-3"><a class="text-left stretched-link" data-toggle="collapse" href="#sub-1" aria-expanded="false" aria-controls="sub-1" style="color:#383838;"><i class="fas fa-chevron-right" style="transform: rotate(90deg);"></i></a></div>
                     </div>
@@ -110,6 +110,9 @@
                         </ul>
                     </div>
                 </li>
+                <li class="about-company"><a href="{{ route('site.page', 'about') }}">О
+                        компании</a></li>
+                <li>
             </ul>
         </div>
 

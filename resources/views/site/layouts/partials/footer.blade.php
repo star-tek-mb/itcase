@@ -5,6 +5,7 @@
                 <div class="col-lg-4 mb-2 mb-lg-0"><img src="/front/images/VID.png" alt="VID"></div>
                 <div class="col-lg-8">
                     <ul class="nav-footer">
+
                         <li><a href="{{ route('site.page', 'terms-of-service') }}">Правила сервиса</a></li>
                         <li><a href="{{ route('site.page', 'offerta') }}"> Оферта</a></li>
                         <li><a href="{{ route('site.page', 'privacy-policy') }}">Политика конфиденциальности</a></li>
@@ -39,6 +40,9 @@
                         <div class="col">
                             <span class="title-footer">{{ __('Компания') }}</span>
                             <ul class="links-footer">
+                                <li><a href="{{ route('site.page', 'about') }}">О
+                                        компании</a></li>
+                                <li>
                                 <li>
                                     <a href="{{ route('site.blog.index') }}">Наш блог</a>
                                 </li>
@@ -72,17 +76,17 @@
                                 </li>
                             </ul>
 
-                            
+
                         </div>
                         <div class="col-6">
-{{--                        <ul class="links-footer" style="margin-left: 10px; text-align: center;">--}}
-{{--                                <span class="title-footer">А также можете скачать с нашего сайта</span>--}}
-{{--                                <li class="mt-4">--}}
-{{--                                    <a href="/itcase.apk">--}}
-{{--                                    <img src="/resources/images/download-android.png" alt="" style="vertical-align: middle;"> Скачать--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                            </ul>--}}
+                            {{--                        <ul class="links-footer" style="margin-left: 10px; text-align: center;">--}}
+                            {{--                                <span class="title-footer">А также можете скачать с нашего сайта</span>--}}
+                            {{--                                <li class="mt-4">--}}
+                            {{--                                    <a href="/itcase.apk">--}}
+                            {{--                                    <img src="/resources/images/download-android.png" alt="" style="vertical-align: middle;"> Скачать--}}
+                            {{--                                    </a>--}}
+                            {{--                                </li>--}}
+                            {{--                            </ul>--}}
                         </div>
                     </div>
                 </div>

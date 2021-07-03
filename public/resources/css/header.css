@@ -446,3 +446,7 @@ img {
     border-radius: 50% !important;
     overflow: hidden !important;
 }
+
+.menu-mobile .about-company a {
+    font-size: 14px;
+}
