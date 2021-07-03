@@ -77,7 +77,7 @@
                             @endforeach
                         </ul>
 
-                    <li class="color-primary add">
+                    <li class="color-primary add" id="change-color-a">
                         <a href="{{ route('site.tenders.common.create') }}">{{ __('Добавить задания') }}</a>
                     </li>
                 </ul>

@@ -501,7 +501,11 @@ a:focus {
 }
 
 .enter_new_order a {
-  color: #ff6b01 !important;
+  color: #ff6b01;
+}
+
+.main-menu .enter_new_order a {
+  color: #383838;
 }
 
 .sub-menu {

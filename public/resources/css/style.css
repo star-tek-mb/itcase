@@ -240,13 +240,25 @@ h1, h2, h3, h4, h5 {
 }
 
 .header__menu li.color-primary.add {
+
     background: url(../images/add.svg) no-repeat right center
+
 }
+.header__menu #change-color-a > a{
+    color: #2D2926;
+}
+
 
 .header__menu li:last-child {
     margin-right: 0
 }
-
+.header__menu a:hover , .header__menu #change-color-a > a:hover{
+    color: #FF6B01;
+    text-decoration: none !important;
+}
+.header__menu li.color-primary > a:hover{
+    color: #2D2926;
+}
 .header__menu li a {
     font-size: 20px;
     line-height: 24px;
@@ -1408,9 +1420,9 @@ h4 {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
+    -webkit-justify-content: center;
     -ms-flex-pack: justify;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 17px
 }
 
@@ -1615,6 +1627,9 @@ ul.worklist li:last-child {
 ul.worklist li a {
     color: #FF6B01;
     font-weight: 600;
+
+}
+ul.worklist li a:hover{
     text-decoration: underline
 }
 
