@@ -5279,7 +5279,7 @@ textarea.form-control {
    margin-top: 15px;
 }
 #active-header {
-  color: #FF6B01;
+  color: #FF6B01 !important;
 }
 .font-size-increase{
   font-size: 20px;
