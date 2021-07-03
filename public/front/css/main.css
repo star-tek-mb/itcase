@@ -5278,7 +5278,7 @@ textarea.form-control {
 .contact-chat div{
    margin-top: 15px;
 }
-#active-header {
+#active-header,.main-menu .enter_new_order #active-header {
   color: #FF6B01 !important;
 }
 .font-size-increase{
