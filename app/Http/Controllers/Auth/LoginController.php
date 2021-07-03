@@ -69,6 +69,9 @@ class LoginController extends Controller
                 'password' => $request->get('password')
             ];
         }
+        else{
+            return  [];
+        }
     }
 
     protected function sendLoginResponse(Request $request)
