@@ -43,10 +43,10 @@
                     </li>
                 @endguest
 
-                <li>
-                    <a href="https://t.me/gde_podeshevle"><i class="fab fa-telegram" style="font-size:25px"></i></a>
-                    <a href="https://www.instagram.com/vid.market/"><i class="fab fa-instagram pl-3" style="font-size:25px"></i></a>
-                </li>
+{{--                <li>--}}
+{{--                    <a href="https://t.me/gde_podeshevle"><i class="fab fa-telegram" style="font-size:25px"></i></a>--}}
+{{--                    <a href="https://www.instagram.com/vid.market/"><i class="fab fa-instagram pl-3" style="font-size:25px"></i></a>--}}
+{{--                </li>--}}
             </ul>
         </div>
         <div class="menu-mobile">
