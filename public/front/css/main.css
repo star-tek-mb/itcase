@@ -5278,3 +5278,6 @@ textarea.form-control {
 .contact-chat div{
    margin-top: 15px;
 }
+#active-header {
+  color: #FF6B01;
+}

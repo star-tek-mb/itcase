@@ -43,7 +43,7 @@
 
                 <ul class="header__menu menu">
                     <li class="has-submenu">
-                        <a href="{{ route('site.tenders.index') }}">{{ __('Найти задания') }}</a>
+                        <a @if(Route::currentRouteName()== 'site.tenders.index') id="active-header" @endif  href="{{ route('site.tenders.index') }}">{{ __('Найти задания') }}</a>
                         <ul>
                             @foreach($parentCategories as $parent)
                                 <li class="has-submenu">
@@ -61,7 +61,7 @@
                     </li>
 
                     <li class="has-submenu">
-                        <a href="{{ route('site.contractors.index') }}">{{ __('Найти исполнителя') }}</a>
+                        <a @if(Route::currentRouteName()== 'site.contractors.index') id="active-header" @endif href="{{ route('site.contractors.index') }}">{{ __('Найти исполнителя') }}</a>
                         <ul class="has-submenu">
                             @foreach($parentCategories as $parent)
                                 <li class="has-submenu">
@@ -78,7 +78,7 @@
                         </ul>
 
                     <li class="color-primary add" id="change-color-a">
-                        <a href="{{ route('site.tenders.common.create') }}">{{ __('Добавить задания') }}</a>
+                        <a  @if(Route::currentRouteName()== 'site.tenders.common.create') id="active-header" @endif href="{{ route('site.tenders.common.create') }}">{{ __('Добавить задания') }}</a>
                     </li>
                 </ul>
             </div>

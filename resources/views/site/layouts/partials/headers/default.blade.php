@@ -63,7 +63,7 @@
                             @endforeach
                         </ul>
                     </li>
-                    <li class="enter_new_order"><a href="{{ route('site.tenders.common.create') }}">
+                    <li class="enter_new_order"><a  @if(Route::currentRouteName()== 'site.tenders.common.create') id="active-header" @endif href="{{ route('site.tenders.common.create') }}">
                             {{ __('Добавить задания') }}
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">

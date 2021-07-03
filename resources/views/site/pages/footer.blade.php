@@ -65,7 +65,7 @@
 
 
             <div class="col">
-                <h4>Скоро в Play market и App store</h4>
+                <h4 class="text-center">Скоро в Play market и App store</h4>
 
                 <div class="app-info">
                     <ul class="app-info__list">
