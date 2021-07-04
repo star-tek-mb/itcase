@@ -2189,7 +2189,7 @@ textarea.form-control.is-valid {
     border-color: #28a745;
     box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
 }
-.invalid-feedback {
+.   invalid-feedback {
     display: none;
     width: 100%;
     margin-top: 0.25rem;

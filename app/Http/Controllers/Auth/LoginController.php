@@ -7,7 +7,9 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Socialite;
 use Auth;
 use Exception;
@@ -94,6 +96,14 @@ class LoginController extends Controller
 
         return $this->authenticated($request, $this->guard()->user())
             ?: redirect()->intended($this->redirectPath());
+    }
+    protected function sendFailedLoginResponse(Request $request)
+    {
+
+        throw ValidationException::withMessages([
+            'username' => trans('auth.failed'),
+        ]);
+//        return redirect()->back()->with('success', 'your message,here');
     }
     /**
      * Redirect the user to the google authentication page.
