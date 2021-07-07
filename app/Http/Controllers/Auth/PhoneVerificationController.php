@@ -15,7 +15,7 @@ class PhoneVerificationController extends Controller
         $request->user()->sendPhoneVerificationMessage();
         return redirect()->back();
     }
-
+ // redirect to payment
     public function verify(Request $request)
     {
         if ($request->user()->verifyPhoneCode($request->code)) {
@@ -25,7 +25,7 @@ class PhoneVerificationController extends Controller
                 'code' => __('auth.code.invalid'),
             ]);
         }
-        return redirect(route('site.account.index'))->with('account.success', __('Номер подтвержден'));
+        return redirect(route('site.account.payment'))->with('account.success', __('Номер подтвержден'));
     }
 
     public function show()

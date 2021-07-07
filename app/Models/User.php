@@ -512,4 +512,10 @@ class User extends Authenticatable
     {
         return $this->last_online_at > now()->subMinutes(10);
     }
+    public  function isPayForAccount(){
+        return $this->account_paid_at != null;
+    }
+    public  function  notPayForAccount(){
+        return $this->account_paid_at == null;
+    }
 }

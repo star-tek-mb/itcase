@@ -66,6 +66,11 @@ class AccountController extends Controller
      */
     public function index()
     {
+        return $this->viewPage('site.pages.account.customer.index');
+    }
+
+    public function viewPage($templateName)
+    {
         $user = auth()->user();
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';
@@ -76,11 +81,13 @@ class AccountController extends Controller
             } else {
                 $accountPage = 'personal';
             }
-            return view('site.pages.account.customer.index', compact('user', 'accountPage'));
+            return view($templateName, compact('user', 'accountPage'));
         } else {
             abort(403);
         }
     }
+
+
 
     public function create(Request $request)
     {
@@ -219,7 +226,7 @@ class AccountController extends Controller
         $accountPage = 'tenders';
         if ($user->hasRole('customer')) {
             return \view('site.pages.account.customer.tenders', compact('user', 'accountPage'));
-        }  else {
+        } else {
             abort(404);
         }
     }
@@ -230,8 +237,7 @@ class AccountController extends Controller
         $accountPage = 'tenders';
         if ($user->hasRole('contractor')) {
             return \view('site.pages.account.contractor.tenders', compact('user', 'accountPage'));
-        }
-        else {
+        } else {
             abort(404);
         }
     }

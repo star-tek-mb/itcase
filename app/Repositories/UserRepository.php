@@ -40,7 +40,21 @@ class UserRepository implements UserRepositoryInterface
             ]
         );
     }
-    public function findTransaction(int $transaction_id):Transaction {
+    public  function  createUniqueTransaction(int $user_id) {
+        $trans = Transaction::where('user_id','=',$user_id);
+        if($trans){
+            return  $trans->transaction_id;
+        }
+        else {
+            $transaction_id = mt_rand(1, 2147483647);
+            while (Transaction::where('transaction_id', '=', $transaction_id)->exists()) {
+                $transaction_id = mt_rand(1, 2147483647);
+            }
+            $this->createTransaction($user_id, $transaction_id);
+            return $transaction_id;
+        }
+    }
+    public function findTransaction($transaction_id):Transaction {
         $transaction = Transaction::where('transaction_id',$transaction_id)->first();
         if ($transaction){
             return $transaction;

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\PaymentCheck;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -68,6 +69,7 @@ class Kernel extends HttpKernel
         'needsList' => \App\Http\Middleware\NeedsList::class,
         'account.completed' => Middleware\CheckCompletedAccountMiddleware::class,
         'phone.verified' => \App\Http\Middleware\CheckPhone::class,
+        'pay.made'=>PaymentCheck::class,
         'setlocale' => \App\Http\Middleware\SetLocale::class,
         'guardswitcher' => \App\Http\Middleware\GuardSwitcher::class
     ];

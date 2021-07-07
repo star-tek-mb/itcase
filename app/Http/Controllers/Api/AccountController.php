@@ -8,6 +8,7 @@ use App\Repositories\HandbookCategoryRepository;
 use App\Repositories\NeedTypeRepository;
 use App\Repositories\TenderRepository;
 use App\Repositories\UserRepository;
+use App\Services\RobokassaService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -148,8 +149,8 @@ class AccountController extends Controller
         if ($request->has('dynamicUrl')) {
             $user->dynamic = true;
         }
-
-        $paymentUrl = $request->url; // TODO: ???
+        $robokassaService = new RobokassaService();
+        $paymentUrl = $robokassaService->collectData($user, 1);
         return response()->json(compact('user', 'paymentUrl'));
     }
 

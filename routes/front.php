@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Asad
- * Date: 19.08.2019
- * Time: 16:42
- */
+
 
 Route::name('site.')->namespace('Site')->group(function () {
     // Blog route
@@ -20,7 +15,8 @@ Route::name('site.')->namespace('Site')->group(function () {
     Route::get('/account/professional', 'AccountController@professional')->name('account.contractor.professional');
     Route::post('/account/professional', 'AccountController@saveProfessional');
     Route::post('/account/customer/profile/save', 'AccountController@saveCustomerProfile')->name('account.customer.profile.save');
-    Route::middleware('phone.verified')->group(function () {
+    Route::middleware(['phone.verified', 'pay.made'])->group(function () {
+            Route::get('/account/payment',[\App\Http\Controllers\Payments\RobokassaController::class,'payment'])->name('account.payment');
         Route::get('/account/tenders', 'AccountController@tenders')->name('account.tenders');
         Route::get('/account/tenders/requests', 'AccountController@tendersRequests')->name('account.tenders.requests');
         Route::get('/account/portfolio', 'FileController@index')->name('account.portfolio');
@@ -34,7 +30,7 @@ Route::name('site.')->namespace('Site')->group(function () {
     });
 
     // Tenders routes
-    Route::middleware('phone.verified')->group(function () {
+    Route::middleware(['phone.verified', 'pay.made'])->group(function () {
         Route::get('/tenders/create', 'TenderController@create')->name('tenders.common.create');
         Route::post('/tenders/create', 'TenderController@store');
         Route::post('/tenders/makeRequest', 'TenderController@makeRequest')->name('tenders.requests.make');
