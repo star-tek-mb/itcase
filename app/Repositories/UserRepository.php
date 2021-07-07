@@ -41,7 +41,7 @@ class UserRepository implements UserRepositoryInterface
         );
     }
     public  function  createUniqueTransaction(int $user_id) {
-        $trans = Transaction::where('user_id','=',$user_id);
+        $trans = Transaction::where('user_id','=',$user_id)->first();
         if($trans){
             return  $trans->transaction_id;
         }
