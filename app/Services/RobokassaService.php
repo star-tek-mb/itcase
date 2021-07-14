@@ -40,10 +40,10 @@ class RobokassaService
         $transaction = $this->userRepository->findTransaction($request->InvId);
         $Shp_device = 0;
         $mrh_pass2 = "pX61xEZUy7JuF8ViXLw8";
-        $create_hash = md5("$this->OutSum:$transaction:$mrh_pass2:Shp_device=$Shp_device");
-        if ($request->SignatureValue != $create_hash) {
-            throw new \Exception();
-        }
+//        $create_hash = md5("$this->OutSum:$transaction:$mrh_pass2:Shp_device=$Shp_device");
+//        if ($request->SignatureValue != $create_hash) {
+//            throw new \Exception();
+//        }
         return $transaction;
     }
 

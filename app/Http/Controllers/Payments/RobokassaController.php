@@ -40,6 +40,8 @@ class RobokassaController extends Controller
 
     public function resultURL(Request $request)
     {
+
+
         try {
             $result = $this->robokassaService->checkData($request);
             $result->user()->update(['account_paid_at', Carbon::now()]);
