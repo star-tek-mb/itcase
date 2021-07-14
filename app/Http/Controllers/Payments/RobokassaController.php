@@ -24,7 +24,6 @@ class RobokassaController extends Controller
     public function successURL(Request $request)
     {
         if ($request->Shp_device == 0) {
-
             return redirect()->route('payment.success');
         } else {
             return redirect('https://itcasecom.page.link/DQbR');

@@ -26,7 +26,7 @@ class RobokassaService
         // (unique for shop's lifetime)
         $inv_id = $this->userRepository->createUniqueTransaction($user->id);
         // invoice desc
-        $out_summ = 10;   // invoice summ
+        $out_summ = $this->OutSum;   // invoice summ
         $Shp_device = $type_device;
 
         $crc = md5("$mrh_login:$out_summ:$inv_id:$mrh_pass1:Shp_device=$Shp_device");
@@ -39,12 +39,12 @@ class RobokassaService
     public function checkData(Request $request)
     {
         $transaction = $this->userRepository->findTransaction($request->InvId);
-        $Shp_device = 0;
+        $Shp_device = $request->Shp_device;
         $mrh_pass2 = "pX61xEZUy7JuF8ViXLw8";
-//        $create_hash = md5("$this->OutSum:$transaction:$mrh_pass2:Shp_device=$Shp_device");
-//        if ($request->SignatureValue != $create_hash) {
-//            throw new \Exception();
-//        }
+        $create_hash = md5("$this->OutSum:$transaction:$mrh_pass2:Shp_device=$Shp_device");
+        if ($request->SignatureValue != $create_hash) {
+            throw new \Exception();
+        }
         return $transaction;
     }
 
