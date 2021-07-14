@@ -10,6 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+
+Route::post('/successrobokassa', [\App\Http\Controllers\Payments\RobokassaController::class, 'successURL']);
+Route::post('/failrobokassa', [\App\Http\Controllers\Payments\RobokassaController::class, 'failUrl']);
+
 Route::prefix('{locale}')->where(['locale' => '(' . implode('|', config('app.enabled_locales')) . ')'])->middleware('setlocale')->group(function () {
     include __DIR__ . '/registration.php';
     include __DIR__ . '/front.php';
