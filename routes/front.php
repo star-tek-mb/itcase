@@ -17,8 +17,9 @@ Route::name('site.')->namespace('Site')->group(function () {
     Route::get('/account/professional', 'AccountController@professional')->name('account.contractor.professional');
     Route::post('/account/professional', 'AccountController@saveProfessional');
     Route::post('/account/customer/profile/save', 'AccountController@saveCustomerProfile')->name('account.customer.profile.save');
+    Route::get('/account/payment',[\App\Http\Controllers\Payments\RobokassaController::class,'payment'])->name('account.payment');
     Route::middleware(['phone.verified', 'pay.made'])->group(function () {
-            Route::get('/account/payment',[\App\Http\Controllers\Payments\RobokassaController::class,'payment'])->name('account.payment');
+
         Route::get('/account/tenders', 'AccountController@tenders')->name('account.tenders');
         Route::get('/account/tenders/requests', 'AccountController@tendersRequests')->name('account.tenders.requests');
         Route::get('/account/portfolio', 'FileController@index')->name('account.portfolio');
