@@ -28,7 +28,7 @@ class RobokassaService
         $out_summ = 0;   // invoice summ
         $Shp_device = $type_device;
 
-        $crc = md5("$mrh_login:$out_summ:&$inv_id:$mrh_pass1:Shp_device=$Shp_device");
+        $crc = md5("$mrh_login:$out_summ:&$inv_id:$mrh_pass1:$Shp_device");
         // build URL
         $url = "https://auth.robokassa.ru/Merchant/Index.aspx?MerchantLogin=$mrh_login&" .
             "OutSum=$out_summ&InvId=$inv_id&Description=$inv_desc&Shp_device=$Shp_device&SignatureValue=$crc";
