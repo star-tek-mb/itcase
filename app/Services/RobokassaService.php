@@ -30,8 +30,8 @@ class RobokassaService
 
         $crc = md5("$mrh_login:$out_summ:$inv_id:$mrh_pass1:Shp_device=$Shp_device");
         // build URL
-        $url = base64_encode("https://auth.robokassa.ru/Merchant/Index.aspx?MerchantLogin=$mrh_login&" .
-            "OutSum=$out_summ&InvId=$inv_id&Shp_device=$Shp_device&SignatureValue=$crc");
+        $url = "https://auth.robokassa.ru/Merchant/Index.aspx?MerchantLogin=$mrh_login&" .
+            "OutSum=$out_summ&InvId=$inv_id&Shp_device=$Shp_device&SignatureValue=$crc";
         return $url;
     }
 

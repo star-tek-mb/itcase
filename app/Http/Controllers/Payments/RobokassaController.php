@@ -63,7 +63,7 @@ class RobokassaController extends Controller
             abort(403);
         }
 
-        $url = $this->robokassaService->collectData($user);
+        $url = base64_encode($this->robokassaService->collectData($user));
 
         if ($user->hasRole('contractor')) {
             $accountPage = 'personal';
