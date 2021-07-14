@@ -27,7 +27,7 @@ class RobokassaController extends Controller
             $templateName = 'site.pages.account.payment_success';
             return $this->viewPage($templateName);
         } else {
-            return redirect();
+            return redirect('https://itcasecom.page.link/DQbR');
         }
     }
 

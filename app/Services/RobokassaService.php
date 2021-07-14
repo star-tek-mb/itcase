@@ -10,17 +10,18 @@ use Illuminate\Http\Request;
 class RobokassaService
 {
     private $userRepository;
-
+    private $OutSum;
     public function __construct()
     {
 
         $this->userRepository = new UserRepository();
+        $this->OutSum = 0;
     }
 
     public function collectData($user, $type_device = 0)
     {
         $mrh_login = "test";      // your login here
-        $mrh_pass1 = "e3nG18gqlOsx0Ne3mUgI";   // merchant pass1 here PASSWORD HERE
+        $mrh_pass1 = "BI10c2c8uqK2PWsZCtZk";   // merchant pass1 here PASSWORD HERE
         // (unique for shop's lifetime)
         $inv_id = $this->userRepository->createUniqueTransaction($user->id);
         $inv_desc = "desc";   // invoice desc
@@ -38,7 +39,7 @@ class RobokassaService
     {
         $transaction = $this->userRepository->findTransaction($request->InvId);
         $Shp_device = 0;
-        $mrh_pass2 = "jN8y6w8cdBmgN1GQxP6Z";
+        $mrh_pass2 = "ilWnTTeOzwHO4n88m46R";
         $create_hash = md5("$this->OutSum:$transaction:$mrh_pass2:Shp_device=$Shp_device");
         if ($request->SignatureValue != $create_hash) {
             throw new \Exception();
