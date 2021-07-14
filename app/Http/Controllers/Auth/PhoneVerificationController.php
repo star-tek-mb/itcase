@@ -25,7 +25,7 @@ class PhoneVerificationController extends Controller
                 'code' => __('auth.code.invalid'),
             ]);
         }
-        return redirect(route('account.payment'))->with('account.success', __('Номер подтвержден'));
+        return redirect()->route('site.account.payment')->with('account.success', __('Номер подтвержден'));
     }
 
     public function show()
