@@ -79,7 +79,7 @@
 
                         <div class="col-6">
                             <ul class="links-footer" style="margin-left: 10px; text-align: center;">
-                                <span class="title-footer">А также можете скачать с нашего сайта</span>
+                                <span class="title-footer">А пока вы можете скачать приложение с нашего сайта</span>
                                 <li class="mt-4">
                                     <a href="/itcase.apk">
                                         <img src="/resources/images/download-android.png" alt="" style="vertical-align: middle;"> Скачать
