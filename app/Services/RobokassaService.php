@@ -39,10 +39,7 @@ class RobokassaService
     public function checkData(Request $request)
     {
         $transaction = $this->userRepository->findTransaction($request->InvId);
-        $Shp_device = $request->Shp_device;
-        $mrh_pass2 = "pX61xEZUy7JuF8ViXLw8";
-        $create_hash = md5("$this->OutSum:$transaction:$mrh_pass2:Shp_device=$Shp_device");
-        if ($request->SignatureValue != $create_hash) {
+        if ($this->OutSum != $request->OutSum) {
             throw new \Exception();
         }
         return $transaction;
