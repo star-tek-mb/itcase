@@ -11,6 +11,7 @@ class RobokassaService
 {
     private $userRepository;
     private $OutSum;
+
     public function __construct()
     {
 
@@ -50,6 +51,6 @@ class RobokassaService
     public function fail(Request $request)
     {
         $transaction = $this->userRepository->findTransaction($request->InvId);
-        $transaction->user()->update(['account_paid_at', null]);
+        $transaction->user()->update(['account_paid_at' => null]);
     }
 }

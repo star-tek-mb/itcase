@@ -55,7 +55,7 @@ class RobokassaController extends Controller
 
         try {
             $result = $this->robokassaService->checkData($request);
-            $result->user()->update(['account_paid_at', Carbon::now()]);
+            $result->user()->update(['account_paid_at'=> Carbon::now()]);
             return "ОК$result->transaction_id";
         } catch (\Exception $e) {
             return "error";

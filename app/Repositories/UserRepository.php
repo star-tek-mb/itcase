@@ -55,7 +55,7 @@ class UserRepository implements UserRepositoryInterface
         }
     }
     public function findTransaction($transaction_id):Transaction {
-        $transaction = Transaction::where('transaction_id',$transaction_id)->first();
+        $transaction = Transaction::where('transaction_id','=',$transaction_id)->first();
         if ($transaction){
             return $transaction;
         }
