@@ -25,7 +25,7 @@ class RobokassaController extends Controller
     {
         if ($request->Shp_device == 0) {
 
-            return redirect()->route('site.payment.success');
+            return redirect()->route('payment.success');
         } else {
             return redirect('https://itcasecom.page.link/DQbR');
         }
@@ -34,7 +34,7 @@ class RobokassaController extends Controller
     public function failUrl(Request $request)
     {
         $this->robokassaService->fail($request);
-        return redirect()->route('site.payment.fail');
+        return redirect()->route('payment.fail');
     }
 
     public function failUrlView(Request $request)
