@@ -20,18 +20,18 @@ class RobokassaService
 
     public function collectData($user, $type_device = 0)
     {
-        $mrh_login = "adminsulton777";      // your login here
+        $mrh_login = "itcase.com";      // your login here
         $mrh_pass1 = "W5bH592Dv1uvSDkuvydb";   // merchant pass1 here PASSWORD HERE
         // (unique for shop's lifetime)
         $inv_id = $this->userRepository->createUniqueTransaction($user->id);
-        $inv_desc = "desc";   // invoice desc
-        $out_summ = 1000;   // invoice summ
+        // invoice desc
+        $out_summ = 10;   // invoice summ
         $Shp_device = $type_device;
 
-        $crc = md5("$mrh_login:$out_summ:&$inv_id:$mrh_pass1:$Shp_device");
+        $crc = md5("$mrh_login:$out_summ:$inv_id:$mrh_pass1:Shp_device=$Shp_device");
         // build URL
-        $url = "https://auth.robokassa.ru/Merchant/Index.aspx?MerchantLogin=$mrh_login&" .
-            "OutSum=$out_summ&InvId=$inv_id&Description=$inv_desc&Shp_device=$Shp_device&SignatureValue=$crc";
+        $url = base64_encode("https://auth.robokassa.ru/Merchant/Index.aspx?MerchantLogin=$mrh_login&" .
+            "OutSum=$out_summ&InvId=$inv_id&Shp_device=$Shp_device&SignatureValue=$crc");
         return $url;
     }
 

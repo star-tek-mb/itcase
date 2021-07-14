@@ -15,12 +15,12 @@
 
 @section('js')
     <script>
-        console.log("{{$url}}");
+        {{--console.log(atob("{{$url}}"));--}}
         function booom() {
             console.log("{{$url}}");
-            window.location.href = "{{$url}}";
+            window.location.href = atob("{{$url}}");
         }
 
-        setTimeout(booom, 4000);
+        setTimeout(booom, 1000);
     </script>
 @endsection
