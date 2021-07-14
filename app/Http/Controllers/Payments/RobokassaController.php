@@ -24,8 +24,8 @@ class RobokassaController extends Controller
     public function successURL(Request $request)
     {
         if ($request->Shp_device == 0) {
-            $templateName = 'site.pages.account.payment_success';
-            return $this->viewPage($templateName);
+
+            return redirect()->name('site.payment.success');
         } else {
             return redirect('https://itcasecom.page.link/DQbR');
         }
@@ -33,8 +33,19 @@ class RobokassaController extends Controller
 
     public function failUrl(Request $request)
     {
-        $templateName = 'site.pages.account.payment_fail';
         $this->robokassaService->fail($request);
+        return redirect()->name('site.payment.fail');
+    }
+
+    public function failUrlView(Request $request)
+    {
+        $templateName = 'site.pages.account.payment_fail';
+        return $this->viewPage($templateName);
+    }
+
+    public function successURLView(Request $request)
+    {
+        $templateName = 'site.pages.account.payment_success';
         return $this->viewPage($templateName);
     }
 

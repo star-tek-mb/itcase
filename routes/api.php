@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\Route;
     Route::post('/cancel-payment', [\App\Http\Controllers\Payments\PaymentController::class,'cancelPayment']);
 Route::namespace('Api')->group(function () {
 
-
+    Route::post('/successrobokassa', [\App\Http\Controllers\Payments\RobokassaController::class, 'successURL']);
+    Route::post('/failrobokassa', [\App\Http\Controllers\Payments\RobokassaController::class, 'failUrl']);
     Route::post('/resultrobokassa', [\App\Http\Controllers\Payments\RobokassaController::class, 'resultURL']);
     //Pro Accounts
 
