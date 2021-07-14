@@ -60,7 +60,7 @@
                 </div>
                 <div class="col-lg-5">
                     <div class="row text-center">
-                        <div class="col">
+                        <div class="col-6">
                             <span class="title-footer font-size-increase">Скоро в Play market и App store</span>
 
                             <ul class="links-footer mt-2">
@@ -75,10 +75,18 @@
 
                                 </li>
                             </ul>
-
-
                         </div>
 
+                        <div class="col-6">
+                            <ul class="links-footer" style="margin-left: 10px; text-align: center;">
+                                <span class="title-footer">А также можете скачать с нашего сайта</span>
+                                <li class="mt-4">
+                                    <a href="/itcase.apk">
+                                        <img src="/resources/images/download-android.png" alt="" style="vertical-align: middle;"> Скачать
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

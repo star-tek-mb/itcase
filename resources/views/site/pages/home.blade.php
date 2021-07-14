@@ -267,28 +267,23 @@
 
                     <ul class="buttons">
                         <li>
-
                             <img src="/resources/images/appstore.svg" alt="">
-
                         </li>
-
                         <li>
-
                             <img src="/resources/images/googleplay.svg" alt="">
-
                         </li>
                     </ul>
 
-                    {{--                    <div class="info__block">--}}
-                    {{--                        <div>--}}
-                    {{--                            <p>А пока вы можете скачать приложение с нашего сайта</p>--}}
-                    {{--                            <a href="/itcase.apk">--}}
-                    {{--                                <img src="/resources/images/download-android.png" alt=""--}}
-                    {{--                                     style="vertical-align: middle;">--}}
-                    {{--                                Скачать--}}
-                    {{--                            </a>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
+                                        <div class="info__block">
+                                            <div>
+                                                <p>А пока вы можете скачать приложение с нашего сайта</p>
+                                                <a href="/itcase.apk">
+                                                    <img src="/resources/images/download-android.png" alt=""
+                                                         style="vertical-align: middle;">
+                                                    Скачать
+                                                </a>
+                                            </div>
+                                        </div>
                 </div>
 
                 <div class="col col--5 d-flex justify-content-end">

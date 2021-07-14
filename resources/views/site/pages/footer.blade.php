@@ -82,16 +82,16 @@
                         </li>
                     </ul>
 
-                    {{--                    <ul class="app-info__list" style="margin-left: 10px; text-align: center;">--}}
-                    {{--                        <p style="text-align: center; font-size: 15px; margin-top: 20px; margin-bottom: 20px;">А пока вы--}}
-                    {{--                            можете скачать приложение с нашего сайта</p>--}}
-                    {{--                        <li style="margin-bottom: 5px;">--}}
-                    {{--                            <a href="/itcase.apk">--}}
-                    {{--                                <img src="/resources/images/download-android.png" alt=""--}}
-                    {{--                                     style="vertical-align: middle;"> Скачать--}}
-                    {{--                            </a>--}}
-                    {{--                        </li>--}}
-                    {{--                    </ul>--}}
+                                        <ul class="app-info__list" style="margin-left: 10px; text-align: center;">
+                                            <p style="text-align: center; font-size: 15px; margin-top: 20px; margin-bottom: 20px;">А пока вы
+                                                можете скачать приложение с нашего сайта</p>
+                                            <li style="margin-bottom: 5px;">
+                                                <a href="/itcase.apk">
+                                                    <img src="/resources/images/download-android.png" alt=""
+                                                         style="vertical-align: middle;"> Скачать
+                                                </a>
+                                            </li>
+                                        </ul>
 
                 </div>
             </div>
