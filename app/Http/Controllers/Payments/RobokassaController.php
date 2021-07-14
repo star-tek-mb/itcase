@@ -25,7 +25,7 @@ class RobokassaController extends Controller
     {
         if ($request->Shp_device == 0) {
 
-            return redirect()->name('site.payment.success');
+            return redirect()->route('site.payment.success');
         } else {
             return redirect('https://itcasecom.page.link/DQbR');
         }
@@ -34,7 +34,7 @@ class RobokassaController extends Controller
     public function failUrl(Request $request)
     {
         $this->robokassaService->fail($request);
-        return redirect()->name('site.payment.fail');
+        return redirect()->route('site.payment.fail');
     }
 
     public function failUrlView(Request $request)
@@ -51,11 +51,9 @@ class RobokassaController extends Controller
 
     public function resultURL(Request $request)
     {
-
-
         try {
             $result = $this->robokassaService->checkData($request);
-            $result->user()->update(['account_paid_at'=> Carbon::now()]);
+            $result->user()->update(['account_paid_at' => Carbon::now()]);
             return "ОК$result->transaction_id";
         } catch (\Exception $e) {
             return "error";
