@@ -71,7 +71,7 @@ class LoginController extends Controller
                 'password' => $request->get('password')
             ];
         }
-        else{
+        else {
             return  [];
         }
     }

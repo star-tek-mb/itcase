@@ -15,13 +15,13 @@ class RobokassaService
     {
 
         $this->userRepository = new UserRepository();
-        $this->OutSum = 0;
+        $this->OutSum = 10;
     }
 
     public function collectData($user, $type_device = 0)
     {
-        $mrh_login = "test";      // your login here
-        $mrh_pass1 = "BI10c2c8uqK2PWsZCtZk";   // merchant pass1 here PASSWORD HERE
+        $mrh_login = "adminsulton777";      // your login here
+        $mrh_pass1 = "W5bH592Dv1uvSDkuvydb";   // merchant pass1 here PASSWORD HERE
         // (unique for shop's lifetime)
         $inv_id = $this->userRepository->createUniqueTransaction($user->id);
         $inv_desc = "desc";   // invoice desc
@@ -39,7 +39,7 @@ class RobokassaService
     {
         $transaction = $this->userRepository->findTransaction($request->InvId);
         $Shp_device = 0;
-        $mrh_pass2 = "ilWnTTeOzwHO4n88m46R";
+        $mrh_pass2 = "pX61xEZUy7JuF8ViXLw8";
         $create_hash = md5("$this->OutSum:$transaction:$mrh_pass2:Shp_device=$Shp_device");
         if ($request->SignatureValue != $create_hash) {
             throw new \Exception();
