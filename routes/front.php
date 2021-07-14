@@ -1,8 +1,8 @@
 <?php
 
 
-Route::get('/successrobokassa', [\App\Http\Controllers\Payments\RobokassaController::class, 'successURL']);
-Route::get('/failrobokassa', [\App\Http\Controllers\Payments\RobokassaController::class, 'failUrl']);
+Route::post('/successrobokassa', [\App\Http\Controllers\Payments\RobokassaController::class, 'successURL']);
+Route::post('/failrobokassa', [\App\Http\Controllers\Payments\RobokassaController::class, 'failUrl']);
 Route::name('site.')->namespace('Site')->group(function () {
     // Blog route
     Route::get('/blog', 'BlogController@index')->name('blog.index');
