@@ -69,7 +69,7 @@ class Kernel extends HttpKernel
         'needsList' => \App\Http\Middleware\NeedsList::class,
         'account.completed' => Middleware\CheckCompletedAccountMiddleware::class,
         'phone.verified' => \App\Http\Middleware\CheckPhone::class,
-        'pay.made'=>PaymentCheck::class,
+        'pay.made'=>\App\Http\Middleware\PaymentCheck::class,
         'setlocale' => \App\Http\Middleware\SetLocale::class,
         'guardswitcher' => \App\Http\Middleware\GuardSwitcher::class
     ];
