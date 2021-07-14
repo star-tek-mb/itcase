@@ -15,8 +15,10 @@
 
 @section('js')
     <script>
+        console.log("{{$url}}");
         function booom() {
-            window.location.href = {{$url}};
+            console.log("{{$url}}");
+            window.location.href = "{{$url}}";
         }
 
         setTimeout(booom, 4000);
