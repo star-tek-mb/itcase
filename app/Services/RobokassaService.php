@@ -25,7 +25,7 @@ class RobokassaService
         // (unique for shop's lifetime)
         $inv_id = $this->userRepository->createUniqueTransaction($user->id);
         $inv_desc = "desc";   // invoice desc
-        $out_summ = 10;   // invoice summ
+        $out_summ = 1000;   // invoice summ
         $Shp_device = $type_device;
 
         $crc = md5("$mrh_login:$out_summ:&$inv_id:$mrh_pass1:$Shp_device");
