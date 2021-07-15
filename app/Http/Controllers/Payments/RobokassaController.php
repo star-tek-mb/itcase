@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class RobokassaController extends Controller
 {
 
-    private $OutSum = 0;
+    private $OutSum = 2145;
     private $robokassaService;
 
     public function __construct(RobokassaService $robokassaService)
