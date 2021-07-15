@@ -16,7 +16,7 @@ class RobokassaService
     {
 
         $this->userRepository = new UserRepository();
-        $this->OutSum = 10;
+        $this->OutSum = 2145;
     }
 
     public function collectData($user, $type_device = 0)
