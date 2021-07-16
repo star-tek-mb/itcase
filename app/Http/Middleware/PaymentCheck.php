@@ -16,7 +16,7 @@ class PaymentCheck
     public function handle($request, Closure $next)
     {
         $user = auth()->user();
-            if ($user->notPayForAccount()) {
+            if ($user && $user->notPayForAccount()) {
                 return redirect()->route('site.account.payment');
             }
         return $next($request);
