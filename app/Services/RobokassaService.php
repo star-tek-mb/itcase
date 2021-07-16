@@ -11,12 +11,14 @@ class RobokassaService
 {
     private $userRepository;
     private $OutSum;
+    private $OutSumCurrency;
 
     public function __construct()
     {
 
         $this->userRepository = new UserRepository();
         $this->OutSum = 2145;
+        $this->OutSumCurrency = 'USD';
     }
 
     public function collectData($user, $type_device = 0)
@@ -29,10 +31,10 @@ class RobokassaService
         $out_summ = $this->OutSum;   // invoice summ
         $Shp_device = $type_device;
 
-        $crc = md5("$mrh_login:$out_summ:$inv_id:$mrh_pass1:Shp_device=$Shp_device");
+        $crc = md5("$mrh_login:$out_summ:$inv_id:$this->OutSumCurrency:$mrh_pass1:Shp_device=$Shp_device");
         // build URL
         $url = "https://auth.robokassa.ru/Merchant/Index.aspx?MerchantLogin=$mrh_login&" .
-            "OutSum=$out_summ&InvId=$inv_id&Shp_device=$Shp_device&SignatureValue=$crc";
+            "OutSum=$out_summ&InvId=$inv_id&OutSumCurrency=$this->OutSumCurrency&Shp_device=$Shp_device&SignatureValue=$crc";
         return $url;
     }
 
