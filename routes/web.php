@@ -31,6 +31,6 @@ Route::get('/auth/google', 'Auth\LoginController@redirectToGoogle');
 Route::get('/auth/google/callback', 'Auth\LoginController@handleGoogleCallback');
 Route::get('/auth/telegram/callback', 'Site\AccountController@telegramCallback');
 
-Route::get('{any}', function () {
+    Route::get('{any}', function () {
     return redirect(app()->getLocale() . '/' . request()->path());
 })->where(['any' => '(?!(' . implode('|', config('app.enabled_locales')) . ')).*']);

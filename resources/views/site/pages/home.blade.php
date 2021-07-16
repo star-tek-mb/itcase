@@ -377,7 +377,7 @@
                     <!-- -->
                     @foreach ($posts as $post)
                         <div class="swiper-slide post">
-                            <a href="{{ route('site.blog.main', $post->slug) }}" class="post-link">
+                            <a href="/blog/{{ $post->slug }}" class="post-link">
                                 <figure>
                                     <img src="{{ $post->getImage() }}" alt="">
                                 </figure>
