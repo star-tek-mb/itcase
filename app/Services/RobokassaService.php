@@ -17,7 +17,7 @@ class RobokassaService
     {
 
         $this->userRepository = new UserRepository();
-        $this->OutSum = 2145;
+        $this->OutSum = 5;
         $this->OutSumCurrency = 'USD';
     }
 
